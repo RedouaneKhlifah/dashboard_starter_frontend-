@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "slug": "cappuccino",
+  "googleMapAddress": "https://maps.app.goo.gl/qoZ3ShZ8ijJBu83d7",
+  "phoneNumber": "+212-628549575",
+  "imagesUrls": [
+    "https://lh3.googleusercontent.com/p/AF1QipNvKRHRXivXsW2clVpspqGSry9EkKsNAJ6DLaPG=s680-w680-h510"
+  ],
+  "translations": [
+    {
+      "id": 3,
+      "name": "Cappuccino Safi",
+      "description": "Safi Cappucino est un CAFE/RESTAURANT qui offre une expérience culinaire riche en saveurs. Le restaurant est conçu pour offrir une vue imprenable sur l'océan Atlantique depuis les falaises de SIDI BOUZID.",
+      "address": "Sidi Bouzid, Safi",
+      "locale": "fr"
+    }
+  ],
+  "categoriesIds": [1, 2, 3]
+}

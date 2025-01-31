@@ -1,0 +1,5 @@
+- [x] Redesign menu UI
+- [ ] X-API-READ-KEY
+- [ ] Search bar menu items
+- [ ] Integrate new DTOs
+- [ ] expandable options menu

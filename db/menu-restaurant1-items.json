@@ -1,0 +1,178 @@
+[
+  {
+    "categories": [
+      {
+        "categoryId": 1
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.pourdebon.com%2Fpetit-dejeuner-continental%2F&psig=AOvVaw068QSEB10K46m7Uke73Ylr&ust=1715632128326000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCF-vX5iIYDFQAAAAAdAAAAABAK",
+    "price": 35,
+    "translations": [
+      {
+        "name": "Continental",
+        "description": "Petit pain au chocolat, Croissant, Pain grillé, Jben traditionnel (traditional yogurt), Huile d'olive, Olives noires, Boisson chaude au choix (hot beverage of your choice), Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 1
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpinguinicoffe.com%2Fproduits%2Fdetails%2F1059%2Fpetit-d%25C3%25A9jeuner-chamalimarrakech-gueliz-charaf-izdihar&psig=AOvVaw1wyZngqk9dpy0KyIsXN7t3&ust=1715632109873000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqGAoTCOjsi5_6iIYDFQAAAAAdAAAAABC3Ag",
+    "price": 45,
+    "translations": [
+      {
+        "name": "Chamali",
+        "description": "Assortiment de 3 mini pains variés, Omelette fromage charcuterie, Jben traditionnel, Olives noires, Huile d'olive, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 1
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpatisseriegato.ma%2Fsalon-de-the%2F&psig=AOvVaw2yEg4fHwGmbVz9xlmeftrD&ust=1715632620904000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNj7rNr7iIYDFQAAAAAdAAAAABAW",
+    "price": 45,
+    "translations": [
+      {
+        "name": "Beldi",
+        "description": "Melouiya, Harcha, Mkhimra, Beghrir, Amlou, Jben traditionnel, Miel, Huile d'olives, Olives noires, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 1
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ziyaratesfes.com%2Fen%2Fguest-house-in-fez-15.html&psig=AOvVaw0y3yoz60Z3jD67pY-PTvYy&ust=1715632692048000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiOlPz7iIYDFQAAAAAdAAAAABA0",
+    "price": 48,
+    "translations": [
+      {
+        "name": "Fassy",
+        "description": "Panier de pain, Khlii aux oeufs, Dattes, Jben traditionnel, Huile d'olives, Olives noires, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 1
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FHam_and_eggs&psig=AOvVaw1f5NijnN-MUceYd6XwAFpQ&ust=1715634475802000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLiizs6CiYYDFQAAAAAdAAAAABAE",
+    "price": 55,
+    "translations": [
+      {
+        "name": "Hollandais",
+        "description": "Toasts grillés, Oeuf au plat, Fromage edam, Jben traditionnel, Jambon de dinde, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua. ",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 2
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fchefsimon.com%2Frecettes%2Ftag%2Foeuf%2520au%2520plat&psig=AOvVaw3YtKnjZZQRs4PTDkjXPCm4&ust=1715634508425000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNj0it-CiYYDFQAAAAAdAAAAABAT",
+    "price": 18,
+    "translations": [
+      {
+        "name": "Oeufs au plat ou oeuf brouillé",
+        "description": "",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 2
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsafranieredeprovence.com%2Frecettes%2Fomelette-au-safran%2F&psig=AOvVaw3v3H8_LBsjVJydUQvxlwo6&ust=1715634534538000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCJn-qCiYYDFQAAAAAdAAAAABAc",
+    "price": 25,
+    "translations": [
+      {
+        "name": "Omelette au choix",
+        "description": "fromage, légumes, charcuterie, champignons",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 2
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.foodeals.ma%2Fblog%2Fcuisine-marocainele-khli3%2F&psig=AOvVaw1xNey3CZ0lbwuW9CIhUH9j&ust=1715634573474000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIjdhv2CiYYDFQAAAAAdAAAAABBK",
+    "price": 25,
+    "translations": [
+      {
+        "name": "Khlii aux oeufs",
+        "description": "",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 3
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DNRyfLL1sFwo&psig=AOvVaw3Gk1cdpOrIQN1YzacmGxpN&ust=1715634648926000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIi1mLODiYYDFQAAAAAdAAAAABAJ",
+    "price": 20,
+    "translations": [
+      {
+        "name": "2 pièces avec 2 accompagnements",
+        "description": "Mkhimra, Harcha, Meloui, pain grillé",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 3
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DNRyfLL1sFwo&psig=AOvVaw3Gk1cdpOrIQN1YzacmGxpN&ust=1715634648926000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIi1mLODiYYDFQAAAAAdAAAAABAJ",
+    "price": 28,
+    "translations": [
+      {
+        "name": "3 pièces avec 3 accompagnements",
+        "description": "Mkhimra, Harcha, Meloui, pain grillé",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "categories": [
+      {
+        "categoryId": 3
+      }
+    ],
+    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fm.youtube.com%2Fwatch%3Fv%3DvGyrQQwYGmc&psig=AOvVaw36huDkCzUPV8ayru00RZWa&ust=1715634722750000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCAwsSDiYYDFQAAAAAdAAAAABAK",
+    "price": 28,
+    "translations": [
+      {
+        "name": "2 Baghrir avec amlou, miel, jben traditionnel",
+        "description": "Mkhimra, Harcha, Meloui, pain grillé",
+        "locale": "fr"
+      }
+    ]
+  }
+]

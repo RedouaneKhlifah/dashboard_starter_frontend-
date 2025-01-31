@@ -1,0 +1,53 @@
+[
+  {
+    "imageUrl": "https://source.unsplash.com/random",
+    "translations": [
+      {
+        "name": "Breakfast",
+        "locale": "en"
+      },
+      {
+        "name": "فطور",
+        "locale": "ar"
+      },
+      {
+        "name": "Petit déjeuner",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "imageUrl": "https://source.unsplash.com/random",
+    "translations": [
+      {
+        "name": "Supplements",
+        "locale": "en"
+      },
+      {
+        "name": "مكملات غذائية",
+        "locale": "ar"
+      },
+      {
+        "name": "Suppléments",
+        "locale": "fr"
+      }
+    ]
+  },
+  {
+    "imageUrl": "https://source.unsplash.com/random",
+    "translations": [
+      {
+        "name": "Moroccan delicacies",
+        "locale": "en"
+      },
+      {
+        "name": "أطباق مغربية",
+        "locale": "ar"
+      },
+      {
+        "name": "Délices marocains",
+        "locale": "fr"
+      }
+    ]
+  }
+]

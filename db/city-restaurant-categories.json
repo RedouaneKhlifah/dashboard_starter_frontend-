@@ -1,0 +1,66 @@
+[
+  {
+    "translations": [
+      {
+        "name": "Popular",
+        "locale": "en"
+      },
+      {
+        "name": "Populaire",
+        "locale": "fr"
+      },
+      {
+        "name": "شائع",
+        "locale": "ar"
+      }
+    ]
+  },
+  {
+    "translations": [
+      {
+        "name": "Restaurant",
+        "locale": "en"
+      },
+      {
+        "name": "Restaurant",
+        "locale": "fr"
+      },
+      {
+        "name": "مطعم",
+        "locale": "ar"
+      }
+    ]
+  },
+  {
+    "translations": [
+      {
+        "name": "Cafe",
+        "locale": "en"
+      },
+      {
+        "name": "Café",
+        "locale": "fr"
+      },
+      {
+        "name": "مقهى",
+        "locale": "ar"
+      }
+    ]
+  },
+  {
+    "translations": [
+      {
+        "name": "Entertainment Center",
+        "locale": "en"
+      },
+      {
+        "name": "Centre de divertissement",
+        "locale": "fr"
+      },
+      {
+        "name": "مركز الترفيه",
+        "locale": "ar"
+      }
+    ]
+  }
+]

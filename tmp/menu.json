@@ -1,0 +1,233 @@
+{
+  "id": 1,
+  "categories": [
+    {
+      "id": 1,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 3, "name": "Petit déjeuner", "locale": "fr" }]
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 6, "name": "Suppléments", "locale": "fr" }]
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 5,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 6,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 7,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 8,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 82,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 18,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 338,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 89083,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    },
+    {
+      "id": 89031,
+      "imageUrl": "https://source.unsplash.com/random",
+      "subCategories": [],
+      "translations": [{ "id": 9, "name": "Délices marocains", "locale": "fr" }]
+    }
+  ],
+  "items": [
+    {
+      "id": 102,
+      "categories": [{ "id": 102, "categoryId": 1, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 102,
+          "name": "Continental",
+          "description": "Petit pain au chocolat, Croissant, Pain grillé, Jben traditionnel (traditional yogurt), Huile d'olive, Olives noires, Boisson chaude au choix (hot beverage of your choice), Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.pourdebon.com%2Fpetit-dejeuner-continental%2F&psig=AOvVaw068QSEB10K46m7Uke73Ylr&ust=1715632128326000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCF-vX5iIYDFQAAAAAdAAAAABAK",
+      "price": 35
+    },
+    {
+      "id": 103,
+      "categories": [{ "id": 103, "categoryId": 1, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 103,
+          "name": "Chamali",
+          "description": "Assortiment de 3 mini pains variés, Omelette fromage charcuterie, Jben traditionnel, Olives noires, Huile d'olive, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpinguinicoffe.com%2Fproduits%2Fdetails%2F1059%2Fpetit-d%25C3%25A9jeuner-chamalimarrakech-gueliz-charaf-izdihar&psig=AOvVaw1wyZngqk9dpy0KyIsXN7t3&ust=1715632109873000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqGAoTCOjsi5_6iIYDFQAAAAAdAAAAABC3Ag",
+      "price": 45
+    },
+    {
+      "id": 104,
+      "categories": [{ "id": 104, "categoryId": 1, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 104,
+          "name": "Beldi",
+          "description": "Melouiya, Harcha, Mkhimra, Beghrir, Amlou, Jben traditionnel, Miel, Huile d'olives, Olives noires, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpatisseriegato.ma%2Fsalon-de-the%2F&psig=AOvVaw2yEg4fHwGmbVz9xlmeftrD&ust=1715632620904000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNj7rNr7iIYDFQAAAAAdAAAAABAW",
+      "price": 45
+    },
+    {
+      "id": 105,
+      "categories": [{ "id": 105, "categoryId": 1, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 105,
+          "name": "Fassy",
+          "description": "Panier de pain, Khlii aux oeufs, Dattes, Jben traditionnel, Huile d'olives, Olives noires, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua.",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ziyaratesfes.com%2Fen%2Fguest-house-in-fez-15.html&psig=AOvVaw0y3yoz60Z3jD67pY-PTvYy&ust=1715632692048000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiOlPz7iIYDFQAAAAAdAAAAABA0",
+      "price": 48
+    },
+    {
+      "id": 106,
+      "categories": [{ "id": 106, "categoryId": 1, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 106,
+          "name": "Hollandais",
+          "description": "Toasts grillés, Oeuf au plat, Fromage edam, Jben traditionnel, Jambon de dinde, Boisson chaude au choix, Jus d'orange, Yaourt, Eau minérale 33cl, Hssoua. ",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FHam_and_eggs&psig=AOvVaw1f5NijnN-MUceYd6XwAFpQ&ust=1715634475802000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLiizs6CiYYDFQAAAAAdAAAAABAE",
+      "price": 55
+    },
+    {
+      "id": 107,
+      "categories": [{ "id": 107, "categoryId": 2, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 107,
+          "name": "Oeufs au plat ou oeuf brouillé",
+          "description": "",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fchefsimon.com%2Frecettes%2Ftag%2Foeuf%2520au%2520plat&psig=AOvVaw3YtKnjZZQRs4PTDkjXPCm4&ust=1715634508425000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNj0it-CiYYDFQAAAAAdAAAAABAT",
+      "price": 18
+    },
+    {
+      "id": 108,
+      "categories": [{ "id": 108, "categoryId": 2, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 108,
+          "name": "Omelette au choix",
+          "description": "fromage, légumes, charcuterie, champignons",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fsafranieredeprovence.com%2Frecettes%2Fomelette-au-safran%2F&psig=AOvVaw3v3H8_LBsjVJydUQvxlwo6&ust=1715634534538000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCJn-qCiYYDFQAAAAAdAAAAABAc",
+      "price": 25
+    },
+    {
+      "id": 109,
+      "categories": [{ "id": 109, "categoryId": 2, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 109,
+          "name": "Khlii aux oeufs",
+          "description": "",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.foodeals.ma%2Fblog%2Fcuisine-marocainele-khli3%2F&psig=AOvVaw1xNey3CZ0lbwuW9CIhUH9j&ust=1715634573474000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIjdhv2CiYYDFQAAAAAdAAAAABBK",
+      "price": 25
+    },
+    {
+      "id": 110,
+      "categories": [{ "id": 110, "categoryId": 3, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 110,
+          "name": "2 pièces avec 2 accompagnements",
+          "description": "Mkhimra, Harcha, Meloui, pain grillé",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DNRyfLL1sFwo&psig=AOvVaw3Gk1cdpOrIQN1YzacmGxpN&ust=1715634648926000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIi1mLODiYYDFQAAAAAdAAAAABAJ",
+      "price": 20
+    },
+    {
+      "id": 111,
+      "categories": [{ "id": 111, "categoryId": 3, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 111,
+          "name": "3 pièces avec 3 accompagnements",
+          "description": "Mkhimra, Harcha, Meloui, pain grillé",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DNRyfLL1sFwo&psig=AOvVaw3Gk1cdpOrIQN1YzacmGxpN&ust=1715634648926000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIi1mLODiYYDFQAAAAAdAAAAABAJ",
+      "price": 28
+    },
+    {
+      "id": 112,
+      "categories": [{ "id": 112, "categoryId": 3, "subCategoryId": null }],
+      "translations": [
+        {
+          "id": 112,
+          "name": "2 Baghrir avec amlou, miel, jben traditionnel",
+          "description": "Mkhimra, Harcha, Meloui, pain grillé",
+          "locale": "fr"
+        }
+      ],
+      "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fm.youtube.com%2Fwatch%3Fv%3DvGyrQQwYGmc&psig=AOvVaw36huDkCzUPV8ayru00RZWa&ust=1715634722750000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCAwsSDiYYDFQAAAAAdAAAAABAK",
+      "price": 28
+    }
+  ]
+}

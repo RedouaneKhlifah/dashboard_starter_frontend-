@@ -1,0 +1,29 @@
+{
+  "slug": "calypso-medina",
+  "googleMapAddress": "https://maps.app.goo.gl/T766YbcQCMLa2wvY7",
+  "phoneNumber": "+212-808517649",
+  "imagesUrls": [
+    "https://lh3.googleusercontent.com/proxy/itEY4H2hJaQ1myDOyseciVOTGnlAISzqtdXyfZkuDu9DHb-NESar1y1MweUJDjlMH5EvOUzQwvsbKcPxz_rqtrfthmAdX9Sx3D0tGKO02SXyJw"
+  ],
+  "translations": [
+    {
+      "name": "Calypso Medina",
+      "description": "Calypso Medina, a café and restaurant oasis on Safi's Corniche, where savory delights meet aromatic coffees amidst panoramic views of the Atlantic Ocean.",
+      "address": "Corniche amouni, Av. Allal Ben Abdellah, Safi 46000",
+      "locale": "en"
+    },
+    {
+      "name": "Calypso Medina",
+      "description": "Calypso Medina, un oasis de café et de restaurant sur la Corniche de Safi, où les délices salés rencontrent des cafés aromatiques au milieu de vues panoramiques sur l'océan Atlantique.",
+      "address": "Corniche amouni, Av. Allal Ben Abdellah, Safi 46000",
+      "locale": "fr"
+    },
+    {
+      "name": "كاليبسو مدينة",
+      "description": "كاليبسو مدينة، واحة مقهى ومطعم على كورنيش أسفي، حيث تلتقي الأطعمة الشهية مع القهوة العطرية في منظر بانورامي للمحيط الأطلسي.",
+      "address": "كورنيش أموني، شارع علال بن عبد الله، أسفي 46000",
+      "locale": "ar"
+    }
+  ],
+  "categories": [1, 2, 3]
+}

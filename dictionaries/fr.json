@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "logo": "Le Menu"
+  },
+  "hero": {
+    "heading": "Saveurs du Maroc avec Le-Menu.ma",
+    "description": "Votre guide ultime pour une aventure culinaire inoubliable.",
+    "search-bar-placeholder": "Restaurant, destination ou aliment...",
+    "showcase": {
+      "heading": "Présentez votre menu de manière moderne!",
+      "scan": "Scannez le code QR",
+      "getMenu": "Obtenez le menu instantanément",
+      "incentives": [
+        {
+          "heading": "Accessible",
+          "desc": "Votre menu est disponible pour vos clients dans leur langue et thème préférés."
+        },
+        {
+          "heading": "Rapide",
+          "desc": "Votre menu se charge rapidement et est facile à parcourir."
+        },
+        {
+          "heading": "Modifiable",
+          "desc": "Vous avez accès à un panneau de contrôle personnel pour éditer votre menu."
+        }
+      ]
+    }
+  },
+  "popular_cities": "Villes populaires",
+  "footer": {
+    "heading": "Rejoignez Le-Menu.ma et Mettez en Avant Votre Établissement !",
+    "description": "Chers propriétaires de restaurants et de cafés ! Mettez en valeur votre établissement sur Le-Menu.ma, la plateforme ultime de l'excellence culinaire marocaine. Élargissez votre audience et attirez plus de clients. Contactez-nous dès aujourd'hui pour rejoindre notre communauté gastronomique !",
+    "contact_cta": "Contactez-nous",
+    "learn_cta": "En savoir plus",
+    "email_subject": "Demande d'Inscription pour Votre Plateforme",
+    "email_body": "Chère%20équipe%20de%20Le-Menu.ma,%0D%0A%0D%0ANous%20souhaitons%20vivement%20figurer%20notre%20établissement%20sur%20votre%20plateforme%20renommée.%0D%0A%0D%0ANom%20de%20l'établissement%20:%0D%0AAdresse%20:%0D%0ANuméro%20de%20téléphone%20:%0D%0ANom%20du%20gestionnaire%20:%0D%0A%0D%0ANous%20attendons%20avec%20impatience%20votre%20réponse.%0D%0A%0D%0ACordialement,",
+    "info": "Informations de contact supplémentaires"
+  },
+  "how_it_works": {
+    "title": "Comment ça marche ?",
+    "description": "Transformer le menu de votre restaurant en une expérience numérique est rapide 🚀",
+    "steps": [
+      {
+        "h": "Contactez notre équipe de vente",
+        "p": "Contactez-nous via notre site web, par téléphone ou par e-mail. Nous discuterons de vos besoins, finaliserons les détails de l'abonnement et vous nous enverrez des photos de haute qualité de votre menu physique. [[(Informations de contact ci-dessous 👇)]]"
+      },
+      {
+        "h": "Nous créons votre menu digital",
+        "p": "Notre équipe numérisera votre menu, en veillant à ce que chaque détail soit capturé avec précision et attrait pour vos clients.<br>[[Remarque! Votre menu sera disponible en 3 langues : Arabe, Anglais et Français.]]"
+      },
+      {
+        "h": "Impression et livraison de QR codes personnalisés",
+        "p": "Nous concevons un code QR personnalisé avec votre image de marque, l'imprimons sur des autocollants de haute qualité et étanches, et les livrons à votre restaurant. Vos clients peuvent alors scanner le code QR pour accéder instantanément au menu sur leur téléphone."
+      }
+    ],
+    "congratulations": {
+      "h": "Félicitations",
+      "p": "Votre menu ressemblera à ceci 👇"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Bon retour",
+    "createAccount": "Créez votre compte",
+    "enterCredentials": "Entrez vos identifiants pour vous connecter",
+    "enterDetails": "Entrez vos coordonnées pour commencer",
+    "fullName": "Nom complet",
+    "fullNamePlaceholder": "Jean Dupont",
+    "email": "Email",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "continueWith": "Ou continuez avec",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "emailRequired": "L'email est requis",
+    "invalidEmail": "Format d'email invalide",
+    "passwordRequired": "Le mot de passe est requis",
+    "passwordMinLength": "Le mot de passe doit contenir au moins 8 caractères",
+    "fullNameRequired": "Le nom complet est requis",
+    "passwordMaxLength": "Le mot de passe doit comporter moins de 64 caractères",
+    "passwordUppercase": "Le mot de passe doit contenir au moins une lettre majuscule",
+    "passwordLowercase": "Le mot de passe doit contenir au moins une lettre minuscule",
+    "passwordNumber": "Le mot de passe doit contenir au moins un chiffre",
+    "passwordSpecialChar": "Le mot de passe doit contenir au moins un caractère spécial",
+    "resetPassword": "Mot de passe oublié ?",
+    "resetPasswordDescription": "Entrez votre email pour réinitialiser votre mot de passe",
+    "submit": "Soumettre",
+    "signup_success_message": "Nous sommes heureux de vous dire que tout s'est bien passé,<br />prenez le temps d'explorer le menu.",
+    "congrats_you_are_in": "Félicitations, vous êtes connecté !",
+    "continue": "Continuer",
+    "error": {
+      "email_already_exists": "Email already exists"
+    }
+  }
+}

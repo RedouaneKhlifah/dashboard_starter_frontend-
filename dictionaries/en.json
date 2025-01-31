@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "logo": "Le Menu"
+  },
+  "hero": {
+    "heading": "Moroccan Flavors with Le-Menu.ma",
+    "description": "Your ultimate guide to an unforgettable culinary adventure.",
+    "search-bar-placeholder": "Restaurant, destination, or food...",
+    "showcase": {
+      "heading": "Showcase your menu the modern way!",
+      "scan": "Scan the QR Code",
+      "getMenu": "Get the menu instantly",
+      "incentives": [
+        {
+          "heading": "Accessible",
+          "desc": "Your menu is available to your clients in their prefered language and theme."
+        },
+        {
+          "heading": "Quick",
+          "desc": "Your menu loads so fast and is easy to browse."
+        },
+        {
+          "heading": "Editable",
+          "desc": "You have access to a personal control panel to edit your menu."
+        }
+      ]
+    }
+  },
+  "popular_cities": "Popular cities",
+  "footer": {
+    "heading": "Join Le-Menu.ma and Showcase Your Establishment!",
+    "description": "Attention, restaurant and café owners! Showcase your establishment on Le-Menu.ma, the ultimate platform for Moroccan culinary excellence. Expand your reach and attract more clients. Contact us today to join our gastronomic community!",
+    "contact_cta": "Contact us",
+    "learn_cta": "Learn more",
+    "email_subject": "Listing Inquiry for Your Platform",
+    "email_body": "Dear%20Le-Menu.ma%20Team,%0D%0A%0D%0AWe%20are%20keen%20to%20feature%20our%20establishment%20on%20your%20reputable%20platform.%0D%0A%0D%0AEstablishment%20Name:%0D%0AAddress:%0D%0APhone%20Number:%0D%0AManager's%20Name:%0D%0A%0D%0AWe%20eagerly%20await%20your%20response.%0D%0A%0D%0ABest%20regards,",
+    "info": "Additional contact information"
+  },
+  "how_it_works": {
+    "title": "How it works ?",
+    "description": "Transforming your restaurant's menu into a digital experience is fast 🚀",
+    "steps": [
+      {
+        "h": "Get in touch with our sales team",
+        "p": "Contact us via our website, phone, or email. We'll discuss your needs, finalize the subscription details, and you'll send us high-quality photos of your physical menu. [[(Contact informations bellow 👇)]]"
+      },
+      {
+        "h": "We create your digital menu",
+        "p": "Our team will digitize your menu, ensuring every detail is captured accurately and attractively for your customers.<br>[[Note! Your menu will be available in 3 languages: Arabic, English, and French.]]"
+      },
+      {
+        "h": "Printing and delivery of custom QR codes",
+        "p": "We design a custom QR code with your branding, print it on high-quality, waterproof stickers, and deliver them to your restaurant. Your customers can then scan the QR code to instantly access the menu on their phones."
+      }
+    ],
+    "congratulations": {
+      "h": "Congratulations",
+      "p": "Your menu will look like this 👇"
+    }
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create your account",
+    "enterCredentials": "Enter your credentials to log in",
+    "enterDetails": "Enter your details to get started",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "continueWith": "Or continue with",
+    "dontHaveAccount": "Don't have an account ?",
+    "alreadyHaveAccount": "Already have an account ?",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email format",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "fullNameRequired": "Full name is required",
+    "passwordMaxLength": "Password must be less than 64 characters",
+    "passwordUppercase": "Password must include at least one uppercase letter",
+    "passwordLowercase": "Password must include at least one lowercase letter",
+    "passwordNumber": "Password must include at least one number",
+    "passwordSpecialChar": "Password must include at least one special character",
+    "resetPassword": "Forgot Password",
+    "resetPasswordDescription": "Enter your email to reset your password",
+    "submit": "Submit",
+    "signup_success_message": "Happy to say that everything went smoothly,<br />take some time exploring the menu.",
+    "congrats_you_are_in": "Congratulations, you're in !",
+    "continue": "Continue",
+    "error": {
+      "email_already_exists": "Email already exists"
+    }
+  }
+}

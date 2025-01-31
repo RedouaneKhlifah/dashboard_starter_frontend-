@@ -1,0 +1,21 @@
+{
+  "slug": "safi",
+  "imagesUrls": ["https://source.unsplash.com/random"],
+  "translations": [
+    {
+      "name": "Safi",
+      "description": "",
+      "locale": "en"
+    },
+    {
+      "name": "Safi",
+      "description": "",
+      "locale": "fr"
+    },
+    {
+      "name": "اسفي",
+      "description": "",
+      "locale": "ar"
+    }
+  ]
+}
