@@ -1,5 +1,5 @@
-import {FormTypeEnum} from './IAuth';
-import {IAuthForm ,IAuthFormErrors} from './IAuth';
+import { FormTypeEnum } from "./IAuth";
+import { IAuthForm, PartialAuthForm } from "./IAuth";
 
 export { FormTypeEnum };
-export type { IAuthForm ,IAuthFormErrors };
+export type { IAuthForm, PartialAuthForm };
