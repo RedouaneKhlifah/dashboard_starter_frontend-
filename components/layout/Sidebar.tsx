@@ -3,9 +3,12 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Logo from "@/public/le_menu_svg_logo.svg";
+import Image from "next/image";
 
-const Sidebar = () => {
+const Sidebar = ({ lang }: { lang: "fr" | "en" | "ar" }) => {
   const pathname = usePathname();
+  const isRTL = lang === "ar";
 
   const menuItems = [
     {
@@ -31,8 +34,17 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 border-r bg-background z-10">
+    <aside
+      className={cn(
+        "fixed top-0 h-[100vh] w-64 bg-background z-10 mt-2",
+        isRTL ? "right-0  border-l " : "left-0 border-r "
+      )}
+    >
       <div className="p-4">
+        <Link href={`/${lang}/dashboard`} className="flex items-center gap-2">
+          <Image src={Logo} alt="Logo" width={40} height={40} />
+          <span className="font-bold">Le Menu</span>
+        </Link>
         <nav className="space-y-1">
           {menuItems.map((item) => (
             <Link
@@ -45,7 +57,9 @@ const Sidebar = () => {
                   : "text-muted-foreground hover:bg-accent"
               )}
             >
-              <span className="mr-3 text-lg">{item.icon}</span>
+              <span className={cn("text-lg", isRTL ? "ml-3" : "mr-3")}>
+                {item.icon}
+              </span>
               {item.name}
             </Link>
           ))}

@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "fuse.js": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.378.0",
     "negotiator": "^0.6.3",
@@ -28,11 +29,13 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "recharts": "^2.15.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.8",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",

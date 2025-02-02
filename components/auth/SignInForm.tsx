@@ -4,7 +4,7 @@ import AuthForm from "./AuthForm";
 import { FormTypeEnum, IAuthForm } from "@/interfaces";
 import { useState } from "react";
 import { PartialAuthForm } from "@/interfaces/IAuth";
-import { ERROR_CODES_ENUM } from "@/constant/errorCodes";
+import { useRouter } from "next/navigation";
 import http from "@/lib/http";
 
 interface SignInFormProps {
@@ -14,18 +14,22 @@ interface SignInFormProps {
 
 const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
   const [errors, setErrors] = useState<PartialAuthForm>({});
+  const router = useRouter();
 
   const handleSubmit = async (data: IAuthForm) => {
     try {
-      // Add the Accept-Language header to the request
-      const response = await http("http://localhost:8000/api/sign-in", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept-Language": lang,
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await http(
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/sign-in",
+        {
+          method: "POST",
+          lang,
+          body: JSON.stringify(data),
+          headers: {
+            // Ensure SameSite attribute is compatible
+            "Access-Control-Allow-Credentials": "true",
+          },
+        }
+      );
 
       if (!response.ok) {
         const error = await response.json();
@@ -35,8 +39,10 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
         return;
       }
 
-      const result = await response.json();
-      console.log("Sign-in successful:", result);
+      // Optional: You can check if the cookie was set
+      console.log("Cookies:", document.cookie);
+
+      router.push(`/${lang}/dashboard`);
     } catch (error) {
       console.error("Error during sign-in:", error);
     }

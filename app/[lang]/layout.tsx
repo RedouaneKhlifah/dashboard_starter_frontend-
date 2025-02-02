@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../../saas-config/globals.css";
-import Navbar from "@/components/shared/navbar";
+import Navbar from "@/components/shared/dashboard-navbar";
 import { Locale } from "@/i18n-config";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import Sidebar from "@/components/layout/Sidebar";

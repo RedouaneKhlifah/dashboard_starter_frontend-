@@ -13,11 +13,13 @@ interface NavbarProps {
 export default async function Navbar({ lang }: NavbarProps) {
   const dict = await getDictionary(lang);
   return (
-    <header className="bg-card fixed top-0 w-full z-10 border-b">
-      <div className="container py-4 flex justify-between items-center">
-        <Link href={`/${lang}/dashboard`} className="flex items-center gap-2">
-          <Image src={Logo} alt="Logo" width={40} height={40} />
-          <span className="font-bold">Le Menu</span>
+    <header className="bg-card">
+      <div className="container py-4 flex items-center justify-between">
+        <Link href={`/${lang}/`} className="flex items-end gap-2">
+          <Image src={Logo} alt="" width={30} />
+          <p className="font-semibold text-2xl tracking-tight text-primary leading-none">
+            {dict.nav.logo}
+          </p>
         </Link>
         <div className="flex items-center gap-2">
           <LocaleSwitcher />

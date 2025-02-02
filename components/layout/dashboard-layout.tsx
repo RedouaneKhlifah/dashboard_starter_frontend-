@@ -1,8 +1,9 @@
 // dashboard-layout.tsx
 import { ReactNode } from "react";
-import Navbar from "../shared/navbar";
 import Sidebar from "./Sidebar";
 import { Locale } from "@/i18n-config";
+import { cn } from "@/lib/utils";
+import DashboardNavbar from "../shared/dashboard-navbar";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -15,10 +16,15 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <>
-      <Navbar lang={params.lang} />
-      <Sidebar />
-      <main className="ml-64 pt-16 min-h-screen">
-        <div className="p-8">{children}</div>
+      <DashboardNavbar lang={params.lang} />
+      <Sidebar lang={params.lang} />
+      <main
+        className={cn(
+          " min-h-screen",
+          params.lang === "ar" ? "mr-64" : "ml-64"
+        )}
+      >
+        <div className="">{children}</div>
       </main>
     </>
   );
