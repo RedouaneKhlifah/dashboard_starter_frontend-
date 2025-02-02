@@ -16,7 +16,7 @@ export default function DashboardLayout({
   return (
     <>
       <Navbar lang={params.lang} />
-      <Sidebar lang={params.lang}/>
+      <Sidebar />
       <main className="ml-64 pt-16 min-h-screen">
         <div className="p-8">{children}</div>
       </main>
