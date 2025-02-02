@@ -1670,6 +1670,15 @@ foreground-child@^3.1.0:
     cross-spawn "^7.0.0"
     signal-exit "^4.0.1"
 
+framer-motion@^12.0.6:
+  version "12.0.6"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.0.6.tgz#4ec8b9225ead4d0d7d4ff00ade6e76a83e6d0c99"
+  integrity sha512-LmrXbXF6Vv5WCNmb+O/zn891VPZrH7XbsZgRLBROw6kFiP+iTK49gxTv2Ur3F0Tbw6+sy9BVtSqnWfMUpH+6nA==
+  dependencies:
+    motion-dom "^12.0.0"
+    motion-utils "^12.0.0"
+    tslib "^2.4.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -2375,6 +2384,18 @@ minimist@^1.2.0, minimist@^1.2.6:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.1.1.tgz#f7f85aff59aa22f110b20e27692465cf3bf89481"
   integrity sha512-UZ7eQ+h8ywIRAW1hIEl2AqdwzJucU/Kp59+8kkZeSvafXhZjul247BvIJjEVFVeON6d7lM46XX1HXCduKAS8VA==
+
+motion-dom@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.0.0.tgz#7045c63642eecbcc04c40b4457ebb07b3c2b3d0c"
+  integrity sha512-CvYd15OeIR6kHgMdonCc1ihsaUG4MYh/wrkz8gZ3hBX/uamyZCXN9S9qJoYF03GqfTt7thTV/dxnHYX4+55vDg==
+  dependencies:
+    motion-utils "^12.0.0"
+
+motion-utils@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.0.0.tgz#fabf79f4f1c818720a1b70f615e2a1768f396ac0"
+  integrity sha512-MNFiBKbbqnmvOjkPyOKgHUp3Q6oiokLkI1bEwm5QA28cxMZrv0CbbBGDNmhF6DIXsi1pCQBSs0dX8xjeER1tmA==
 
 ms@2.1.2:
   version "2.1.2"

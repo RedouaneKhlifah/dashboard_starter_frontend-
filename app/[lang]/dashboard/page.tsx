@@ -1,6 +1,7 @@
 import { Locale } from "@/i18n-config";
 import DashboardLayout from "@/components/layout/dashboard-layout";
 import LineChart from "@/components/shared/LineChart";
+import { getDictionary } from "@/lib/i18n";
 
 interface Props {
   params: {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default async function HowItWorksPage({ params }: Props) {
+  const translation = await getDictionary(params.lang);
+
   const data = [
     { date: "2024-01-01", value: 150 },
     { date: "2024-01-02", value: 142 },
@@ -55,7 +58,7 @@ export default async function HowItWorksPage({ params }: Props) {
     { date: "2024-01-26", value: 29 },
   ];
   return (
-    <DashboardLayout params={params}>
+    <DashboardLayout lang={params.lang} translation={translation}>
       <div className="flex gap-4">
         <LineChart
           data={data}
