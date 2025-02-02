@@ -59,14 +59,16 @@ export default async function HowItWorksPage({ params }: Props) {
   ];
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
-      <div className="flex gap-4">
-        <LineChart
-          data={data}
-          label="Sales Over Time"
-          infoTooltipLabel="Shows daily sales trends"
-          metricTotal="$1,234"
-        />
-        <div className="w-1/3">
+      <div className="flex justify-evenly pt-4 gap-4">
+        <div className="w-[45%]">
+          <LineChart
+            data={data}
+            label="Sales Over Time"
+            infoTooltipLabel="Shows daily sales trends"
+            metricTotal="$1,234"
+          />
+        </div>
+        <div className="w-[45%]">
           <LineChart
             data={data}
             label="Sales Over Time"
