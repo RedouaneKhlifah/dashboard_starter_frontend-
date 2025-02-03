@@ -19,6 +19,7 @@ import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
 import Image from "next/image";
 import { DictionaryType } from "@/lib/i18n";
+
 interface SidebarProps {
   translation: DictionaryType;
   lang: Locale;
@@ -31,37 +32,37 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
 
   const menuSections = [
     {
-      name: "Inventaire",
+      name: translation.sidebar.dashboard.sections.inventory,
       icon: <Package className="w-5 h-5" />,
       items: [
         {
-          name: "Produits simples",
+          name: translation.sidebar.dashboard.items.products,
           href: "/products",
           icon: <Box className="w-4 h-4" />,
         },
         {
-          name: "Les pactes",
+          name: translation.sidebar.dashboard.items.bundles,
           href: "/bundles",
           icon: <Package className="w-4 h-4" />,
         },
         {
-          name: "Liste de prix",
+          name: translation.sidebar.dashboard.items.pricing,
           href: "/pricing",
           icon: <List className="w-4 h-4" />,
         },
       ],
     },
     {
-      name: "Administration",
+      name: translation.sidebar.dashboard.sections.administration,
       icon: <Settings className="w-5 h-5" />,
       items: [
         {
-          name: "Membres",
+          name: translation.sidebar.dashboard.items.members,
           href: "/members",
           icon: <Users className="w-4 h-4" />,
         },
         {
-          name: "Paramètres",
+          name: translation.sidebar.dashboard.items.settings,
           href: "/settings",
           icon: <Settings className="w-4 h-4" />,
         },
@@ -97,34 +98,75 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
         isRTL ? "right-0  border-l " : "left-0 border-r "
       )}
     >
-      <div className="p-4">
-        <Link href={`/${lang}/`} className="flex items-end gap-2 mb-6">
-          <Image src={Logo} alt="" width={30} />
-          <p className="font-semibold text-2xl tracking-tight text-primary leading-none">
-            {translation.nav.logo}
-          </p>
-        </Link>
 
-        <button
-          onClick={toggleSidebar}
-          className="absolute top-2 right-2 p-1 hover:bg-accent rounded-full text-muted-foreground"
+      <div className={`${isOpen ? "p-4" : "p-0"}`}>
+        <motion.div
+          layout
+          className={`flex mb-6 ${isOpen ? "flex-row justify-between" : "flex-col items-center"
+            }`}
+          transition={{ duration: 0.2 }}
         >
-          <PanelLeftClose className="w-5 h-5" />
-        </button>
+          <Link href={`/${lang}/`} className={`${!isOpen && "mt-2"}`}>
+            <motion.div
+              className="flex items-center gap-2"
+              animate={{
+                flexDirection: isOpen ? "row" : "column",
+              }}
+            >
+              <motion.div
+                animate={{ scale: isOpen ? 1 : 0.8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Image src={Logo} alt="" width={30} />
+              </motion.div>
+              <motion.div
+                className="overflow-hidden"
+                animate={{
+                  maxWidth: isOpen ? 200 : 0,
+                  opacity: isOpen ? 1 : 0,
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                <p className="font-semibold text-2xl tracking-tight text-primary leading-none whitespace-nowrap">
+                  {translation.nav.logo}
+                </p>
+              </motion.div>
+            </motion.div>
+          </Link>
+          <motion.button
+            onClick={toggleSidebar}
+            className="p-2 hover:bg-accent rounded-full text-muted-foreground"
+            layout
+          >
+            <motion.div
+              animate={{ rotate: isOpen ? 0 : 180 }}
+              transition={{ duration: 0.2 }}
+            >
+              <PanelLeftClose className="w-5 h-5" />
+            </motion.div>
+          </motion.button>
+        </motion.div>
         <nav className="space-y-1">
           <Link
             href={`/${lang}/dashboard`}
             className={cn(
-              "group flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200",
+              "group flex items-center px-4 py-3 text-sm font-medium rounded-full transition-all duration-200 mb-4",
               "hover:bg-accent",
               pathname === `/${lang}/dashboard`
                 ? "bg-accent border shadow-sm"
                 : "text-foreground hover:text-foreground/80"
             )}
           >
-            <LayoutDashboard className="w-5 h-5 mr-3" />
-            {isOpen && "Dashboard"}
-            <Gem className="w-4 h-4 ml-auto text-primary/50" />
+            <LayoutDashboard
+              className={cn(
+                "w-5 h-5",
+                isOpen ? "mx-2" : "mx-auto"
+              )}
+            />
+            {isOpen && translation.sidebar.dashboard.dashboard_link}
+            {isOpen && (
+              <Gem className="w-4 h-4 mx-4 text-primary/50" />
+            )}
           </Link>
 
           {menuSections.map((section) => (
@@ -133,10 +175,22 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                 onClick={() => toggleMenu(section.name)}
                 className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 rounded-lg transition-all duration-200 group"
               >
-                <div className="flex items-center">
-                  <span className="mr-3 text-muted-foreground group-hover:text-foreground">
+                <div className="flex items-center group relative">
+                  <span className="mx-2 text-muted-foreground group-hover:text-foreground">
                     {section.icon}
                   </span>
+                  {!isOpen && (
+                    <div
+                      className={cn(
+                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-gray-900  px-2 py-1  text-xs",
+                        "opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none",
+                        "whitespace-nowrap z-20",
+                        isRTL ? "right-14" : "left-14"
+                      )}
+                    >
+                      {section.name}
+                    </div>
+                  )}
                   {isOpen && section.name}
                 </div>
                 <motion.div
@@ -161,7 +215,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       key={item.href}
                       href={`/${lang}${item.href}`}
                       className={cn(
-                        "flex items-center px-3 py-2 text-sm font-medium rounded-lg",
+                        "flex items-center px-3 py-2 text-sm font-medium rounded-lg group relative",
                         "transition-all duration-200 hover:pl-4 hover:bg-accent/30",
                         pathname === `/${lang}${item.href}`
                           ? "bg-accent shadow-sm border border-primary/10"
@@ -169,14 +223,25 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       )}
                     >
                       <span
-                        className={`${
-                          pathname === `/${lang}${item.href}` && !isOpen
-                            ? "text-primary"
-                            : "mr-2 text-muted-foreground"
-                        }`}
+                        className={`${pathname === `/${lang}${item.href}` && !isOpen
+                          ? "text-primary"
+                          : "mx-2 text-muted-foreground"
+                          }`}
                       >
                         {item.icon}
                       </span>
+                      {!isOpen && (
+                        <div
+                          className={cn(
+                            "absolute top-1/2 -translate-y-1/2 bg-accent px-2 py-1 text-xs",
+                            "opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none",
+                            "whitespace-nowrap z-20",
+                            isRTL ? "right-16" : "left-16"
+                          )}
+                        >
+                          {item.name}
+                        </div>
+                      )}
                       {isOpen && item.name}
                     </Link>
                   ))}

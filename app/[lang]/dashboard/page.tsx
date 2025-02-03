@@ -1,6 +1,7 @@
 import { Locale } from "@/i18n-config";
 import DashboardLayout from "@/components/layout/dashboard-layout";
 import LineChart from "@/components/shared/LineChart";
+import StatsContainer from "@/components/shared/StatsContainer";
 import { getDictionary } from "@/lib/i18n";
 
 interface Props {
@@ -59,6 +60,9 @@ export default async function HowItWorksPage({ params }: Props) {
   ];
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
+      <div className="container mt-1">
+      <StatsContainer />
+      </div>
       <div className="flex justify-evenly pt-4 gap-4">
         <div className="w-[45%]">
           <LineChart

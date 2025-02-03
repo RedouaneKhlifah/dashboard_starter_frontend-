@@ -91,5 +91,21 @@
     "error": {
       "email_already_exists": "Email already exists"
     }
+  },
+  "sidebar": {
+    "dashboard": {
+      "dashboard_link": "Dashboard",
+      "sections": {
+        "inventory": "Inventaire",
+        "administration": "Administration"
+      },
+      "items": {
+        "products": "Produits simples",
+        "bundles": "Pactes",
+        "pricing": "Liste de prix",
+        "members": "Membres",
+        "settings": "Paramètres"
+      }
+    }
   }
 }
