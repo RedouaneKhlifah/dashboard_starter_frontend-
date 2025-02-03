@@ -21,7 +21,15 @@ export default function DashboardLayout({
     <>
       <DashboardNavbar lang={lang} />
       <Sidebar lang={lang} translation={translation} />
-      <main className={cn(" min-h-screen", lang === "ar" ? "mr-64" : "ml-64")}>
+      <main
+        id="container-dashboard"
+        className={cn(
+          " min-h-screen",
+          lang === "ar"
+            ? "mr-64"
+            : "ml-64 , transition-all , ease-in-out , duration-200"
+        )}
+      >
         <div className="">{children}</div>
       </main>
     </>
