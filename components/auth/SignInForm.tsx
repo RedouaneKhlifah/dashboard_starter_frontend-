@@ -6,6 +6,7 @@ import { useState } from "react";
 import { PartialAuthForm } from "@/interfaces/IAuth";
 import { useRouter } from "next/navigation";
 import http from "@/lib/http";
+import Cookies from "js-cookie";
 
 interface SignInFormProps {
   translation: DictionaryType;
@@ -24,10 +25,6 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
           method: "POST",
           lang,
           body: JSON.stringify(data),
-          headers: {
-            // Ensure SameSite attribute is compatible
-            "Access-Control-Allow-Credentials": "true",
-          },
         }
       );
 
@@ -39,8 +36,8 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
         return;
       }
 
-      // Optional: You can check if the cookie was set
-      console.log("Cookies:", document.cookie);
+      const { token } = await response.json();
+      Cookies.set("auth_token", token);
 
       router.push(`/${lang}/dashboard`);
     } catch (error) {

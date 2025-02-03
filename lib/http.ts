@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 type CustomFetchOptions = RequestInit & {
   headers?: HeadersInit;
   lang?: "en" | "ar" | "fr";
@@ -11,9 +13,11 @@ export default async function http(
   const defaultHeaders: Record<string, string> = {
     "X-API-READ-KEY": process.env.X_API_READ_KEY || "",
     "Content-Type": "application/json",
+    accept: "application/json",
     "Accept-Language": options.lang || "en",
   };
 
+  // Combine headers
   const combinedHeaders: HeadersInit = new Headers({
     ...defaultHeaders,
     ...(options.headers instanceof Headers
@@ -21,11 +25,34 @@ export default async function http(
       : options.headers),
   });
 
+  // Add Authorization header if token exists
+  const token = Cookies.get("auth_token");
+  if (token) {
+    combinedHeaders.set("Authorization", `Bearer ${token}`);
+  }
+
   const customOptions: CustomFetchOptions = {
     ...options,
     headers: combinedHeaders,
-    credentials: "include", // This is crucial for handling cookies
   };
 
-  return fetch(url, customOptions);
+  try {
+    const response = await fetch(url, customOptions);
+
+    // Intercept 401 Unauthorized responses
+    if (response.status === 401 && typeof window !== "undefined") {
+      // Clear authentication data
+      Cookies.remove("auth_token");
+
+      // Redirect to sign-in page
+      window.location.href = "/sign-in";
+    }
+
+    // Return the response for successful requests
+    return response;
+  } catch (error) {
+    // Handle fetch errors (e.g., network issues)
+    console.error("Fetch error:", error);
+    throw error;
+  }
 }
