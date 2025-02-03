@@ -88,9 +88,24 @@
     "signup_success_message": "نحن سعداء للقول بأن كل شيء سار على ما يرام،<br />قم بقضاء بعض الوقت في استكشاف القائمة.",
     "congrats_you_are_in": "تهانينا، لقد تم تسجيل دخولك!",
     "continue": "متابعة",
-
     "error": {
       "email_already_exists": "البريد الإلكتروني موجود بالفعل"
+    }
+  },
+  "sidebar": {
+    "dashboard": {
+      "dashboard_link": "لوحة التحكم",
+      "sections": {
+        "inventory": "المخزون",
+        "administration": "الإدارة"
+      },
+      "items": {
+        "products": "منتجات فردية",
+        "bundles": "الباقات",
+        "pricing": "قائمة الأسعار",
+        "members": "الأعضاء",
+        "settings": "الإعدادات"
+      }
     }
   }
 }
