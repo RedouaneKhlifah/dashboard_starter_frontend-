@@ -14,7 +14,6 @@ import {
   Gem,
   PanelLeftClose,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
 import Image from "next/image";
@@ -24,6 +23,7 @@ interface SidebarProps {
   translation: DictionaryType;
   lang: Locale;
 }
+
 const Sidebar = ({ lang, translation }: SidebarProps) => {
   const isRTL = lang === "ar";
   const pathname = usePathname();
@@ -85,6 +85,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
     setIsOpen(!isOpen);
     const main = document.querySelector("main");
     if (main) {
+      main.style.transition = "margin 0.2s ease-in-out";
       isRTL
         ? (main.style.marginRight = isOpen ? "70px" : "256px")
         : (main.style.marginLeft = isOpen ? "70px" : "256px");
@@ -92,73 +93,57 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
   };
 
   return (
-    <motion.aside
-      initial={{ width: 256 }}
-      animate={{ width: isOpen ? 256 : 70 }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
+    <aside
       className={cn(
-        "fixed top-0 h-[100vh] w-64 bg-background z-10 mt-2",
-        isRTL ? "right-0  border-l " : "left-0 border-r "
+        "fixed top-0 h-[100vh] bg-background z-10 mt-2 transition-all duration-200 ease-in-out",
+        isRTL ? "right-0 border-l" : "left-0 border-r",
+        isOpen ? "w-64" : "w-[70px]"
       )}
     >
-      <div className={`${isOpen ? "p-4" : "p-0"}`}>
-        <motion.div
-          layout
-          className={`flex mb-6 ${
-            isOpen ? "flex-row justify-between" : "flex-col items-center"
-          }`}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
+      <div className={`${isOpen ? "px-2 py-3" : "p-0"}`}>
+        <div
+          className={`flex mb-6 ${isOpen ? "flex-row justify-between" : "flex-col items-center"
+            }`}
         >
-          <Link href={`/${lang}/`} className={`${!isOpen && "mt-2"}`}>
-            <motion.div
-              className="flex items-center gap-2"
-              animate={{
-                flexDirection: isOpen ? "row" : "column",
-              }}
-            >
-              <motion.div
-                animate={{ scale: isOpen ? 1 : 0.8 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+          <Link href={`/${lang}/`} className={`${!isOpen && "my-2"}`}>
+            <div className="flex items-center gap-2">
+              <div
+                className={`transition-transform duration-200 ease-in-out ${isOpen ? "scale-100" : "scale-90"
+                  }`}
               >
                 <Image src={Logo} alt="" width={30} />
-              </motion.div>
-              <motion.div
-                className="overflow-hidden"
-                animate={{
-                  maxWidth: isOpen ? 200 : 0,
-                  opacity: isOpen ? 1 : 0,
-                }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+              </div>
+              <div
+                className={`overflow-hidden transition-all duration-200 ease-in-out ${isOpen ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
+                  }`}
               >
                 <p className="font-semibold text-2xl tracking-tight text-primary leading-none whitespace-nowrap">
                   {translation.nav.logo}
                 </p>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </Link>
-          <motion.button
+          <button
             onClick={toggleSidebar}
             className="p-2 hover:bg-accent rounded-full text-muted-foreground"
-            layout
           >
-            <motion.div
-              animate={{ rotate: isOpen ? 0 : 180 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
+            <div
+              className={`transition-transform duration-200 ease-in-out ${isOpen ? "" : "rotate-180"
+                }`}
             >
               <PanelLeftClose className="w-5 h-5" />
-            </motion.div>
-          </motion.button>
-        </motion.div>
+            </div>
+          </button>
+        </div>
         <nav className="space-y-1">
           <Link
             href={`/${lang}/dashboard`}
-            className={cn(
-              "group flex items-center px-4 py-3 text-sm font-medium rounded-full transition-all ease-in-out duration-00 mb-4",
-              "hover:bg-accent",
-              pathname === `/${lang}/dashboard`
-                ? "bg-accent border shadow-sm"
-                : "text-foreground hover:text-foreground/80"
-            )}
+            className={`
+                      group flex items-center px-2 py-3 text-sm font-medium  transition-all duration-200 
+                      ${isOpen ? 'mb-4 rounded-full' : 'mb-4 mx-1 rounded-lg'}
+                      hover:bg-accent
+                      ${pathname === `/${lang}/dashboard` ? 'bg-accent border shadow-sm' : 'text-foreground hover:text-foreground/80'}
+                     `}
           >
             <LayoutDashboard
               className={cn("w-5 h-5", isOpen ? "mx-2" : "mx-auto")}
@@ -184,7 +169,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                   {!isOpen && (
                     <div
                       className={cn(
-                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-gray-900  px-2 py-1  text-xs",
+                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-gray-900 px-2 py-1 text-xs",
                         "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
                         "whitespace-nowrap z-20",
                         isRTL ? "right-14" : "left-14"
@@ -195,22 +180,17 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                   )}
                   {isOpen && section.name}
                 </div>
-                <motion.div
-                  animate={{
-                    rotate: expandedSection === section.name ? 180 : 0,
-                  }}
-                  transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="text-muted-foreground"
+                <div
+                  className={`text-muted-foreground transition-transform duration-200 ease-in-out ${expandedSection === section.name ? "rotate-180" : ""
+                    }`}
                 >
                   {isOpen && <ChevronDown className="h-4 w-4" />}
-                </motion.div>
+                </div>
               </button>
               {expandedSection === section.name && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={`${isOpen ? "ml-8 space-y-1" : "ml-[5px]"}`}
+                <div
+                  className={`${isOpen ? "ml-8 space-y-1" : "ml-[5px]"
+                    } animate-in fade-in slide-in-from-top-2`}
                 >
                   {section.items.map((item) => (
                     <Link
@@ -225,11 +205,10 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       )}
                     >
                       <span
-                        className={`${
-                          pathname === `/${lang}${item.href}` && !isOpen
-                            ? "text-primary"
-                            : "mx-2 text-muted-foreground"
-                        }`}
+                        className={`${pathname === `/${lang}${item.href}` && !isOpen
+                          ? "text-primary"
+                          : "mx-2 text-muted-foreground"
+                          }`}
                       >
                         {item.icon}
                       </span>
@@ -248,13 +227,13 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       {isOpen && item.name}
                     </Link>
                   ))}
-                </motion.div>
+                </div>
               )}
             </div>
           ))}
         </nav>
       </div>
-    </motion.aside>
+    </aside>
   );
 };
 
