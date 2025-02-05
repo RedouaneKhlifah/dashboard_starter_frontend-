@@ -13,6 +13,7 @@ import {
   List,
   Gem,
   PanelLeftClose,
+  Weight
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
@@ -49,6 +50,17 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
           name: translation.sidebar.dashboard.items.pricing,
           href: "/pricing",
           icon: <List className="w-4 h-4" />,
+        },
+      ],
+    },
+    {
+      name: translation.sidebar.dashboard.sections.sales,
+      icon: <Weight className="w-5 h-5" />,
+      items: [
+        {
+          name: translation.sidebar.dashboard.items.clients,
+          href: "/clients",
+          icon: <Users className="w-4 h-4" />,
         },
       ],
     },

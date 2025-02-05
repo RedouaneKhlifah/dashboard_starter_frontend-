@@ -92,19 +92,63 @@
       "email_already_exists": "Email already exists"
     }
   },
+  "client": {
+    "firstNameRequired": "First name is required",
+    "firstNameTooLong": "First name must be less than 50 characters",
+    "lastNameRequired": "Last name is required",
+    "lastNameTooLong": "Last name must be less than 50 characters",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Invalid email format",
+    "phoneRequired": "Phone number is required",
+    "invalidPhone": "Invalid phone number format",
+    "addressRequired": "Address is required",
+    "countryRequired": "Country is required",
+    "cityRequired": "City is required",
+    "form": {
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "address": "Address",
+    "country": "Country",
+    "city": "City"
+  },
+  "common": {
+    "create": "Create",
+    "cancel": "Cancel"
+  }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventory",
-        "administration": "Administration"
+        "administration": "Administration",
+        "sales": "Sales"
       },
       "items": {
         "products": "Single Products",
         "bundles": "Bundles",
         "pricing": "Price List",
         "members": "Members",
-        "settings": "Settings"
+        "settings": "Settings",
+        "clients": "Clients"
+      }
+    },
+    "users_table": {
+      "customer_management": "Customer Management",
+      "create_new_client": "Create New Client",
+      "headers": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "city": "City",
+        "country": "Country",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
       }
     }
   }
