@@ -92,19 +92,63 @@
       "email_already_exists": "البريد الإلكتروني موجود بالفعل"
     }
   },
+  "client": {
+    "firstNameRequired": "الاسم الأول مطلوب",
+    "firstNameTooLong": "يجب أن يكون الاسم الأول أقل من 50 حرفًا",
+    "lastNameRequired": "الاسم الأخير مطلوب",
+    "lastNameTooLong": "يجب أن يكون الاسم الأخير أقل من 50 حرفًا",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "invalidEmail": "بريد إلكتروني غير صحيح",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "invalidPhone": "تنسيق رقم هاتف غير صالح",
+    "addressRequired": "العنوان مطلوب",
+    "countryRequired": "البلد مطلوب",
+    "cityRequired": "المدينة مطلوبة",
+    "form": {
+      "first_name": "الاسم الأول",
+      "last_name": "الاسم الأخير",
+      "email": "عنوان البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "country": "البلد",
+      "city": "المدينة"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
       "sections": {
         "inventory": "المخزون",
-        "administration": "الإدارة"
+        "administration": "الإدارة",
+        "sales": "المبيعات"
       },
       "items": {
         "products": "منتجات فردية",
         "bundles": "الباقات",
         "pricing": "قائمة الأسعار",
         "members": "الأعضاء",
-        "settings": "الإعدادات"
+        "settings": "الإعدادات",
+        "clients": "العملاء"
+      }
+    },
+    "users_table": {
+      "customer_management": "إدارة العملاء",
+      "create_new_client": "إنشاء عميل جديد",
+      "headers": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "city": "المدينة",
+        "country": "الدولة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
       }
     }
   }

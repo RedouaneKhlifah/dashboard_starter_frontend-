@@ -81,15 +81,15 @@ export async function middleware(request: NextRequest) {
   const locale = getLocale(request);
   const authToken = request.cookies.get("auth_token")?.value;
 
-  // if (!authToken) {
-  //   return handleUnauthenticated(request, locale, pathname);
-  // }
+  if (!authToken) {
+    return handleUnauthenticated(request, locale, pathname);
+  }
 
-  // if (pathname.startsWith(`/${locale}/sign-in`)) {
-  //   return preventSignInAccess(request, locale);
-  // }
+  if (pathname.startsWith(`/${locale}/sign-in`)) {
+    return preventSignInAccess(request, locale);
+  }
 
-  // return await handleTokenVerification(request, locale, authToken);
+  return await handleTokenVerification(request, locale, authToken);
 }
 
 export const config = {

@@ -92,19 +92,63 @@
       "email_already_exists": "Email already exists"
     }
   },
+  "client": {
+    "firstNameRequired": "Le prénom est requis",
+    "firstNameTooLong": "Le prénom doit contenir moins de 50 caractères",
+    "lastNameRequired": "Le nom de famille est requis",
+    "lastNameTooLong": "Le nom de famille doit contenir moins de 50 caractères",
+    "emailRequired": "L'email est requis",
+    "invalidEmail": "Format d'email invalide",
+    "phoneRequired": "Le numéro de téléphone est requis",
+    "invalidPhone": "Format de numéro de téléphone invalide",
+    "addressRequired": "L'adresse est requise",
+    "countryRequired": "Le pays est requis",
+    "cityRequired": "La ville est requise",
+    "form": {
+    "first_name": "Prénom",
+    "last_name": "Nom de famille",
+    "email": "Adresse e-mail",
+    "phone": "Numéro de téléphone",
+    "address": "Adresse",
+    "country": "Pays",
+    "city": "Ville"
+  },
+  "common": {
+    "create": "Créer",
+     "cancel": "Annuler"
+  }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventaire",
-        "administration": "Administration"
+        "administration": "Administration",
+        "sales": "Les ventes"
       },
       "items": {
         "products": "Produits simples",
         "bundles": "Pactes",
         "pricing": "Liste de prix",
         "members": "Membres",
-        "settings": "Paramètres"
+        "settings": "Paramètres",
+        "clients": "Clients"
+      }
+    },
+    "users_table": {
+      "customer_management": "Gestion des clients",
+      "create_new_client": "Créer un nouveau client",
+      "headers": {
+        "name": "Nom",
+        "email": "E-mail",
+        "phone": "Téléphone",
+        "city": "Ville",
+        "country": "Pays",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
       }
     }
   }
