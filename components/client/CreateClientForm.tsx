@@ -42,8 +42,9 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
 
       if (!response.ok) {
         const error = await response.json();
-        if (error.email) {
-          setErrors({ email: error.email });
+
+        if (error?.errors?.email) {
+          setErrors({ email: error.message });
         }
         return false;
       }

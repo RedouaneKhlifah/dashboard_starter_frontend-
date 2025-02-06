@@ -1,5 +1,9 @@
 "use client";
-import { ThemeProvider as MTThemeProvider, Card, Typography } from "@material-tailwind/react";
+import {
+  ThemeProvider as MTThemeProvider,
+  Card,
+  Typography,
+} from "@material-tailwind/react";
 import { ReactNode } from "react";
 
 export interface TableHeader<T> {
@@ -33,7 +37,7 @@ export const GlobalTable = <T extends { id: string | number }>({
               {headers.map((header) => (
                 <th
                   key={header.key.toString()}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-start"
                 >
                   <Typography
                     variant="small"
@@ -69,14 +73,18 @@ const TableRow = <T extends { id: string | number }>({
   row,
   headers,
 }: TableRowProps<T>) => {
-  const isLast = false; 
+  const isLast = false;
 
   return (
     <tr>
       {headers.map((header) => (
         <td
           key={header.key.toString()}
-          className={isLast ? "p-4" : "p-4 border-b border-blue-gray-50"}
+          className={
+            isLast
+              ? "p-4 text-start"
+              : "p-4 border-b border-blue-gray-50 text-start"
+          }
         >
           <TableCell<T> header={header} row={row} />
         </td>

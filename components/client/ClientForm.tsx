@@ -25,7 +25,7 @@ const ClientForm = ({
   onSubmit,
   isOpen,
 }: ClientFormProps) => {
-  const { modalType, closeModal } = useModalStore()
+  const { modalType, closeModal } = useModalStore();
 
   const [formData, setFormData] = useState<IClientForm>(initialFormData);
 
