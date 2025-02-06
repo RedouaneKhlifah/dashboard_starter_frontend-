@@ -4,6 +4,8 @@ import DashboardLayout from "@/components/layout/dashboard-layout";
 import { UsersTableClient } from "@/components/client/UsersTableClient";
 import Header from "@/components/client/Header";
 import { IClient } from "@/interfaces/IClient";
+import http from "@/lib/http";
+import httpServer from "@/lib/httpServer";
 
 interface Props {
   params: {
@@ -13,19 +15,12 @@ interface Props {
 
 export default async function UsersPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
-  const users: IClient[] = [
-    {
-      id: 1,
-      full_name: "John Doe",
-      email: "john@example.com",
-      phone: "+1 234 567 890",
-      city: "New York",
-      country: "United States",
-      address: "1234 Elm St",
-      first_name: "John",
-      last_name: "Doe",
-    },
-  ];
+  let users: IClient[] = [];
+  const res = await fetchClients(params.lang);
+
+  if (res.ok) {
+    users = await res.json();
+  }
 
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
@@ -40,3 +35,15 @@ export default async function UsersPage({ params }: Props) {
     </DashboardLayout>
   );
 }
+
+const fetchClients = async (lang: Locale) => {
+  const response = await httpServer(
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
+    {
+      method: "GET",
+      lang: lang,
+    }
+  );
+
+  return response;
+};

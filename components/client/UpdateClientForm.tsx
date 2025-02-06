@@ -8,6 +8,7 @@ import { Locale } from "@/i18n-config";
 import { IUpdateClient } from "@/dto/client/updateClient";
 import { IClientForm } from "@/dto/client/clientForm";
 import { IClient } from "@/interfaces/IClient";
+import { log } from "console";
 
 interface ClientFormProps {
   translation: DictionaryType;
@@ -40,9 +41,9 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
   const handleSubmit = async (data: IClientForm): Promise<boolean> => {
     try {
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/clients",
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients/${selectedRecord?.id}`,
         {
-          method: "POST",
+          method: "PATCH",
           lang,
           body: JSON.stringify(data),
         }
@@ -55,8 +56,7 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
 
       return true;
     } catch (error) {
-      console.error("Error during client creation:", error);
-
+      console.error("Error during client updating:", error);
       return false;
     }
   };

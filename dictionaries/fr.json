@@ -105,18 +105,19 @@
     "countryRequired": "Le pays est requis",
     "cityRequired": "La ville est requise",
     "form": {
-    "first_name": "Prénom",
-    "last_name": "Nom de famille",
-    "email": "Adresse e-mail",
-    "phone": "Numéro de téléphone",
-    "address": "Adresse",
-    "country": "Pays",
-    "city": "Ville"
-  },
-  "common": {
-    "create": "Créer",
-     "cancel": "Annuler"
-  }
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone",
+      "address": "Adresse",
+      "country": "Pays",
+      "city": "Ville"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Modifier"
+    }
   },
   "sidebar": {
     "dashboard": {
@@ -138,6 +139,7 @@
     "users_table": {
       "customer_management": "Gestion des clients",
       "create_new_client": "Créer un nouveau client",
+      "update_client": "Mettre à jour le client",
       "headers": {
         "name": "Nom",
         "email": "E-mail",
