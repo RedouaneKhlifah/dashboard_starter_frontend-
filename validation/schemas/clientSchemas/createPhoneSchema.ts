@@ -7,9 +7,9 @@ import { z } from "zod";
  * @returns A Zod schema for phone number validation.
  */
 export function createPhoneSchema(t: DictionaryType): z.ZodString {
-    const { client } = t;
-    return z
-      .string()
-      .min(1, { message: client.phoneRequired })
-      .regex(/^\+?[0-9]+$/, { message: client.invalidPhone });
-  }
+  const { client } = t;
+  return z
+    .string()
+    .min(1, { message: client.phoneRequired })
+    .regex(/^\+?[0-9]+$/, { message: client.invalidPhone });
+}

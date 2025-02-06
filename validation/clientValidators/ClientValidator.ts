@@ -1,8 +1,7 @@
-import { IClientForm, PartialClientForm } from "@/interfaces";
 import { DictionaryType } from "@/lib/i18n";
 import { createClientSchemas } from "../schemas/clientSchemas/createClientSchemas";
 import { validateField } from "../helper/validationHelpers";
-
+import { IClientForm } from "@/dto/client/clientForm";
 
 /**
  * Validates the authentication form data based on the form type (SignIn or SignUp).
@@ -13,37 +12,36 @@ import { validateField } from "../helper/validationHelpers";
  */
 
 export const validateClientForm = (
-    formData: IClientForm,
-    translation: DictionaryType
-): PartialClientForm => {
-    const {
-        emailSchema,
-        firstNameSchema,
-        lastNameSchema,
-        citySchema,
-        countrySchema,
-        addressSchema,
-        phoneSchema
-    } = createClientSchemas(translation);
+  formData: IClientForm,
+  translation: DictionaryType
+): Partial<IClientForm> => {
+  const {
+    emailSchema,
+    firstNameSchema,
+    lastNameSchema,
+    citySchema,
+    countrySchema,
+    addressSchema,
+    phoneSchema,
+  } = createClientSchemas(translation);
 
-    const newErrors: PartialClientForm = {};
+  const newErrors: Partial<IClientForm> = {};
 
-    newErrors.first_name = validateField(firstNameSchema, formData.first_name);
-    newErrors.last_name = validateField(lastNameSchema, formData.last_name);
-    newErrors.email = validateField(emailSchema, formData.email);
-    newErrors.phone = validateField(phoneSchema, formData.phone);
-    newErrors.address = validateField(addressSchema, formData.address);
-    newErrors.country = validateField(countrySchema, formData.country);
-    newErrors.city = validateField(citySchema, formData.city);
+  newErrors.first_name = validateField(firstNameSchema, formData.first_name);
+  newErrors.last_name = validateField(lastNameSchema, formData.last_name);
+  newErrors.email = validateField(emailSchema, formData.email);
+  newErrors.phone = validateField(phoneSchema, formData.phone);
+  newErrors.address = validateField(addressSchema, formData.address);
+  newErrors.country = validateField(countrySchema, formData.country);
+  newErrors.city = validateField(citySchema, formData.city);
 
-
-    return Object.fromEntries(
-        Object.entries(newErrors).filter(([_, value]) => value !== undefined)
-    ) as PartialClientForm;
+  return Object.fromEntries(
+    Object.entries(newErrors).filter(([_, value]) => value !== undefined)
+  ) as Partial<IClientForm>;
 };
 
 const ClientValidator = {
-    validateClientForm,
+  validateClientForm,
 };
 
 export default ClientValidator;
