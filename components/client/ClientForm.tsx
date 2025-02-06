@@ -1,56 +1,134 @@
 "use client";
+import { Dispatch, SetStateAction, useState } from "react";
+import GlobalModal from "@/components/shared/GlobalModal";
+import InputField from "@/components/ui/InputField";
 import { DictionaryType } from "@/lib/i18n";
-import CreateClientForm from "./CreateClientForm";
-import { IClientForm } from "@/interfaces";
-import { useState } from "react";
-import { PartialClientForm } from "@/interfaces/IClient";
-import http from "@/lib/http";
+import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
+import { ClientValidation } from "@/validation";
+import useModalStore from "@/store/modalStore";
+import { IClientForm } from "@/dto/client/clientForm";
 
 interface ClientFormProps {
-    translation: DictionaryType;
-    lang: "fr" | "en" | "ar";
+  initialFormData: IClientForm;
+  translation: DictionaryType;
+  errors: Partial<IClientForm>;
+  setErrors: Dispatch<SetStateAction<Partial<IClientForm>>>;
+  onSubmit: (formData: IClientForm) => Promise<boolean>;
+  isOpen: boolean;
 }
 
-const ClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
-    const [errors, setErrors] = useState<PartialClientForm>({});
+const ClientForm = ({
+  initialFormData,
+  translation,
+  errors,
+  setErrors,
+  onSubmit,
+  isOpen,
+}: ClientFormProps) => {
+  const { closeModal } = useModalStore();
 
-    const handleSubmit = async (data: IClientForm): Promise<boolean> => {
-        try {
-            const response = await http(
-                process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/clients",
-                {
-                    method: "POST",
-                    lang,
-                    body: JSON.stringify(data),
-                }
-            );
+  const [formData, setFormData] = useState<IClientForm>(initialFormData);
 
-            if (!response.ok) {
-                const error = await response.json();
-                setErrors({
-                    general: error.message,
-                });
-                return false;
-            }
+  const { validateClientForm } = ClientValidation;
 
-            return true;
-        } catch (error) {
-            console.error("Error during client creation:", error);
-            setErrors({
-                general: "An unexpected error occurred.",
-            });
-            return false;
-        }
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors = validateClientForm(formData, translation);
+    setErrors(newErrors);
 
-    return (
-        <CreateClientForm
-            translation={translation}
-            errors={errors}
-            setErrors={setErrors}
-            onSubmit={handleSubmit}
-        />
-    );
+    if (hasNoErrors(newErrors)) {
+      const success = await onSubmit(formData);
+      if (success) {
+        closeModal();
+        setFormData(initialFormData);
+        setErrors({});
+      }
+    }
+  };
+
+  return (
+    <div>
+      <GlobalModal
+        open={isOpen}
+        onClose={() => {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }}
+        title={translation.sidebar.users_table.create_new_client}
+        submitButtonText={translation.client.common.create}
+        cancelButtonText={translation.client.common.cancel}
+        onSubmit={handleSubmit}
+      >
+        <div className="space-y-4">
+          <div className="flex gap-4">
+            <InputField
+              id="first_name"
+              label={translation.client.form.first_name}
+              value={formData.first_name}
+              onChange={(e) => handleChange(e, setFormData, setErrors)}
+              error={errors.first_name}
+              required
+            />
+            <InputField
+              id="last_name"
+              label={translation.client.form.last_name}
+              value={formData.last_name}
+              onChange={(e) => handleChange(e, setFormData, setErrors)}
+              error={errors.last_name}
+              required
+            />
+          </div>
+
+          <InputField
+            id="email"
+            label={translation.client.form.email}
+            value={formData.email}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.email}
+            required
+          />
+
+          <InputField
+            id="phone"
+            label={translation.client.form.phone}
+            value={formData.phone}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.phone}
+            required
+          />
+
+          <InputField
+            id="address"
+            label={translation.client.form.address}
+            value={formData.address}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.address}
+            required
+          />
+
+          <div className="flex gap-4">
+            <InputField
+              id="country"
+              label={translation.client.form.country}
+              value={formData.country}
+              onChange={(e) => handleChange(e, setFormData, setErrors)}
+              error={errors.country}
+              required
+            />
+            <InputField
+              id="city"
+              label={translation.client.form.city}
+              value={formData.city}
+              onChange={(e) => handleChange(e, setFormData, setErrors)}
+              error={errors.city}
+              required
+            />
+          </div>
+        </div>
+      </GlobalModal>
+    </div>
+  );
 };
 
 export default ClientForm;
