@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import GlobalModal from "@/components/shared/GlobalModal";
 import InputField from "@/components/ui/InputField";
 import { DictionaryType } from "@/lib/i18n";
@@ -25,7 +25,7 @@ const ClientForm = ({
   onSubmit,
   isOpen,
 }: ClientFormProps) => {
-  const { closeModal } = useModalStore();
+  const { modalType, closeModal } = useModalStore()
 
   const [formData, setFormData] = useState<IClientForm>(initialFormData);
 
@@ -45,6 +45,9 @@ const ClientForm = ({
       }
     }
   };
+  useEffect(() => {
+    setFormData(initialFormData);
+  }, [initialFormData]);
 
   return (
     <div>
@@ -55,8 +58,16 @@ const ClientForm = ({
           setFormData(initialFormData);
           setErrors({});
         }}
-        title={translation.sidebar.users_table.create_new_client}
-        submitButtonText={translation.client.common.create}
+        title={
+          modalType === "create"
+            ? translation.sidebar.users_table.create_new_client
+            : translation.sidebar.users_table.update_client
+        }
+        submitButtonText={
+          modalType === "create"
+            ? translation.client.common.create
+            : translation.client.common.update
+        }
         cancelButtonText={translation.client.common.cancel}
         onSubmit={handleSubmit}
       >

@@ -115,7 +115,8 @@
     },
     "common": {
       "create": "إنشاء",
-      "cancel": "إلغاء"
+      "cancel": "إلغاء",
+      "update": "تعديل"
     }
   },
   "sidebar": {
@@ -138,6 +139,7 @@
     "users_table": {
       "customer_management": "إدارة العملاء",
       "create_new_client": "إنشاء عميل جديد",
+      "update_client": "تحديث العميل",
       "headers": {
         "name": "الاسم",
         "email": "البريد الإلكتروني",

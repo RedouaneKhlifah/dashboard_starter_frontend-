@@ -42,9 +42,11 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
 
       if (!response.ok) {
         const error = await response.json();
+        if (error.email) {
+          setErrors({ email: error.email });
+        }
         return false;
       }
-
       return true;
     } catch (error) {
       console.error("Error during client creation:", error);

@@ -115,7 +115,8 @@
   },
   "common": {
     "create": "Create",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "update": "Update"
   }
   },
   "sidebar": {
@@ -138,6 +139,7 @@
     "users_table": {
       "customer_management": "Customer Management",
       "create_new_client": "Create New Client",
+       "update_client": "Update Client",
       "headers": {
         "name": "Name",
         "email": "Email",
