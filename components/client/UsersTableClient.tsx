@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
 import useModalStore from "@/store/modalStore";
@@ -12,7 +12,8 @@ import clientMappers, { UserRow } from "@/mappers/ClientMapper";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
 import http from "@/lib/http";
 import { usePusher } from "@/hooks/usePusher";
-import { useEntityUpdate } from "@/hooks/useEntityUpdate"; // Import the custom hook
+import { useEntityUpdate } from "@/hooks/useEntityUpdate"; 
+
 
 
 interface UsersTableClientProps {
@@ -26,6 +27,7 @@ export function UsersTableClient({
   translation,
   lang,
 }: UsersTableClientProps) {
+  const [isLoading, setIsLoading] = useState(false)
   const { openModal } = useModalStore();
   const {
     sidebar: { users_table },
@@ -33,7 +35,6 @@ export function UsersTableClient({
   // Mappers
   const { rowMapper } = clientMappers;
 
-  // State for real-time client updates
   const [clients, setClients] = useState<IClient[]>(users);
   const [selectedRecord, setSelectedRecord] = useState<IClient | undefined>(
     undefined
@@ -45,6 +46,13 @@ export function UsersTableClient({
     () => rowMapper(clients || []),
     [rowMapper, clients]
   );
+
+  useEffect(() => {
+    setIsLoading(true)
+    const timer = setTimeout(() => setIsLoading(false), 1500)
+    return () => clearTimeout(timer)
+  }, [])
+
 
   // Use the custom hook for real-time updates
   const handleClientUpdate = useEntityUpdate<IClient>(setClients);
@@ -76,10 +84,7 @@ export function UsersTableClient({
     setIsDeleting(false);
   }, []);
 
-  const handleDelete = useCallback((userId: number) => {
-    console.log("Delete user:", userId);
-    // Add your deletion logic here (for example, call an API endpoint)
-  }, []);
+
 
   const handleDeleteConfirm = async () => {
     if (!clientToDelete) return;
@@ -110,6 +115,7 @@ export function UsersTableClient({
 
   return (
     <>
+
       <GlobalTable<UserRow>
         headers={[
           { key: "name", label: users_table.headers.name },
@@ -133,6 +139,7 @@ export function UsersTableClient({
         ]}
         rows={userRows}
         className="shadow-lg rounded-lg overflow-hidden"
+        loading={isLoading}
       />
       <UpdateClientForm
         lang={lang}

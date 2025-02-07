@@ -155,6 +155,7 @@
       "customer_management": "Customer Management",
       "create_new_client": "Create New Client",
       "update_client": "Update Client",
+      "search_placeholder": "Search...",
       "headers": {
         "name": "Name",
         "email": "Email",
