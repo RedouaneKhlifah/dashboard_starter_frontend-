@@ -116,7 +116,21 @@
     "common": {
       "create": "Créer",
       "cancel": "Annuler",
-      "update": "Modifier"
+      "update": "Modifier",
+      "delete": "Supprimer"
+    }
+  },
+  "partenaire": {
+    "nameRequired": "Le nom est requis",
+    "nameTooLong": "Le nom doit contenir moins de 50 caractères",
+    "matriculeRequired": "Le matricule est requis",
+    "matriculeTooLong": "Le matricule doit contenir moins de 50 caractères",
+    "numberRequired": "Le numéro est requis",
+    "invalidNumber": "Format de numéro invalide",
+    "form": {
+      "name": "Nom",
+      "matricule": "Matricule",
+      "number": "Numéro"
     }
   },
   "sidebar": {
@@ -133,7 +147,8 @@
         "pricing": "Liste de prix",
         "members": "Membres",
         "settings": "Paramètres",
-        "clients": "Clients"
+        "clients": "Clients",
+        "partners": "Partenaires"
       }
     },
     "users_table": {
@@ -151,6 +166,26 @@
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
+      }
+    },
+    "partenaires_table": {
+      "partner_management": "Gestion des partenaires",
+      "create_new_partner": "Créer un nouveau partenaire",
+      "update_partner": "Mettre à jour le partenaire",
+      "headers": {
+        "name": "Nom",
+        "matricule": "Matricule",
+        "number": "Numéro",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirmer la Suppression",
+        "title": "Êtes-vous sûr de vouloir supprimer",
+        "warning": "Cette action ne peut pas être annulée."
       }
     }
   }
