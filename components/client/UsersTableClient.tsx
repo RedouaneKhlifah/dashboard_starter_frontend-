@@ -11,6 +11,9 @@ import { IClient } from "@/interfaces/IClient";
 import clientMappers, { UserRow } from "@/mappers/ClientMapper";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
 import http from "@/lib/http";
+import { usePusher } from "@/hooks/usePusher";
+import { useEntityUpdate } from "@/hooks/useEntityUpdate"; // Import the custom hook
+
 
 interface UsersTableClientProps {
   users: IClient[];
@@ -27,23 +30,36 @@ export function UsersTableClient({
   const {
     sidebar: { users_table },
   } = translation;
-
+  // Mappers
   const { rowMapper } = clientMappers;
-  const userRows = useMemo(() => rowMapper(users || []), [rowMapper, users]);
+
+  // State for real-time client updates
+  const [clients, setClients] = useState<IClient[]>(users);
   const [selectedRecord, setSelectedRecord] = useState<IClient | undefined>(
     undefined
   );
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [clientToDelete, setClientToDelete] = useState<IClient | null>(null);
+  const userRows = useMemo(
+    () => rowMapper(clients || []),
+    [rowMapper, clients]
+  );
 
+  // Use the custom hook for real-time updates
+  const handleClientUpdate = useEntityUpdate<IClient>(setClients);
+
+  // Subscribe to Pusher events for "client" model updates.
+  usePusher("client", handleClientUpdate);
+
+  // Handlers for edit and delete actions.
   const handleEdit = useCallback(
     (userId: number) => {
-      const selectedRecord = users.find((user) => user.id === userId);
+      const selectedRecord = clients.find((user) => user.id === userId);
       setSelectedRecord(selectedRecord);
       openModal("update");
     },
-    [openModal, users]
+    [openModal, clients]
   );
 
   const openDeleteModal = useCallback((partenaireId: number) => {
@@ -58,6 +74,9 @@ export function UsersTableClient({
     setIsDeleteModalOpen(false);
     setClientToDelete(null);
     setIsDeleting(false);
+  const handleDelete = useCallback((userId: number) => {
+    console.log("Delete user:", userId);
+    // Add your deletion logic here (for example, call an API endpoint)
   }, []);
 
   const handleDeleteConfirm = async () => {
