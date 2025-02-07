@@ -74,6 +74,8 @@ export function UsersTableClient({
     setIsDeleteModalOpen(false);
     setClientToDelete(null);
     setIsDeleting(false);
+  }, []);
+
   const handleDelete = useCallback((userId: number) => {
     console.log("Delete user:", userId);
     // Add your deletion logic here (for example, call an API endpoint)
