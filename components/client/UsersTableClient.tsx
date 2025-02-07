@@ -9,6 +9,8 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IClient } from "@/interfaces/IClient";
 import clientMappers, { UserRow } from "@/mappers/ClientMapper";
+import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
+import http from "@/lib/http";
 
 interface UsersTableClientProps {
   users: IClient[];
@@ -31,6 +33,9 @@ export function UsersTableClient({
   const [selectedRecord, setSelectedRecord] = useState<IClient | undefined>(
     undefined
   );
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [clientToDelete, setClientToDelete] = useState<IClient | null>(null);
 
   const handleEdit = useCallback(
     (userId: number) => {
@@ -41,9 +46,46 @@ export function UsersTableClient({
     [openModal, users]
   );
 
-  const handleDelete = useCallback((userId: number) => {
-    console.log("Delete user:", userId);
+  const openDeleteModal = useCallback((partenaireId: number) => {
+    const clientToDelete = users.find((client) => client.id === partenaireId);
+    if (clientToDelete) {
+      setClientToDelete(clientToDelete);
+      setIsDeleteModalOpen(true);
+    }
+  }, [users]);
+
+  const closeDeleteModal = useCallback(() => {
+    setIsDeleteModalOpen(false);
+    setClientToDelete(null);
+    setIsDeleting(false);
   }, []);
+
+  const handleDeleteConfirm = async () => {
+    if (!clientToDelete) return;
+
+    try {
+      setIsDeleting(true);
+
+      const response = await http(
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients/${clientToDelete.id}`,
+        {
+          method: "DELETE",
+          lang,
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        return;
+      }
+
+
+    } catch (error) {
+      console.error('Error deleting client:', error);
+    } finally {
+      closeDeleteModal();
+    }
+  };
 
   return (
     <>
@@ -61,7 +103,7 @@ export function UsersTableClient({
               <ActionButtons
                 Id={row.id}
                 onEdit={handleEdit}
-                onDelete={handleDelete}
+                onDelete={openDeleteModal}
                 editText={users_table.actions.edit}
                 deleteText={users_table.actions.delete}
               />
@@ -75,6 +117,14 @@ export function UsersTableClient({
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
+      />
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        onConfirm={handleDeleteConfirm}
+        itemName={clientToDelete?.first_name || ''}
+        isLoading={isDeleting}
+        translation={translation}
       />
     </>
   );

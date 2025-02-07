@@ -105,19 +105,33 @@
     "countryRequired": "Country is required",
     "cityRequired": "City is required",
     "form": {
-    "first_name": "First Name",
-    "last_name": "Last Name",
-    "email": "Email Address",
-    "phone": "Phone Number",
-    "address": "Address",
-    "country": "Country",
-    "city": "City"
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Address",
+      "country": "Country",
+      "city": "City"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete"
+    }
   },
-  "common": {
-    "create": "Create",
-    "cancel": "Cancel",
-    "update": "Update"
-  }
+  "partenaire": {
+    "nameRequired": "Name is required",
+    "nameTooLong": "Name must be less than 50 characters",
+    "matriculeRequired": "Matricule is required",
+    "matriculeTooLong": "Matricule must be less than 50 characters",
+    "numberRequired": "Number is required",
+    "invalidNumber": "Invalid number format",
+    "form": {
+      "name": "Name",
+      "matricule": "Matricule",
+      "number": "Number"
+    }
   },
   "sidebar": {
     "dashboard": {
@@ -133,13 +147,14 @@
         "pricing": "Price List",
         "members": "Members",
         "settings": "Settings",
-        "clients": "Clients"
+        "clients": "Clients",
+        "partners": "Partners"
       }
     },
     "users_table": {
       "customer_management": "Customer Management",
       "create_new_client": "Create New Client",
-       "update_client": "Update Client",
+      "update_client": "Update Client",
       "headers": {
         "name": "Name",
         "email": "Email",
@@ -151,6 +166,26 @@
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
+      }
+    },
+    "partenaires_table": {
+      "partner_management": "Partner Management",
+      "create_new_partner": "Create New Partner",
+      "update_partner": "Update Partner",
+      "headers": {
+        "name": "Name",
+        "matricule": "Matricule",
+        "number": "Number",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirm Deletion",
+        "title": "Are you sure you want to delete",
+        "warning": "This action cannot be undone."
       }
     }
   }

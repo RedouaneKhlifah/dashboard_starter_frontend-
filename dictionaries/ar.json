@@ -116,7 +116,21 @@
     "common": {
       "create": "إنشاء",
       "cancel": "إلغاء",
-      "update": "تعديل"
+      "update": "تعديل",
+      "delete": "حذف"
+    }
+  },
+  "partenaire": {
+    "nameRequired": "الاسم مطلوب",
+    "nameTooLong": "يجب أن يكون الاسم أقل من 50 حرفًا",
+    "matriculeRequired": "الماتريكول مطلوب",
+    "matriculeTooLong": "يجب أن يكون الماتريكول أقل من 50 حرفًا",
+    "numberRequired": "الرقم مطلوب",
+    "invalidNumber": "تنسيق رقم غير صالح",
+    "form": {
+      "name": "الاسم",
+      "matricule": "الماتريكول",
+      "number": "الرقم"
     }
   },
   "sidebar": {
@@ -133,7 +147,8 @@
         "pricing": "قائمة الأسعار",
         "members": "الأعضاء",
         "settings": "الإعدادات",
-        "clients": "العملاء"
+        "clients": "العملاء",
+        "partners": "الشركاء"
       }
     },
     "users_table": {
@@ -151,6 +166,26 @@
       "actions": {
         "edit": "تعديل",
         "delete": "حذف"
+      }
+    },
+    "partenaires_table": {
+      "partner_management": "إدارة الشركاء",
+      "create_new_partner": "إنشاء شريك جديد",
+      "update_partner": "تحديث الشريك",
+      "headers": {
+        "name": "الاسم",
+        "matricule": "الماتريكول",
+        "number": "الرقم",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "delete_confirmation": {
+        "modal_title": "تأكيد الحذف",
+        "title": "هل أنت متأكد أنك تريد الحذف",
+        "warning": "لا يمكن التراجع عن هذا الإجراء."
       }
     }
   }
