@@ -155,6 +155,7 @@
       "customer_management": "إدارة العملاء",
       "create_new_client": "إنشاء عميل جديد",
       "update_client": "تحديث العميل",
+      "search_placeholder": "البحث...",
       "headers": {
         "name": "الاسم",
         "email": "البريد الإلكتروني",
