@@ -9,6 +9,8 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IClient } from "@/interfaces/IClient";
 import clientMappers, { UserRow } from "@/mappers/ClientMapper";
+import { usePusher } from "@/hooks/usePusher";
+import { useEntityUpdate } from "@/hooks/useEntityUpdate"; // Import the custom hook
 
 interface UsersTableClientProps {
   users: IClient[];
@@ -25,24 +27,38 @@ export function UsersTableClient({
   const {
     sidebar: { users_table },
   } = translation;
-
+  // Mappers
   const { rowMapper } = clientMappers;
-  const userRows = useMemo(() => rowMapper(users || []), [rowMapper, users]);
+
+  // State for real-time client updates
+  const [clients, setClients] = useState<IClient[]>(users);
   const [selectedRecord, setSelectedRecord] = useState<IClient | undefined>(
     undefined
   );
+  const userRows = useMemo(
+    () => rowMapper(clients || []),
+    [rowMapper, clients]
+  );
 
+  // Use the custom hook for real-time updates
+  const handleClientUpdate = useEntityUpdate<IClient>(setClients);
+
+  // Subscribe to Pusher events for "client" model updates.
+  usePusher("client", handleClientUpdate);
+
+  // Handlers for edit and delete actions.
   const handleEdit = useCallback(
     (userId: number) => {
-      const selectedRecord = users.find((user) => user.id === userId);
+      const selectedRecord = clients.find((user) => user.id === userId);
       setSelectedRecord(selectedRecord);
       openModal("update");
     },
-    [openModal, users]
+    [openModal, clients]
   );
 
   const handleDelete = useCallback((userId: number) => {
     console.log("Delete user:", userId);
+    // Add your deletion logic here (for example, call an API endpoint)
   }, []);
 
   return (
