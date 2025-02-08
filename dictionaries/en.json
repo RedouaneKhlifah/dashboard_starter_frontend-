@@ -133,6 +133,47 @@
       "number": "Number"
     }
   },
+  "Product": {
+    "product": "Product",
+    "products": "Products",
+    "create_new_product": "Create New Product",
+    "update_product": "Update Product",
+    "search_placeholder": "Search...",
+    "nameRequired": "Name is required",
+    "nameTooLong": "Name must be less than 50 characters",
+    "unitRequired": "Unit is required",
+    "unitTooLong": "Unit must be less than 20 characters",
+    "salePriceRequired": "Sale Price is required",
+    "invalidSalePrice": "Invalid sale price format",
+    "invalidCostPrice": "Invalid cost price format",
+    "invalidTax": "Invalid tax format",
+    "stockRequired": "Stock is required",
+    "invalidStock": "Invalid stock quantity",
+    "reorderPointRequired": "Reorder Point is required",
+    "invalidReorderPoint": "Invalid reorder point",
+    "skuTooLong": "SKU must be less than 50 characters",
+    "form": {
+      "name": "Name",
+      "sku": "Price",
+      "unit": "Unit",
+      "sale_price": "Sale Price",
+      "cost_price": "Cost Price",
+      "description": "Description",
+      "tax": "Tax",
+      "image": "Image",
+      "stock": "Stock",
+      "reorder_point": "Reorder Point"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "delete_confirmation": {
+      "modal_title": "Confirm Deletion",
+      "title": "Are you sure you want to delete",
+      "warning": "This action cannot be undone."
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -173,10 +214,36 @@
       "partner_management": "Partner Management",
       "create_new_partner": "Create New Partner",
       "update_partner": "Update Partner",
+      "search_placeholder": "Search...",
       "headers": {
         "name": "Name",
         "matricule": "Matricule",
         "number": "Number",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirm Deletion",
+        "title": "Are you sure you want to delete",
+        "warning": "This action cannot be undone."
+      }
+    },
+    "products_table": {
+      "product_management": "Product Management",
+      "create_new_product": "Create New Product",
+      "update_product": "Update Product",
+      "search_placeholder": "Search...",
+      "headers": {
+        "name": "Name",
+        "sku": "SKU",
+        "unit": "Unit",
+        "sale_price": "Sale Price",
+        "cost_price": "Cost Price",
+        "tax": "Tax",
+        "stock": "Stock",
         "actions": "Actions"
       },
       "actions": {

@@ -133,6 +133,42 @@
       "number": "الرقم"
     }
   },
+  "Product": {
+    "product": "المنتج",
+    "products": "المنتجات",
+    "create_new_product": "إنشاء منتج جديد",
+    "update_product": "تحديث المنتج",
+    "search_placeholder": "البحث...",
+    "nameRequired": "اسم المنتج مطلوب",
+    "nameTooLong": "يجب ألا يتجاوز الاسم 50 حرفًا",
+    "unitRequired": "الوحدة مطلوبة",
+    "unitTooLong": "يجب ألا تتجاوز الوحدة 20 حرفًا",
+    "salePriceRequired": "سعر البيع مطلوب",
+    "invalidSalePrice": "تنسيق سعر البيع غير صحيح",
+    "invalidCostPrice": "تنسيق سعر التكلفة غير صحيح",
+    "invalidTax": "تنسيق الضريبة غير صحيح",
+    "stockRequired": "الكمية المتاحة مطلوبة",
+    "invalidStock": "كمية المخزون غير صالحة",
+    "reorderPointRequired": "نقطة إعادة الطلب مطلوبة",
+    "invalidReorderPoint": "نقطة إعادة الطلب غير صالحة",
+    "skuTooLong": "يجب ألا يتجاوز الرمز التعريفي (SKU) 50 حرفًا",
+    "form": {
+      "name": "الاسم",
+      "sku": "السعر",
+      "unit": "الوحدة",
+      "sale_price": "سعر البيع",
+      "cost_price": "سعر التكلفة",
+      "description": "الوصف",
+      "tax": "الضريبة",
+      "image": "الصورة",
+      "stock": "المخزون",
+      "reorder_point": "نقطة إعادة الطلب"
+    },
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
@@ -173,6 +209,7 @@
       "partner_management": "إدارة الشركاء",
       "create_new_partner": "إنشاء شريك جديد",
       "update_partner": "تحديث الشريك",
+      "search_placeholder": "البحث...",
       "headers": {
         "name": "الاسم",
         "matricule": "الماتريكول",
@@ -187,6 +224,26 @@
         "modal_title": "تأكيد الحذف",
         "title": "هل أنت متأكد أنك تريد الحذف",
         "warning": "لا يمكن التراجع عن هذا الإجراء."
+      }
+    },
+    "products_table": {
+      "product_management": "إدارة المنتجات",
+      "create_new_product": "إنشاء منتج جديد",
+      "update_product": "تحديث المنتج",
+      "search_placeholder": "البحث...",
+      "headers": {
+        "name": "الاسم",
+        "sku": "السعر",
+        "unit": "الوحدة",
+        "sale_price": "سعر البيع",
+        "cost_price": "سعر التكلفة",
+        "tax": "الضريبة",
+        "stock": "المخزون",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
       }
     }
   }

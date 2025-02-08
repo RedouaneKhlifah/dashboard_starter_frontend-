@@ -1,92 +1,126 @@
 "use client";
-import { useCallback, useMemo, useState } from "react";
+
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
-import useModalStore from "@/store/modalStore";
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import UpdatePartenaireForm from "./UpdatePartenaireForm";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IPartenaire } from "@/interfaces/IPartenaire";
 import partenaireMappers, { PartenairRow } from "@/mappers/PartenaireMapper";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
+import CreatePartenaireForm from "./CreatePartenaireForm";
+import Header from "../shared/Header";
+import { usePusher } from "@/hooks/usePusher";
+import { useEntityUpdate } from "@/hooks/useEntityUpdate";
+import useRefresh from "@/hooks/useRefresh";
+import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 
-
 interface UsersTablePartenaireProps {
-  partenaires: IPartenaire[];
+  records: IPartenaire[];
+  totalRecords: number;
   translation: DictionaryType;
   lang: Locale;
 }
 
 export function UsersTablePartenaire({
-  partenaires,
+  records = [],
+  totalRecords = 0,
   translation,
   lang,
 }: UsersTablePartenaireProps) {
-  const { openModal } = useModalStore();
+  const { openModal, modalType, closeModal } = useModalStore();
+  const { rowMapper } = partenaireMappers;
   const {
     sidebar: { partenaires_table },
   } = translation;
-  const { rowMapper } = partenaireMappers;
-  const partenairRows = useMemo(() => rowMapper(partenaires || []), [rowMapper, partenaires]);
-  
-  const [selectedRecord, setSelectedRecord] = useState<IPartenaire | undefined>(undefined);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [partenaireToDelete, setPartenaireToDelete] = useState<IPartenaire | null>(null);
 
+  // State
+  const [partenaires, setPartenaires] = useState<IPartenaire[]>(records);
+  const [totalPartenaires, setTotalPartenaires] = useState(totalRecords);
+  const [selectedRecord, setSelectedRecord] = useState<IPartenaire | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+
+  const didMountRef = useRef(false);
+
+
+  const partenairRows = useMemo(() => rowMapper(partenaires), [rowMapper, partenaires]);
+
+
+  const handlePartenaireUpdate = useEntityUpdate<IPartenaire>(setPartenaires);
+  usePusher("partenaire", handlePartenaireUpdate);
+
+
+  const refreshPartenaires = useRefresh({
+    searchQuery,
+    currentPage,
+    setIsLoading,
+    entity: "partenaires",
+    setRecords: setPartenaires,
+    setTotalRecords: setTotalPartenaires,
+  });
+
+  const debouncedSearch = useDebounce(refreshPartenaires, 300);
+
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    debouncedSearch();
+  }, [searchQuery, debouncedSearch, currentPage]);
+
+ 
   const handleEdit = useCallback(
     (partenaireId: number) => {
-      const selectedRecord = partenaires.find((partenaire) => partenaire.id === partenaireId);
-      setSelectedRecord(selectedRecord);
-      openModal("update");
+      const record = partenaires.find((p) => p.id === partenaireId);
+      setSelectedRecord(record);
+      openModal(ModalTypeEnum.UPDATE);
     },
     [openModal, partenaires]
   );
 
-  const openDeleteModal = useCallback((partenaireId: number) => {
-    const partenaireToDelete = partenaires.find((partenaire) => partenaire.id === partenaireId);
-    if (partenaireToDelete) {
-      setPartenaireToDelete(partenaireToDelete);
-      setIsDeleteModalOpen(true);
-    }
-  }, [partenaires]);
-
-  const closeDeleteModal = useCallback(() => {
-    setIsDeleteModalOpen(false);
-    setPartenaireToDelete(null);
-    setIsDeleting(false);
-  }, []);
+  const openDeleteModal = useCallback(
+    (partenaireId: number) => {
+      const record = partenaires.find((p) => p.id === partenaireId);
+      setSelectedRecord(record);
+      openModal(ModalTypeEnum.DELETE);
+    },
+    [partenaires, openModal]
+  );
 
   const handleDeleteConfirm = async () => {
-    if (!partenaireToDelete) return;
-
+    if (!selectedRecord) return;
     try {
-      setIsDeleting(true);
-      
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${partenaireToDelete.id}`,
-        {
-          method: "DELETE",
-          lang,
-        }
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${selectedRecord.id}`,
+        { method: "DELETE", lang }
       );
-
-      if (!response.ok) {
-        const error = await response.json();
-        return;
-      }
-
-
+      
+      if (!response.ok) return;
+      
+      closeModal();
+      refreshPartenaires(true);
     } catch (error) {
-      console.error('Error deleting partenaire:', error);
-    } finally {
-      closeDeleteModal();
+      console.error("Error deleting partenaire:", error);
     }
   };
 
   return (
     <>
+      <Header
+        title={partenaires_table.partner_management}
+        searchPlaceholder={partenaires_table.search_placeholder}
+        buttonText={partenaires_table.create_new_partner}
+        showSearch={true}
+        setSearchQuery={setSearchQuery}
+      />
+
       <GlobalTable<PartenairRow>
         headers={[
           { key: "number", label: partenaires_table.headers.number },
@@ -107,7 +141,11 @@ export function UsersTablePartenaire({
           },
         ]}
         rows={partenairRows}
+        totalRows={totalPartenaires}
+        isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
       />
 
       <UpdatePartenaireForm
@@ -117,11 +155,13 @@ export function UsersTablePartenaire({
       />
 
       <ConfirmationModal
-        isOpen={isDeleteModalOpen}
-        onClose={closeDeleteModal}
         onConfirm={handleDeleteConfirm}
-        itemName={partenaireToDelete?.name || ''}
-        isLoading={isDeleting}
+        itemName={selectedRecord?.name || ""}
+        translation={translation}
+      />
+
+      <CreatePartenaireForm
+        lang={lang}
         translation={translation}
       />
     </>

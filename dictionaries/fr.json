@@ -133,6 +133,38 @@
       "number": "Numéro"
     }
   },
+  "Product": {
+    "product": "Produit",
+    "products": "Produits",
+    "create_new_product": "Créer un nouveau produit",
+    "update_product": "Mettre à jour le produit",
+    "search_placeholder": "Rechercher...",
+    "nameRequired": "Le nom est obligatoire",
+    "nameTooLong": "Le nom ne doit pas dépasser 50 caractères",
+    "unitRequired": "L'unité est obligatoire",
+    "unitTooLong": "L'unité ne doit pas dépasser 20 caractères",
+    "salePriceRequired": "Le prix de vente est obligatoire",
+    "invalidSalePrice": "Format de prix de vente invalide",
+    "invalidCostPrice": "Format de prix de revient invalide",
+    "invalidTax": "Format de taxe invalide",
+    "stockRequired": "Le stock est obligatoire",
+    "invalidStock": "Quantité de stock invalide",
+    "reorderPointRequired": "Le point de réapprovisionnement est obligatoire",
+    "invalidReorderPoint": "Point de réapprovisionnement invalide",
+    "skuTooLong": "Le SKU ne doit pas dépasser 50 caractères",
+    "form": {
+      "name": "Nom",
+      "sku": "Prix",
+      "unit": "Unité",
+      "sale_price": "Prix de vente",
+      "cost_price": "Prix d'achat",
+      "description": "Description",
+      "tax": "Taxe",
+      "image": "Image",
+      "stock": "Stock",
+      "reorder_point": "Point de commande"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -173,6 +205,7 @@
       "partner_management": "Gestion des partenaires",
       "create_new_partner": "Créer un nouveau partenaire",
       "update_partner": "Mettre à jour le partenaire",
+      "search_placeholder": "Rechercher...",
       "headers": {
         "name": "Nom",
         "matricule": "Matricule",
@@ -187,6 +220,26 @@
         "modal_title": "Confirmer la Suppression",
         "title": "Êtes-vous sûr de vouloir supprimer",
         "warning": "Cette action ne peut pas être annulée."
+      }
+    },
+    "products_table": {
+      "product_management": "Gestion des produits",
+      "create_new_product": "Créer un nouveau produit",
+      "update_product": "Mettre à jour le produit",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "name": "Nom",
+        "sku": "Prix",
+        "unit": "Unité",
+        "sale_price": "Prix de vente",
+        "cost_price": "Prix d'achat",
+        "tax": "Taxe",
+        "stock": "Stock",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
       }
     }
   }
