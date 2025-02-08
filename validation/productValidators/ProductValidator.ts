@@ -37,7 +37,7 @@ export const validateProductForm = (
   newErrors.cost_price = validateField(cost_priceSchema, formData.cost_price);
   newErrors.description = validateField(descriptionSchema, formData.description);
   newErrors.tax = validateField(taxSchema, formData.tax);
-  newErrors.image = validateField(imageSchema, formData.image);
+  newErrors.image = validateField(imageSchema, formData.image); 
   newErrors.stock = validateField(stockSchema, formData.stock);
   newErrors.reorder_point = validateField(reorder_poinSchemat, formData.reorder_point);
 
