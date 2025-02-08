@@ -1,7 +1,9 @@
 const handleChange = <T extends Record<string, any>>(
   e: React.ChangeEvent<HTMLInputElement>,
   setFormData: React.Dispatch<React.SetStateAction<T>>,
-  setErrors?: React.Dispatch<React.SetStateAction<Partial<T>>>
+  setErrors?: React.Dispatch<
+    React.SetStateAction<Partial<Record<keyof T, string>>>
+  >
 ) => {
   const { id, value } = e.target;
 
@@ -18,7 +20,7 @@ const handleChange = <T extends Record<string, any>>(
         delete newErrors[id as keyof T];
       }
 
-      if (newErrors.general) {
+      if (newErrors.general as keyof T) {
         delete newErrors.general;
       }
 
@@ -27,9 +29,9 @@ const handleChange = <T extends Record<string, any>>(
   }
 };
 
-// Specific error check version (if you want explicit naming)
-const hasNoErrors = <T extends Partial<Record<keyof T, string | undefined>>>(
-  errorObj: T
+// Update hasNoErrors to match the error type
+const hasNoErrors = <T extends Record<string, any>>(
+  errorObj: Partial<Record<keyof T, string>>
 ): boolean => {
   return Object.keys(errorObj).length === 0;
 };

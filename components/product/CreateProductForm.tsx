@@ -6,16 +6,20 @@ import http from "@/lib/http";
 import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
 import { ICreateProduct } from "@/dto/product/createProduct";
+import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
 
 interface ProductFormProps {
   translation: DictionaryType;
   lang: Locale;
 }
 
-const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({ translation, lang }) => {
+const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
+  translation,
+  lang,
+}) => {
   const { modalType } = useModalStore();
 
-  const [errors, setErrors] = useState<Partial<ICreateProduct>>({});
+  const [errors, setErrors] = useState<ProductFormErrors>({});
   const initialFormData = useMemo<ICreateProduct>(
     () => ({
       name: "",

@@ -7,12 +7,13 @@ import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
 import { ProductValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IProductForm } from "@/dto/product/productForm";
+import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
 
 interface ProductFormProps {
   initialFormData: IProductForm;
   translation: DictionaryType;
-  errors: Partial<IProductForm>;
-  setErrors: Dispatch<SetStateAction<Partial<IProductForm>>>;
+  errors: ProductFormErrors;
+  setErrors: Dispatch<SetStateAction<ProductFormErrors>>;
   onSubmit: (formData: IProductForm) => Promise<boolean>;
   isOpen: boolean;
 }
