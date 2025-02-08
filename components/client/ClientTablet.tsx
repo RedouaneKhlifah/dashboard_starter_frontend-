@@ -39,7 +39,7 @@ export function ClientTable({
   lang,
 }: ClientTableProps) {
   // Store & Hooks
-  const { openModal, modalType, closeModal } = useModalStore();
+  const { openModal, closeModal } = useModalStore();
   const { rowMapper } = clientMappers;
   const {
     sidebar: { users_table },
@@ -120,6 +120,31 @@ export function ClientTable({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
+  // Memoized headers to prevent re-renders
+  const tableHeaders = useMemo(
+    () => [
+      { key: "name" as keyof UserRow, label: users_table.headers.name },
+      { key: "email" as keyof UserRow, label: users_table.headers.email },
+      { key: "phone" as keyof UserRow, label: users_table.headers.phone },
+      { key: "country" as keyof UserRow, label: users_table.headers.country },
+      { key: "city" as keyof UserRow, label: users_table.headers.city },
+      {
+        key: "id" as keyof UserRow,
+        label: users_table.headers.actions,
+        renderCell: (_: any, row: UserRow) => (
+          <ActionButtons
+            Id={row.id}
+            onEdit={handleEdit}
+            onDelete={openDeleteModal}
+            editText={users_table.actions.edit}
+            deleteText={users_table.actions.delete}
+          />
+        ),
+      },
+    ],
+    [users_table, handleEdit, openDeleteModal]
+  );
+
   return (
     <>
       <Header
@@ -132,26 +157,7 @@ export function ClientTable({
 
       {/* Clients Table */}
       <GlobalTable<UserRow>
-        headers={[
-          { key: "name", label: users_table.headers.name },
-          { key: "email", label: users_table.headers.email },
-          { key: "phone", label: users_table.headers.phone },
-          { key: "country", label: users_table.headers.country },
-          { key: "city", label: users_table.headers.city },
-          {
-            key: "id",
-            label: users_table.headers.actions,
-            renderCell: (_, row) => (
-              <ActionButtons
-                Id={row.id}
-                onEdit={handleEdit}
-                onDelete={openDeleteModal}
-                editText={users_table.actions.edit}
-                deleteText={users_table.actions.delete}
-              />
-            ),
-          },
-        ]}
+        headers={tableHeaders}
         rows={userRows}
         totalRows={totalClients}
         isLoading={isLoading}
