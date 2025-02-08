@@ -29,7 +29,6 @@ export const usePusher = (
     // Cleanup: unbind only our event handler (do not disconnect the global connection)
     return () => {
       channel.unbind("model.updated", eventHandler);
-      pusher.unsubscribe("global-updates");
     };
   }, [modelType, callback]);
 };

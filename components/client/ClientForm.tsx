@@ -1,11 +1,19 @@
 "use client";
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+
+// React & Hooks
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
+
+// Components
 import GlobalModal from "@/components/shared/GlobalModal";
 import InputField from "@/components/ui/InputField";
-import { DictionaryType } from "@/lib/i18n";
-import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
-import { ClientValidation } from "@/validation";
+
+// Store & Utils
 import useModalStore from "@/store/modalStore";
+import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
+
+// Validation & Types
+import { ClientValidation } from "@/validation";
+import { DictionaryType } from "@/lib/i18n";
 import { IClientForm } from "@/dto/client/clientForm";
 
 interface ClientFormProps {
@@ -17,22 +25,27 @@ interface ClientFormProps {
   isOpen: boolean;
 }
 
-const ClientForm = ({
+const ClientForm: React.FC<ClientFormProps> = ({
   initialFormData,
   translation,
   errors,
   setErrors,
   onSubmit,
   isOpen,
-}: ClientFormProps) => {
+}) => {
+  // Modal Store
   const { modalType, closeModal } = useModalStore();
 
+  // State
   const [formData, setFormData] = useState<IClientForm>(initialFormData);
 
+  // Validation
   const { validateClientForm } = ClientValidation;
 
+  // Handle Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const newErrors = validateClientForm(formData, translation);
     setErrors(newErrors);
 
@@ -45,100 +58,105 @@ const ClientForm = ({
       }
     }
   };
+
+  // Reset form data when initial values change
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
 
   return (
-    <div>
-      <GlobalModal
-        open={isOpen}
-        onClose={() => {
-          closeModal();
-          setFormData(initialFormData);
-          setErrors({});
-        }}
-        title={
-          modalType === "create"
-            ? translation.sidebar.users_table.create_new_client
-            : translation.sidebar.users_table.update_client
-        }
-        submitButtonText={
-          modalType === "create"
-            ? translation.client.common.create
-            : translation.client.common.update
-        }
-        cancelButtonText={translation.client.common.cancel}
-        onSubmit={handleSubmit}
-      >
-        <div className="space-y-4">
-          <div className="flex gap-4">
-            <InputField
-              id="first_name"
-              label={translation.client.form.first_name}
-              value={formData.first_name}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.first_name}
-              required
-            />
-            <InputField
-              id="last_name"
-              label={translation.client.form.last_name}
-              value={formData.last_name}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.last_name}
-              required
-            />
-          </div>
-
+    <GlobalModal
+      open={isOpen}
+      onClose={() => {
+        closeModal();
+        setFormData(initialFormData);
+        setErrors({});
+      }}
+      title={
+        modalType === "create"
+          ? translation.sidebar.users_table.create_new_client
+          : translation.sidebar.users_table.update_client
+      }
+      submitButtonText={
+        modalType === "create"
+          ? translation.client.common.create
+          : translation.client.common.update
+      }
+      cancelButtonText={translation.client.common.cancel}
+      onSubmit={handleSubmit}
+    >
+      <div className="space-y-4">
+        {/* First & Last Name */}
+        <div className="flex gap-4">
           <InputField
-            id="email"
-            label={translation.client.form.email}
-            value={formData.email}
+            id="first_name"
+            label={translation.client.form.first_name}
+            value={formData.first_name}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.email}
+            error={errors.first_name}
             required
           />
-
           <InputField
-            id="phone"
-            label={translation.client.form.phone}
-            value={formData.phone}
+            id="last_name"
+            label={translation.client.form.last_name}
+            value={formData.last_name}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.phone}
+            error={errors.last_name}
             required
           />
-
-          <InputField
-            id="address"
-            label={translation.client.form.address}
-            value={formData.address}
-            onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.address}
-            required
-          />
-
-          <div className="flex gap-4">
-            <InputField
-              id="country"
-              label={translation.client.form.country}
-              value={formData.country}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.country}
-              required
-            />
-            <InputField
-              id="city"
-              label={translation.client.form.city}
-              value={formData.city}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.city}
-              required
-            />
-          </div>
         </div>
-      </GlobalModal>
-    </div>
+
+        {/* Email */}
+        <InputField
+          id="email"
+          label={translation.client.form.email}
+          value={formData.email}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          error={errors.email}
+          required
+        />
+
+        {/* Phone */}
+        <InputField
+          id="phone"
+          label={translation.client.form.phone}
+          value={formData.phone}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          error={errors.phone}
+          required
+        />
+
+        {/* Address */}
+        <InputField
+          id="address"
+          label={translation.client.form.address}
+          value={formData.address}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          error={errors.address}
+          required
+        />
+
+        {/* Country & City */}
+        <div className="flex gap-4">
+          <InputField
+            id="country"
+            label={translation.client.form.country}
+            value={formData.country}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.country}
+            required
+          />
+          <InputField
+            id="city"
+            label={translation.client.form.city}
+            value={formData.city}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.city}
+            required
+          />
+        </div>
+      </div>
+    </GlobalModal>
   );
 };
 

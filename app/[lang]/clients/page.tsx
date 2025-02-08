@@ -1,33 +1,52 @@
+// Imports
 import { Locale } from "@/i18n-config";
 import { getDictionary } from "@/lib/i18n";
-import DashboardLayout from "@/components/layout/dashboard-layout";
-import { UsersTableClient } from "@/components/client/UsersTableClient";
-import Header from "@/components/client/Header";
-import { IClient } from "@/interfaces/IClient";
-import http from "@/lib/http";
 import httpServer from "@/lib/httpServer";
 
+// Components
+import DashboardLayout from "@/components/layout/dashboard-layout";
+import { ClientTable } from "@/components/client/ClientTablet";
+
+// Types
+import { IClient } from "@/interfaces/IClient";
+
+// Props Interface
 interface Props {
   params: {
     lang: Locale;
   };
 }
 
+// Fetch Clients Function
+const fetchClients = async (lang: Locale) => {
+  return await httpServer(
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
+    {
+      method: "GET",
+      lang: lang,
+    }
+  );
+};
+
+// UsersPage Component
 export default async function UsersPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
-  let users: IClient[] = [];
-  const res = await fetchClients(params.lang);
+  let records: IClient[] = [];
+  let totalRecords: number = 0;
 
+  const res = await fetchClients(params.lang);
   if (res.ok) {
-    users = await res.json();
+    const response = await res.json();
+    records = response.data;
+    totalRecords = response.total as number;
   }
 
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
       <div className="p-6">
-        <Header translation={translation} lang={params.lang} />
-        <UsersTableClient
-          users={users}
+        <ClientTable
+          records={records}
+          totalRecords={totalRecords}
           translation={translation}
           lang={params.lang}
         />
@@ -35,15 +54,3 @@ export default async function UsersPage({ params }: Props) {
     </DashboardLayout>
   );
 }
-
-const fetchClients = async (lang: Locale) => {
-  const response = await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
-    {
-      method: "GET",
-      lang: lang,
-    }
-  );
-
-  return response;
-};

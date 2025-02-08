@@ -1,0 +1,83 @@
+import http from "@/lib/http";
+import { useCallback, useRef } from "react";
+
+interface HandleRefreshProps {
+  searchQuery?: string;
+  currentPage: number;
+  setIsLoading: (loading: boolean) => void;
+  entity: string;
+  setRecords: (records: any[]) => void;
+  setTotalRecords: (totalRecords: number) => void;
+}
+
+const useRefresh = ({
+  searchQuery,
+  currentPage,
+  setIsLoading,
+  entity,
+  setRecords,
+  setTotalRecords,
+}: HandleRefreshProps) => {
+  const prevSearchQueryRef = useRef<string>(searchQuery || "");
+  const prevCurrentPageRef = useRef<number>(currentPage);
+  const trimmedSearchQuery = (searchQuery || "").trim();
+
+  const shouldRefresh =
+    prevSearchQueryRef.current !== trimmedSearchQuery ||
+    prevCurrentPageRef.current !== currentPage;
+
+  return useCallback(
+    async (force?: boolean): Promise<void> => {
+      if (!shouldRefresh || force) {
+        return;
+      }
+      // If the search query has changed compared to the previous value,
+      // reset the CurrentPage to 1; otherwise, keep the current CurrentPage.
+      const currentPageToUse =
+        prevSearchQueryRef.current !== trimmedSearchQuery ? 1 : currentPage;
+
+      setIsLoading(true);
+
+      try {
+        const response = await http(
+          `${
+            process.env.NEXT_PUBLIC_API_BASE_PATH
+          }/api/${entity}?search=${encodeURIComponent(
+            searchQuery || ""
+          )}&page=${currentPageToUse}`,
+          {
+            method: "GET",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Search request failed");
+        }
+
+        const res = await response.json();
+        const data = res.data;
+        const totalRecords = res.total;
+        setRecords(data);
+        setTotalRecords(totalRecords);
+
+        prevSearchQueryRef.current = trimmedSearchQuery; // Update the reference after successful request.
+      } catch (error) {
+        console.error("Error during search:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [
+      shouldRefresh,
+      trimmedSearchQuery,
+      currentPage,
+      setIsLoading,
+      entity,
+      searchQuery,
+      setRecords,
+      setTotalRecords,
+    ]
+  );
+};
+
+export default useRefresh;

@@ -1,19 +1,25 @@
 "use client";
-import { DictionaryType } from "@/lib/i18n";
+
+// React & Hooks
+import { useState, useMemo } from "react";
+
+// Components
 import ClientForm from "./ClientForm";
-import { useMemo, useState } from "react";
-import http from "@/lib/http";
+
+// Store & Utils
 import useModalStore from "@/store/modalStore";
+import http from "@/lib/http";
+
+// Types & Interfaces
+import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
-import { IUpdateClient } from "@/dto/client/updateClient";
 import { IClientForm } from "@/dto/client/clientForm";
 import { IClient } from "@/interfaces/IClient";
-import { log } from "console";
 
 interface ClientFormProps {
   translation: DictionaryType;
   lang: Locale;
-  selectedRecord: IClient | undefined;
+  selectedRecord?: IClient;
 }
 
 const UpdateClientForm: React.FC<ClientFormProps> = ({
@@ -21,9 +27,13 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
   lang,
   selectedRecord,
 }) => {
+  // Modal store
   const { modalType } = useModalStore();
 
+  // State
   const [errors, setErrors] = useState<Partial<IClientForm>>({});
+
+  // Memoized initial form data
   const initialFormData = useMemo<IClientForm>(
     () =>
       selectedRecord || {
@@ -38,6 +48,7 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
     [selectedRecord]
   );
 
+  // Submit handler
   const handleSubmit = async (data: IClientForm): Promise<boolean> => {
     try {
       const response = await http(
@@ -50,7 +61,7 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
       );
 
       if (!response.ok) {
-        const error = await response.json();
+        await response.json();
         return false;
       }
 
@@ -68,7 +79,7 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "update"}
+      isOpen={modalType === "update"}
     />
   );
 };

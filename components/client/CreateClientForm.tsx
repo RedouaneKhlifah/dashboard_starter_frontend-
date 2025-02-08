@@ -1,10 +1,18 @@
 "use client";
-import { DictionaryType } from "@/lib/i18n";
+
+// React & Hooks
+import { useState, useMemo } from "react";
+
+// Components
 import ClientForm from "./ClientForm";
-import { useMemo, useState } from "react";
-import http from "@/lib/http";
-import { Locale } from "@/i18n-config";
+
+// Store & Utils
 import useModalStore from "@/store/modalStore";
+import http from "@/lib/http";
+
+// Types & Interfaces
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
 import { ICreateClient } from "@/dto/client/createClient";
 
 interface ClientFormProps {
@@ -13,9 +21,13 @@ interface ClientFormProps {
 }
 
 const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
-  const { modalType } = useModalStore();
+  // Modal store
+  const { modalType, setIsLoading } = useModalStore();
 
+  // State
   const [errors, setErrors] = useState<Partial<ICreateClient>>({});
+
+  // Memoized initial form data
   const initialFormData = useMemo<ICreateClient>(
     () => ({
       first_name: "",
@@ -29,10 +41,13 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
     []
   );
 
+  // Submit handler
   const handleSubmit = async (data: ICreateClient): Promise<boolean> => {
     try {
+      setIsLoading(true);
+
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/clients",
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
         {
           method: "POST",
           lang,
@@ -48,6 +63,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
         }
         return false;
       }
+
       return true;
     } catch (error) {
       console.error("Error during client creation:", error);
@@ -62,7 +78,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "create"}
+      isOpen={modalType === "create"}
     />
   );
 };

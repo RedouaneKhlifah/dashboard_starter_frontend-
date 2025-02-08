@@ -5,10 +5,17 @@ import {
   Typography,
   Button,
   IconButton,
-  CardFooter
+  CardFooter,
 } from "@material-tailwind/react";
-import { ReactNode, useState } from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
 export interface TableHeader<T> {
   key: keyof T;
@@ -19,28 +26,32 @@ export interface TableHeader<T> {
 interface TableProps<T> {
   headers: Array<TableHeader<T>>;
   rows: T[];
+  totalRows: number;
   className?: string;
   pageSize?: number;
-  loading?: boolean;
+  isLoading?: boolean;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  currentPage: number;
 }
 
 export const GlobalTable = <T extends { id: string | number }>({
   headers,
   rows,
+  totalRows,
   className,
   pageSize = 10,
-  loading = false,
+  isLoading = false,
+  setCurrentPage,
+  currentPage,
 }: TableProps<T>) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalItems = rows.length;
-  const totalPages = Math.ceil(totalItems / pageSize);
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedRows = rows.slice(startIndex, endIndex);
+  const totalPages = useMemo(
+    () => Math.ceil(totalRows / pageSize),
+    [totalRows, pageSize]
+  );
 
   const generatePageNumbers = () => {
     const pages: (number | string)[] = [];
-    const ELLIPSIS = '...';
+    const ELLIPSIS = "...";
     const MAX_VISIBLE_PAGES = 5;
 
     if (totalPages <= MAX_VISIBLE_PAGES) {
@@ -92,43 +103,41 @@ export const GlobalTable = <T extends { id: string | number }>({
             </tr>
           </thead>
           <tbody>
-            {loading ? (
-              Array.from({ length:  5 }).map((_, index) => {
-                const isLastSkeletonRow = index === pageSize - 1
-                return (
-                  <tr key={index}>
-                    {headers.map((header) => (
-                      <td
-                        key={header.key.toString()}
-                        className={
-                          isLastSkeletonRow
-                            ? "p-4 text-start"
-                            : "p-4 border-b border-blue-gray-50 text-start"
-                        }
-                      >
-                        <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                      </td>
-                    ))}
-                  </tr>
-                )
-              })
-            ) : (
-              paginatedRows.map((row, index) => {
-                const isLast = index === paginatedRows.length - 1
-                return (
-                  <TableRow<T>
-                    key={row.id}
-                    row={row}
-                    headers={headers}
-                    isLast={isLast}
-                  />
-                )
-              })
-            )}
+            {isLoading
+              ? Array.from({ length: pageSize }).map((_, index) => {
+                  const isLastSkeletonRow = index === pageSize - 1;
+                  return (
+                    <tr key={index}>
+                      {headers.map((header) => (
+                        <td
+                          key={header.key.toString()}
+                          className={
+                            isLastSkeletonRow
+                              ? "p-5 text-start"
+                              : "p-5 border-b border-blue-gray-50 text-start"
+                          }
+                        >
+                          <div className="h-5 bg-gray-200 rounded animate-pulse" />
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
+              : rows.map((row, index) => {
+                  const isLast = index === rows.length - 1;
+                  return (
+                    <TableRow<T>
+                      key={row.id}
+                      row={row}
+                      headers={headers}
+                      isLast={isLast}
+                    />
+                  );
+                })}
           </tbody>
         </table>
 
-        {totalItems > pageSize && (
+        {totalRows > pageSize && (
           <CardFooter
             className="flex items-center justify-between border-t border-blue-gray-50 p-4"
             placeholder={undefined}
@@ -201,7 +210,6 @@ export const GlobalTable = <T extends { id: string | number }>({
     </MTThemeProvider>
   );
 };
-
 
 interface TableRowProps<T> {
   row: T;

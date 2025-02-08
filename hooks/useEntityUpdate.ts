@@ -1,3 +1,4 @@
+import useModalStore from "@/store/modalStore";
 import { useCallback } from "react";
 
 export const useEntityUpdate = <T extends { id: number }>(
@@ -7,7 +8,7 @@ export const useEntityUpdate = <T extends { id: number }>(
     (action: "created" | "updated" | "deleted", entity: T) => {
       switch (action) {
         case "created":
-          setEntities((prev) => [...prev, entity]);
+          setEntities((prev) => [entity, ...prev]);
           break;
         case "updated":
           setEntities((prev) =>
