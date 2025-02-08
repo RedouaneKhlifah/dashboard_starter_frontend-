@@ -8,6 +8,9 @@ import { ProductValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IProductForm } from "@/dto/product/productForm";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
+import { Group, Tag, BarChart, Package, Image as ImageIcon, Info } from "lucide-react";
+import Image from "next/image";
+import {ImageUpload} from "@/components/shared/ImageUpload";
 
 interface ProductFormProps {
   initialFormData: IProductForm;
@@ -70,95 +73,126 @@ const ProductForm = ({
         }
         cancelButtonText={translation.client.common.cancel}
         onSubmit={handleSubmit}
+      // contentClassName="max-w-3xl"
       >
-        <div className="space-y-4">
-          <div className="flex gap-4 flex-wrap">
-            {/* Required Fields */}
-            <InputField
-              id="name"
-              label={translation.Product.form.name}
-              value={formData.name}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.name}
-              required
-            />
-            <InputField
-              id="sku"
-              label={translation.Product.form.sku}
-              value={formData.sku || ""}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.sku}
-            />
-            <InputField
-              id="unit"
-              label={translation.Product.form.unit}
-              value={formData.unit}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.unit}
-              required
-            />
-            <InputField
-              id="sale_price"
-              label={translation.Product.form.sale_price}
-              type="number"
-              value={formData.sale_price.toString()}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.sale_price}
-              required
-            />
-            <InputField
-              id="stock"
-              label={translation.Product.form.stock}
-              type="number"
-              value={formData.stock.toString()}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.stock}
-              required
-            />
-            <InputField
-              id="reorder_point"
-              label={translation.Product.form.reorder_point}
-              type="number"
-              value={formData.reorder_point.toString()}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.reorder_point}
-              required
+        <div className="space-y-6">
+          <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <InputField
+                id="name"
+                label={translation.Product.form.name}
+                icon={<Tag className="w-5 h-5 text-gray-400" />}
+                value={formData.name}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.name}
+                required
+              // placeholder={translation.Product.placeholders.name}
+              />
+              <InputField
+                id="sku"
+                label={translation.Product.form.sku}
+                icon={<Info className="w-5 h-5 text-gray-400" />}
+                value={formData.sku || ""}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.sku}
+              // placeholder={translation.Product.placeholders.sku}
+              />
+              <InputField
+                id="unit"
+                label={translation.Product.form.unit}
+                icon={<Group className="w-5 h-5 text-gray-400" />}
+                value={formData.unit}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.unit}
+                required
+              />
+              <InputField
+                id="description"
+                label={translation.Product.form.description}
+                value={formData.description || ""}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.description}
+                textarea
+                rows={4}
+              />
+            </div>
+          </div>
+
+
+          <div className="bg-green-50 p-4 rounded-lg dark:bg-green-900/20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <InputField
+                id="sale_price"
+                label={translation.Product.form.sale_price}
+                type="number"
+                value={formData.sale_price.toString()}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.sale_price}
+                required
+                prefix="DH"
+              />
+              <InputField
+                id="cost_price"
+                label={translation.Product.form.cost_price}
+                type="number"
+                value={formData.cost_price?.toString() || ""}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.cost_price}
+                // step="0.01"
+                prefix="DH"
+              />
+              <InputField
+                id="tax"
+                label={translation.Product.form.tax}
+                type="number"
+                icon={<BarChart className="w-5 h-5 text-gray-400" />}
+                value={formData.tax?.toString() || ""}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.tax}
+                suffix="%"
+              />
+              <InputField
+                id="stock"
+                label={translation.Product.form.stock}
+                type="number"
+                icon={<Package className="w-5 h-5 text-gray-400" />}
+                value={formData.stock.toString()}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.stock}
+                required
+              />
+              <InputField
+                id="reorder_point"
+                label={translation.Product.form.reorder_point}
+                type="number"
+                icon={<Package className="w-5 h-5 text-gray-400" />}
+                value={formData.reorder_point.toString()}
+                onChange={(e) => handleChange(e, setFormData, setErrors)}
+                error={errors.reorder_point}
+                required
+              />
+            </div>
+          </div>
+
+
+          <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
+            <ImageUpload
+              onFileChange={(files: any) => console.log(files)}
+              maxFiles={1}
+              maxSize={10 * 1024 * 1024}
+              acceptedTypes={['image/jpeg', 'image/png']}
+              allowMultiple
+              label={translation.sidebar.file_upload.label}
+              className="p-6"
             />
 
-            {/* Optional Fields */}
-            <InputField
-              id="cost_price"
-              label={translation.Product.form.cost_price}
-              type="number"
-              value={formData.cost_price?.toString() || ""}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.cost_price}
-            />
-            <InputField
-              id="description"
-              label={translation.Product.form.description}
-              value={formData.description || ""}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.description}
-              // textarea
-            />
-            <InputField
-              id="tax"
-              label={translation.Product.form.tax}
-              type="number"
-              value={formData.tax?.toString() || ""}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.tax}
-            />
-            <InputField
-              id="image"
-              label={translation.Product.form.image}
-              value={formData.image || ""}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.image}
-              type="url"
-            />
           </div>
+
+          {/* Required Fields Note */}
+          {/* <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+            <span className="text-red-500">*</span>
+            {translation.Product.form.required_fields_note}
+          </p> */}
         </div>
       </GlobalModal>
     </div>

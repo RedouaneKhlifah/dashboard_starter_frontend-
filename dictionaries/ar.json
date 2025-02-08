@@ -167,7 +167,10 @@
     "actions": {
       "edit": "تعديل",
       "delete": "حذف"
-    }
+    },
+    "labels": {
+      "image_alt":"صورة المنتج" 
+   }
   },
   "sidebar": {
     "dashboard": {
@@ -232,6 +235,7 @@
       "update_product": "تحديث المنتج",
       "search_placeholder": "البحث...",
       "headers": {
+        "image": "الصورة",
         "name": "الاسم",
         "sku": "السعر",
         "unit": "الوحدة",
@@ -239,12 +243,17 @@
         "cost_price": "سعر التكلفة",
         "tax": "الضريبة",
         "stock": "المخزون",
+        "description": "الوصف",
+        "reorder_point": "نقطة إعادة الطلب",
         "actions": "الإجراءات"
       },
       "actions": {
         "edit": "تعديل",
         "delete": "حذف"
       }
-    }
+    },
+    "file_upload": {
+    "label": "اسحب وأفلت الملفات أو انقر للرفع"
+  }
   }
 }

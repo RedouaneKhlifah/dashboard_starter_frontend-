@@ -75,7 +75,7 @@ export function UsersTableProduct({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
- 
+
   const handleEdit = useCallback(
     (partenaireId: number) => {
       const record = products.find((p) => p.id === partenaireId);
@@ -101,9 +101,9 @@ export function UsersTableProduct({
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-      
+
       if (!response.ok) return;
-      
+
       closeModal();
       refreshProducts(true);
     } catch (error) {
@@ -123,6 +123,15 @@ export function UsersTableProduct({
 
       <GlobalTable<ProductRow>
         headers={[
+          {
+            key: "image", 
+            label: products_table.headers.image,
+            isImage: true,
+            imageOptions: {
+              className: 'h-10 w-10 rounded-full',
+              style: { objectFit: 'cover' },
+            },
+          },
           { key: "name", label: products_table.headers.name },
           { key: "sku", label: products_table.headers.sku },
           { key: "unit", label: products_table.headers.unit },
@@ -130,6 +139,9 @@ export function UsersTableProduct({
           { key: "cost_price", label: products_table.headers.cost_price },
           { key: "tax", label: products_table.headers.tax },
           { key: "stock", label: products_table.headers.stock },
+          { key: "description", label: products_table.headers.description },
+          { key: "reorder_point", label: products_table.headers.reorder_point },
+
           {
             key: "id",
             label: products_table.headers.actions,
