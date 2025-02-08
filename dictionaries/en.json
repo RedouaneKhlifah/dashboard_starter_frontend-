@@ -172,6 +172,9 @@
       "modal_title": "Confirm Deletion",
       "title": "Are you sure you want to delete",
       "warning": "This action cannot be undone."
+    },
+    "labels": {
+      "image_alt": "Image product"
     }
   },
   "sidebar": {
@@ -237,11 +240,14 @@
       "update_product": "Update Product",
       "search_placeholder": "Search...",
       "headers": {
+        "image": "Image",
         "name": "Name",
         "sku": "SKU",
         "unit": "Unit",
         "sale_price": "Sale Price",
         "cost_price": "Cost Price",
+        "description": "Description",
+        "reorder_point": "Reorder Point",
         "tax": "Tax",
         "stock": "Stock",
         "actions": "Actions"
@@ -255,6 +261,9 @@
         "title": "Are you sure you want to delete",
         "warning": "This action cannot be undone."
       }
+    },
+    "file_upload": {
+      "label": "Drag & drop files or click to upload"
     }
   }
 }

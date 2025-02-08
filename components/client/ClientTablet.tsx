@@ -110,7 +110,7 @@ export function ClientTable({
   });
 
   // Debounced Search
-  const debouncedSearch = useDebounce(refreshClients, 300);
+  const debouncedSearch = useDebounce(refreshClients, 300); //Smart khalifa
 
   useEffect(() => {
     if (!didMountRef.current) {

@@ -163,6 +163,9 @@
       "image": "Image",
       "stock": "Stock",
       "reorder_point": "Point de commande"
+    },
+    "labels": {
+      "image_alt": "Image du produit"
     }
   },
   "sidebar": {
@@ -228,19 +231,25 @@
       "update_product": "Mettre à jour le produit",
       "search_placeholder": "Rechercher...",
       "headers": {
+        "image": "Image",
         "name": "Nom",
         "sku": "Prix",
         "unit": "Unité",
         "sale_price": "Prix de vente",
         "cost_price": "Prix d'achat",
+        "description": "Description",
         "tax": "Taxe",
         "stock": "Stock",
+        "reorder_point": "Point de commande",
         "actions": "Actions"
       },
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
       }
+    },
+    "file_upload": {
+      "label": "Glisser-déposer des fichiers ou cliquer pour téléverser"
     }
   }
 }

@@ -7,6 +7,7 @@ import useModalStore from "@/store/modalStore";
 import { Locale } from "@/i18n-config";
 import { IProductForm } from "@/dto/product/productForm";
 import { IProduct } from "@/interfaces/IProduct";
+import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
 import { log } from "console";
 
 interface PartenaireFormProps {
@@ -22,7 +23,7 @@ const UpdateProductForm: React.FC<PartenaireFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
 
-  const [errors, setErrors] = useState<Partial<IProductForm>>({});
+  const [errors, setErrors] = useState<ProductFormErrors>({});
   const initialFormData = useMemo<IProductForm>(
     () =>
       selectedRecord || {

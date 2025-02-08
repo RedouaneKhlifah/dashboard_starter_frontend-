@@ -39,7 +39,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
         items: [
           {
             name: translation.sidebar.dashboard.items.products,
-            href: "/products",
+            href: "/product",
             icon: <Box className="w-4 h-4" />,
           },
           {

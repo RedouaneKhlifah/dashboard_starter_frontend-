@@ -21,6 +21,8 @@ export interface TableHeader<T> {
   key: keyof T;
   label: string;
   renderCell?: (value: T[keyof T], row: T) => ReactNode;
+  isImage?: boolean;
+  imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
 }
 
 interface TableProps<T> {
@@ -252,22 +254,30 @@ const TableCell = <T extends { id: string | number }>({
 }: TableCellProps<T>) => {
   const value = row[header.key];
 
+  if (header.renderCell) {
+    return header.renderCell(value, row);
+  }
+
+  if (header.isImage) {
+    return (
+      <img
+        src={String(value)}
+        alt={header.label}
+        {...header.imageOptions} 
+      />
+    );
+  }
+
   return (
-    <>
-      {header.renderCell ? (
-        header.renderCell(value, row)
-      ) : (
-        <Typography
-          variant="small"
-          color="blue-gray"
-          className="font-normal"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {String(value)}
-        </Typography>
-      )}
-    </>
+    <Typography
+      variant="small"
+      color="blue-gray"
+      className="font-normal"
+      placeholder={undefined}
+      onPointerEnterCapture={undefined}
+      onPointerLeaveCapture={undefined}
+    >
+      {String(value)}
+    </Typography>
   );
 };
