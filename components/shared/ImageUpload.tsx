@@ -1,8 +1,15 @@
 "use client";
 import { useCallback, useState } from "react";
-import { UploadCloud, X, Image as ImageIcon, File, Loader2 } from "lucide-react";
+import {
+  UploadCloud,
+  X,
+  Image as ImageIcon,
+  File,
+  Loader2,
+} from "lucide-react";
+import Image from "next/image";
 import { useDropzone } from "react-dropzone";
-import { cn } from "@/lib/utils"; 
+import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
   onFileChange: (files: File[]) => void;
@@ -17,7 +24,7 @@ interface ImageUploadProps {
 const ImageUpload = ({
   onFileChange,
   maxFiles = 1,
-  maxSize = 5 * 1024 * 1024, 
+  maxSize = 5 * 1024 * 1024,
   acceptedTypes = ["image/jpeg", "image/png", "image/webp"],
   allowMultiple = false,
   className,
@@ -31,7 +38,6 @@ const ImageUpload = ({
     (acceptedFiles: File[], fileRejections: any[]) => {
       setError(null);
       setIsLoading(true);
-
 
       if (fileRejections.length > 0) {
         const errors = fileRejections[0].errors;
@@ -49,7 +55,6 @@ const ImageUpload = ({
         return;
       }
 
-      
       const newFiles = allowMultiple
         ? [...files, ...acceptedFiles].slice(0, maxFiles)
         : acceptedFiles.slice(0, maxFiles);
@@ -63,7 +68,10 @@ const ImageUpload = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: acceptedTypes.join(','),
+    accept: acceptedTypes.reduce((acc, type) => {
+      acc[type] = [];
+      return acc;
+    }, {} as { [key: string]: string[] }),
     maxSize,
     multiple: allowMultiple,
   });
@@ -81,12 +89,14 @@ const ImageUpload = ({
         className={cn(
           "group relative border-2 border-dashed rounded-xl p-8 transition-all",
           "hover:border-primary cursor-pointer bg-background",
-          isDragActive ? "border-primary bg-primary/10" : "border-muted-foreground/30",
+          isDragActive
+            ? "border-primary bg-primary/10"
+            : "border-muted-foreground/30",
           error ? "border-destructive" : ""
         )}
       >
         <input {...getInputProps()} />
-        
+
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <div className="relative">
             <UploadCloud
@@ -112,7 +122,8 @@ const ImageUpload = ({
               {error || label}
             </p>
             <p className="text-sm text-muted-foreground">
-              {acceptedTypes.join(", ").replace(/image\//g, "")} • Max {maxSize / 1024 / 1024}MB
+              {acceptedTypes.join(", ").replace(/image\//g, "")} • Max{" "}
+              {maxSize / 1024 / 1024}MB
             </p>
           </div>
         </div>
@@ -134,9 +145,11 @@ const ImageUpload = ({
               </button>
 
               {file.type.startsWith("image/") ? (
-                <img
+                <Image
                   src={URL.createObjectURL(file)}
                   alt={file.name}
+                  width={128}
+                  height={128}
                   className="w-full h-32 object-cover"
                 />
               ) : (
