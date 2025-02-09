@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../../saas-config/globals.css";
-import Navbar from "@/components/shared/dashboard-navbar";
 import { Locale } from "@/i18n-config";
-import { ThemeProvider } from "@/components/shared/theme-provider";
-import Sidebar from "@/components/layout/Sidebar";
+import { Providers } from "@/components/shared/providers";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
 
-// TODO: fill in real metadata
 export const metadata: Metadata = {
   title: "Le Menu",
   description: "",
 };
 
-// root-layout.tsx
 export default function RootLayout({
   children,
   params,
@@ -26,17 +22,13 @@ export default function RootLayout({
   params: { lang: Locale };
 }>) {
   const dir = params.lang === "ar" ? "rtl" : "ltr";
+  
   return (
     <html lang={params.lang} dir={dir} className="dark">
       <body className={poppins.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

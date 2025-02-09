@@ -7,6 +7,7 @@ import { PartialAuthForm } from "@/interfaces/IAuth";
 import { useRouter } from "next/navigation";
 import http from "@/lib/http";
 import Cookies from "js-cookie";
+import { useToast } from "@/components/ui/toast";
 
 interface SignInFormProps {
   translation: DictionaryType;
@@ -16,6 +17,7 @@ interface SignInFormProps {
 const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
   const [errors, setErrors] = useState<PartialAuthForm>({});
   const router = useRouter();
+  const { addToast } = useToast();
 
   const handleSubmit = async (data: IAuthForm) => {
     try {
@@ -30,6 +32,11 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
 
       if (!response.ok) {
         const error = await response.json();
+        addToast({
+          type: "error",
+          message: error.message || "An error occurred",
+          duration: 3000
+        });
         setErrors({
           general: error.message,
         });
