@@ -30,7 +30,9 @@ const AuthForm = ({
     fullName: "", // This will be used only for SignUp
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
       ...prev,
