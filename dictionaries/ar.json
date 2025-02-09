@@ -169,8 +169,35 @@
       "delete": "حذف"
     },
     "labels": {
-      "image_alt":"صورة المنتج" 
-   }
+      "image_alt": "صورة المنتج"
+    }
+  },
+  "Ticket": {
+    "matricule_required": "رقم التسجيل مطلوب",
+    "product_required": "المنتج مطلوب",
+    "number_prints_required": "عدد المطبوعات مطلوب",
+    "invalid_number_prints": "عدد المطبوعات غير صالح",
+    "poids_brut_required": "الوزن الإجمالي مطلوب",
+    "invalid_poids_brut": "الوزن الإجمالي غير صالح",
+    "poids_tare_required": "الوزن الفارغ مطلوب",
+    "invalid_poids_tare": "الوزن الفارغ غير صالح",
+    "status_required": "الحالة مطلوبة",
+    "client_required": "العميل مطلوب لحالة الخروج",
+    "matricule_create": "إنشاء رقم تسجيل جديد",
+    "form": {
+      "matricule": "رقم التسجيل",
+      "matricule_search": "البحث عن رقم التسجيل",
+      "product": "المنتج",
+      "product_search": "البحث عن المنتج",
+      "number_prints": "عدد المطبوعات",
+      "poids_brut": "الوزن الإجمالي",
+      "poids_tare": "الوزن الفارغ",
+      "status": "الحالة",
+      "status_entry": "دخول",
+      "status_exit": "خروج",
+      "client": "العميل",
+      "client_search": "البحث عن العميل"
+    }
   },
   "sidebar": {
     "dashboard": {
@@ -229,6 +256,25 @@
         "warning": "لا يمكن التراجع عن هذا الإجراء."
       }
     },
+    "ticket_table": {
+      "ticket_management": "إدارة التذاكر",
+      "create_new_matricule": "إنشاء رقم تسلسلي جديد",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "matricule": "الرقم التسلسلي",
+        "product": "المنتج",
+        "number_prints": "عدد الطباعات",
+        "poids_brut": "الوزن الإجمالي",
+        "poids_tare": "الوزن التار",
+        "status": "الحالة",
+        "client": "العميل",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
     "products_table": {
       "product_management": "إدارة المنتجات",
       "create_new_product": "إنشاء منتج جديد",
@@ -253,7 +299,7 @@
       }
     },
     "file_upload": {
-    "label": "اسحب وأفلت الملفات أو انقر للرفع"
-  }
+      "label": "اسحب وأفلت الملفات أو انقر للرفع"
+    }
   }
 }
