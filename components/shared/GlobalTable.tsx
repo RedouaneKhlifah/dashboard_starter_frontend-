@@ -7,6 +7,7 @@ import {
   IconButton,
   CardFooter,
 } from "@material-tailwind/react";
+import Image, { ImageProps } from "next/image";
 import {
   Dispatch,
   ReactNode,
@@ -22,7 +23,7 @@ export interface TableHeader<T> {
   label: string;
   renderCell?: (value: T[keyof T], row: T) => ReactNode;
   isImage?: boolean;
-  imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
+  imageOptions?: Omit<ImageProps, "src" | "alt">;
 }
 
 interface TableProps<T> {
@@ -259,13 +260,7 @@ const TableCell = <T extends { id: string | number }>({
   }
 
   if (header.isImage) {
-    return (
-      <img
-        src={String(value)}
-        alt={header.label}
-        {...header.imageOptions} 
-      />
-    );
+    <Image src={String(value)} alt={header.label} {...header.imageOptions} />;
   }
 
   return (

@@ -70,7 +70,6 @@ const handleTokenVerification = async (
     await verifyAuthToken(token);
     return NextResponse.next();
   } catch (error) {
-    console.error("Authentication failed:", error);
     return createAuthRedirect(request, locale, "/sign-in");
   }
 };
