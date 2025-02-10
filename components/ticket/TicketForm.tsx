@@ -60,6 +60,18 @@ const TicketForm = ({
     );
     return response.json();
   };
+  const fetchProducts = async (query: string) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products?search=${query}&page=1`
+    );
+    return response.json();
+  };
+  const fetchPartainres = async (query: string) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires?search=${query}&page=1`
+    );
+    return response.json();
+  };
 
 
   return (
@@ -115,12 +127,14 @@ const TicketForm = ({
             <div className="bg-green-50 p-4 rounded-lg dark:bg-green-900/20">
               <div className="grid grid-cols-1 gap-2">
                 <div>
+
                   <SearchAutocomplete
                     id="matricule"
                     label={translation.Ticket.form.matricule}
-                    onSearch={fetchClients}
+                    onSearch={fetchPartainres}
                     placeholder={translation.Ticket.form.matricule_search}
                     icon={<ScanSearch className="w-5 h-5 text-gray-400" />}
+                    error={errors.matricule}
                     required
                   />
                 </div>
@@ -128,23 +142,41 @@ const TicketForm = ({
                   <SearchAutocomplete
                     id="product"
                     label={translation.Ticket.form.product}
-                    onSearch={fetchClients}
+                    onSearch={fetchProducts}
+                    value={formData.product_id}
+                    onChange={(productId: any) => handleChange({
+                      target: {
+                        id: 'product_id',
+                        value: productId
+                      }
+                    } as React.ChangeEvent<HTMLInputElement>, setFormData, setErrors)}
                     placeholder={translation.Ticket.form.product_search}
                     icon={<PackageSearch className="w-5 h-5 text-gray-400" />}
+                    error={errors.product_id}
                     required
+
                   />
                 </div>
                 {formData.status === 'ENTRY' && (
-                <div>
-                  <SearchAutocomplete
-                    id="client"
-                    label={translation.Ticket.form.client}
-                    onSearch={fetchClients}
-                    placeholder={translation.Ticket.form.client_search}
-                    icon={<UserSearch className="w-5 h-5 text-gray-400" />}
-                    required
-                  />
-                </div>
+                  <div>
+                    <SearchAutocomplete
+                      id="client"
+                      label={translation.Ticket.form.client}
+                      onSearch={fetchClients}
+                      value={formData.client_id}
+                      onChange={(clientId: any) => handleChange({
+                        target: {
+                          id: 'client_id',
+                          value: clientId
+                        }
+                      } as React.ChangeEvent<HTMLInputElement>, setFormData, setErrors)}
+                      placeholder={translation.Ticket.form.client_search}
+                      icon={<UserSearch className="w-5 h-5 text-gray-400" />}
+                      error={errors.client_id}
+                      required
+
+                    />
+                  </div>
                 )}
               </div>
             </div>
