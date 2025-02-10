@@ -189,19 +189,27 @@
     "invalid_poids_tare": "Invalid tare weight",
     "status_required": "Status is required",
     "client_required": "Client is required for exit status",
+    "status": {
+      "entry": "Entry",
+      "exit": "Exit"
+    },
     "form": {
       "matricule": "Registration Number",
-      "matricule_search": "Search registration number",
+      "matricule_search": "Registration number",
       "number_prints": "Number of prints",
       "poids_brut": "Gross weight",
       "poids_tare": "Tare weight",
       "status": "Status",
       "product": "Product",
-      "product_search": "Search product",
+      "product_search": "Product",
       "client": "Client",
-      "client_search": "Search client",
+      "client_search": "Client",
       "status_entry": "Entry",
       "status_exit": "Exit"
+    },
+    "tabs": {
+      "client_info": "Client & Product",
+      "ticket_details": "Ticket Details"
     }
   },
   "sidebar": {
@@ -215,6 +223,7 @@
       "items": {
         "products": "Single Products",
         "bundles": "Bundles",
+        "tickets": "Tickets",
         "pricing": "Price List",
         "members": "Members",
         "settings": "Settings",
@@ -264,6 +273,8 @@
     "ticket_table": {
       "ticket_management": "Ticket Management",
       "create_new_matricule": "Create New Matricule",
+      "create_new_ticket": "Create New Ticket",
+      "update_ticket": "Update Ticket",
       "search_placeholder": "Search...",
       "headers": {
         "matricule": "Matricule",
