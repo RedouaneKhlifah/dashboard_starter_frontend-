@@ -22,6 +22,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     <GlobalModal
+      contentClassName="lg:min-w-[40%] lg:max-w-[40%] 2xl:min-w-[30%] 2xl:max-w-[30%]"
       open={modalType === ModalTypeEnum.DELETE}
       onClose={closeModal}
       title={
