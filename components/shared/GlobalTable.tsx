@@ -260,7 +260,10 @@ const TableCell = <T extends { id: string | number }>({
   }
 
   if (header.isImage) {
-    <Image src={String(value)} alt={header.label} {...header.imageOptions} />;
+    if (!value) return null;
+    return (
+      <Image src={String(value)} alt={header.label} width={20} height={20} />
+    );
   }
 
   return (

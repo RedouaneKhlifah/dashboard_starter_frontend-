@@ -36,7 +36,6 @@ export default async function ProductPage({ params }: Props) {
     totalRecords = response.total as number;
   }
 
-
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
       <div className="p-6">
@@ -50,4 +49,3 @@ export default async function ProductPage({ params }: Props) {
     </DashboardLayout>
   );
 }
-

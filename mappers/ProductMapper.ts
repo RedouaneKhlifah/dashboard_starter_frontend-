@@ -26,7 +26,7 @@ const rowMapper = (product: IProduct[]): ProductRow[] => {
     tax: product.tax,
     image: product.image,
     stock: product.stock,
-    reorder_point: product.reorder_point
+    reorder_point: product.reorder_point,
   }));
 };
 
