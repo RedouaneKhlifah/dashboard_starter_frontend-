@@ -40,21 +40,22 @@ export function UsersTablePartenaire({
   // State
   const [partenaires, setPartenaires] = useState<IPartenaire[]>(records);
   const [totalPartenaires, setTotalPartenaires] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IPartenaire | undefined>(undefined);
+  const [selectedRecord, setSelectedRecord] = useState<IPartenaire | undefined>(
+    undefined
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-
   const didMountRef = useRef(false);
 
-
-  const partenairRows = useMemo(() => rowMapper(partenaires), [rowMapper, partenaires]);
-
+  const partenairRows = useMemo(
+    () => rowMapper(partenaires),
+    [rowMapper, partenaires]
+  );
 
   const handlePartenaireUpdate = useEntityUpdate<IPartenaire>(setPartenaires);
   usePusher("partenaire", handlePartenaireUpdate);
-
 
   const refreshPartenaires = useRefresh({
     searchQuery,
@@ -75,7 +76,6 @@ export function UsersTablePartenaire({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
- 
   const handleEdit = useCallback(
     (partenaireId: number) => {
       const record = partenaires.find((p) => p.id === partenaireId);
@@ -101,9 +101,9 @@ export function UsersTablePartenaire({
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-      
+
       if (!response.ok) return;
-      
+
       closeModal();
       refreshPartenaires(true);
     } catch (error) {
@@ -160,10 +160,7 @@ export function UsersTablePartenaire({
         translation={translation}
       />
 
-      <CreatePartenaireForm
-        lang={lang}
-        translation={translation}
-      />
+      <CreatePartenaireForm lang={lang} translation={translation} />
     </>
   );
 }

@@ -259,12 +259,9 @@ const TableCell = <T extends { id: string | number }>({
   }
 
   if (header.isImage) {
+    if (!value) return null;
     return (
-      <img
-        src={String(value)}
-        alt={header.label}
-        {...header.imageOptions} 
-      />
+      <Image src={String(value)} alt={header.label} width={20} height={20} />
     );
   }
 
