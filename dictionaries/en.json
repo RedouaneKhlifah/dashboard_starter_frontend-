@@ -177,6 +177,41 @@
       "image_alt": "Image product"
     }
   },
+  "Ticket": {
+    "matricule_create": "Create new registration number",
+    "matricule_required": "Registration number is required",
+    "product_required": "Product is required",
+    "number_prints_required": "Number of prints is required",
+    "invalid_number_prints": "Invalid number of prints",
+    "poids_brut_required": "Gross weight is required",
+    "invalid_poids_brut": "Invalid gross weight",
+    "poids_tare_required": "Tare weight is required",
+    "invalid_poids_tare": "Invalid tare weight",
+    "status_required": "Status is required",
+    "client_required": "Client is required for exit status",
+    "status": {
+      "entry": "Entry",
+      "exit": "Exit"
+    },
+    "form": {
+      "matricule": "Registration Number",
+      "matricule_search": "Registration number",
+      "number_prints": "Number of prints",
+      "poids_brut": "Gross weight",
+      "poids_tare": "Tare weight",
+      "status": "Status",
+      "product": "Product",
+      "product_search": "Product",
+      "client": "Client",
+      "client_search": "Client",
+      "status_entry": "Entry",
+      "status_exit": "Exit"
+    },
+    "tabs": {
+      "client_info": "Client & Product",
+      "ticket_details": "Ticket Details"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -188,6 +223,7 @@
       "items": {
         "products": "Single Products",
         "bundles": "Bundles",
+        "tickets": "Tickets",
         "pricing": "Price List",
         "members": "Members",
         "settings": "Settings",
@@ -232,6 +268,27 @@
         "modal_title": "Confirm Deletion",
         "title": "Are you sure you want to delete",
         "warning": "This action cannot be undone."
+      }
+    },
+    "ticket_table": {
+      "ticket_management": "Ticket Management",
+      "create_new_matricule": "Create New Matricule",
+      "create_new_ticket": "Create New Ticket",
+      "update_ticket": "Update Ticket",
+      "search_placeholder": "Search...",
+      "headers": {
+        "matricule": "Matricule",
+        "product": "Product",
+        "number_prints": "Number of Prints",
+        "poids_brut": "Gross Weight",
+        "poids_tare": "Tare Weight",
+        "status": "Status",
+        "client": "Client",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
       }
     },
     "products_table": {

@@ -17,14 +17,10 @@ interface Props {
   };
 }
 
-// Fetch Clients Function with Pagination
-const fetchClients = async (
-  lang: Locale,
-  page: number = 1,
-  pageSize: number = 10
-) => {
+// Fetch Clients Function
+const fetchClients = async (lang: Locale) => {
   return await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients?page=${page}&pageSize=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
     {
       method: "GET",
       lang: lang,
@@ -34,21 +30,16 @@ const fetchClients = async (
 
 // UsersPage Component
 export default async function UsersPage({ params }: Props) {
-  // Fetch translation and clients in parallel
-  const [translation, res] = await Promise.all([
-    getDictionary(params.lang),
-    fetchClients(params.lang, 1, 10), // Fetch first page with 10 records
-  ]);
+  const translation = await getDictionary(params.lang);
+  let records: IClient[] = [];
+  let totalRecords: number = 0;
 
-  // Handle API errors
-  if (!res.ok) {
-    return <div>Error loading clients. Please try again later.</div>;
+  const res = await fetchClients(params.lang);
+  if (res.ok) {
+    const response = await res.json();
+    records = response.data;
+    totalRecords = response.total as number;
   }
-
-  // Parse response
-  const response = await res.json();
-  const records: IClient[] = response.data;
-  const totalRecords: number = response.total;
 
   return (
     <DashboardLayout lang={params.lang} translation={translation}>

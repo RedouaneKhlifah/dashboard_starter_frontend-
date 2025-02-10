@@ -8,16 +8,9 @@ import { ProductValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IProductForm } from "@/dto/product/productForm";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
-import {
-  Group,
-  Tag,
-  BarChart,
-  Package,
-  Image as ImageIcon,
-  Info,
-} from "lucide-react";
+import { Group, Tag, BarChart, Package, Image as ImageIcon, Info } from "lucide-react";
 import Image from "next/image";
-import { ImageUpload } from "@/components/shared/ImageUpload";
+import {ImageUpload} from "@/components/shared/ImageUpload";
 
 interface ProductFormProps {
   initialFormData: IProductForm;
@@ -79,8 +72,8 @@ const ProductForm = ({
             : translation.client.common.update
         }
         cancelButtonText={translation.client.common.cancel}
-        contentClassName="2xl:min-w-[55%] 2xl:max-w-[55%]"
         onSubmit={handleSubmit}
+      // contentClassName="max-w-3xl"
       >
         <div className="space-y-6">
           <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20">
@@ -93,7 +86,7 @@ const ProductForm = ({
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.name}
                 required
-                // placeholder={translation.Product.placeholders.name}
+              // placeholder={translation.Product.placeholders.name}
               />
               <InputField
                 id="sku"
@@ -102,7 +95,7 @@ const ProductForm = ({
                 value={formData.sku || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.sku}
-                // placeholder={translation.Product.placeholders.sku}
+              // placeholder={translation.Product.placeholders.sku}
               />
               <InputField
                 id="unit"
@@ -124,6 +117,7 @@ const ProductForm = ({
               />
             </div>
           </div>
+
 
           <div className="bg-green-50 p-4 rounded-lg dark:bg-green-900/20">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -180,16 +174,18 @@ const ProductForm = ({
             </div>
           </div>
 
+
           <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
             <ImageUpload
               onFileChange={(files: any) => console.log(files)}
               maxFiles={1}
               maxSize={10 * 1024 * 1024}
-              acceptedTypes={["image/jpeg", "image/png"]}
+              acceptedTypes={['image/jpeg', 'image/png']}
               allowMultiple
               label={translation.sidebar.file_upload.label}
               className="p-6"
             />
+
           </div>
 
           {/* Required Fields Note */}

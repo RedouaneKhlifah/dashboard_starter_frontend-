@@ -1,5 +1,5 @@
 const handleChange = <T extends Record<string, any>>(
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  e: React.ChangeEvent<HTMLInputElement>,
   setFormData: React.Dispatch<React.SetStateAction<T>>,
   setErrors?: React.Dispatch<
     React.SetStateAction<Partial<Record<keyof T, string>>>
