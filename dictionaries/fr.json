@@ -203,6 +203,49 @@
       "ticket_details": "Ticket Détails"
     }
   },
+  "Order": {
+    "tabs": {
+      "client_info": "Info",
+      "articles": "Produits",
+      "summary": "Résumé",
+      "notes": "Notes supplémentaires"
+    },
+    "reference_create": "Créer nouvelle référence",
+    "reference_required": "La référence est obligatoire",
+    "devis_date_required": "La date du devis est obligatoire",
+    "expiration_date_required": "La date d'expiration est obligatoire",
+    "client_required": "Le client est obligatoire",
+    "product_required": "Le produit est obligatoire",
+    "note_required": "La note est obligatoire",
+    "form": {
+      "reference": "Référence",
+      "reference_search": "Rechercher une référence",
+      "devis_date": "Date du devis",
+      "expiration_date": "Date d'expiration",
+      "client": "Client",
+      "add_article": "Ajouter un Produit",
+      "subtotal": "Sous-total",
+      "total": "Total",
+      "vat": "VAT",
+      "client_search": "Rechercher un client",
+      "product": "Produit",
+      "product_search": "Rechercher un produit",
+      "note": "Note",
+      "articles": {
+        "name": "Nom de Produit",
+        "selling_price": "Prix de vente",
+        "cost_price": "Prix de revient",
+        "quantity": "Quantité",
+        "select": "Sélectionner",
+        "add": "Ajouter un produit",
+        "remove": "Supprimer produit",
+        "no_articles": "Aucun produit ajouté",
+        "total": "Total",
+        "unit_price": "Prix unitaire",
+        "actions": "Action"
+      }
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -216,6 +259,7 @@
         "bundles": "Pactes",
         "tickets": "Tickets",
         "pricing": "Liste de prix",
+        "orders": "Bons de Commandes",
         "members": "Membres",
         "settings": "P aramètres",
         "clients": "Clients",
@@ -275,6 +319,24 @@
         "poids_tare": "Poids tare",
         "status": "Statut",
         "client": "Client",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      }
+    },
+    "orders_table": {
+      "order_management": "Gestion des commandes",
+      "create_new_order": "Créer une nouvelle commande",
+      "update_order": "Mettre à jour la commande",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "reference": "Référence",
+        "devis_date": "Date du devis",
+        "expiration_date": "Date d'expiration",
+        "clien": "Client",
+        "total": "Total",
         "actions": "Actions"
       },
       "actions": {

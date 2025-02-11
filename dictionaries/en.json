@@ -212,6 +212,49 @@
       "ticket_details": "Ticket Details"
     }
   },
+  "Order": {
+    "tabs": {
+      "client_info": "Info",
+      "articles": "Products",
+      "summary": "Summary",
+      "notes": "Additional Notes"
+    },
+    "reference_create": "Create new reference",
+    "reference_required": "Reference is required",
+    "devis_date_required": "Quote date is required",
+    "expiration_date_required": "Expiration date is required",
+    "client_required": "Client is required",
+    "product_required": "Product is required",
+    "note_required": "Note is required",
+    "form": {
+      "reference": "Reference",
+      "reference_search": "Search reference",
+      "devis_date": "Quote date",
+      "expiration_date": "Expiration date",
+      "client": "Client",
+      "client_search": "Search client",
+      "add_article": "Add Product",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "vat": "VAT",
+      "product": "Product",
+      "product_search": "Search product",
+      "note": "Note",
+      "articles": {
+        "name": "Product Name",
+        "selling_price": "Selling Price",
+        "cost_price": "Cost Price",
+        "quantity": "Quantity",
+        "select": "Select",
+        "add": "Add Product",
+        "remove": "Remove Product",
+        "no_articles": "No products added yet",
+        "total": "Total",
+        "unit_price": "Unit Price",
+         "actions": "Action"
+      }
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -225,6 +268,7 @@
         "bundles": "Bundles",
         "tickets": "Tickets",
         "pricing": "Price List",
+        "orders": "Purchase order",
         "members": "Members",
         "settings": "Settings",
         "clients": "Clients",
@@ -284,6 +328,24 @@
         "poids_tare": "Tare Weight",
         "status": "Status",
         "client": "Client",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "orders_table": {
+      "order_management": "Order Management",
+      "create_new_order": "Create New Order",
+      "update_order": "Update Order",
+      "search_placeholder": "Search...",
+      "headers": {
+        "reference": "Reference",
+        "devis_date": "Quote Date",
+        "expiration_date": "Expiration Date",
+        "clien": "Client",
+        "total": "Total",
         "actions": "Actions"
       },
       "actions": {

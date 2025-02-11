@@ -67,6 +67,11 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             href: "/partenaire",
             icon: <Package className="w-4 h-4" />,
           },
+          {
+            name: translation.sidebar.dashboard.items.orders,
+            href: "/devis",
+            icon: <Package className="w-4 h-4" />,
+          },
         ],
       },
       {

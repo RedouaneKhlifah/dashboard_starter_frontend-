@@ -207,6 +207,49 @@
       "ticket_details": "تفاصيل التذكرة"
     }
   },
+  "Order": {
+    "tabs": {
+      "client_info": "معلومات اساسية",
+      "articles": "المنتجات",
+      "summary": "الملخص",
+      "notes": "ملاحظات إضافية"
+    },
+    "reference_create": "إنشاء مرجع جديد",
+    "reference_required": "المرجع مطلوب",
+    "devis_date_required": "تاريخ عرض السعر مطلوب",
+    "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
+    "client_required": "العميل مطلوب",
+    "product_required": "المنتج مطلوب",
+    "note_required": "الملاحظة مطلوبة",
+    "form": {
+      "reference": "المرجع",
+      "reference_search": "البحث عن مرجع",
+      "devis_date": "تاريخ عرض السعر",
+      "expiration_date": "تاريخ انتهاء الصلاحية",
+      "client": "العميل",
+      "add_article": "إضافة منتج",
+      "subtotal": "المجموع الفرعي",
+      "total": "المجموع",
+      "vat": "ضريبة",
+      "client_search": "البحث عن عميل",
+      "product": "المنتج",
+      "product_search": "البحث عن منتج",
+      "note": "ملاحظة",
+      "articles": {
+        "name": "اسم المنتج",
+        "selling_price": "سعر البيع",
+        "cost_price": "سعر التكلفة",
+        "quantity": "الكمية",
+        "select": "اختيار",
+        "add": "إضافة منتج",
+        "remove": "حذف المنتج",
+        "no_articles": "لم تتم إضافة منتجات بعد",
+        "total": "المجموع",
+        "unit_price": "سعر الوحدة",
+         "actions": "الإجراء"
+      }
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
@@ -220,6 +263,7 @@
         "bundles": "الباقات",
         "tickets": "التذاكر",
         "pricing": "قائمة الأسعار",
+        "orders": "طلبات الشراء",
         "members": "الأعضاء",
         "settings": "الإعدادات",
         "clients": "العملاء",
@@ -279,6 +323,24 @@
         "poids_tare": "الوزن الصافي",
         "status": "الحالة",
         "client": "العميل",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "orders_table": {
+      "order_management": "إدارة الطلبات",
+      "create_new_order": "إنشاء طلب جديد",
+      "update_order": "تحديث الطلب",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "reference": "المرجع",
+        "devis_date": "تاريخ عرض السعر",
+        "expiration_date": "تاريخ انتهاء الصلاحية",
+        "clien": "العميل",
+        "total": "المجموع",
         "actions": "الإجراءات"
       },
       "actions": {
