@@ -30,6 +30,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       onSubmit={handleSubmit}
       submitButtonText={translation.client.common.delete}
       cancelButtonText={translation.client.common.cancel}
+      contentClassName="2xl:min-w-[30%] 2xl:max-w-[30%] lg:min-w-[40%] lg:max-w-[40%] "
     >
       <div className="flex flex-col gap-4">
         <p className="text-foreground">

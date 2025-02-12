@@ -1,20 +1,29 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
-import { debounce } from 'lodash';
-import { Search, X, Loader2, AlertCircle } from 'lucide-react';
-import clsx from 'clsx';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  memo,
+  useMemo,
+} from "react";
+import { Search, X, Loader2, AlertCircle } from "lucide-react";
+import useDebounce from "@/hooks/useDebounce";
+import clsx from "clsx";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useDirection } from "@/hooks/useDirection";
 
-interface SearchResult {
-  id: string;
+export type AutoCompleteSearchResult = {
+  id: number;
   title: string;
-}
+};
 
-interface SearchAutocompleteProps {
+interface SearchComponentProps<T extends AutoCompleteSearchResult> {
   id: string;
   label?: string;
-  onSearch: (query: string) => Promise<SearchResult[]>;
+  onSearch: (query: string) => Promise<T[]>;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: number | null) => void;
   placeholder?: string;
   minChars?: number;
   debounceMs?: number;
@@ -25,123 +34,148 @@ interface SearchAutocompleteProps {
   prefix?: React.ReactNode;
 }
 
-const SearchAutocomplete = memo(({
+const KEYS = {
+  ARROW_DOWN: "ArrowDown",
+  ARROW_UP: "ArrowUp",
+  ENTER: "Enter",
+  ESCAPE: "Escape",
+} as const;
+
+const SearchComponent = <T extends AutoCompleteSearchResult>({
   id,
   label,
   onSearch,
-  value = '',
+  value = "",
   onChange,
-  placeholder = 'Search...',
+  placeholder = "Search...",
   minChars = 2,
   debounceMs = 300,
   required = false,
   error,
-  className = '',
+  className = "",
   icon,
-  prefix
-}: SearchAutocompleteProps) => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResult[]>([]);
+  prefix,
+}: SearchComponentProps<T>) => {
+  const [query, setQuery] = useState(value);
+  const [results, setResults] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showResults, setShowResults] = useState(false);
-  const [isRTL, setIsRTL] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const direction = useDirection();
 
-  useEffect(() => {
-    setIsRTL(document.documentElement.dir === "rtl");
-  }, []);
+  const isRTL = useMemo(() => direction === "rtl", [direction]);
 
-  const handleSearch = useCallback(
-    debounce(async (searchQuery: string) => {
-      if (searchQuery.length >= minChars) {
-        try {
-          setIsLoading(true);
-          const searchResults = await onSearch(searchQuery);
-          setResults(prev => 
-            JSON.stringify(prev) === JSON.stringify(searchResults) ? prev : searchResults
-          );
-          setShowResults(true);
-        } catch (error) {
-          setResults([]);
-        } finally {
-          setIsLoading(false);
-        }
-      } else {
-        setResults([]);
-        setShowResults(false);
-      }
-    }, debounceMs),
-    [onSearch, minChars, debounceMs]
-  );
-
-  useEffect(() => {
-    return () => {
-      handleSearch.cancel();
-    };
-  }, [handleSearch]);
+  const hasQuery = query.length >= minChars;
+  const showNoResults = showResults && !isLoading && results.length === 0;
+  const showLoading = isLoading && hasQuery;
 
   const clearSearch = useCallback(() => {
-    setQuery('');
-    onChange?.('');
+    setQuery("");
+    onChange?.(null);
     setResults([]);
     setShowResults(false);
     setSelectedIndex(-1);
     inputRef.current?.focus();
   }, [onChange]);
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === query) return;
-    
-    setQuery(value);
-    setSelectedIndex(-1);
-    handleSearch(value);
-  }, [query, handleSearch]);
+  const handleResultSelection = useCallback(
+    (result: T) => {
+      setQuery(result.title);
+      onChange?.(result.id);
+      setShowResults(false);
+      setSelectedIndex(-1);
+    },
+    [onChange]
+  );
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.max(prev - 1, -1));
-        break;
-      case 'Enter':
-        if (selectedIndex >= 0) {
-          handleResultClick(results[selectedIndex]);
-        }
-        break;
-      case 'Escape':
+  const performSearch = useCallback(
+    async (searchQuery: string) => {
+      if (!hasQuery) {
+        setResults([]);
         setShowResults(false);
-        break;
-    }
-  }, [results, selectedIndex]);
-
-  const handleResultClick = useCallback((result: SearchResult) => {
-    setQuery(result.title);
-    onChange?.(result.id);
-    setShowResults(false);
-    setSelectedIndex(-1);
-  }, [onChange]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        resultsRef.current &&
-        !resultsRef.current.contains(event.target as Node) &&
-        !inputRef.current?.contains(event.target as Node)
-      ) {
-        setShowResults(false);
+        return;
       }
-    };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+      try {
+        setIsLoading(true);
+        const searchResults = await onSearch(searchQuery);
+
+        setResults((prev) =>
+          JSON.stringify(prev) === JSON.stringify(searchResults)
+            ? prev
+            : searchResults
+        );
+        setShowResults(true);
+      } catch (error) {
+        setResults([]);
+        setShowResults(false);
+        console.error("Search failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [hasQuery, onSearch]
+  );
+
+  const debouncedSearch = useDebounce(performSearch, debounceMs);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      if (newValue === query) return;
+
+      setQuery(newValue);
+      setSelectedIndex(-1);
+      debouncedSearch(newValue);
+    },
+    [query, debouncedSearch]
+  );
+
+  const handleKeyNavigation = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      switch (e.key) {
+        case KEYS.ARROW_DOWN:
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.min(prev + 1, results.length - 1));
+          break;
+
+        case KEYS.ARROW_UP:
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.max(prev - 1, -1));
+          break;
+
+        case KEYS.ENTER:
+          if (selectedIndex >= 0) {
+            handleResultSelection(results[selectedIndex]);
+          }
+          break;
+
+        case KEYS.ESCAPE:
+          setShowResults(false);
+          break;
+      }
+    },
+    [handleResultSelection, results, selectedIndex]
+  );
+
+  useClickOutside([inputRef, resultsRef], () => setShowResults(false));
+
+  // Sync with external value changes
+  useEffect(() => {
+    if (value !== query) {
+      setQuery(value);
+    }
+  }, [value]);
+
+  const inputClasses = clsx(
+    "w-full h-11 bg-background border-2 rounded-md",
+    "focus:outline-none focus:ring-2 focus:ring-primary/30",
+    "transition-colors duration-200",
+    error ? "border-red-500" : "border-input hover:border-primary/50",
+    isRTL ? "pr-11 pl-11" : "pl-11 pr-11"
+  );
 
   return (
     <div className={clsx("w-full", className)}>
@@ -158,12 +192,16 @@ const SearchAutocomplete = memo(({
       <div className="relative">
         <div className="relative group">
           {(icon || prefix) && (
-            <div className={clsx(
-              "absolute top-0 bottom-0 flex items-center",
-              isRTL ? "right-3" : "left-3"
-            )}>
+            <div
+              className={clsx(
+                "absolute top-0 bottom-0 flex items-center",
+                isRTL ? "right-3" : "left-3"
+              )}
+            >
               {icon && <span className="text-muted-foreground">{icon}</span>}
-              {prefix && <span className="text-sm text-muted-foreground">{prefix}</span>}
+              {prefix && (
+                <span className="text-sm text-muted-foreground">{prefix}</span>
+              )}
             </div>
           )}
 
@@ -173,30 +211,24 @@ const SearchAutocomplete = memo(({
             type="text"
             value={query}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
+            onKeyDown={handleKeyNavigation}
             placeholder={placeholder}
-            className={clsx(
-              "w-full h-11 bg-background",
-              "border-2 rounded-md",
-              "focus:outline-none focus:ring-2 focus:ring-primary/30",
-              "transition-colors duration-200",
-              error ? "border-red-500" : "border-input hover:border-primary/50",
-              isRTL ? "pr-11 pl-11" : "pl-11 pr-11"
-            )}
-            aria-expanded={showResults}
+            className={inputClasses}
             aria-controls="search-results"
             aria-autocomplete="list"
-            aria-invalid={error ? "true" : "false"}
+            aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
           />
 
-          <div className={clsx(
-            "absolute top-0 bottom-0 flex items-center",
-            isRTL ? "left-3" : "right-3"
-          )}>
-            {isLoading ? (
+          <div
+            className={clsx(
+              "absolute top-0 bottom-0 flex items-center",
+              isRTL ? "left-3" : "right-3"
+            )}
+          >
+            {showLoading ? (
               <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
-            ) : query && (
+            ) : query ? (
               <button
                 onClick={clearSearch}
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -204,19 +236,19 @@ const SearchAutocomplete = memo(({
               >
                 <X className="w-5 h-5" />
               </button>
-            )}
+            ) : null}
           </div>
         </div>
 
         {error && (
-          <p
+          <div
             id={`${id}-error`}
             className="mt-1 text-xs text-red-500 flex items-center gap-1"
             role="alert"
           >
             <AlertCircle className="w-4 h-4" />
             {error}
-          </p>
+          </div>
         )}
 
         {showResults && (
@@ -239,7 +271,7 @@ const SearchAutocomplete = memo(({
                     )}
                     role="option"
                     aria-selected={index === selectedIndex}
-                    onClick={() => handleResultClick(result)}
+                    onClick={() => handleResultSelection(result)}
                   >
                     <div className="font-medium text-foreground">
                       {result.title}
@@ -247,19 +279,17 @@ const SearchAutocomplete = memo(({
                   </div>
                 ))}
               </div>
-            ) : (
+            ) : showNoResults ? (
               <div className="px-4 py-6 text-center text-muted-foreground flex flex-col items-center">
                 <Search className="w-6 h-6 mb-2" />
                 <p>No results found</p>
               </div>
-            )}
+            ) : null}
           </div>
         )}
       </div>
     </div>
   );
-});
+};
 
-
-export { SearchAutocomplete };
-export default SearchAutocomplete;
+export default memo(SearchComponent) as typeof SearchComponent;

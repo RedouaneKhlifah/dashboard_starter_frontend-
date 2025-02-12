@@ -12,11 +12,14 @@ export default async function http(
   // Create default headers
   const defaultHeaders: Record<string, string> = {
     "X-API-READ-KEY": process.env.X_API_READ_KEY || "",
-    "Content-Type": "application/json",
     accept: "application/json",
     "Accept-Language": options.lang || "en",
   };
 
+  // Only set JSON content type if body isn't FormData
+  if (!(options.body instanceof FormData)) {
+    defaultHeaders["Content-Type"] = "application/json";
+  }
   // Combine headers
   const combinedHeaders: HeadersInit = new Headers({
     ...defaultHeaders,

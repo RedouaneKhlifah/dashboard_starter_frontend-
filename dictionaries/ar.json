@@ -151,10 +151,11 @@
     "invalidStock": "كمية المخزون غير صالحة",
     "reorderPointRequired": "نقطة إعادة الطلب مطلوبة",
     "invalidReorderPoint": "نقطة إعادة الطلب غير صالحة",
+    "skuRequired": "الرمز التعريفي (SKU) مطلوب",
     "skuTooLong": "يجب ألا يتجاوز الرمز التعريفي (SKU) 50 حرفًا",
     "form": {
       "name": "الاسم",
-      "sku": "السعر",
+      "sku": "وحدة حفظ المخزون",
       "unit": "الوحدة",
       "sale_price": "سعر البيع",
       "cost_price": "سعر التكلفة",
@@ -205,6 +206,12 @@
     "tabs": {
       "client_info": "العميل والمنتج",
       "ticket_details": "تفاصيل التذكرة"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تعديل",
+      "delete": "حذف"
     }
   },
   "Order": {
@@ -375,6 +382,11 @@
     },
     "file_upload": {
       "label": "اسحب وأفلت الملفات أو انقر للرفع"
+    }
+  },
+  "shared": {
+    "error": {
+      "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
     }
   }
 }

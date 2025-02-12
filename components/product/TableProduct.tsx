@@ -74,6 +74,7 @@ export function UsersTableProduct({
   const handleEdit = useCallback(
     (partenaireId: number) => {
       const record = products.find((p) => p.id === partenaireId);
+      if (!record) return;
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },

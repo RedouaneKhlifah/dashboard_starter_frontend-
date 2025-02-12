@@ -16,6 +16,7 @@ import {
   useState,
 } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import Image from "next/image";
 
 export interface TableHeader<T> {
   key: keyof T;

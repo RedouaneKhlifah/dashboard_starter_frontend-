@@ -26,13 +26,11 @@ export const validateTiecketForm = (
     poidsTareSchema,
     statusSchema,
     clientSchema,
-    numberPrintsSchema
+    numberPrintsSchema,
   } = createTicketSchemas(translation);
 
   const newErrors: TicketFormErrors = {};
 
-  newErrors.matricule = validateField(matriculeSchema, formData.matricule);
-  newErrors.product_id = validateField(productSchema, formData.product_id);
   newErrors.number_prints = validateField(
     numberPrintsSchema,
     formData.number_prints
@@ -40,8 +38,28 @@ export const validateTiecketForm = (
   newErrors.poids_brut = validateField(poidsBrutSchema, formData.poids_brut);
   newErrors.poids_tare = validateField(poidsTareSchema, formData.poids_tare);
   newErrors.status = validateField(statusSchema, formData.status);
-  newErrors.client_id = validateField(clientSchema, formData.client_id);
 
+  return Object.fromEntries(
+    Object.entries(newErrors).filter(([_, value]) => value !== undefined)
+  ) as TicketFormErrors;
+};
+
+export const validateTiecketDetails = (
+  formData: ITicketForm,
+  translation: DictionaryType
+): TicketFormErrors => {
+  const { poidsBrutSchema, poidsTareSchema, statusSchema, numberPrintsSchema } =
+    createTicketSchemas(translation);
+
+  const newErrors: TicketFormErrors = {};
+
+  newErrors.number_prints = validateField(
+    numberPrintsSchema,
+    formData.number_prints
+  );
+  newErrors.poids_brut = validateField(poidsBrutSchema, formData.poids_brut);
+  newErrors.poids_tare = validateField(poidsTareSchema, formData.poids_tare);
+  newErrors.status = validateField(statusSchema, formData.status);
 
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)
@@ -49,7 +67,7 @@ export const validateTiecketForm = (
 };
 
 const TicketValidator = {
-  validateTiecketForm
+  validateTiecketDetails,
 };
 
 export default TicketValidator;

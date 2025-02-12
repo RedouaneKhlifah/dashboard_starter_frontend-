@@ -151,10 +151,11 @@
     "invalidStock": "Invalid stock quantity",
     "reorderPointRequired": "Reorder Point is required",
     "invalidReorderPoint": "Invalid reorder point",
+    "skuRequired": "SKU is required",
     "skuTooLong": "SKU must be less than 50 characters",
     "form": {
       "name": "Name",
-      "sku": "Price",
+      "sku": "Sku",
       "unit": "Unit",
       "sale_price": "Sale Price",
       "cost_price": "Cost Price",
@@ -210,6 +211,12 @@
     "tabs": {
       "client_info": "Client & Product",
       "ticket_details": "Ticket Details"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete"
     }
   },
   "Order": {
@@ -385,6 +392,12 @@
     },
     "file_upload": {
       "label": "Drag & drop files or click to upload"
+    }
+  },
+
+  "shared": {
+    "error": {
+      "number_greater_than_zero": "Number must be greater than 0"
     }
   }
 }
