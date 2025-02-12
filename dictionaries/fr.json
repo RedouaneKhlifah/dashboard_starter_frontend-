@@ -233,6 +233,8 @@
       "note": "Note",
       "articles": {
         "name": "Nom de Produit",
+        "image": "Image",
+        "unit": "Unité",
         "selling_price": "Prix de vente",
         "cost_price": "Prix de revient",
         "quantity": "Quantité",
@@ -329,7 +331,7 @@
     "orders_table": {
       "order_management": "Gestion des commandes",
       "create_new_order": "Créer une nouvelle commande",
-      "update_order": "Mettre à jour la commande",
+      "update_order": "Mettre à jour le devis",
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",

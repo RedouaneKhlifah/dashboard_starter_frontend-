@@ -5,8 +5,9 @@ interface IDevis {
   refrence: string; 
   devis_date: string;
   expiration_date: string;
-  clien: IClient[];
+  clien: string;
   total: number;
+  status: string;
   articles?: Array<{
     id: number;
     name: string;

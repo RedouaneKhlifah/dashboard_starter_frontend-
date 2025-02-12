@@ -15,6 +15,7 @@ import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
+import UpdateOrderForm from "./UpdateOrderForm";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -101,6 +102,16 @@ export function TableOrder({
     }
   };
 
+  const handleEmail = useCallback((orderId: number) => {
+    // Implement email functionality
+  }, []);
+
+  const handlePdf = useCallback((orderId: number) => {
+    // Implement PDF download functionality
+  }, []);
+
+
+
   const headers = useMemo(
     () => [
       {
@@ -131,13 +142,15 @@ export function TableOrder({
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
+            onEmail={(id) => handleEmail(id)}
+            onPdf={(id) => handlePdf(id)}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
           />
         ),
       },
     ],
-    [handleEdit, openDeleteModal, orders_table]
+    [handleEdit, openDeleteModal, handleEmail, handlePdf, orders_table]
   );
 
   return (
@@ -145,8 +158,8 @@ export function TableOrder({
       <Header
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
-        buttonText={orders_table.create_new_order}
-        showSearch={true}
+        showButton={false}
+        showSearch={true}  
         setSearchQuery={setSearchQuery}
       />
 
@@ -160,11 +173,11 @@ export function TableOrder({
         currentPage={currentPage}
       />
 
-      {/* <UpdateOrderForm
+      <UpdateOrderForm
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
-      /> */}
+      />
 
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}

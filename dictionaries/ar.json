@@ -237,6 +237,8 @@
       "note": "ملاحظة",
       "articles": {
         "name": "اسم المنتج",
+        "unit": "الوحدة",
+        "image": "الصورة",
         "selling_price": "سعر البيع",
         "cost_price": "سعر التكلفة",
         "quantity": "الكمية",

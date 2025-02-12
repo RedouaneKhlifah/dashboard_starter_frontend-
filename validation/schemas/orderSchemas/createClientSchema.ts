@@ -3,7 +3,8 @@ import { z } from "zod";
 
 export function createClientSchema(t: DictionaryType) {
   const { Order } = t;
-  return z.array(z.any(), {
+  return z.string({
     required_error: Order.client_required,
   }).min(1, Order.client_required);
 }
+  

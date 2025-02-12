@@ -1,6 +1,3 @@
-import { IClient } from "@/interfaces/IClient";
-import { IProduct } from "@/interfaces/IProduct";
-
 export interface IOrderForm {
   reference: string;
   devis_date: string;
@@ -9,9 +6,9 @@ export interface IOrderForm {
   // product: IProduct[];
   client: string;
   product: string;
-  subtotal: string;
-  vat: string;
-  total: string;
+  subtotal: number;
+  vat: number;
+  total: number;
   note: string;
   articles?: Array<{
     id: number;
@@ -24,4 +21,16 @@ export interface IOrderForm {
     action: string,
     total: number
   }>;
+
 }
+export interface IProduct {
+  id: number;
+  name: string;
+  costPrice: number;
+  total: number;
+  quantity: number;
+  unit: string;
+  image: string;
+  
+}
+

@@ -242,6 +242,8 @@
       "note": "Note",
       "articles": {
         "name": "Product Name",
+        "unit": "Unit",
+        "image": "Image",
         "selling_price": "Selling Price",
         "cost_price": "Cost Price",
         "quantity": "Quantity",
@@ -337,8 +339,8 @@
     },
     "orders_table": {
       "order_management": "Order Management",
-      "create_new_order": "Create New Order",
-      "update_order": "Update Order",
+      "create_new_order": "Create New Quote",
+      "update_order": "Update The Quote",
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
