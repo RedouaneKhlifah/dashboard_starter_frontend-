@@ -45,17 +45,20 @@ const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
       formData.append("name", data.name);
       formData.append("sku", data.sku);
       formData.append("unit", data.unit);
-      formData.append("sale_price", data.sale_price.toString());
-      formData.append("cost_price", data.cost_price.toString());
-      formData.append("description", data.description || "");
-      formData.append("tax", data.tax.toString());
-      formData.append("stock", data.stock.toString());
-      formData.append("reorder_point", data.reorder_point.toString());
+      formData.append("sale_price", data?.sale_price?.toString() || "0");
+      formData.append("cost_price", data.cost_price.toString() || "0");
+      formData.append("description", data?.description.toString() || "");
+      formData.append("tax", data.tax.toString() || "0");
+      formData.append("stock", data.stock.toString() || "0");
+      formData.append("reorder_point", data.reorder_point.toString() || "0");
 
       // Append image if exists
       if (data.image) {
         formData.append("image[]", data.image);
       }
+      console.log("creating from data", data);
+
+      console.log("creating from formData", formData);
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/products",
         {

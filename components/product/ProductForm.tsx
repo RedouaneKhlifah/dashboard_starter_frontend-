@@ -81,7 +81,7 @@ const ProductForm = ({
         }
         cancelButtonText={translation.client.common.cancel}
         onSubmit={handleSubmit}
-        // contentClassName="max-w-3xl"
+        contentClassName="2xl:min-w-[55%] 2xl:max-w-[55%]"
       >
         <div className="space-y-6">
           <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20">
@@ -90,7 +90,7 @@ const ProductForm = ({
                 id="name"
                 label={translation.Product.form.name}
                 icon={<Tag className="w-5 h-5 text-gray-400" />}
-                value={formData?.name || ""}
+                value={formData.name}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.name}
                 required
@@ -100,7 +100,7 @@ const ProductForm = ({
                 id="sku"
                 label={translation.Product.form.sku}
                 icon={<Info className="w-5 h-5 text-gray-400" />}
-                value={formData?.sku || ""}
+                value={formData.sku}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.sku}
                 // placeholder={translation.Product.placeholders.sku}
@@ -109,7 +109,7 @@ const ProductForm = ({
                 id="unit"
                 label={translation.Product.form.unit}
                 icon={<Group className="w-5 h-5 text-gray-400" />}
-                value={formData?.unit || ""}
+                value={formData.unit}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.unit}
                 required
@@ -117,9 +117,9 @@ const ProductForm = ({
               <InputField
                 id="description"
                 label={translation.Product.form.description}
-                value={formData?.description || ""}
+                value={formData.description}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
-                error={errors?.description || ""}
+                error={errors.description}
                 textarea
                 rows={4}
               />
@@ -132,7 +132,7 @@ const ProductForm = ({
                 id="sale_price"
                 label={translation.Product.form.sale_price}
                 type="number"
-                value={formData?.sale_price || ""}
+                value={formData.sale_price}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.sale_price}
                 required
@@ -143,7 +143,7 @@ const ProductForm = ({
                 id="cost_price"
                 label={translation.Product.form.cost_price}
                 type="number"
-                value={formData?.cost_price || ""}
+                value={formData.cost_price}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.cost_price}
                 prefix="DH"
@@ -154,7 +154,7 @@ const ProductForm = ({
                 label={translation.Product.form.tax}
                 type="number"
                 icon={<BarChart className="w-5 h-5 text-gray-400" />}
-                value={formData?.tax || ""}
+                value={formData.tax}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.tax}
                 suffix="%"
@@ -165,7 +165,7 @@ const ProductForm = ({
                 label={translation.Product.form.stock}
                 type="number"
                 icon={<Package className="w-5 h-5 text-gray-400" />}
-                value={formData?.stock || ""}
+                value={formData.stock}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.stock}
                 required
@@ -176,7 +176,7 @@ const ProductForm = ({
                 label={translation.Product.form.reorder_point}
                 type="number"
                 icon={<Package className="w-5 h-5 text-gray-400" />}
-                value={formData?.reorder_point || ""}
+                value={formData.reorder_point}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.reorder_point}
                 required
@@ -203,12 +203,6 @@ const ProductForm = ({
               }
             />
           </div>
-
-          {/* Required Fields Note */}
-          {/* <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-            <span className="text-red-500">*</span>
-            {translation.Product.form.required_fields_note}
-          </p> */}
         </div>
       </GlobalModal>
     </div>
