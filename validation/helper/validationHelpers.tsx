@@ -8,7 +8,7 @@ import { z } from "zod";
  */
 export const validateField = <T,>(
   schema: z.ZodSchema<T>,
-  value: string | number
+  value: string | number | boolean
 ): string | undefined => {
   let parsedValue: string | number = value;
 

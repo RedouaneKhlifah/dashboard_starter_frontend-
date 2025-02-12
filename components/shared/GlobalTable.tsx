@@ -7,7 +7,6 @@ import {
   IconButton,
   CardFooter,
 } from "@material-tailwind/react";
-import Image, { ImageProps } from "next/image";
 import {
   Dispatch,
   ReactNode,
@@ -17,13 +16,14 @@ import {
   useState,
 } from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import Image from "next/image";
 
 export interface TableHeader<T> {
   key: keyof T;
   label: string;
   renderCell?: (value: T[keyof T], row: T) => ReactNode;
   isImage?: boolean;
-  imageOptions?: Omit<ImageProps, "src" | "alt">;
+  imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
 }
 
 interface TableProps<T> {

@@ -80,8 +80,8 @@ const ProductForm = ({
             : translation.client.common.update
         }
         cancelButtonText={translation.client.common.cancel}
-        contentClassName="2xl:min-w-[55%] 2xl:max-w-[55%]"
         onSubmit={handleSubmit}
+        // contentClassName="max-w-3xl"
       >
         <div className="space-y-6">
           <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20">

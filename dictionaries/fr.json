@@ -169,6 +169,41 @@
       "image_alt": "Image du produit"
     }
   },
+  "Ticket": {
+    "matricule_create": "Créer nouveau matricule",
+    "matricule_required": "Le matricule est obligatoire",
+    "product_required": "Le produit est obligatoire",
+    "number_prints_required": "Le nombre d'impressions est obligatoire",
+    "invalid_number_prints": "Nombre d'impressions invalide",
+    "poids_brut_required": "Le poids brut est obligatoire",
+    "invalid_poids_brut": "Poids brut invalide",
+    "poids_tare_required": "Le poids tare est obligatoire",
+    "invalid_poids_tare": "Poids tare invalide",
+    "status_required": "Le statut est obligatoire",
+    "client_required": "Le client est obligatoire pour le statut sortie",
+    "status": {
+      "entry": "Entrée",
+      "exit": "Sortie"
+    },
+    "form": {
+      "matricule": "Matricule",
+      "matricule_search": "Matricule",
+      "product": "Produit",
+      "product_search": "Produit",
+      "number_prints": "Nombre d'impressions",
+      "poids_brut": "Poids brut",
+      "poids_tare": "Poids tare",
+      "status": "Statut",
+      "status_entry": "Entrée",
+      "status_exit": "Sortie",
+      "client": "Client",
+      "client_search": "Client"
+    },
+    "tabs": {
+      "client_info": "Client & Produit",
+      "ticket_details": "Ticket Détails"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -180,9 +215,10 @@
       "items": {
         "products": "Produits simples",
         "bundles": "Pactes",
+        "tickets": "Tickets",
         "pricing": "Liste de prix",
         "members": "Membres",
-        "settings": "Paramètres",
+        "settings": "P aramètres",
         "clients": "Clients",
         "partners": "Partenaires"
       }
@@ -224,6 +260,27 @@
         "modal_title": "Confirmer la Suppression",
         "title": "Êtes-vous sûr de vouloir supprimer",
         "warning": "Cette action ne peut pas être annulée."
+      }
+    },
+    "ticket_table": {
+      "ticket_management": "Gestion des tickets",
+      "create_new_matricule": "Créer nouveau matricule",
+      "create_new_ticket": "Créer un nouveau ticket",
+      "update_ticket": "Mettre à jour le ticket",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "matricule": "Matricule",
+        "product": "Produit",
+        "number_prints": "Nombre d'impressions",
+        "poids_brut": "Poids brut",
+        "poids_tare": "Poids tare",
+        "status": "Statut",
+        "client": "Client",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
       }
     },
     "products_table": {

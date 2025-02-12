@@ -39,17 +39,17 @@ export function UsersTableProduct({
   // State
   const [products, setProducts] = useState<IProduct[]>(records);
   const [totalProducts, setTotalProducts] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IProduct | undefined>(
-    undefined
-  );
+  const [selectedRecord, setSelectedRecord] = useState<IProduct | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
 
   const didMountRef = useRef(false);
 
   const handleProductUpdate = useEntityUpdate<IProduct>(setProducts);
   usePusher("product", handleProductUpdate);
+
 
   const refreshProducts = useRefresh({
     searchQuery,
@@ -69,6 +69,7 @@ export function UsersTableProduct({
     }
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
+
 
   const handleEdit = useCallback(
     (partenaireId: number) => {
@@ -200,7 +201,10 @@ export function UsersTableProduct({
         translation={translation}
       />
 
-      <CreateProductForm lang={lang} translation={translation} />
+      <CreateProductForm
+        lang={lang}
+        translation={translation}
+      />
     </>
   );
 }
