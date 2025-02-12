@@ -53,7 +53,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
           <X />
         </button>
       </div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} noValidate>
         <DialogBody
           placeholder={undefined}
           onPointerEnterCapture={undefined}

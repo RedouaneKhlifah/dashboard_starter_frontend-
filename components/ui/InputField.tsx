@@ -6,8 +6,11 @@ interface InputFieldProps {
   id: string;
   label: string;
   type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  min?: number;
+  value: string | number;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   placeholder?: string;
   className?: string;
   showPasswordToggle?: boolean;
@@ -36,6 +39,7 @@ const InputField: React.FC<InputFieldProps> = ({
   rows = 3,
   prefix,
   suffix,
+  min,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isRTL, setIsRTL] = useState<boolean>(false);
@@ -48,25 +52,34 @@ const InputField: React.FC<InputFieldProps> = ({
 
   return (
     <div className="w-full">
-      <label htmlFor={id} className="block text-sm font-medium text-foreground mb-2">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-foreground mb-2"
+      >
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
-      
+
       <div className="relative group">
         {(icon || prefix) && (
-          <div className={clsx(
-            "absolute top-0 bottom-0 flex items-center",
-            isRTL ? "right-3" : "left-3"
-          )}>
+          <div
+            className={clsx(
+              "absolute top-0 bottom-0 flex items-center",
+              isRTL ? "right-3" : "left-3"
+            )}
+          >
             {icon && <span className="text-muted-foreground">{icon}</span>}
-            {prefix && <span className="text-sm text-muted-foreground">{prefix}</span>}
+            {prefix && (
+              <span className="text-sm text-muted-foreground">{prefix}</span>
+            )}
           </div>
         )}
 
         <InputComponent
           id={id}
+          min={min}
           value={value}
+          step="any"
           onChange={onChange}
           className={clsx(
             "w-full px-4 py-2.5 bg-background border-2 rounded-md",
@@ -86,12 +99,16 @@ const InputField: React.FC<InputFieldProps> = ({
         />
 
         {(suffix || showPasswordToggle) && (
-          <div className={clsx(
-            "absolute top-0 bottom-0 flex items-center gap-2",
-            isRTL ? "left-3" : "right-3"
-          )}>
-            {suffix && <span className="text-sm text-muted-foreground">{suffix}</span>}
-            
+          <div
+            className={clsx(
+              "absolute top-0 bottom-0 flex items-center gap-2",
+              isRTL ? "left-3" : "right-3"
+            )}
+          >
+            {suffix && (
+              <span className="text-sm text-muted-foreground">{suffix}</span>
+            )}
+
             {showPasswordToggle && (
               <button
                 type="button"
@@ -106,7 +123,11 @@ const InputField: React.FC<InputFieldProps> = ({
       </div>
 
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-xs text-red-500" role="alert">
+        <p
+          id={`${id}-error`}
+          className="mt-1 text-xs text-red-500"
+          role="alert"
+        >
           {error}
         </p>
       )}

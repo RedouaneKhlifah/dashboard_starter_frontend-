@@ -151,10 +151,11 @@
     "invalidStock": "Invalid stock quantity",
     "reorderPointRequired": "Reorder Point is required",
     "invalidReorderPoint": "Invalid reorder point",
+    "skuRequired": "SKU is required",
     "skuTooLong": "SKU must be less than 50 characters",
     "form": {
       "name": "Name",
-      "sku": "Price",
+      "sku": "Sku",
       "unit": "Unit",
       "sale_price": "Sale Price",
       "cost_price": "Cost Price",

@@ -151,10 +151,11 @@
     "invalidStock": "Quantité de stock invalide",
     "reorderPointRequired": "Le point de réapprovisionnement est obligatoire",
     "invalidReorderPoint": "Point de réapprovisionnement invalide",
+    "skuRequired": "Le SKU est obligatoire",
     "skuTooLong": "Le SKU ne doit pas dépasser 50 caractères",
     "form": {
       "name": "Nom",
-      "sku": "Prix",
+      "sku": "Sku",
       "unit": "Unité",
       "sale_price": "Prix de vente",
       "cost_price": "Prix d'achat",

@@ -16,7 +16,6 @@ import {
   Image as ImageIcon,
   Info,
 } from "lucide-react";
-import Image from "next/image";
 import { ImageUpload } from "@/components/shared/ImageUpload";
 
 interface ProductFormProps {
@@ -44,6 +43,8 @@ const ProductForm = ({
     e.preventDefault();
     const newErrors = validateProductForm(formData, translation);
     setErrors(newErrors);
+    console.log("formData", formData);
+    console.log("newErrors", newErrors);
 
     if (hasNoErrors(newErrors)) {
       const success = await onSubmit(formData);
@@ -89,7 +90,7 @@ const ProductForm = ({
                 id="name"
                 label={translation.Product.form.name}
                 icon={<Tag className="w-5 h-5 text-gray-400" />}
-                value={formData.name}
+                value={formData?.name || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.name}
                 required
@@ -99,7 +100,7 @@ const ProductForm = ({
                 id="sku"
                 label={translation.Product.form.sku}
                 icon={<Info className="w-5 h-5 text-gray-400" />}
-                value={formData.sku || ""}
+                value={formData?.sku || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.sku}
                 // placeholder={translation.Product.placeholders.sku}
@@ -108,7 +109,7 @@ const ProductForm = ({
                 id="unit"
                 label={translation.Product.form.unit}
                 icon={<Group className="w-5 h-5 text-gray-400" />}
-                value={formData.unit}
+                value={formData?.unit || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.unit}
                 required
@@ -116,9 +117,9 @@ const ProductForm = ({
               <InputField
                 id="description"
                 label={translation.Product.form.description}
-                value={formData.description || ""}
+                value={formData?.description || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
-                error={errors.description}
+                error={errors?.description || ""}
                 textarea
                 rows={4}
               />
@@ -131,48 +132,51 @@ const ProductForm = ({
                 id="sale_price"
                 label={translation.Product.form.sale_price}
                 type="number"
-                value={formData.sale_price.toString()}
+                value={formData?.sale_price || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.sale_price}
                 required
                 prefix="DH"
+                min={0}
               />
               <InputField
                 id="cost_price"
                 label={translation.Product.form.cost_price}
                 type="number"
-                value={formData.cost_price?.toString() || ""}
+                value={formData?.cost_price || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.cost_price}
-                // step="0.01"
                 prefix="DH"
+                min={0}
               />
               <InputField
                 id="tax"
                 label={translation.Product.form.tax}
                 type="number"
                 icon={<BarChart className="w-5 h-5 text-gray-400" />}
-                value={formData.tax?.toString() || ""}
+                value={formData?.tax || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.tax}
                 suffix="%"
+                min={0}
               />
               <InputField
                 id="stock"
                 label={translation.Product.form.stock}
                 type="number"
                 icon={<Package className="w-5 h-5 text-gray-400" />}
-                value={formData.stock.toString()}
+                value={formData?.stock || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.stock}
                 required
+                min={0}
               />
               <InputField
                 id="reorder_point"
                 label={translation.Product.form.reorder_point}
                 type="number"
                 icon={<Package className="w-5 h-5 text-gray-400" />}
-                value={formData.reorder_point.toString()}
+                value={formData?.reorder_point || ""}
                 onChange={(e) => handleChange(e, setFormData, setErrors)}
                 error={errors.reorder_point}
                 required
@@ -182,13 +186,21 @@ const ProductForm = ({
 
           <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
             <ImageUpload
-              onFileChange={(files: any) => console.log(files)}
+              onFileChange={(file) =>
+                setFormData({ ...formData, image: file[0] || null })
+              }
               maxFiles={1}
               maxSize={10 * 1024 * 1024}
               acceptedTypes={["image/jpeg", "image/png"]}
-              allowMultiple
               label={translation.sidebar.file_upload.label}
               className="p-6"
+              existingImages={
+                formData?.image
+                  ? [formData.image].filter(
+                      (img): img is string => typeof img === "string"
+                    )
+                  : null
+              }
             />
           </div>
 
