@@ -211,6 +211,12 @@
     "tabs": {
       "client_info": "Client & Product",
       "ticket_details": "Ticket Details"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete"
     }
   },
   "sidebar": {
@@ -322,6 +328,12 @@
     },
     "file_upload": {
       "label": "Drag & drop files or click to upload"
+    }
+  },
+
+  "shared": {
+    "error": {
+      "number_greater_than_zero": "Number must be greater than 0"
     }
   }
 }

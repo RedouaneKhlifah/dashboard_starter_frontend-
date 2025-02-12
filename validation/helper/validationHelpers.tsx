@@ -10,7 +10,7 @@ export const validateField = <T,>(
   schema: z.ZodSchema<T>,
   value: string | number | boolean
 ): string | undefined => {
-  let parsedValue: string | number = value;
+  let parsedValue: string | number | boolean = value;
 
   // Convert numeric strings to numbers
   if (typeof parsedValue === "string") {

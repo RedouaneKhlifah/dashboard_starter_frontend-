@@ -206,6 +206,12 @@
     "tabs": {
       "client_info": "العميل والمنتج",
       "ticket_details": "تفاصيل التذكرة"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تعديل",
+      "delete": "حذف"
     }
   },
   "sidebar": {
@@ -312,6 +318,11 @@
     },
     "file_upload": {
       "label": "اسحب وأفلت الملفات أو انقر للرفع"
+    }
+  },
+  "shared": {
+    "error": {
+      "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
     }
   }
 }

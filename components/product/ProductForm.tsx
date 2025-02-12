@@ -8,14 +8,7 @@ import { ProductValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IProductForm } from "@/dto/product/productForm";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
-import {
-  Group,
-  Tag,
-  BarChart,
-  Package,
-  Image as ImageIcon,
-  Info,
-} from "lucide-react";
+import { Group, Tag, BarChart, Package, Info } from "lucide-react";
 import { ImageUpload } from "@/components/shared/ImageUpload";
 
 interface ProductFormProps {
@@ -43,8 +36,6 @@ const ProductForm = ({
     e.preventDefault();
     const newErrors = validateProductForm(formData, translation);
     setErrors(newErrors);
-    console.log("formData", formData);
-    console.log("newErrors", newErrors);
 
     if (hasNoErrors(newErrors)) {
       const success = await onSubmit(formData);

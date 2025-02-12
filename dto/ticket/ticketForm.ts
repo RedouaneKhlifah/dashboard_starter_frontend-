@@ -5,5 +5,5 @@ export interface ITicketForm {
   number_prints: number;
   poids_brut: number;
   poids_tare: number;
-  status: string;
+  status: "ENTRY" | "EXIT";
 }

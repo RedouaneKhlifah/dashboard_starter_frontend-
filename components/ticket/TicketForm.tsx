@@ -1,5 +1,12 @@
 "use client";
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+  use,
+  useMemo,
+} from "react";
 import GlobalModal from "@/components/shared/GlobalModal";
 import InputField from "@/components/ui/InputField";
 import { DictionaryType } from "@/lib/i18n";
@@ -8,10 +15,21 @@ import { TicketValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { ITicketForm } from "@/dto/ticket/ticketForm";
 import { TicketFormErrors } from "@/validation/ticketValidators/TicketValidator";
-import { Group, Tag, BarChart, Package, UserSearch, Image as ImageIcon, Info, PackageSearch, ScanSearch } from "lucide-react";
+import {
+  Group,
+  Tag,
+  BarChart,
+  Package,
+  UserSearch,
+  Image as ImageIcon,
+  Info,
+  PackageSearch,
+  ScanSearch,
+} from "lucide-react";
 import RadioGroup from "@/components/ui/RadioGroup";
-import { SearchAutocomplete } from "@/components/ui/SearchAutocomplete"
-
+import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
+import http from "@/lib/http";
+import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
 
 interface TicketFormProps {
   initialFormData: ITicketForm;
@@ -21,6 +39,18 @@ interface TicketFormProps {
   onSubmit: (formData: ITicketForm) => Promise<boolean>;
   isOpen: boolean;
 }
+
+type TabName = "ticket-details" | "final";
+
+interface Tab {
+  name: TabName;
+  index: number;
+}
+
+const tabs: Tab[] = [
+  { name: "ticket-details", index: 0 },
+  { name: "final", index: 1 },
+];
 
 const TicketForm = ({
   initialFormData,
@@ -32,14 +62,56 @@ const TicketForm = ({
 }: TicketFormProps) => {
   const { modalType, closeModal } = useModalStore();
   const [formData, setFormData] = useState<ITicketForm>(initialFormData);
-  const [activeTab, setActiveTab] = useState<'info' | 'details'>('details');
-  const { validateTiecketForm } = TicketValidation;
+
+  const {
+    clientAutoCompleteMapper,
+    partenaireAutoCompleteMapper,
+    productAutoCompleteMapper,
+  } = AutoCompleteMappers;
+
+  const [activeTab, setActiveTab] = useState<Tab>({
+    name: "ticket-details",
+    index: 0,
+  });
+
+  const { validateTiecketDetails } = TicketValidation;
+  const submitButtonText = useMemo(() => {
+    return activeTab.name === "final"
+      ? modalType === "create"
+        ? translation.Ticket.common.create
+        : translation.Ticket.common.update
+      : "contune";
+  }, [
+    modalType,
+    activeTab,
+    translation.Ticket.common.create,
+    translation.Ticket.common.update,
+  ]);
+
+  const handleTabChange = (targetTab: Tab) => {
+    if (targetTab.index > activeTab.index) {
+      // Validate current tab before proceeding
+      const newErrors = validateTiecketDetails(formData, translation);
+      setErrors(newErrors);
+      if (hasNoErrors(newErrors)) {
+        setActiveTab(targetTab);
+      }
+    } else {
+      // Allow free navigation back without validation
+      setActiveTab(targetTab);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors = validateTiecketForm(formData, translation);
-    setErrors(newErrors);
+    if (activeTab.name !== "final") {
+      // Move to next tab with validation
+      const nextTab = tabs[activeTab.index + 1];
+      handleTabChange(nextTab);
+      return;
+    }
 
-    if (hasNoErrors(newErrors)) {
+    if (hasNoErrors(errors)) {
       const success = await onSubmit(formData);
       if (success) {
         closeModal();
@@ -53,26 +125,27 @@ const TicketForm = ({
     setFormData(initialFormData);
   }, [initialFormData]);
 
-
   const fetchClients = async (query: string) => {
-    const response = await fetch(
+    const response = await http(
       `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients?search=${query}&page=1`
     );
-    return response.json();
+    const res = await response.json();
+    return clientAutoCompleteMapper(res.data);
   };
   const fetchProducts = async (query: string) => {
-    const response = await fetch(
+    const response = await http(
       `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products?search=${query}&page=1`
     );
-    return response.json();
+    const res = await response.json();
+    return productAutoCompleteMapper(res.data);
   };
   const fetchPartainres = async (query: string) => {
-    const response = await fetch(
+    const response = await http(
       `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires?search=${query}&page=1`
     );
-    return response.json();
+    const res = await response.json();
+    return partenaireAutoCompleteMapper(res.data);
   };
-
 
   return (
     <div>
@@ -88,101 +161,40 @@ const TicketForm = ({
             ? translation.sidebar.ticket_table.create_new_ticket
             : translation.sidebar.ticket_table.update_ticket
         }
-        submitButtonText={
-          modalType === "create"
-            ? translation.client.common.create
-            : translation.client.common.update
-        }
-        cancelButtonText={translation.client.common.cancel}
+        submitButtonText={submitButtonText}
+        cancelButtonText={translation.Ticket.common.cancel}
         onSubmit={handleSubmit}
-      // contentClassName="max-w-3xl"
+        contentClassName="2xl:min-w-[45%] 2xl:max-w-[45%]"
       >
         <div className="space-y-6">
           <div className="border-b border-gray-200 dark:border-gray-700">
             <div className="flex gap-2">
               <button
                 type="button"
-                onClick={() => setActiveTab('details')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${activeTab === 'details'
-                  ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400'
-                  : 'text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800'
-                  }`}
+                onClick={() => handleTabChange(tabs[0])}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
+                  activeTab.index === 0
+                    ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
+                }`}
               >
                 {translation.Ticket.tabs.ticket_details}
               </button>
               <button
                 type="button"
-                onClick={() => setActiveTab('info')}
-                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${activeTab === 'info'
-                  ? 'text-green-600 bg-green-50 dark:bg-blue-900/20 dark:text-blue-400'
-                  : 'text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800'
-                  }`}
+                onClick={() => handleTabChange(tabs[1])}
+                className={`px-4 py-2 text-sm font-medium rounded-t-lg ${
+                  activeTab.name === "final"
+                    ? "text-green-600 bg-green-50 dark:bg-blue-900/20 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
+                }`}
               >
                 {translation.Ticket.tabs.client_info}
               </button>
             </div>
           </div>
-
-          {activeTab === 'info' && (
-            <div className="bg-green-50 p-4 rounded-lg dark:bg-green-900/20">
-              <div className="grid grid-cols-1 gap-2">
-                <div>
-
-                  <SearchAutocomplete
-                    id="matricule"
-                    label={translation.Ticket.form.matricule}
-                    onSearch={fetchPartainres}
-                    placeholder={translation.Ticket.form.matricule_search}
-                    icon={<ScanSearch className="w-5 h-5 text-gray-400" />}
-                    error={errors.matricule}
-                    required
-                  />
-                </div>
-                <div>
-                  <SearchAutocomplete
-                    id="product"
-                    label={translation.Ticket.form.product}
-                    onSearch={fetchProducts}
-                    value={formData.product_id}
-                    onChange={(productId: any) => handleChange({
-                      target: {
-                        id: 'product_id',
-                        value: productId
-                      }
-                    } as React.ChangeEvent<HTMLInputElement>, setFormData, setErrors)}
-                    placeholder={translation.Ticket.form.product_search}
-                    icon={<PackageSearch className="w-5 h-5 text-gray-400" />}
-                    error={errors.product_id}
-                    required
-
-                  />
-                </div>
-                {formData.status === 'ENTRY' && (
-                  <div>
-                    <SearchAutocomplete
-                      id="client"
-                      label={translation.Ticket.form.client}
-                      onSearch={fetchClients}
-                      value={formData.client_id}
-                      onChange={(clientId: any) => handleChange({
-                        target: {
-                          id: 'client_id',
-                          value: clientId
-                        }
-                      } as React.ChangeEvent<HTMLInputElement>, setFormData, setErrors)}
-                      placeholder={translation.Ticket.form.client_search}
-                      icon={<UserSearch className="w-5 h-5 text-gray-400" />}
-                      error={errors.client_id}
-                      required
-
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'details' && (
+          {/* ticket details tab  */}
+          {activeTab.name === "ticket-details" && (
             <div className="bg-blue-50 p-4 rounded-lg dark:bg-blue-900/20">
               <div className="">
                 <InputField
@@ -220,16 +232,18 @@ const TicketForm = ({
                   <RadioGroup
                     name="status"
                     label={translation.Ticket.form.status}
-                    onChange={(value) => handleChange(
-                      {
-                        target: {
-                          id: 'status',
-                          value: value
-                        }
-                      } as React.ChangeEvent<HTMLInputElement>,
-                      setFormData,
-                      setErrors
-                    )}
+                    onChange={(value) =>
+                      handleChange(
+                        {
+                          target: {
+                            id: "status",
+                            value: value,
+                          },
+                        } as React.ChangeEvent<HTMLInputElement>,
+                        setFormData,
+                        setErrors
+                      )
+                    }
                     options={[
                       {
                         value: "ENTRY",
@@ -247,6 +261,75 @@ const TicketForm = ({
                     className="mt-4"
                   />
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* final tab  */}
+          {activeTab.name === "final" && (
+            <div className="bg-green-50 p-4 rounded-lg dark:bg-green-900/20">
+              <div className="grid grid-cols-1 gap-2">
+                <div>
+                  <SearchAutocomplete
+                    id="matricule"
+                    label={translation.Ticket.form.matricule}
+                    onSearch={fetchPartainres}
+                    placeholder={translation.Ticket.form.matricule_search}
+                    icon={<ScanSearch className="w-5 h-5 text-gray-400" />}
+                    error={errors.matricule}
+                    required
+                  />
+                </div>
+                <div>
+                  <SearchAutocomplete
+                    id="product"
+                    label={translation.Ticket.form.product}
+                    onSearch={fetchProducts}
+                    value={formData.product_id.toString()}
+                    onChange={(productId: any) =>
+                      handleChange(
+                        {
+                          target: {
+                            id: "product_id",
+                            value: productId,
+                          },
+                        } as React.ChangeEvent<HTMLInputElement>,
+                        setFormData,
+                        setErrors
+                      )
+                    }
+                    placeholder={translation.Ticket.form.product_search}
+                    icon={<PackageSearch className="w-5 h-5 text-gray-400" />}
+                    error={errors.product_id}
+                    required
+                  />
+                </div>
+                {formData.status === "EXIT" && (
+                  <div>
+                    <SearchAutocomplete
+                      id="client"
+                      label={translation.Ticket.form.client}
+                      onSearch={fetchClients}
+                      value={formData.client_id?.toString() || undefined}
+                      onChange={(clientId: any) =>
+                        handleChange(
+                          {
+                            target: {
+                              id: "client_id",
+                              value: clientId,
+                            },
+                          } as React.ChangeEvent<HTMLInputElement>,
+                          setFormData,
+                          setErrors
+                        )
+                      }
+                      placeholder={translation.Ticket.form.client_search}
+                      icon={<UserSearch className="w-5 h-5 text-gray-400" />}
+                      error={errors.client_id}
+                      required
+                    />
+                  </div>
+                )}
               </div>
             </div>
           )}

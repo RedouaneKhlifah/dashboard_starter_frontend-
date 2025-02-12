@@ -202,6 +202,12 @@
     "tabs": {
       "client_info": "Client & Produit",
       "ticket_details": "Ticket Détails"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Modifier",
+      "delete": "Supprimer"
     }
   },
   "sidebar": {
@@ -308,6 +314,11 @@
     },
     "file_upload": {
       "label": "Glisser-déposer des fichiers ou cliquer pour téléverser"
+    }
+  },
+  "shared": {
+    "error": {
+      "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }
   }
 }
