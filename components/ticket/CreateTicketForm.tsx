@@ -23,13 +23,13 @@ const CreateTicketFormPropsForm: React.FC<TicketFormProps> = ({
   const [errors, setErrors] = useState<TicketFormErrors>({});
   const initialFormData = useMemo<ITicketForm>(
     () => ({
-      matricule: "",
-      product_id: 0,
+      partenaire: null,
+      product: null,
       number_prints: 0,
       poids_brut: 0,
       poids_tare: 0,
-      status: 'ENTRY',
-      client_id: null
+      status: "ENTRY",
+      client: null,
     }),
     []
   );

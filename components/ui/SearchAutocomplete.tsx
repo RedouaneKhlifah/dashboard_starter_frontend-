@@ -12,6 +12,7 @@ import useDebounce from "@/hooks/useDebounce";
 import clsx from "clsx";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useDirection } from "@/hooks/useDirection";
+import { TicketRelationShipData } from "@/dto/ticket/ticketForm";
 
 export type AutoCompleteSearchResult = {
   id: number;
@@ -22,8 +23,11 @@ interface SearchComponentProps<T extends AutoCompleteSearchResult> {
   id: string;
   label?: string;
   onSearch: (query: string) => Promise<T[]>;
-  value?: string;
-  onChange?: (value: number | null) => void;
+  value?: {
+    id: number;
+    title: string;
+  } | null;
+  onChange?: (value: TicketRelationShipData | null) => void;
   placeholder?: string;
   minChars?: number;
   debounceMs?: number;
@@ -45,7 +49,7 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   id,
   label,
   onSearch,
-  value = "",
+  value = null,
   onChange,
   placeholder = "Search...",
   minChars = 2,
@@ -56,11 +60,12 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   icon,
   prefix,
 }: SearchComponentProps<T>) => {
-  const [query, setQuery] = useState(value);
+  const [query, setQuery] = useState(value?.title || "");
   const [results, setResults] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showResults, setShowResults] = useState(false);
+  const [isDirty, setIsDirty] = useState(false); // Track if input has been modified
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const direction = useDirection();
@@ -77,15 +82,17 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
     setResults([]);
     setShowResults(false);
     setSelectedIndex(-1);
+    setIsDirty(false); // Reset dirty state on clear
     inputRef.current?.focus();
   }, [onChange]);
 
   const handleResultSelection = useCallback(
     (result: T) => {
       setQuery(result.title);
-      onChange?.(result.id);
+      onChange?.(result);
       setShowResults(false);
       setSelectedIndex(-1);
+      setIsDirty(false); // Reset dirty state on selection
     },
     [onChange]
   );
@@ -126,11 +133,18 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       const newValue = e.target.value;
       if (newValue === query) return;
 
+      setIsDirty(true); // Mark as dirty when user types
       setQuery(newValue);
       setSelectedIndex(-1);
       debouncedSearch(newValue);
+
+      // Clear selection if query differs from parent's value (selected title)
+      if (value && newValue !== value.title) {
+        setQuery("");
+        onChange?.(null);
+      }
     },
-    [query, debouncedSearch]
+    [query, debouncedSearch, value, onChange]
   );
 
   const handleKeyNavigation = useCallback(
@@ -162,12 +176,12 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
 
   useClickOutside([inputRef, resultsRef], () => setShowResults(false));
 
-  // Sync with external value changes
+  // Sync with external value changes only if not dirty
   useEffect(() => {
-    if (value !== query) {
-      setQuery(value);
+    if (!isDirty && value?.title !== query) {
+      setQuery(value?.title || "");
     }
-  }, [value]);
+  }, [value, query, isDirty]);
 
   const inputClasses = clsx(
     "w-full h-11 bg-background border-2 rounded-md",

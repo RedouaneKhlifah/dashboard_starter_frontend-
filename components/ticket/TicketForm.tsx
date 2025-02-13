@@ -30,6 +30,7 @@ import RadioGroup from "@/components/ui/RadioGroup";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
+import { set } from "lodash";
 
 interface TicketFormProps {
   initialFormData: ITicketForm;
@@ -146,6 +147,10 @@ const TicketForm = ({
     const res = await response.json();
     return partenaireAutoCompleteMapper(res.data);
   };
+
+  useEffect(() => {
+    console.log("formData    ffff", formData);
+  }, [formData]);
 
   return (
     <div>
@@ -274,10 +279,14 @@ const TicketForm = ({
                     id="matricule"
                     label={translation.Ticket.form.matricule}
                     onSearch={fetchPartainres}
+                    onChange={(partenaire) => {
+                      setFormData((prev) => ({ ...prev, partenaire }));
+                    }}
                     placeholder={translation.Ticket.form.matricule_search}
                     icon={<ScanSearch className="w-5 h-5 text-gray-400" />}
-                    error={errors.matricule}
+                    error={errors.partenaire}
                     required
+                    value={formData.partenaire}
                   />
                 </div>
                 <div>
@@ -285,22 +294,13 @@ const TicketForm = ({
                     id="product"
                     label={translation.Ticket.form.product}
                     onSearch={fetchProducts}
-                    value={formData.product_id.toString()}
-                    onChange={(productId: any) =>
-                      handleChange(
-                        {
-                          target: {
-                            id: "product_id",
-                            value: productId,
-                          },
-                        } as React.ChangeEvent<HTMLInputElement>,
-                        setFormData,
-                        setErrors
-                      )
+                    value={formData.product}
+                    onChange={(product) =>
+                      setFormData((prev) => ({ ...prev, product }))
                     }
                     placeholder={translation.Ticket.form.product_search}
                     icon={<PackageSearch className="w-5 h-5 text-gray-400" />}
-                    error={errors.product_id}
+                    error={errors.product}
                     required
                   />
                 </div>
@@ -310,22 +310,13 @@ const TicketForm = ({
                       id="client"
                       label={translation.Ticket.form.client}
                       onSearch={fetchClients}
-                      value={formData.client_id?.toString() || undefined}
-                      onChange={(clientId: any) =>
-                        handleChange(
-                          {
-                            target: {
-                              id: "client_id",
-                              value: clientId,
-                            },
-                          } as React.ChangeEvent<HTMLInputElement>,
-                          setFormData,
-                          setErrors
-                        )
-                      }
+                      value={formData.client}
+                      onChange={(client) => {
+                        setFormData((prev) => ({ ...prev, client }));
+                      }}
                       placeholder={translation.Ticket.form.client_search}
                       icon={<UserSearch className="w-5 h-5 text-gray-400" />}
-                      error={errors.client_id}
+                      error={errors.client}
                       required
                     />
                   </div>
