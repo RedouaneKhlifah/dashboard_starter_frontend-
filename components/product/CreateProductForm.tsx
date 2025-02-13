@@ -1,26 +1,35 @@
 "use client";
-import { DictionaryType } from "@/lib/i18n";
-import ProductForm from "./ProductForm";
-import { useMemo, useState } from "react";
-import http from "@/lib/http";
-import { Locale } from "@/i18n-config";
-import useModalStore from "@/store/modalStore";
-import { ICreateProduct } from "@/dto/product/createProduct";
-import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
-import { IProductForm } from "@/dto/product/productForm";
 
-interface ProductFormProps {
+import { useMemo, useState } from "react";
+
+// Components
+import ProductForm from "./ProductForm";
+
+// Store
+import useModalStore from "@/store/modalStore";
+
+// Utilities & API
+import http from "@/lib/http";
+
+// Types
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
+import { ICreateProduct } from "@/dto/product/createProduct";
+import { IProductForm } from "@/dto/product/productForm";
+import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
+
+interface CreateProductFormProps {
   translation: DictionaryType;
   lang: Locale;
 }
 
-const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
+const CreateProductForm: React.FC<CreateProductFormProps> = ({
   translation,
   lang,
 }) => {
   const { modalType } = useModalStore();
-
   const [errors, setErrors] = useState<ProductFormErrors>({});
+
   const initialFormData = useMemo<ICreateProduct>(
     () => ({
       name: "",
@@ -41,26 +50,18 @@ const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
     try {
       const formData = new FormData();
 
-      // Append all fields to formData
-      formData.append("name", data.name);
-      formData.append("sku", data.sku);
-      formData.append("unit", data.unit);
-      formData.append("sale_price", data?.sale_price?.toString() || "0");
-      formData.append("cost_price", data.cost_price.toString() || "0");
-      formData.append("description", data?.description.toString() || "");
-      formData.append("tax", data.tax.toString() || "0");
-      formData.append("stock", data.stock.toString() || "0");
-      formData.append("reorder_point", data.reorder_point.toString() || "0");
+      // Append product fields dynamically
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          formData.append(
+            key,
+            value instanceof File ? value : value.toString()
+          );
+        }
+      });
 
-      // Append image if exists
-      if (data.image) {
-        formData.append("image[]", data.image);
-      }
-      console.log("creating from data", data);
-
-      console.log("creating from formData", formData);
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/products",
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products`,
         {
           method: "POST",
           lang,
@@ -69,11 +70,10 @@ const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
       );
 
       if (!response.ok) {
-        const error = await response.json();
-        console.error("Error during product creation:", error);
-
+        console.error("Error during product creation:", await response.json());
         return false;
       }
+
       return true;
     } catch (error) {
       console.error("Error during product creation:", error);
@@ -88,9 +88,9 @@ const CreateProductFormPropsForm: React.FC<ProductFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "create"}
+      isOpen={modalType === "create"}
     />
   );
 };
 
-export default CreateProductFormPropsForm;
+export default CreateProductForm;

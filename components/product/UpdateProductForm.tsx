@@ -1,30 +1,37 @@
 "use client";
-import { DictionaryType } from "@/lib/i18n";
-import ProductForm from "./ProductForm";
+
 import { useMemo, useState } from "react";
-import http from "@/lib/http";
+
+// Components
+import ProductForm from "./ProductForm";
+
+// Store
 import useModalStore from "@/store/modalStore";
+
+// Utilities & API
+import http from "@/lib/http";
+
+// Types
+import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IProductForm } from "@/dto/product/productForm";
 import { IProduct } from "@/interfaces/IProduct";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
-import { log } from "console";
-import { urlToFile } from "@/lib/utils";
 
-interface PartenaireFormProps {
+interface UpdateProductFormProps {
   translation: DictionaryType;
   lang: Locale;
-  selectedRecord: IProduct | undefined;
+  selectedRecord?: IProduct;
 }
 
-const UpdateProductForm: React.FC<PartenaireFormProps> = ({
+const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
   translation,
   lang,
   selectedRecord,
 }) => {
   const { modalType } = useModalStore();
-
   const [errors, setErrors] = useState<ProductFormErrors>({});
+
   const initialFormData = useMemo<IProductForm>(
     () =>
       selectedRecord || {
@@ -46,36 +53,15 @@ const UpdateProductForm: React.FC<PartenaireFormProps> = ({
     try {
       const formData = new FormData();
 
-      // Append all fields to formData
-      formData.append("name", data.name);
-      formData.append("sku", data.sku);
-      formData.append("unit", data.unit);
-      formData.append("sale_price", data.sale_price.toString());
-      formData.append("cost_price", data.cost_price.toString());
-      formData.append("description", data.description || "");
-      formData.append("tax", data.tax.toString());
-      formData.append("stock", data.stock.toString());
-      formData.append("reorder_point", data.reorder_point.toString());
-
-      console.log("file", data.image);
-      console.log("file type", typeof data.image);
-
-      // Append image if exists
-      if (data.image) {
-        let file: File | null = null;
-
-        if (data.image instanceof File) {
-          file = data.image;
-        } else if (typeof data.image === "string") {
-          file = await urlToFile(data.image, "image.png");
+      // Append product fields
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          formData.append(
+            key,
+            value instanceof File ? value : value.toString()
+          );
         }
-
-        if (file instanceof File) {
-          formData.append("image[]", file);
-        }
-      }
-
-      console.log("formData", formData.get("image[]"));
+      });
 
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord?.id}`,
@@ -87,13 +73,13 @@ const UpdateProductForm: React.FC<PartenaireFormProps> = ({
       );
 
       if (!response.ok) {
-        const error = await response.json();
+        await response.json();
         return false;
       }
 
       return true;
     } catch (error) {
-      console.error("Error during product updating:", error);
+      console.error("Error updating product:", error);
       return false;
     }
   };
@@ -105,7 +91,7 @@ const UpdateProductForm: React.FC<PartenaireFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "update"}
+      isOpen={modalType === "update"}
     />
   );
 };

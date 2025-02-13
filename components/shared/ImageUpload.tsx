@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 import { cn } from "@/lib/utils";
+import { urlToFile } from "@/lib/utils";
 
 interface ImageUploadProps {
   onFileChange: (files: File[]) => void;
@@ -19,7 +20,7 @@ interface ImageUploadProps {
   allowMultiple?: boolean;
   className?: string;
   label?: string;
-  existingImages?: string[] | null; // Existing images passed as strings
+  existingImages?: string[] | null;
 }
 
 const ImageUpload = ({
@@ -32,30 +33,49 @@ const ImageUpload = ({
   label,
   existingImages = [],
 }: ImageUploadProps) => {
-  // Local state for new files
   const [files, setFiles] = useState<File[]>([]);
-  // Local state for error and loading state
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  // Local state for existing images (initialized from props)
   const [existingFiles, setExistingFiles] = useState<string[]>(
     existingImages || []
   );
 
-  // If the prop changes, update the local state (optional)
+  // Convert existing image URLs to Files when component mounts or existingImages changes
   useEffect(() => {
-    setExistingFiles(existingImages || []);
-  }, [existingImages]);
+    const convertUrlsToFiles = async () => {
+      if (!existingImages?.length) return;
 
-  // Combine existing images and new files for display
-  const allFiles = [
-    ...existingFiles.map((url) => ({ type: "existing", url })),
-    ...files.map((file) => ({ type: "new", file })),
-  ];
+      setIsLoading(true);
+      try {
+        const convertedFiles = await Promise.all(
+          existingImages.map(async (url) => {
+            try {
+              return await urlToFile(url, `image-${Date.now()}.png`);
+            } catch (err) {
+              console.error("Error converting URL to File:", err);
+              return null;
+            }
+          })
+        );
 
-  // onDrop callback to handle new file uploads
+        const validFiles = convertedFiles.filter(
+          (file): file is File => file !== null
+        );
+        setFiles(validFiles);
+        onFileChange(validFiles);
+      } catch (err) {
+        console.error("Error converting existing images:", err);
+        setError("Failed to load existing images");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    convertUrlsToFiles();
+  }, [existingImages, onFileChange]);
+
   const onDrop = useCallback(
-    (acceptedFiles: File[], fileRejections: any[]) => {
+    async (acceptedFiles: File[], fileRejections: any[]) => {
       setError(null);
       setIsLoading(true);
 
@@ -86,7 +106,6 @@ const ImageUpload = ({
     [files, maxFiles, allowMultiple, maxSize, onFileChange]
   );
 
-  // Setup dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: acceptedTypes.reduce((acc, type) => {
@@ -97,24 +116,8 @@ const ImageUpload = ({
     multiple: allowMultiple,
   });
 
-  // Updated removeFile function to remove both new and existing files
   const removeFile = (index: number) => {
-    // If index falls within existingFiles length, remove from existingFiles state
-    if (index < existingFiles.length) {
-      // Remove the existing image from state
-      const updatedExistingFiles = existingFiles.filter((_, i) => i !== index);
-      setExistingFiles(updatedExistingFiles);
-
-      // If only one image is allowed, remove it from formData
-      if (!allowMultiple) {
-        onFileChange([]); // Update parent state with an empty array
-      }
-      return;
-    }
-
-    // Otherwise, calculate index for new files
-    const fileIndex = index - existingFiles.length;
-    const newFiles = files.filter((_, i) => i !== fileIndex);
+    const newFiles = files.filter((_, i) => i !== index);
     setFiles(newFiles);
     onFileChange(newFiles);
   };
@@ -164,11 +167,11 @@ const ImageUpload = ({
         </div>
       </div>
 
-      {allFiles.length > 0 && (
+      {files.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {allFiles.map((item, index) => (
+          {files.map((file, index) => (
             <div
-              key={"url" in item ? item.url : item.file.name}
+              key={file.name}
               className="relative group border rounded-lg overflow-hidden bg-background"
             >
               <button
@@ -179,19 +182,10 @@ const ImageUpload = ({
                 <X className="h-4 w-4 text-destructive" />
               </button>
 
-              {item.type === "existing" ? (
+              {file.type.startsWith("image/") ? (
                 <Image
-                  src={"url" in item ? item.url : ""}
-                  alt="Existing image"
-                  width={128}
-                  height={128}
-                  className="w-full h-32 object-cover"
-                  loader={({ src }) => src}
-                />
-              ) : "file" in item && item.file.type.startsWith("image/") ? (
-                <Image
-                  src={URL.createObjectURL(item.file)}
-                  alt={item.file.name}
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
                   width={128}
                   height={128}
                   className="w-full h-32 object-cover"
@@ -200,27 +194,16 @@ const ImageUpload = ({
                 <div className="flex flex-col items-center justify-center h-32 p-4">
                   <File className="h-8 w-8 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground truncate">
-                    {"file" in item ? item.file.name : ""}
+                    {file.name}
                   </span>
                 </div>
               )}
 
               <div className="p-2 border-t">
-                <p className="text-xs font-medium truncate">
-                  {item.type === "existing"
-                    ? "Uploaded Image"
-                    : "file" in item
-                    ? item.file.name
-                    : ""}
+                <p className="text-xs font-medium truncate">{file.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
-                {item.type === "new" && (
-                  <p className="text-xs text-muted-foreground">
-                    {"file" in item
-                      ? (item.file.size / 1024 / 1024).toFixed(2)
-                      : "0"}
-                    MB
-                  </p>
-                )}
               </div>
             </div>
           ))}
@@ -230,4 +213,4 @@ const ImageUpload = ({
   );
 };
 
-export { ImageUpload };
+export default ImageUpload;

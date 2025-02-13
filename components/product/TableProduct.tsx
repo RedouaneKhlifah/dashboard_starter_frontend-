@@ -1,22 +1,30 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+
+// Components
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
-import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
-import UpdatePartenaireForm from "./UpdateProductForm";
-import { DictionaryType } from "@/lib/i18n";
-import { Locale } from "@/i18n-config";
-import { IProduct } from "@/interfaces/IProduct";
-import productMappers, { ProductRow } from "@/mappers/ProductMapper";
-import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
+import UpdateProductForm from "./UpdateProductForm";
 import CreateProductForm from "./CreateProductForm";
 import Header from "../shared/Header";
+import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
+
+// Store & Hooks
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import { usePusher } from "@/hooks/usePusher";
 import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
+
+// Utilities & API
 import http from "@/lib/http";
+
+// Types
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
+import { IProduct } from "@/interfaces/IProduct";
+import productMappers, { ProductRow } from "@/mappers/ProductMapper";
 
 interface UsersTableProductProps {
   records: IProduct[];
@@ -39,15 +47,14 @@ export function UsersTableProduct({
   // State
   const [products, setProducts] = useState<IProduct[]>(records);
   const [totalProducts, setTotalProducts] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IProduct | undefined>(
-    undefined
-  );
+  const [selectedRecord, setSelectedRecord] = useState<IProduct | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const didMountRef = useRef(false);
 
+  // Hooks
   const handleProductUpdate = useEntityUpdate<IProduct>(setProducts);
   usePusher("product", handleProductUpdate);
 
@@ -70,14 +77,15 @@ export function UsersTableProduct({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
+  // Handlers
   const handleEdit = useCallback(
-    (partenaireId: number) => {
-      const record = products.find((p) => p.id === partenaireId);
+    (productId: number) => {
+      const record = products.find((p) => p.id === productId);
       if (!record) return;
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },
-    [openModal, products]
+    [products, openModal]
   );
 
   const openDeleteModal = useCallback(
@@ -106,6 +114,7 @@ export function UsersTableProduct({
     }
   };
 
+  // Table Headers
   const headers = useMemo(
     () => [
       {
@@ -134,7 +143,6 @@ export function UsersTableProduct({
         key: "reorder_point" as keyof ProductRow,
         label: products_table.headers.reorder_point,
       },
-
       {
         key: "id" as keyof ProductRow,
         label: products_table.headers.actions,
@@ -149,23 +157,7 @@ export function UsersTableProduct({
         ),
       },
     ],
-    [
-      handleEdit,
-      openDeleteModal,
-      products_table.actions.delete,
-      products_table.actions.edit,
-      products_table.headers.actions,
-      products_table.headers.cost_price,
-      products_table.headers.description,
-      products_table.headers.image,
-      products_table.headers.name,
-      products_table.headers.reorder_point,
-      products_table.headers.sale_price,
-      products_table.headers.sku,
-      products_table.headers.stock,
-      products_table.headers.tax,
-      products_table.headers.unit,
-    ]
+    [handleEdit, openDeleteModal, products_table]
   );
 
   return (
@@ -188,7 +180,7 @@ export function UsersTableProduct({
         currentPage={currentPage}
       />
 
-      <UpdatePartenaireForm
+      <UpdateProductForm
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
