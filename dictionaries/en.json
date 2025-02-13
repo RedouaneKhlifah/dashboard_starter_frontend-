@@ -332,6 +332,7 @@
   },
 
   "shared": {
+    "continue": "Continue",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
     }

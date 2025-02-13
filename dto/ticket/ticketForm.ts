@@ -1,4 +1,5 @@
 export interface ITicketForm {
+  id?: number;
   partenaire: TicketRelationShipData | null;
   product: TicketRelationShipData | null;
   client: TicketRelationShipData | null;

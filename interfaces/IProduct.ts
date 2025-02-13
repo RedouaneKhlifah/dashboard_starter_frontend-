@@ -9,7 +9,7 @@ interface IProduct {
   cost_price: number;
   description: string;
   tax: number;
-  image: string; // refer to the first image in the images array
+  image: string;
   images: IImage[];
   stock: number;
   reorder_point: number;

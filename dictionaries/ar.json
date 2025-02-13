@@ -321,6 +321,7 @@
     }
   },
   "shared": {
+    "continue": "متابعة",
     "error": {
       "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
     }

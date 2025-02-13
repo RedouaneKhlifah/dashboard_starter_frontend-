@@ -317,6 +317,7 @@
     }
   },
   "shared": {
+    "continue": "Continuer",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }

@@ -1,22 +1,35 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
+
+// Shared Components
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
-import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
-import UpdatePartenaireForm from "./UpdateTicketForm";
-import { DictionaryType } from "@/lib/i18n";
-import { Locale } from "@/i18n-config";
-import { ITicket } from "@/interfaces/ITicket";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
-import CreateTicketForm from "./CreateTicketForm";
 import Header from "../shared/Header";
+
+// Forms
+import UpdatePartenaireForm from "./UpdateTicketForm";
+import CreateTicketForm from "./CreateTicketForm";
+
+// Hooks
 import { usePusher } from "@/hooks/usePusher";
 import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
+
+// Store
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
+
+// Utilities & API
 import http from "@/lib/http";
-import { set } from "zod";
+import updateTicketMapper from "@/mappers/TiketMapper";
+
+// Types
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
+import { ITicket } from "@/interfaces/ITicket";
+import { ITicketForm } from "@/dto/ticket/ticketForm";
 
 interface TableTicketProps {
   records: ITicket[];
@@ -31,29 +44,37 @@ export function TableTicket({
   translation,
   lang,
 }: TableTicketProps) {
-  const { openModal, modalType, closeModal } = useModalStore();
+  // ──────────────────────────────────────────────
+  // Modal & Translation Setup
+  // ──────────────────────────────────────────────
+  const { openModal, closeModal } = useModalStore();
   const {
     sidebar: { ticket_table },
   } = translation;
 
-
-
-  // State
+  // ──────────────────────────────────────────────
+  // Local State
+  // ──────────────────────────────────────────────
   const [tickets, setTickets] = useState<ITicket[]>(records);
   const [totalTickets, setTotalTickets] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<ITicket | undefined>(undefined);
+  const [selectedRecord, setSelectedRecord] = useState<ITicketForm | undefined>(
+    undefined
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-
+  // Ref to track initial mount.
   const didMountRef = useRef(false);
 
-
+  // ──────────────────────────────────────────────
+  // Real-time & Refresh Hooks
+  // ──────────────────────────────────────────────
+  // Update tickets in real-time via Pusher
   const handleTicketUpdate = useEntityUpdate<ITicket>(setTickets);
   usePusher("ticket", handleTicketUpdate);
 
-
+  // Refresh tickets using custom refresh hook
   const refreshTickets = useRefresh({
     searchQuery,
     currentPage,
@@ -62,9 +83,11 @@ export function TableTicket({
     setRecords: setTickets,
     setTotalRecords: setTotalTickets,
   });
-
   const debouncedSearch = useDebounce(refreshTickets, 300);
 
+  // ──────────────────────────────────────────────
+  // Effects
+  // ──────────────────────────────────────────────
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
@@ -73,11 +96,16 @@ export function TableTicket({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
-
+  // ──────────────────────────────────────────────
+  // Event Handlers
+  // ──────────────────────────────────────────────
   const handleEdit = useCallback(
     (partenaireId: number) => {
       const record = tickets.find((p) => p.id === partenaireId);
-      setSelectedRecord(record);
+      if (!record) return;
+
+      const updateTicketData = updateTicketMapper(record);
+      setSelectedRecord(updateTicketData);
       openModal(ModalTypeEnum.UPDATE);
     },
     [openModal, tickets]
@@ -86,7 +114,10 @@ export function TableTicket({
   const openDeleteModal = useCallback(
     (productId: number) => {
       const record = tickets.find((p) => p.id === productId);
-      setSelectedRecord(record);
+      if (!record) return;
+
+      const updateTicketData = updateTicketMapper(record);
+      setSelectedRecord(updateTicketData);
       openModal(ModalTypeEnum.DELETE);
     },
     [tickets, openModal]
@@ -96,7 +127,7 @@ export function TableTicket({
     if (!selectedRecord) return;
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/tickets/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
 
@@ -109,6 +140,9 @@ export function TableTicket({
     }
   };
 
+  // ──────────────────────────────────────────────
+  // Render
+  // ──────────────────────────────────────────────
   return (
     <>
       <Header
@@ -120,25 +154,25 @@ export function TableTicket({
       />
 
       <GlobalTable
-         headers={[
-          { 
-            key: "partenaire", 
+        headers={[
+          {
+            key: "partenaire",
             label: ticket_table.headers.matricule,
-            renderCell: (_, row: ITicket) => row.partenaire?.matricule 
+            renderCell: (_, row: ITicket) => row.partenaire?.matricule,
           },
-          { 
-            key: "product", 
+          {
+            key: "product",
             label: ticket_table.headers.product,
-            renderCell: (_, row: ITicket) => row.product?.name 
+            renderCell: (_, row: ITicket) => row.product?.name,
           },
           { key: "number_prints", label: ticket_table.headers.number_prints },
           { key: "poids_brut", label: ticket_table.headers.poids_brut },
           { key: "poids_tare", label: ticket_table.headers.poids_tare },
           { key: "status", label: ticket_table.headers.status },
-          { 
-            key: "client", 
+          {
+            key: "client",
             label: ticket_table.headers.client,
-            renderCell: (_, row: ITicket) => row.client?.full_name 
+            renderCell: (_, row: ITicket) => row.client?.full_name,
           },
           {
             key: "id",
@@ -154,7 +188,7 @@ export function TableTicket({
             ),
           },
         ]}
-        rows={records}
+        rows={tickets}
         totalRows={totalTickets}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
@@ -174,10 +208,7 @@ export function TableTicket({
         translation={translation}
       />
 
-      <CreateTicketForm
-        lang={lang}
-        translation={translation}
-      />
+      <CreateTicketForm lang={lang} translation={translation} />
     </>
   );
 }

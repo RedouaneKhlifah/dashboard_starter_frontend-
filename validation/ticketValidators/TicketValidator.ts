@@ -11,30 +11,46 @@ import { ITicketForm } from "@/dto/ticket/ticketForm";
  * @returns An object containing validation errors (if any).
  */
 
-export type TicketFormErrors = {
-  [K in keyof ITicketForm]?: string;
-};
+export interface TicketFormErrors {
+  partenaire?: string;
+  product?: string;
+  client?: string | undefined;
+  number_prints?: string;
+  poids_brut?: string;
+  poids_tare?: string;
+  status?: string;
+}
+
+export interface IValidateTiecketForm {
+  partenaire?: string;
+  product?: string;
+  client?: string;
+  number_prints: number;
+  poids_brut: number;
+  poids_tare: number;
+  status: "ENTRY" | "EXIT";
+}
 
 export const validateTiecketForm = (
-  formData: ITicketForm,
+  formData: IValidateTiecketForm,
   translation: DictionaryType
 ): TicketFormErrors => {
   const {
     matriculeSchema,
     productSchema,
+    clientSchema,
     poidsBrutSchema,
     poidsTareSchema,
     statusSchema,
-    clientSchema,
-    numberPrintsSchema,
   } = createTicketSchemas(translation);
 
   const newErrors: TicketFormErrors = {};
 
-  newErrors.number_prints = validateField(
-    numberPrintsSchema,
-    formData.number_prints
-  );
+  newErrors.partenaire = validateField(matriculeSchema, formData.partenaire);
+  newErrors.product = validateField(productSchema, formData.product);
+  if (formData.status == "EXIT") {
+    newErrors.client = validateField(clientSchema, formData.client);
+  }
   newErrors.poids_brut = validateField(poidsBrutSchema, formData.poids_brut);
   newErrors.poids_tare = validateField(poidsTareSchema, formData.poids_tare);
   newErrors.status = validateField(statusSchema, formData.status);
@@ -68,6 +84,7 @@ export const validateTiecketDetails = (
 
 const TicketValidator = {
   validateTiecketDetails,
+  validateTiecketForm,
 };
 
 export default TicketValidator;
