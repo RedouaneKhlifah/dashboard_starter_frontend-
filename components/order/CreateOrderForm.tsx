@@ -32,7 +32,7 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       note: "",
       articles: [],
       subtotal: 0,
-      vat: '',
+      vat: 0,
       total: 0,
       notes: "",
       status: "draft"

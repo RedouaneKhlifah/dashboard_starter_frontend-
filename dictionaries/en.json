@@ -221,11 +221,19 @@
   },
   "Order": {
     "tabs": {
-      "client_info": "Info",
-      "articles": "Products",
+      "client": "Info",
+      "products": "Products",
       "summary": "Summary",
       "notes": "Additional Notes"
     },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "continue":"Continue"
+    },
+    "select_products": "Select Products",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
     "devis_date_required": "Quote date is required",
@@ -261,8 +269,34 @@
         "total": "Total",
         "unit_price": "Unit Price",
          "actions": "Action"
+      },
+      "remise": {
+        "type": "Discount Type",
+        "value": "Discount Amount",
+        "fixed": "Fixed Amount",
+        "percentage": "Percentage",
+        "total_after": "Total After Discount"
       }
     }
+  },
+  "common": {
+    "errors": {
+      "fetch_error": "Error fetching data",
+      "validation_error": "Validation error"
+    },
+    "loading": "Loading...",
+    "no_results": "No results found",
+    "cancel": "Cancel",
+    "select": "Select",
+    "continue": "Continue",
+    "create": "Create",
+    "update": "Update",
+    "success": "Success",
+    "retry": "Retry",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm"
   },
   "sidebar": {
     "dashboard": {

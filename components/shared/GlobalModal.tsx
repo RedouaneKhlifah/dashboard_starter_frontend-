@@ -16,7 +16,7 @@ interface GlobalModalProps {
   cancelButtonText: string;
   contentClassName?: string;
   children: React.ReactNode;
-  contentClassName?: string;
+
 }
 
 const GlobalModal: React.FC<GlobalModalProps> = ({
@@ -26,7 +26,6 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
   onSubmit,
   submitButtonText,
   cancelButtonText,
-  contentClassName,
   children,
   contentClassName
 }) => {
@@ -37,7 +36,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
-      className="bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden"
+      className={`bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden ${contentClassName}`}
     >
       <div className="flex justify-between">
         <DialogHeader

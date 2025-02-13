@@ -2,27 +2,25 @@ export interface IOrderForm {
   reference: string;
   devis_date: string;
   expiration_date: string;
-  // client: IClient[];
-  // product: IProduct[];
   client: string;
-  product: string;
+  articles?: Array<{
+    id: number;
+    name: string;
+    unit_price: number;
+    quantity: number;
+    total: number;
+    selected?: boolean;
+  }>;
   subtotal: number;
   vat: number;
   total: number;
   note: string;
-  articles?: Array<{
-    id: number;
-    name: string;
-    sellingPrice: number;
-    costPrice: number;
-    quantity: number;
-    selected: boolean;
-    unit_price: number,
-    action: string,
-    total: number
-  }>;
-
+  remise?: {
+    type: 'percentage' | 'fixed';
+    value: number;
+  };
 }
+
 export interface IProduct {
   id: number;
   name: string;
@@ -31,6 +29,6 @@ export interface IProduct {
   quantity: number;
   unit: string;
   image: string;
+  selected: boolean;
   
 }
-

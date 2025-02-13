@@ -212,11 +212,19 @@
   },
   "Order": {
     "tabs": {
-      "client_info": "Info",
-      "articles": "Produits",
+      "client": "Info",
+      "products": "Produits",
       "summary": "Résumé",
       "notes": "Notes supplémentaires"
     },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "continue": "Continuer"
+    },
+    "select_products": "Sélectionnez les produits",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
     "devis_date_required": "La date du devis est obligatoire",
@@ -252,8 +260,34 @@
         "total": "Total",
         "unit_price": "Prix unitaire",
         "actions": "Action"
+      },
+      "remise": {
+        "type": "Type de Remise",
+        "value": "Montant de la Remise",
+        "fixed": "Montant Fixe",
+        "percentage": "Pourcentage",
+        "total_after": "Total Après Remise"
       }
     }
+  },
+  "common": {
+    "errors": {
+      "fetch_error": "Erreur de récupération des données",
+      "validation_error": "Erreur de validation"
+    },
+    "loading": "Chargement...",
+    "no_results": "Aucun résultat trouvé",
+    "cancel": "Annuler",
+    "select": "Sélectionner",
+    "continue": "Continuer",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "success": "Succès",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "confirm": "Confirmer"
   },
   "sidebar": {
     "dashboard": {

@@ -40,6 +40,8 @@ const InputField: React.FC<InputFieldProps> = ({
   rows = 3,
   prefix,
   suffix,
+  disabled,
+  min,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isRTL, setIsRTL] = useState<boolean>(false);

@@ -216,11 +216,19 @@
   },
   "Order": {
     "tabs": {
-      "client_info": "معلومات اساسية",
-      "articles": "المنتجات",
+      "client": "معلومات اساسية",
+      "products": "المنتجات",
       "summary": "الملخص",
       "notes": "ملاحظات إضافية"
     },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "continue": "متابعة"
+    },
+    "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
     "devis_date_required": "تاريخ عرض السعر مطلوب",
@@ -255,9 +263,35 @@
         "no_articles": "لم تتم إضافة منتجات بعد",
         "total": "المجموع",
         "unit_price": "سعر الوحدة",
-         "actions": "الإجراء"
+        "actions": "الإجراء"
+      },
+      "remise": {
+        "type": "نوع الخصم",
+        "value": "قيمة الخصم",
+        "fixed": "مبلغ ثابت",
+        "percentage": "نسبة مئوية",
+        "total_after": "المجموع بعد الخصم"
       }
     }
+  },
+  "common": {
+    "errors": {
+      "fetch_error": "خطأ في جلب البيانات",
+      "validation_error": "خطأ في التحقق"
+    },
+    "loading": "جاري التحميل...",
+    "no_results": "لا توجد نتائج",
+    "cancel": "إلغاء",
+    "select": "اختيار",
+    "continue": "متابعة",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "success": "نجاح",
+    "retry": "إعادة المحاولة",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "confirm": "تأكيد"
   },
   "sidebar": {
     "dashboard": {
