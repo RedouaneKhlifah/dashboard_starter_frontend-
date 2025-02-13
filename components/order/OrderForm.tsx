@@ -8,11 +8,10 @@ import { OrderValidation } from "@/validation";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import { IOrderForm, IProduct } from "@/dto/order/orderForm";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
-import { Fingerprint, UserSearch, Receipt, Calculator, FileText, ShoppingCart } from "lucide-react";
+import { Fingerprint, UserSearch, Calculator, FileText, ShoppingCart } from "lucide-react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import CreateProduct from "./createProduct";
 import { Button } from "@material-tailwind/react";
-
 
 interface OrderFormProps {
   initialFormData: IOrderForm;
@@ -45,7 +44,7 @@ const OrderForm = ({
   onSubmit,
   isOpen,
 }: OrderFormProps) => {
-  const { modalType, closeModal } = useModalStore();
+  const { modalType, closeModal, openSecondModal, secondModalType } = useModalStore();
   const [formData, setFormData] = useState<IOrderForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isAddingProduct, setIsAddingProduct] = useState(false);
@@ -159,13 +158,14 @@ const OrderForm = ({
         onClose={() => {
           closeModal();
           setFormData(initialFormData);
+          setActiveTab(tabs[0])
           setErrors({});
         }}
         title={modalType === "create" ? translation.sidebar.orders_table.create_new_order : translation.sidebar.orders_table.update_order}
         submitButtonText={submitButtonText}
         cancelButtonText={translation.Order.common.cancel}
         onSubmit={handleSubmit}
-        contentClassName="2xl:min-w-[60%] relative"
+        contentClassName="2xl:min-w-[60%]"
       >
         <div className="space-y-6">
           <div className="border-b border-gray-200 dark:border-gray-700">
@@ -190,7 +190,6 @@ const OrderForm = ({
               ))}
             </div>
           </div>
-
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg min-h-[300px]">
             {activeTab.name === 'client' && (
               <div className="space-y-4">
@@ -236,7 +235,6 @@ const OrderForm = ({
                 </div>
               </div>
             )}
-
             {activeTab.name === 'products' && (
               <div className="space-y-4">
                 <GlobalTable
@@ -267,7 +265,7 @@ const OrderForm = ({
                   className="mt-4"
                 />
                 <Button
-                  onClick={() => setIsAddingProduct(true)}
+                  onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
                   className="bg-black text-primary"
                   placeholder={undefined}
                   onPointerEnterCapture={undefined}
@@ -275,21 +273,8 @@ const OrderForm = ({
                 >
                   {translation.Order.form.add_article}
                 </Button>
-                {isAddingProduct &&
-                <div className="absolute z-40 top-10 shadow-sm w-11/12">
-                  <CreateProduct
-                    translation={translation}
-                    selectedProductIds={formData.articles?.map(a => a.id) || []}
-                    onSelect={handleAddProducts}
-                  // initialFormData={initialFormData}
-                  // onSubmit={onSubmit}
-                  />
-                </div>
-                }
-
               </div>
             )}
-
             {activeTab.name === 'summary' && (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -355,7 +340,14 @@ const OrderForm = ({
           </div>
         </div>
       </GlobalModal>
-
+      <CreateProduct
+        translation={translation}
+        selectedProductIds={formData.articles?.map(a => a.id) || []}
+        onSelect={handleAddProducts}
+        isSecondOpen={secondModalType === "create"}
+      // initialFormData={initialFormData}
+      // onSubmit={onSubmit}
+      />
     </>
   );
 };
