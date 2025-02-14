@@ -15,9 +15,11 @@ interface SignInFormProps {
 
 const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
   const [errors, setErrors] = useState<PartialAuthForm>({});
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (data: IAuthForm) => {
+    setIsLoading(true);
     try {
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/sign-in",
@@ -42,8 +44,11 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
       router.push(`/${lang}/dashboard`);
     } catch (error) {
       console.error("Error during sign-in:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
   return (
     <AuthForm
       formType={FormTypeEnum.SignIn}
@@ -51,6 +56,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     />
   );
 };

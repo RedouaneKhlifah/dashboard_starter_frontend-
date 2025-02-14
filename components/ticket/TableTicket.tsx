@@ -192,6 +192,8 @@ export function TableTicket({
         totalRows={totalTickets}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
+        noDataMessage={ticket_table.no_data.message}
+        sub_text={ticket_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

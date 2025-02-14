@@ -4,6 +4,7 @@ import {
   DialogBody,
   DialogFooter,
   Button,
+  Spinner
 } from "@material-tailwind/react";
 import { X } from "lucide-react";
 
@@ -16,6 +17,7 @@ interface GlobalModalProps {
   cancelButtonText: string;
   contentClassName?: string;
   children: React.ReactNode;
+  isLoading?: boolean;
 }
 
 const GlobalModal: React.FC<GlobalModalProps> = ({
@@ -27,6 +29,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
   cancelButtonText,
   contentClassName,
   children,
+  isLoading
 }) => {
   return (
     <Dialog
@@ -66,6 +69,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
           placeholder={undefined}
           onPointerEnterCapture={undefined}
           onPointerLeaveCapture={undefined}
+          className="z-10"
         >
           <Button
             variant="text"
@@ -83,8 +87,10 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
             type="submit"
-            className="bg-primary text-black"
+            className="bg-primary text-black flex items-center gap-2 justify-center"
+            disabled={isLoading}
           >
+            {isLoading && <Spinner className="h-4 w-4" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
             {submitButtonText}
           </Button>
         </DialogFooter>

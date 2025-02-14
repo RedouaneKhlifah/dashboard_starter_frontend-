@@ -163,6 +163,8 @@ export function ClientTable({
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
         setCurrentPage={setCurrentPage}
+        noDataMessage={users_table.no_data.message}
+        sub_text={users_table.no_data.sub_text}
         currentPage={currentPage}
       />
 

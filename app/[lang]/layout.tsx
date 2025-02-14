@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/dashboard-navbar";
 import { Locale } from "@/i18n-config";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import Sidebar from "@/components/layout/Sidebar";
+import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang={params.lang} dir={dir} className="dark">
       <body className={poppins.className}>
+        <Toaster position="top-center" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -7,6 +7,8 @@ import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
 import { PartenaireValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IPartenaireForm } from "@/dto/partenaire/partenaireForm";
+import toast from "react-hot-toast";
+import { CircleCheckBig } from "lucide-react";
 
 interface PartenaireFormProps {
   initialFormData: IPartenaireForm;
@@ -26,7 +28,7 @@ const PartenaireForm = ({
   isOpen,
 }: PartenaireFormProps) => {
   const { modalType, closeModal } = useModalStore();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<IPartenaireForm>(initialFormData);
 
   const { validatePartenaireForm } = PartenaireValidation;
@@ -37,14 +39,31 @@ const PartenaireForm = ({
     setErrors(newErrors);
 
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true);
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          toast((t) => {
+            t.duration =3000
+            
+            return(
+              <div className="flex items-center gap-2">
+                <CircleCheckBig className="text-green-400" /> {translation.partenaire.message.success}
+              </div>
+            )
+          })
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
+
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -58,6 +77,7 @@ const PartenaireForm = ({
           setFormData(initialFormData);
           setErrors({});
         }}
+        isLoading={isSubmitting}
         title={
           modalType === "create"
             ? translation.sidebar.partenaires_table.create_new_partner

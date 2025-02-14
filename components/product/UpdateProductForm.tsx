@@ -22,6 +22,7 @@ interface UpdateProductFormProps {
   translation: DictionaryType;
   lang: Locale;
   selectedRecord?: IProduct;
+  
 }
 
 const UpdateProductForm: React.FC<UpdateProductFormProps> = ({

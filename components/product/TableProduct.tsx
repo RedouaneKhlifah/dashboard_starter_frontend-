@@ -175,6 +175,8 @@ export function UsersTableProduct({
         rows={products}
         totalRows={totalProducts}
         isLoading={isLoading}
+        noDataMessage={products_table.no_data.message}
+        sub_text={products_table.no_data.sub_text}
         className="shadow-lg rounded-lg overflow-hidden"
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}

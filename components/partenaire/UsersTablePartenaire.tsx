@@ -17,6 +17,8 @@ import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
+import toast from "react-hot-toast";
+import { CircleCheckBig, Trash2 } from "lucide-react";
 
 interface UsersTablePartenaireProps {
   records: IPartenaire[];
@@ -46,7 +48,7 @@ export function UsersTablePartenaire({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const didMountRef = useRef(false);
 
   const partenairRows = useMemo(
@@ -85,6 +87,7 @@ export function UsersTablePartenaire({
     [openModal, partenaires]
   );
 
+
   const openDeleteModal = useCallback(
     (partenaireId: number) => {
       const record = partenaires.find((p) => p.id === partenaireId);
@@ -101,6 +104,17 @@ export function UsersTablePartenaire({
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
+      if (response.ok) {
+        toast((t) => {
+          t.duration = 3000
+      
+          return (
+            <div className="bg-primary rounded-sm">
+              <div className="flex items-center gap-2 p-2"><Trash2 className="text-green-400" /> {translation.partenaire.message.delete_success}</div>
+            </div>
+          )
+        })
+      }
 
       if (!response.ok) return;
 
@@ -144,6 +158,8 @@ export function UsersTablePartenaire({
         totalRows={totalPartenaires}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
+        noDataMessage={partenaires_table.no_data.message}
+        sub_text={partenaires_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
@@ -158,6 +174,7 @@ export function UsersTablePartenaire({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.name || ""}
         translation={translation}
+      // isLoading={isLoading}
       />
 
       <CreatePartenaireForm lang={lang} translation={translation} />

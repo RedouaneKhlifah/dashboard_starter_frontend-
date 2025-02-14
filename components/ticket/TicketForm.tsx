@@ -64,6 +64,7 @@ const TicketForm = ({
   const { modalType, closeModal } = useModalStore();
   const [formData, setFormData] = useState<ITicketForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Validation functions and autocomplete mappers
   const { validateTiecketDetails, validateTiecketForm } = TicketValidation;
@@ -75,19 +76,18 @@ const TicketForm = ({
 
   // Determine submit button text based on current tab and modal type
   const submitButtonText = useMemo(() => {
+    if (isSubmitting && activeTab.name === "final") {
+      return modalType === "create" 
+        ? translation.Ticket.common.creating 
+        : translation.Ticket.common.updating;
+    }
     if (activeTab.name !== "final") {
-      return "Continue";
+      return translation.Ticket.common.continue;
     }
     return modalType === "create"
       ? translation.Ticket.common.create
       : translation.Ticket.common.update;
-  }, [
-    activeTab,
-    modalType,
-    translation.Ticket.common.create,
-    translation.Ticket.common.update,
-  ]);
-
+  }, [activeTab, modalType, isSubmitting, translation]);
   // Handle tab change with validation when moving forward
   const handleTabChange = (targetTab: Tab) => {
     if (targetTab.index > activeTab.index) {
@@ -104,31 +104,36 @@ const TicketForm = ({
   // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // If not on the final tab, move to the next tab after validating current fields
+  
     if (activeTab.name !== "final") {
       const nextTab = tabs[activeTab.index + 1];
       handleTabChange(nextTab);
       return;
     }
-
-    // Format data for validation
+  
     const formattedData: IValidateTiecketForm = {
       ...formData,
       partenaire: formData.partenaire?.title,
       product: formData.product?.title,
       client: formData.client?.title,
     };
-
+  
     const newErrors = validateTiecketForm(formattedData, translation);
     setErrors(newErrors);
-
+  
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true); 
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false); 
       }
     }
   };
@@ -172,6 +177,7 @@ const TicketForm = ({
         setFormData(initialFormData);
         setErrors({});
       }}
+      isLoading={isSubmitting}
       title={
         modalType === "create"
           ? translation.sidebar.ticket_table.create_new_ticket

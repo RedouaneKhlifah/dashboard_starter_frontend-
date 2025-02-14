@@ -13,6 +13,8 @@ import {
   Gem,
   PanelLeftClose,
   Weight,
+  ClipboardList,
+  Handshake
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
@@ -44,7 +46,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
           {
             name: translation.sidebar.dashboard.items.tickets,
             href: "/tickets",
-            icon: <Package className="w-4 h-4" />,
+            icon: <ClipboardList className="w-4 h-4" />,
           },
           {
             name: translation.sidebar.dashboard.items.pricing,
@@ -65,7 +67,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
           {
             name: translation.sidebar.dashboard.items.partners,
             href: "/partenaire",
-            icon: <Package className="w-4 h-4" />,
+            icon: <Handshake className="w-4 h-4" />,
           },
         ],
       },
@@ -173,7 +175,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             {isOpen && (
               <>
                 {translation.sidebar.dashboard.dashboard_link}
-                <Gem className="w-4 h-4 mx-4 text-primary/50" />
+                <Gem className="w-4 h-4 ml-12 text-primary/50" />
               </>
             )}
           </Link>
