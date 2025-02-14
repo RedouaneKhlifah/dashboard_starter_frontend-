@@ -1,8 +1,5 @@
 "use client";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// React & Third-Party Imports
-// ─────────────────────────────────────────────────────────────────────────────
 import React, {
   useState,
   useRef,
@@ -13,22 +10,11 @@ import React, {
 } from "react";
 import { Search, X, Loader2, AlertCircle } from "lucide-react";
 import clsx from "clsx";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Custom Hooks & Utilities
-// ─────────────────────────────────────────────────────────────────────────────
 import useDebounce from "@/hooks/useDebounce";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useDirection } from "@/hooks/useDirection";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Domain Types
-// ─────────────────────────────────────────────────────────────────────────────
 import { TicketRelationShipData } from "@/dto/ticket/ticketForm";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Type & Interface Definitions
-// ─────────────────────────────────────────────────────────────────────────────
 export type AutoCompleteSearchResult = {
   id: number;
   title: string;
@@ -48,11 +34,9 @@ interface SearchComponentProps<T extends AutoCompleteSearchResult> {
   className?: string;
   icon?: React.ReactNode;
   prefix?: React.ReactNode;
+  disabled?: boolean;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Key Constants for Keyboard Navigation
-// ─────────────────────────────────────────────────────────────────────────────
 const KEYS = {
   ARROW_DOWN: "ArrowDown",
   ARROW_UP: "ArrowUp",
@@ -60,9 +44,6 @@ const KEYS = {
   ESCAPE: "Escape",
 } as const;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SearchComponent: A reusable autocomplete search input component
-// ─────────────────────────────────────────────────────────────────────────────
 const SearchComponent = <T extends AutoCompleteSearchResult>({
   id,
   label,
@@ -77,60 +58,52 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   className = "",
   icon,
   prefix,
+  disabled = false,
 }: SearchComponentProps<T>) => {
-  // ─────────────────────────────
-  // Local State
-  // ─────────────────────────────
   const [query, setQuery] = useState(value?.title || "");
   const [results, setResults] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [showResults, setShowResults] = useState(false);
-  const [isDirty, setIsDirty] = useState(false); // Tracks if input has been modified
+  const [isDirty, setIsDirty] = useState(false);
 
-  // ─────────────────────────────
-  // Refs
-  // ─────────────────────────────
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  // ─────────────────────────────
-  // Derived Values
-  // ─────────────────────────────
   const direction = useDirection();
   const isRTL = useMemo(() => direction === "rtl", [direction]);
   const hasQuery = query.length >= minChars;
   const showNoResults = showResults && !isLoading && results.length === 0;
   const showLoading = isLoading && hasQuery;
 
-  // ─────────────────────────────
-  // Helper Functions
-  // ─────────────────────────────
+  const clearSearch = useCallback(
+    (e?: React.MouseEvent) => {
+      // Prevent form submission
+      e?.preventDefault();
 
-  // Clears the search input and resets state.
-  const clearSearch = useCallback(() => {
-    setQuery("");
-    onChange?.(null);
-    setResults([]);
-    setShowResults(false);
-    setSelectedIndex(-1);
-    setIsDirty(false); // Reset dirty state on clear
-    inputRef.current?.focus();
-  }, [onChange]);
+      if (disabled) return;
+      setQuery("");
+      onChange?.(null);
+      setResults([]);
+      setShowResults(false);
+      setSelectedIndex(-1);
+      setIsDirty(false);
+      inputRef.current?.focus();
+    },
+    [disabled, onChange]
+  );
 
-  // Handles the selection of a result.
   const handleResultSelection = useCallback(
     (result: T) => {
       setQuery(result.title);
       onChange?.(result);
       setShowResults(false);
       setSelectedIndex(-1);
-      setIsDirty(false); // Reset dirty state on selection
+      setIsDirty(false);
     },
     [onChange]
   );
 
-  // Performs the search based on the current query.
   const performSearch = useCallback(
     async (searchQuery: string) => {
       if (!hasQuery) {
@@ -141,7 +114,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       try {
         setIsLoading(true);
         const searchResults = await onSearch(searchQuery);
-        // Update results only if different from previous results.
         setResults((prev) =>
           JSON.stringify(prev) === JSON.stringify(searchResults)
             ? prev
@@ -159,30 +131,27 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
     [hasQuery, onSearch]
   );
 
-  // Debounce the search function.
   const debouncedSearch = useDebounce(performSearch, debounceMs);
 
-  // Handles changes in the input field.
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (disabled) return;
       const newValue = e.target.value;
       if (newValue === query) return;
 
-      setIsDirty(true); // Mark as dirty when user types
+      setIsDirty(true);
       setQuery(newValue);
       setSelectedIndex(-1);
       debouncedSearch(newValue);
 
-      // If the query no longer matches the externally provided value, clear it.
       if (value && newValue !== value.title) {
         setQuery("");
         onChange?.(null);
       }
     },
-    [query, debouncedSearch, value, onChange]
+    [disabled, query, debouncedSearch, value, onChange]
   );
 
-  // Handles keyboard navigation within the results list.
   const handleKeyNavigation = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       switch (e.key) {
@@ -207,45 +176,42 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
     [handleResultSelection, results, selectedIndex]
   );
 
-  // Closes the results dropdown when clicking outside.
   useClickOutside([inputRef, resultsRef], () => setShowResults(false));
 
-  // Sync external value changes when the input is not dirty.
   useEffect(() => {
     if (!isDirty && value?.title !== query) {
       setQuery(value?.title || "");
     }
   }, [value, query, isDirty]);
 
-  // ─────────────────────────────
-  // New: Clear query on blur if no value is selected
-  // ─────────────────────────────
   const handleBlur = useCallback(() => {
     if (!value) {
       setQuery("");
     }
   }, [value]);
 
-  // ─────────────────────────────
-  // Computed Classes
-  // ─────────────────────────────
   const inputClasses = clsx(
     "w-full h-11 bg-background border-2 rounded-md",
-    "focus:outline-none focus:ring-2 focus:ring-primary/30",
     "transition-colors duration-200",
-    error ? "border-red-500" : "border-input hover:border-primary/50",
+    {
+      "border-red-500": error,
+      "border-input hover:border-primary/50": !error && !disabled,
+      "cursor-not-allowed bg-muted border-input": disabled,
+      // Remove focus styles when disabled
+      "focus:outline-none focus:ring-2 focus:ring-primary/30": !disabled,
+    },
     isRTL ? "pr-11 pl-11" : "pl-11 pr-11"
   );
 
-  // ─────────────────────────────
-  // Render Component
-  // ─────────────────────────────
   return (
     <div className={clsx("w-full", className)}>
       {label && (
         <label
           htmlFor={id}
-          className="block text-sm font-medium text-foreground mb-2"
+          className={clsx(
+            "block text-sm font-medium mb-2",
+            disabled ? "text-muted-foreground" : "text-foreground"
+          )}
         >
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
@@ -254,12 +220,12 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
 
       <div className="relative">
         <div className="relative group">
-          {/* Render Icon or Prefix */}
           {(icon || prefix) && (
             <div
               className={clsx(
                 "absolute top-0 bottom-0 flex items-center",
-                isRTL ? "right-3" : "left-3"
+                isRTL ? "right-3" : "left-3",
+                disabled ? "opacity-50" : ""
               )}
             >
               {icon && <span className="text-muted-foreground">{icon}</span>}
@@ -269,7 +235,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
             </div>
           )}
 
-          {/* Input Field */}
           <input
             ref={inputRef}
             id={id}
@@ -284,9 +249,9 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
             aria-autocomplete="list"
             aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
+            disabled={disabled}
           />
 
-          {/* Right-side Icon: Loader or Clear Button */}
           <div
             className={clsx(
               "absolute top-0 bottom-0 flex items-center",
@@ -297,9 +262,14 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
               <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
             ) : query ? (
               <button
+                type="button" // Added to prevent form submission
                 onClick={clearSearch}
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className={clsx(
+                  "text-muted-foreground hover:text-foreground transition-colors",
+                  disabled ? "opacity-50 cursor-not-allowed" : ""
+                )}
                 aria-label="Clear search"
+                disabled={disabled}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -307,7 +277,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div
             id={`${id}-error`}
@@ -319,8 +288,7 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
           </div>
         )}
 
-        {/* Search Results Dropdown */}
-        {showResults && (
+        {showResults && !disabled && (
           <div
             ref={resultsRef}
             className="absolute w-full mt-2 bg-background border border-input rounded-md shadow-lg max-h-[400px] overflow-y-auto z-50"
@@ -361,5 +329,4 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   );
 };
 
-// Export memoized component for performance optimization.
 export default memo(SearchComponent) as typeof SearchComponent;

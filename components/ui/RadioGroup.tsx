@@ -19,6 +19,7 @@ interface RadioGroupProps {
   required?: boolean;
   className?: string;
   orientation?: "horizontal" | "vertical";
+  disabled?: boolean;
 }
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
@@ -31,6 +32,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   required = false,
   className = "",
   orientation = "vertical",
+  disabled = false,
 }) => {
   const [isRTL, setIsRTL] = useState(false);
 
@@ -56,15 +58,14 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         {options.map((option) => (
           <label
             key={option.value}
-            className={clsx(
-              "flex items-start gap-3 p-4 border-2 rounded-md cursor-pointer",
-              "transition-colors duration-200 hover:border-primary/50",
-              {
-                "border-primary bg-primary/10": selectedValue === option.value,
-                "border-input": selectedValue !== option.value,
-                "border-red-500": error,
-              }
-            )}
+            className={clsx("flex items-start gap-3 p-4 border-2 rounded-md ", {
+              "border-primary bg-primary/10": selectedValue === option.value,
+              "border-input": selectedValue !== option.value,
+              "border-red-500": error,
+              "opacity-50 !cursor-not-allowed": disabled, // Disable styling
+              "cursor-pointer hover:border-primary/50 transition-colors duration-200":
+                !disabled, // Enable pointer cursor
+            })}
           >
             <div className="flex items-center h-5">
               <input
@@ -72,8 +73,9 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 name={name}
                 value={option.value}
                 checked={selectedValue === option.value}
-                onChange={() => onChange(option.value)}
-                className="sr-only" 
+                onChange={() => !disabled && onChange(option.value)}
+                disabled={disabled}
+                className="sr-only"
                 aria-describedby={error ? `${name}-error` : undefined}
               />
               <div
@@ -82,6 +84,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   {
                     "border-primary bg-primary": selectedValue === option.value,
                     "border-muted-foreground": selectedValue !== option.value,
+                    "opacity-50": disabled, // Dimmed when disabled
                   }
                 )}
               >
@@ -96,12 +99,20 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 {option.icon && (
                   <option.icon className="w-5 h-5 text-muted-foreground" />
                 )}
-                <span className="text-sm font-medium text-foreground">
+                <span
+                  className={clsx("text-sm font-medium text-foreground", {
+                    "opacity-50": disabled, // Text dimmed when disabled
+                  })}
+                >
                   {option.label}
                 </span>
               </div>
               {option.description && (
-                <p className="text-sm text-muted-foreground">
+                <p
+                  className={clsx("text-sm text-muted-foreground", {
+                    "opacity-50": disabled, // Description dimmed when disabled
+                  })}
+                >
                   {option.description}
                 </p>
               )}
@@ -111,7 +122,11 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
       </div>
 
       {error && (
-        <p id={`${name}-error`} className="mt-2 text-sm text-red-500" role="alert">
+        <p
+          id={`${name}-error`}
+          className="mt-2 text-sm text-red-500"
+          role="alert"
+        >
           {error}
         </p>
       )}

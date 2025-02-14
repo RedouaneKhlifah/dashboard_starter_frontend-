@@ -17,6 +17,7 @@ import { Locale } from "@/i18n-config";
 import { ICreateProduct } from "@/dto/product/createProduct";
 import { IProductForm } from "@/dto/product/productForm";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
+import productMappers from "@/mappers/ProductMapper";
 
 interface CreateProductFormProps {
   translation: DictionaryType;
@@ -29,6 +30,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
+  const { mapProductToFormData } = productMappers;
 
   const initialFormData = useMemo<ICreateProduct>(
     () => ({
@@ -48,24 +50,12 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
 
   const handleSubmit = async (data: IProductForm): Promise<boolean> => {
     try {
-      const formData = new FormData();
-
-      // Append product fields dynamically
-      Object.entries(data).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          formData.append(
-            key,
-            value instanceof File ? value : value.toString()
-          );
-        }
-      });
-
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products`,
         {
           method: "POST",
           lang,
-          body: formData,
+          body: mapProductToFormData(data),
         }
       );
 
