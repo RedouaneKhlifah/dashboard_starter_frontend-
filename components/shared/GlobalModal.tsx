@@ -16,6 +16,7 @@ interface GlobalModalProps {
   cancelButtonText: string;
   contentClassName?: string;
   children: React.ReactNode;
+
 }
 
 const GlobalModal: React.FC<GlobalModalProps> = ({
@@ -25,8 +26,8 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
   onSubmit,
   submitButtonText,
   cancelButtonText,
-  contentClassName,
   children,
+  contentClassName
 }) => {
   return (
     <Dialog
