@@ -16,7 +16,7 @@ export interface IOrderForm {
   total: number;
   note: string;
   remise?: {
-    type: 'percentage' | 'fixed';
+    type: "percentage" | "fixed";
     value: number;
   };
 }
@@ -30,5 +30,4 @@ export interface IProduct {
   unit: string;
   image: string;
   selected: boolean;
-  
 }

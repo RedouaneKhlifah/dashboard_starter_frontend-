@@ -8,7 +8,7 @@ import useModalStore from "@/store/modalStore";
 import { IOrderForm } from "@/dto/order/orderForm";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { IDevis } from "@/interfaces/IDevis";
-
+import { addMonths, formatDate } from "@/utils/Date";
 
 interface OrderFormProps {
   translation: DictionaryType;
@@ -19,7 +19,7 @@ interface OrderFormProps {
 const UpdateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   translation,
   lang,
-  selectedRecord
+  selectedRecord,
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<OrderFormErrors>({});
@@ -27,10 +27,10 @@ const UpdateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   const initialFormData = useMemo<IOrderForm>(
     () => ({
       reference: "",
-      devis_date: "",
-      expiration_date: "",
+      devis_date: formatDate(new Date()),
+      expiration_date: formatDate(addMonths(new Date(), 3)),
       client_id: 0,
-      client: "",
+      client: "mohamed",
       product: "",
       note: "",
       articles: [],
@@ -38,34 +38,33 @@ const UpdateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       vat: 0,
       total: 0,
       notes: "",
-      status: "draft"
+      status: "draft",
     }),
     []
   );
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
-      try {
-        const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/${selectedRecord?.id}`,
-          {
-            method: "PATCH",
-            lang,
-            body: JSON.stringify(data),
-          }
-        );
-  
-        if (!response.ok) {
-          const error = await response.json();
-          return false;
+    try {
+      const response = await http(
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/${selectedRecord?.id}`,
+        {
+          method: "PATCH",
+          lang,
+          body: JSON.stringify(data),
         }
-  
-        return true;
-      } catch (error) {
-        console.error("Error during Devis updating:", error);
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
         return false;
       }
-    };
 
+      return true;
+    } catch (error) {
+      console.error("Error during Devis updating:", error);
+      return false;
+    }
+  };
 
   return (
     <OrderForm
