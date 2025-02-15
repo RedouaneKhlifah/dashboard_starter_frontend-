@@ -1,3 +1,4 @@
+import { IProductForm } from "@/dto/product/productForm";
 import { IProduct } from "@/interfaces/IProduct";
 
 export interface ProductRow {
@@ -30,8 +31,37 @@ const rowMapper = (product: IProduct[]): ProductRow[] => {
   }));
 };
 
+function mapProductToFormData(data: IProductForm) {
+  const formData = new FormData();
+
+  const fields: (keyof IProductForm)[] = [
+    "name",
+    "sku",
+    "unit",
+    "sale_price",
+    "cost_price",
+    "description",
+    "tax",
+    "stock",
+    "reorder_point",
+  ];
+
+  fields.forEach((field) => {
+    if (data[field] !== undefined && data[field] !== null) {
+      formData.append(field, data[field]!.toString());
+    }
+  });
+
+  if (data.image) {
+    formData.append("image[]", data.image);
+  }
+
+  return formData;
+}
+
 const productMappers = {
   rowMapper,
+  mapProductToFormData,
 };
 
 export default productMappers;

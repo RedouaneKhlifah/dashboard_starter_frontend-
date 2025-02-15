@@ -128,7 +128,6 @@ export function UsersTablePartenaire({
 
       <GlobalTable<PartenairRow>
         headers={[
-          { key: "number", label: partenaires_table.headers.number },
           { key: "name", label: partenaires_table.headers.name },
           { key: "matricule", label: partenaires_table.headers.matricule },
           {

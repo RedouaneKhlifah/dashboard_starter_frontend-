@@ -245,6 +245,85 @@
       "error": "حدث خطأ أثناء إنشاء التذكرة"
     }
   },
+  "Order": {
+    "tabs": {
+      "client": "معلومات اساسية",
+      "products": "المنتجات",
+      "summary": "الملخص",
+      "notes": "ملاحظات إضافية"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "continue": "متابعة"
+    },
+    "select_products": "اختر المنتجات",
+    "reference_create": "إنشاء مرجع جديد",
+    "reference_required": "المرجع مطلوب",
+    "devis_date_required": "تاريخ عرض السعر مطلوب",
+    "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
+    "client_required": "العميل مطلوب",
+    "product_required": "المنتج مطلوب",
+    "note_required": "الملاحظة مطلوبة",
+    "form": {
+      "reference": "المرجع",
+      "reference_search": "البحث عن مرجع",
+      "devis_date": "تاريخ عرض السعر",
+      "expiration_date": "تاريخ انتهاء الصلاحية",
+      "client": "العميل",
+      "add_article": "إضافة منتج",
+      "subtotal": "المجموع الفرعي",
+      "total": "المجموع",
+      "vat": "ضريبة",
+      "client_search": "البحث عن عميل",
+      "product": "المنتج",
+      "product_search": "البحث عن منتج",
+      "note": "ملاحظة",
+      "articles": {
+        "name": "اسم المنتج",
+        "unit": "الوحدة",
+        "image": "الصورة",
+        "selling_price": "سعر البيع",
+        "cost_price": "سعر التكلفة",
+        "quantity": "الكمية",
+        "select": "اختيار",
+        "add": "إضافة منتج",
+        "remove": "حذف المنتج",
+        "no_articles": "لم تتم إضافة منتجات بعد",
+        "total": "المجموع",
+        "unit_price": "سعر الوحدة",
+        "actions": "الإجراء"
+      },
+      "remise": {
+        "type": "نوع الخصم",
+        "value": "قيمة الخصم",
+        "fixed": "مبلغ ثابت",
+        "percentage": "نسبة مئوية",
+        "total_after": "المجموع بعد الخصم"
+      }
+    }
+  },
+  "common": {
+    "errors": {
+      "fetch_error": "خطأ في جلب البيانات",
+      "validation_error": "خطأ في التحقق"
+    },
+    "loading": "جاري التحميل...",
+    "no_results": "لا توجد نتائج",
+    "cancel": "إلغاء",
+    "select": "اختيار",
+    "continue": "متابعة",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "success": "نجاح",
+    "retry": "إعادة المحاولة",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "confirm": "تأكيد"
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
@@ -258,6 +337,7 @@
         "bundles": "الباقات",
         "tickets": "التذاكر",
         "pricing": "قائمة الأسعار",
+        "orders": "طلبات الشراء",
         "members": "الأعضاء",
         "settings": "الإعدادات",
         "clients": "العملاء",
@@ -334,6 +414,24 @@
       "no_data": {
         "message": "لم يتم العثور على تذاكر",
         "sub_text": "لا توجد سجلات تذاكر تطابق معاييرك"
+      }
+    },
+    "orders_table": {
+      "order_management": "إدارة الطلبات",
+      "create_new_order": "إنشاء طلب جديد",
+      "update_order": "تحديث الطلب",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "reference": "المرجع",
+        "devis_date": "تاريخ عرض السعر",
+        "expiration_date": "تاريخ انتهاء الصلاحية",
+        "clien": "العميل",
+        "total": "المجموع",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
       }
     },
     "products_table": {

@@ -18,6 +18,7 @@ import { IProductForm } from "@/dto/product/productForm";
 import { IProduct } from "@/interfaces/IProduct";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
 import useToast from "@/hooks/useToast";
+import productMappers from "@/mappers/ProductMapper";
 
 interface UpdateProductFormProps {
   translation: DictionaryType;
@@ -34,6 +35,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
   const { error: toastError, success: toastSuccess } = useToast(); 
+  const { mapProductToFormData } = productMappers;
   const initialFormData = useMemo<IProductForm>(
     () =>
       selectedRecord || {
@@ -53,24 +55,12 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
 
   const handleSubmit = async (data: IProductForm): Promise<boolean> => {
     try {
-      const formData = new FormData();
-
-      // Append product fields
-      Object.entries(data).forEach(([key, value]) => {
-        if (value !== null && value !== undefined) {
-          formData.append(
-            key,
-            value instanceof File ? value : value.toString()
-          );
-        }
-      });
-
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord?.id}`,
         {
           method: "POST",
           lang,
-          body: formData,
+          body: mapProductToFormData(data),
         }
       );
 
