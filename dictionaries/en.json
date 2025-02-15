@@ -121,6 +121,7 @@
     },
     "message": {
       "success": "Client created successfully",
+      "update_success": "Client updated successfully",
       "delete_success": "Client deleted successfully",
       "error": "An error occurred while creating the client"
     }
@@ -140,6 +141,7 @@
     "message": {
       "success": "Partenaire created successfully",
       "delete_success": "Partenaire deleted successfully",
+      "update_success": "Partner updated successfully",
       "error": "An error occurred while creating the Client"
     }
   },
@@ -189,6 +191,7 @@
     },
     "message": {
       "success": "Product created successfully",
+      "update_success": "Product updated successfully",
       "delete_success": "Product deleted successfully",
       "error": "An error occurred while creating the product"
     }
@@ -238,6 +241,7 @@
     },
     "message": {
       "success": "Ticket created successfully",
+      "update_success": "Ticket updated successfully",
       "delete_success": "Ticket deleted successfully",
       "error": "An error occurred while creating the ticket"
     }

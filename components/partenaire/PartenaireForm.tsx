@@ -7,7 +7,7 @@ import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
 import { PartenaireValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IPartenaireForm } from "@/dto/partenaire/partenaireForm";
-import toast from "react-hot-toast";
+import useToast from "@/hooks/useToast";
 import { CircleCheckBig } from "lucide-react";
 
 interface PartenaireFormProps {
@@ -30,8 +30,9 @@ const PartenaireForm = ({
   const { modalType, closeModal } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<IPartenaireForm>(initialFormData);
-
+  const {  error: toastError, success : toastSuccess} = useToast(); 
   const { validatePartenaireForm } = PartenaireValidation;
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,21 +44,12 @@ const PartenaireForm = ({
       try {
         const success = await onSubmit(formData);
         if (success) {
-          toast((t) => {
-            t.duration =3000
-            
-            return(
-              <div className="flex items-center gap-2">
-                <CircleCheckBig className="text-green-400" /> {translation.partenaire.message.success}
-              </div>
-            )
-          })
           closeModal();
           setFormData(initialFormData);
           setErrors({});
         }
       } catch (error) {
-        console.error("Submission error:", error);
+        // toastError(translation.partenaire.message.error)
       } finally {
         setIsSubmitting(false);
       }

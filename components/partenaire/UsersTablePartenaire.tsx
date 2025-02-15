@@ -17,8 +17,7 @@ import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
-import toast from "react-hot-toast";
-import { CircleCheckBig, Trash2 } from "lucide-react";
+import useToast from "@/hooks/useToast";
 
 interface UsersTablePartenaireProps {
   records: IPartenaire[];
@@ -50,6 +49,7 @@ export function UsersTablePartenaire({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const didMountRef = useRef(false);
+  const { error, success} = useToast(); 
 
   const partenairRows = useMemo(
     () => rowMapper(partenaires),
@@ -69,7 +69,6 @@ export function UsersTablePartenaire({
   });
 
   const debouncedSearch = useDebounce(refreshPartenaires, 300);
-
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
@@ -99,30 +98,22 @@ export function UsersTablePartenaire({
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord) return;
+    setIsSubmitting(true);
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-      if (response.ok) {
-        toast((t) => {
-          t.duration = 3000
-      
-          return (
-            <div className="bg-primary rounded-sm">
-              <div className="flex items-center gap-2 p-2"><Trash2 className="text-green-400" /> {translation.partenaire.message.delete_success}</div>
-            </div>
-          )
-        })
-      }
-
       if (!response.ok) return;
-
+      success(translation.partenaire.message.delete_success);
       closeModal();
       refreshPartenaires(true);
     } catch (error) {
       console.error("Error deleting partenaire:", error);
+    } finally {
+      setIsSubmitting(false);
     }
+
   };
 
   return (
@@ -174,7 +165,7 @@ export function UsersTablePartenaire({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.name || ""}
         translation={translation}
-      // isLoading={isLoading}
+        isLoading={isSubmitting}
       />
 
       <CreatePartenaireForm lang={lang} translation={translation} />

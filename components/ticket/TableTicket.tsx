@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
+import useToast from "@/hooks/useToast";
 
 // Shared Components
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -63,6 +64,8 @@ export function TableTicket({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error: toastError, success: toastSuccess } = useToast(); 
 
   // Ref to track initial mount.
   const didMountRef = useRef(false);
@@ -125,6 +128,7 @@ export function TableTicket({
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord) return;
+    setIsSubmitting(true);
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/tickets/${selectedRecord.id}`,
@@ -132,11 +136,13 @@ export function TableTicket({
       );
 
       if (!response.ok) return;
-
+      toastSuccess(translation.Ticket.message.delete_success);
       closeModal();
       refreshTickets(true);
     } catch (error) {
       console.error("Error deleting product:", error);
+    }finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -208,6 +214,7 @@ export function TableTicket({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.status || ""}
         translation={translation}
+        isLoading={isSubmitting}
       />
 
       <CreateTicketForm lang={lang} translation={translation} />

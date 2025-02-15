@@ -10,6 +10,8 @@ import useModalStore from "@/store/modalStore";
 
 // Utilities & API
 import http from "@/lib/http";
+import useToast from "@/hooks/useToast";
+
 
 // Types
 import { DictionaryType } from "@/lib/i18n";
@@ -29,7 +31,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
-
+  const { error: toastError, success: toastSuccess } = useToast(); 
   const initialFormData = useMemo<ICreateProduct>(
     () => ({
       name: "",
@@ -69,12 +71,14 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
         }
       );
 
-      if (!response.ok) {
-        console.error("Error during product creation:", await response.json());
+      if (response.ok) {
+        toastSuccess(translation.Product.message.success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.Product.message.error);
         return false;
       }
-
-      return true;
     } catch (error) {
       console.error("Error during product creation:", error);
       return false;
