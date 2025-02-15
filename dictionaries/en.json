@@ -85,7 +85,7 @@
     "resetPassword": "Forgot Password",
     "resetPasswordDescription": "Enter your email to reset your password",
     "submit": "Submit",
-    "signup_success_message": "Happy to say that everything went smoothly,<br />take some time exploring the menu.",
+    "signup_success_message": "Happy to say that everything went smoothly,take some time exploring the menu.",
     "congrats_you_are_in": "Congratulations, you're in !",
     "continue": "Continue",
     "error": {
@@ -258,7 +258,7 @@
       "cancel": "Cancel",
       "update": "Update",
       "delete": "Delete",
-      "continue":"Continue"
+      "continue": "Continue"
     },
     "select_products": "Select Products",
     "reference_create": "Create new reference",
@@ -295,7 +295,7 @@
         "no_articles": "No products added yet",
         "total": "Total",
         "unit_price": "Unit Price",
-         "actions": "Action"
+        "actions": "Action"
       },
       "remise": {
         "type": "Discount Type",

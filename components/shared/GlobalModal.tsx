@@ -4,7 +4,7 @@ import {
   DialogBody,
   DialogFooter,
   Button,
-  Spinner
+  Spinner,
   ThemeProvider,
 } from "@material-tailwind/react";
 import { X } from "lucide-react";
@@ -44,7 +44,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
   submitButtonText,
   cancelButtonText,
   children,
-  isLoading
+  isLoading,
   contentClassName,
   dismiss = true,
   backdrop = true,
@@ -107,10 +107,17 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
               onPointerLeaveCapture={undefined}
               type="submit"
               className="bg-primary text-black"
-            disabled={isLoading}
+              disabled={isLoading}
             >
-            {isLoading && <Spinner className="h-4 w-4" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />}
-              {submitButtonText}
+              {isLoading ? (
+                <Spinner
+                  className="h-4 w-4"
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              ) : (
+                submitButtonText
+              )}
             </Button>
           </DialogFooter>
         </form>

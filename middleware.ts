@@ -4,17 +4,24 @@ import { match as matchLocale } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { jwtVerify } from "jose";
 
-// Locale detection utilities
+// Get the supported locales
+const locales = i18n.locales;
+
+// Locale detection with proper types
 const getLocale = (request: NextRequest): string => {
   const negotiatorHeaders = Object.fromEntries(request.headers.entries());
-  const locales = i18n.locales as ["en", "fr", "ar"];
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages(
-    locales
+    locales as unknown as string[]
   );
-  return matchLocale(languages, locales, i18n.defaultLocale);
+
+  try {
+    return matchLocale(languages, locales, i18n.defaultLocale);
+  } catch (error) {
+    return i18n.defaultLocale;
+  }
 };
 
-// Auth response handlers
+// Auth redirect handler
 const createAuthRedirect = (
   request: NextRequest,
   locale: string,
@@ -26,70 +33,47 @@ const createAuthRedirect = (
   return response;
 };
 
-const handleUnauthenticated = (
-  request: NextRequest,
-  locale: string,
-  pathname: string
-) => {
-  if (!pathname.startsWith(`/${locale}/sign-in`)) {
-    return createAuthRedirect(request, locale, "/sign-in");
+// Main middleware
+export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const authToken = request.cookies.get("auth_token")?.value;
+
+  // Check if pathname has a valid locale
+  const pathnameLocale = locales.find(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  // Use detected locale or existing pathname locale
+  const locale = pathnameLocale || getLocale(request);
+
+  // Redirect if no locale in pathname
+  if (!pathnameLocale) {
+    const newUrl = new URL(`/${locale}${pathname}`, request.url);
+    return NextResponse.redirect(newUrl);
   }
-  return NextResponse.next();
-};
 
-const preventSignInAccess = (request: NextRequest, locale: string) => {
-  return createAuthRedirect(request, locale, "/dashboard");
-};
+  // Handle authentication
+  if (!authToken) {
+    if (!pathname.startsWith(`/${locale}/sign-in`)) {
+      return createAuthRedirect(request, locale, "/sign-in");
+    }
+    return NextResponse.next();
+  }
 
-// Token verification
-const verifyAuthToken = async (token: string) => {
+  // Prevent accessing sign-in when authenticated
+  if (pathname.startsWith(`/${locale}/sign-in`)) {
+    return createAuthRedirect(request, locale, "/dashboard");
+  }
+
+  // Verify token for protected routes
   try {
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-    return await jwtVerify(token, secret, {
-      algorithms: ["HS256"],
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      if (error.name === "JWTExpired") {
-        throw new Error("Token expired");
-      }
-      if (error.name === "JWTInvalid") {
-        throw new Error("Invalid token");
-      }
-    }
-    throw new Error("Authentication failed" + error);
-  }
-};
-
-const handleTokenVerification = async (
-  request: NextRequest,
-  locale: string,
-  token: string
-) => {
-  try {
-    await verifyAuthToken(token);
+    await jwtVerify(authToken, secret, { algorithms: ["HS256"] });
     return NextResponse.next();
   } catch (error) {
     console.error("Authentication failed:", error);
     return createAuthRedirect(request, locale, "/sign-in");
   }
-};
-
-// Main middleware handler
-export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-  const locale = getLocale(request);
-  const authToken = request.cookies.get("auth_token")?.value;
-
-  if (!authToken) {
-    return handleUnauthenticated(request, locale, pathname);
-  }
-
-  if (pathname.startsWith(`/${locale}/sign-in`)) {
-    return preventSignInAccess(request, locale);
-  }
-
-  return await handleTokenVerification(request, locale, authToken);
 }
 
 export const config = {
