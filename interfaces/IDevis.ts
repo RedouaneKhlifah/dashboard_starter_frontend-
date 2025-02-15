@@ -1,21 +1,35 @@
-import { IClient } from './IClient';
+import { IClient } from "./IClient";
+import { IProduct } from "./IProduct";
+import { ITicket } from "./ITicket";
 
 interface IDevis {
+
   id: number;
-  refrence: string; 
+  
+  ticket_id: number | null;
+  
+  client_id: number;
+  
+  reference: string;
+  
   devis_date: string;
+  
   expiration_date: string;
-  clien: string;
-  total: number;
-  status: string;
-  articles?: Array<{
-    id: number;
-    name: string;
-    sellingPrice: number;
-    costPrice: number;
-    quantity: number;
-    selected: boolean;
-  }>;
-}
+  
+  tva: number;
+  
+  remise_type: 'PERCENT' | 'FIXED',
+  
+  remise: number;
+  
+  note: string;
+  
+  ticket: ITicket | null;
+  
+  products: IProduct[];
+  
+  client: IClient;
+  
+  }
 
 export type { IDevis };

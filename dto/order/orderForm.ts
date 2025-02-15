@@ -1,33 +1,24 @@
-export interface IOrderForm {
+interface IOrderForm {
+  client: DevisRelationShipData;
   reference: string;
-  devis_date: string;
+  devis_date: string; 
   expiration_date: string;
-  client: string;
-  articles?: Array<{
-    id: number;
-    name: string;
-    unit_price: number;
-    quantity: number;
-    total: number;
-    selected?: boolean;
-  }>;
-  subtotal: number;
-  vat: number;
-  total: number;
+  tva: number;
+  remise_type: 'PERCENT' | 'FIXED';
+  remise: number;
   note: string;
-  remise?: {
-    type: "percentage" | "fixed";
-    value: number;
-  };
-}
-
-export interface IProduct {
-  id: number;
-  name: string;
-  costPrice: number;
-  total: number;
+  products: Array<{
+  product_id: number;
+  price_unitaire: number;
   quantity: number;
-  unit: string;
-  image: string;
-  selected: boolean;
-}
+  }>;
+  }
+  
+  export type { IOrderForm };
+
+  export interface DevisRelationShipData {
+    id: number;
+    title: string;
+  }
+  
+  
