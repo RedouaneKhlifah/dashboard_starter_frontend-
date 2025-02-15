@@ -264,7 +264,7 @@
       "remise": {
         "type": "Type de Remise",
         "value": "Montant de la Remise",
-        "fixed": "Montant Fixe",
+        "fixed": "Fixée",
         "percentage": "Pourcentage",
         "total_after": "Total Après Remise"
       }
@@ -378,7 +378,7 @@
         "reference": "Référence",
         "devis_date": "Date du devis",
         "expiration_date": "Date d'expiration",
-        "clien": "Client",
+        "client": "Client",
         "total": "Total",
         "actions": "Actions"
       },
@@ -421,3 +421,4 @@
     }
   }
 }
+

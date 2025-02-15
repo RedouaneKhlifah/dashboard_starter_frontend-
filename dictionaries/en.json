@@ -273,7 +273,7 @@
       "remise": {
         "type": "Discount Type",
         "value": "Discount Amount",
-        "fixed": "Fixed Amount",
+        "fixed": "Fixed",
         "percentage": "Percentage",
         "total_after": "Total After Discount"
       }
@@ -387,7 +387,7 @@
         "reference": "Reference",
         "devis_date": "Quote Date",
         "expiration_date": "Expiration Date",
-        "clien": "Client",
+        "client": "Client",
         "total": "Total",
         "actions": "Actions"
       },

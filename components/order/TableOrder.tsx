@@ -16,6 +16,7 @@ import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 import UpdateOrderForm from "./UpdateOrderForm";
+import { IClient } from "@/interfaces/IClient";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -128,11 +129,24 @@ export function TableOrder({
       },
       {
         key: "client" as keyof IDevis,
-        label: orders_table.headers.clien,
+        label: orders_table.headers.client,
+        renderCell: (client: IClient) => client.full_name,
       },
       {
-        key: "total" as keyof IDevis,
+        key: "id" as keyof IDevis,
         label: orders_table.headers.total,
+        renderCell: (_: any, row: IDevis) => {
+          const subtotal = row.products.reduce(
+            (acc, product) => acc + product.sale_price,
+            0
+          );
+          const discount = row.remise_type === "PERCENT"
+            ? subtotal * (row.remise / 100)
+            : row.remise;
+          const totalAfterDiscount = subtotal - discount;
+          const taxAmount = totalAfterDiscount * (row.tva / 100);
+          return (totalAfterDiscount + taxAmount).toFixed(2);
+        },
       },
       {
         key: "id" as keyof IDevis,
@@ -142,15 +156,15 @@ export function TableOrder({
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
-            onEmail={(id) => handleEmail(id)}
-            onPdf={(id) => handlePdf(id)}
+            onEmail={handleEmail}
+            onPdf={handlePdf}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
           />
         ),
       },
     ],
-    [handleEdit, openDeleteModal, handleEmail, handlePdf, orders_table]
+    [orders_table, handleEdit, openDeleteModal]
   );
 
   return (
@@ -158,7 +172,7 @@ export function TableOrder({
       <Header
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
-        showButton={false}
+        buttonText={orders_table.create_new_order}
         showSearch={true}  
         setSearchQuery={setSearchQuery}
       />
@@ -181,7 +195,7 @@ export function TableOrder({
 
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
-        itemName={selectedRecord?.refrence || ""}
+        itemName={selectedRecord?.reference || ""}
         translation={translation}
       />
 
