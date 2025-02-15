@@ -7,6 +7,7 @@ import { PartialAuthForm } from "@/interfaces/IAuth";
 import { useRouter } from "next/navigation";
 import http from "@/lib/http";
 import Cookies from "js-cookie";
+import useToast from "@/hooks/useToast";
 
 interface SignInFormProps {
   translation: DictionaryType;
@@ -15,9 +16,12 @@ interface SignInFormProps {
 
 const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
   const [errors, setErrors] = useState<PartialAuthForm>({});
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { error: toastError, success: toastSuccess } = useToast();
 
   const handleSubmit = async (data: IAuthForm) => {
+    setIsLoading(true);
     try {
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/sign-in",
@@ -28,22 +32,27 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
         }
       );
 
+
       if (!response.ok) {
         const error = await response.json();
+        toastError(error.message || translation.auth.error);
         setErrors({
           general: error.message,
         });
-        return;
-      }
 
+        return true;
+      }
       const { token } = await response.json();
       Cookies.set("auth_token", token);
-
+      toastSuccess(translation.auth.signup_success_message);
       router.push(`/${lang}/dashboard`);
     } catch (error) {
       console.error("Error during sign-in:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   return (
     <AuthForm
       formType={FormTypeEnum.SignIn}
@@ -51,6 +60,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     />
   );
 };

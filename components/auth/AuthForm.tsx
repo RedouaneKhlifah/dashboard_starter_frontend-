@@ -5,6 +5,7 @@ import { Condition } from "../utils";
 import { AuthValidation } from "@/validation";
 import { FormTypeEnum } from "@/interfaces";
 import { IAuthForm, PartialAuthForm } from "@/interfaces/IAuth";
+import { Spinner, Button } from "@material-tailwind/react";
 
 interface AuthFormProps {
   formType: FormTypeEnum;
@@ -12,6 +13,7 @@ interface AuthFormProps {
   errors: PartialAuthForm;
   setErrors: Dispatch<SetStateAction<PartialAuthForm>>;
   onSubmit: (formData: IAuthForm, error?: string | undefined) => void;
+  isLoading?: boolean;
 }
 
 const AuthForm = ({
@@ -20,6 +22,7 @@ const AuthForm = ({
   errors,
   setErrors,
   onSubmit,
+  isLoading
 }: AuthFormProps) => {
   const { auth } = translation;
   const { validateAuthForm } = AuthValidation;
@@ -29,6 +32,7 @@ const AuthForm = ({
     password: "",
     fullName: "", // This will be used only for SignUp
   });
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -56,9 +60,11 @@ const AuthForm = ({
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      onSubmit(formData); // If no errors On, submit the form
+      onSubmit(formData);
     }
   };
+
+
 
   return (
     <div className="w-full max-w-md p-8 rounded-sm bg-defaultground border border-border">
@@ -144,12 +150,23 @@ const AuthForm = ({
           /> */}
 
           {/* Submit button */}
-          <button
+          <Button
             type="submit"
-            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-button text-button-foreground hover:bg-button-hover rounded-sm font-medium transition-colors "
-          >
-            {formType === FormTypeEnum.SignIn ? auth.signIn : auth.signUp}
-          </button>
+            className="w-full !mt-6 lg:py-2 !py-3 px-3 bg-button text-button-foreground hover:bg-button-hover rounded-sm !font-semibold transition-colors"
+            disabled={isLoading}
+            placeholder={undefined}
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}          >
+            {isLoading ? (
+              <div className="flex items-center justify-center gap-2">
+                <Spinner className="h-4 w-4" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+                {translation.shared["loading "]}
+              </div>
+            ) : (
+              formType === FormTypeEnum.SignIn ? auth.signIn : auth.signUp
+            )}
+          </Button>
+
 
           {/* Divider between buttons */}
           {/* <div className="relative my-6">

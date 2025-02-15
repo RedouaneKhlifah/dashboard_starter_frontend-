@@ -7,7 +7,7 @@ import useModalStore from "@/store/modalStore";
 import { Locale } from "@/i18n-config";
 import { IPartenaireForm } from "@/dto/partenaire/partenaireForm";
 import { IPartenaire } from "@/interfaces/IPartenaire";
-import { log } from "console";
+import useToast from "@/hooks/useToast";
 
 interface PartenaireFormProps {
   translation: DictionaryType;
@@ -21,14 +21,14 @@ const UpdatePartenaireForm: React.FC<PartenaireFormProps> = ({
   selectedRecord,
 }) => {
   const { modalType } = useModalStore();
-
   const [errors, setErrors] = useState<Partial<IPartenaireForm>>({});
+  const { error: toastError, success: toastSuccess } = useToast();
+
   const initialFormData = useMemo<IPartenaireForm>(
     () =>
       selectedRecord || {
         name: "",
         matricule: "",
-        // number: "",
       },
     [selectedRecord]
   );
@@ -44,14 +44,17 @@ const UpdatePartenaireForm: React.FC<PartenaireFormProps> = ({
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.partenaire.message.update_success);
+        return true;
+      } else {
         const error = await response.json();
+        toastError(error.message || translation.partenaire.message.error);
         return false;
       }
-
-      return true;
     } catch (error) {
-      console.error("Error during paternaire updating:", error);
+      console.error("Error during partenaire updating:", error);
+      toastError(translation.partenaire.message.error);
       return false;
     }
   };
@@ -63,7 +66,7 @@ const UpdatePartenaireForm: React.FC<PartenaireFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "update"}
+      isOpen={modalType === "update"}
     />
   );
 };

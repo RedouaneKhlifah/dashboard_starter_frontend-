@@ -50,6 +50,7 @@ const TicketForm = ({
     [modalType]
   );
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { validateTiecketDetails, validateTiecketForm } = TicketValidation;
 
@@ -77,23 +78,29 @@ const TicketForm = ({
       handleTabChange(tabs[activeTab.index + 1]);
       return;
     }
-
     const formattedData: IValidateTiecketForm = {
       ...formData,
       partenaire: formData.partenaire?.title,
       product: formData.product?.title,
       client: formData.client?.title,
     };
-
+  
     const newErrors = validateTiecketForm(formattedData, translation);
     setErrors(newErrors);
-
+  
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true); 
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false); 
       }
     }
   };
@@ -112,6 +119,7 @@ const TicketForm = ({
   return (
     <GlobalModal
       open={isOpen}
+      isLoading={isSubmitting}
       onClose={handleModalClose}
       title={
         modalType === "create"

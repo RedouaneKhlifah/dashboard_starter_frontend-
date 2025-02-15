@@ -2,6 +2,7 @@
 
 // React & Hooks
 import { useState, useMemo } from "react";
+import useToast from "@/hooks/useToast";
 
 // Components
 import ClientForm from "./ClientForm";
@@ -32,7 +33,7 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
 
   // State
   const [errors, setErrors] = useState<Partial<IClientForm>>({});
-
+  const { error: toastError, success: toastSuccess } = useToast(); 
   // Memoized initial form data
   const initialFormData = useMemo<IClientForm>(
     () =>
@@ -59,13 +60,14 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
           body: JSON.stringify(data),
         }
       );
-
-      if (!response.ok) {
-        await response.json();
+      if (response.ok) {
+        toastSuccess(translation.client.message.update_success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.client.message.error);
         return false;
       }
-
-      return true;
     } catch (error) {
       console.error("Error during client updating:", error);
       return false;

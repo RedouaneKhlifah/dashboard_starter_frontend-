@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import useToast from "@/hooks/useToast";
 
 // Components
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -51,7 +52,8 @@ export function UsersTableProduct({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error: toastError, success: toastSuccess } = useToast();
   const didMountRef = useRef(false);
 
   // Hooks
@@ -99,6 +101,7 @@ export function UsersTableProduct({
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord) return;
+    setIsSubmitting(true);
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord.id}`,
@@ -106,11 +109,14 @@ export function UsersTableProduct({
       );
 
       if (!response.ok) return;
+      toastSuccess(translation.Product.message.delete_success);
 
       closeModal();
       refreshProducts(true);
     } catch (error) {
       console.error("Error deleting product:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -175,6 +181,8 @@ export function UsersTableProduct({
         rows={products}
         totalRows={totalProducts}
         isLoading={isLoading}
+        noDataMessage={products_table.no_data.message}
+        sub_text={products_table.no_data.sub_text}
         className="shadow-lg rounded-lg overflow-hidden"
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
@@ -190,6 +198,8 @@ export function UsersTableProduct({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.name || ""}
         translation={translation}
+        isLoading={isSubmitting}
+
       />
 
       <CreateProductForm lang={lang} translation={translation} />

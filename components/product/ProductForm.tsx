@@ -42,6 +42,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const { modalType, closeModal } = useModalStore();
   const [formData, setFormData] = useState<IProductForm>(initialFormData);
   const { validateProductForm } = ProductValidation;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setFormData(initialFormData);
@@ -53,15 +54,21 @@ const ProductForm: React.FC<ProductFormProps> = ({
     setErrors(newErrors);
 
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true);
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
-
   const handleClose = () => {
     closeModal();
     setFormData(initialFormData);
@@ -72,6 +79,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     <GlobalModal
       open={isOpen}
       onClose={handleClose}
+      isLoading={isSubmitting}
       title={
         modalType === "create"
           ? translation.sidebar.products_table.create_new_product
