@@ -84,12 +84,12 @@ const TicketForm = ({
       product: formData.product?.title,
       client: formData.client?.title,
     };
-  
+
     const newErrors = validateTiecketForm(formattedData, translation);
     setErrors(newErrors);
-  
+
     if (hasNoErrors(newErrors)) {
-      setIsSubmitting(true); 
+      setIsSubmitting(true);
       try {
         const success = await onSubmit(formData);
         if (success) {
@@ -100,7 +100,7 @@ const TicketForm = ({
       } catch (error) {
         console.error("Submission error:", error);
       } finally {
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
       }
     }
   };

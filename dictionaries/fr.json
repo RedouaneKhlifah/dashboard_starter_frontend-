@@ -85,7 +85,7 @@
     "resetPassword": "Mot de passe oublié ?",
     "resetPasswordDescription": "Entrez votre email pour réinitialiser votre mot de passe",
     "submit": "Soumettre",
-    "signup_success_message": "Nous sommes heureux de vous dire que tout s'est bien passé,<br />prenez le temps d'explorer le menu.",
+    "signup_success_message": "Nous sommes heureux de vous dire que tout s'est bien passé,prenez le temps d'explorer le menu.",
     "congrats_you_are_in": "Félicitations, vous êtes connecté !",
     "continue": "Continuer",
     "error": {

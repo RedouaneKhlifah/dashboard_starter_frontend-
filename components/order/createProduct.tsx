@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, FormEvent } from "react";
 import { debounce } from "lodash";
 import SearchInput from "@/components/ui/SearchInput";
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -68,13 +68,18 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     });
   }, []);
 
-  const handleSelect = useCallback(() => {
-    const selected = availableProducts.filter((product) =>
-      selectedProducts.has(product.id)
-    );
-    onSelect(selected); 
-    closeSecondModal();
-  }, [availableProducts, selectedProducts, onSelect, closeSecondModal]);
+
+  const handleSelect = useCallback(
+    (e: FormEvent<Element>) => {
+      e.preventDefault();
+      const selected = availableProducts.filter((product) =>
+        selectedProducts.has(product.id)
+      );
+      onSelect(selected);
+      closeSecondModal();
+    },
+    [availableProducts, selectedProducts, onSelect, closeSecondModal]
+  );
 
   return (
     <GlobalModal

@@ -22,7 +22,7 @@ const AuthForm = ({
   errors,
   setErrors,
   onSubmit,
-  isLoading
+  isLoading,
 }: AuthFormProps) => {
   const { auth } = translation;
   const { validateAuthForm } = AuthValidation;
@@ -33,8 +33,9 @@ const AuthForm = ({
     fullName: "", // This will be used only for SignUp
   });
 
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -63,8 +64,6 @@ const AuthForm = ({
       onSubmit(formData);
     }
   };
-
-
 
   return (
     <div className="w-full max-w-md p-8 rounded-sm bg-defaultground border border-border">
@@ -150,23 +149,28 @@ const AuthForm = ({
           /> */}
 
           {/* Submit button */}
-          <Button
-            type="submit"
-            className="w-full !mt-6 lg:py-2 !py-3 px-3 bg-button text-button-foreground hover:bg-button-hover rounded-sm !font-semibold transition-colors"
-            disabled={isLoading}
-            placeholder={undefined}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}          >
-            {isLoading ? (
-              <div className="flex items-center justify-center gap-2">
-                <Spinner className="h-4 w-4" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
-                {translation.shared["loading "]}
-              </div>
-            ) : (
-              formType === FormTypeEnum.SignIn ? auth.signIn : auth.signUp
-            )}
-          </Button>
 
+          <button
+            type="submit"
+            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-button text-button-foreground hover:bg-button-hover rounded-sm font-medium transition-colors "
+          >
+            <Condition
+              if={isLoading}
+              render={
+                <div className="flex items-center justify-center gap-2">
+                  <Spinner
+                    className="h-4 w-4"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                  {translation.shared["loading "]}
+                </div>
+              }
+              else={
+                formType === FormTypeEnum.SignIn ? auth.signIn : auth.signUp
+              }
+            />
+          </button>
 
           {/* Divider between buttons */}
           {/* <div className="relative my-6">
