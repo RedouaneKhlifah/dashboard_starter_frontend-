@@ -7,6 +7,8 @@ import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
 import { PartenaireValidation } from "@/validation";
 import useModalStore from "@/store/modalStore";
 import { IPartenaireForm } from "@/dto/partenaire/partenaireForm";
+import useToast from "@/hooks/useToast";
+import { CircleCheckBig } from "lucide-react";
 
 interface PartenaireFormProps {
   initialFormData: IPartenaireForm;
@@ -26,10 +28,11 @@ const PartenaireForm = ({
   isOpen,
 }: PartenaireFormProps) => {
   const { modalType, closeModal } = useModalStore();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<IPartenaireForm>(initialFormData);
-
+  const {  error: toastError, success : toastSuccess} = useToast(); 
   const { validatePartenaireForm } = PartenaireValidation;
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,14 +40,22 @@ const PartenaireForm = ({
     setErrors(newErrors);
 
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true);
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        // toastError(translation.partenaire.message.error)
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
+
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -58,6 +69,7 @@ const PartenaireForm = ({
           setFormData(initialFormData);
           setErrors({});
         }}
+        isLoading={isSubmitting}
         title={
           modalType === "create"
             ? translation.sidebar.partenaires_table.create_new_partner

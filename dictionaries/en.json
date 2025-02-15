@@ -85,7 +85,7 @@
     "resetPassword": "Forgot Password",
     "resetPasswordDescription": "Enter your email to reset your password",
     "submit": "Submit",
-    "signup_success_message": "Happy to say that everything went smoothly,<br />take some time exploring the menu.",
+    "signup_success_message": "Happy to say that everything went smoothly,take some time exploring the menu.",
     "congrats_you_are_in": "Congratulations, you're in !",
     "continue": "Continue",
     "error": {
@@ -118,6 +118,12 @@
       "cancel": "Cancel",
       "update": "Update",
       "delete": "Delete"
+    },
+    "message": {
+      "success": "Client created successfully",
+      "update_success": "Client updated successfully",
+      "delete_success": "Client deleted successfully",
+      "error": "An error occurred while creating the client"
     }
   },
   "partenaire": {
@@ -131,6 +137,12 @@
       "name": "Name",
       "matricule": "Matricule",
       "number": "Number"
+    },
+    "message": {
+      "success": "Partenaire created successfully",
+      "delete_success": "Partenaire deleted successfully",
+      "update_success": "Partner updated successfully",
+      "error": "An error occurred while creating the Client"
     }
   },
   "Product": {
@@ -176,6 +188,12 @@
     },
     "labels": {
       "image_alt": "Image product"
+    },
+    "message": {
+      "success": "Product created successfully",
+      "update_success": "Product updated successfully",
+      "delete_success": "Product deleted successfully",
+      "error": "An error occurred while creating the product"
     }
   },
   "Ticket": {
@@ -216,7 +234,16 @@
       "create": "Create",
       "cancel": "Cancel",
       "update": "Update",
-      "delete": "Delete"
+      "delete": "Delete",
+      "updating": "Updating...",
+      "creating": "Creating...",
+      "continue": "Continue"
+    },
+    "message": {
+      "success": "Ticket created successfully",
+      "update_success": "Ticket updated successfully",
+      "delete_success": "Ticket deleted successfully",
+      "error": "An error occurred while creating the ticket"
     }
   },
   "Order": {
@@ -231,7 +258,7 @@
       "cancel": "Cancel",
       "update": "Update",
       "delete": "Delete",
-      "continue":"Continue"
+      "continue": "Continue"
     },
     "select_products": "Select Products",
     "reference_create": "Create new reference",
@@ -268,7 +295,7 @@
         "no_articles": "No products added yet",
         "total": "Total",
         "unit_price": "Unit Price",
-         "actions": "Action"
+        "actions": "Action"
       },
       "remise": {
         "type": "Discount Type",
@@ -334,6 +361,10 @@
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No Customers Found",
+        "sub_text": "No customer records match your criteria"
       }
     },
     "partenaires_table": {
@@ -355,6 +386,10 @@
         "modal_title": "Confirm Deletion",
         "title": "Are you sure you want to delete",
         "warning": "This action cannot be undone."
+      },
+      "no_data": {
+        "message": "No Partners Found",
+        "sub_text": "No partner records match your criteria"
       }
     },
     "ticket_table": {
@@ -376,6 +411,10 @@
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No Tickets Found",
+        "sub_text": "No ticket records match your criteria"
       }
     },
     "orders_table": {
@@ -422,6 +461,10 @@
         "modal_title": "Confirm Deletion",
         "title": "Are you sure you want to delete",
         "warning": "This action cannot be undone."
+      },
+      "no_data": {
+        "message": "No Products Found",
+        "sub_text": "No product records match your criteria"
       }
     },
     "file_upload": {
@@ -431,6 +474,7 @@
 
   "shared": {
     "continue": "Continue",
+    "loading ": "Loading...",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
     }

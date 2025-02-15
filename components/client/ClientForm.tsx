@@ -38,6 +38,7 @@ const ClientForm: React.FC<ClientFormProps> = ({
 
   // State
   const [formData, setFormData] = useState<IClientForm>(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Validation
   const { validateClientForm } = ClientValidation;
@@ -45,16 +46,22 @@ const ClientForm: React.FC<ClientFormProps> = ({
   // Handle Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const newErrors = validateClientForm(formData, translation);
     setErrors(newErrors);
 
     if (hasNoErrors(newErrors)) {
-      const success = await onSubmit(formData);
-      if (success) {
-        closeModal();
-        setFormData(initialFormData);
-        setErrors({});
+      setIsSubmitting(true);
+      try {
+        const success = await onSubmit(formData);
+        if (success) {
+          closeModal();
+          setFormData(initialFormData);
+          setErrors({});
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -72,6 +79,7 @@ const ClientForm: React.FC<ClientFormProps> = ({
         setFormData(initialFormData);
         setErrors({});
       }}
+      isLoading={isSubmitting}
       title={
         modalType === "create"
           ? translation.sidebar.users_table.create_new_client

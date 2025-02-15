@@ -17,6 +17,7 @@ import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
+import useToast from "@/hooks/useToast";
 
 interface UsersTablePartenaireProps {
   records: IPartenaire[];
@@ -46,8 +47,9 @@ export function UsersTablePartenaire({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const didMountRef = useRef(false);
+  const { error, success} = useToast(); 
 
   const partenairRows = useMemo(
     () => rowMapper(partenaires),
@@ -67,7 +69,6 @@ export function UsersTablePartenaire({
   });
 
   const debouncedSearch = useDebounce(refreshPartenaires, 300);
-
   useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
@@ -85,6 +86,7 @@ export function UsersTablePartenaire({
     [openModal, partenaires]
   );
 
+
   const openDeleteModal = useCallback(
     (partenaireId: number) => {
       const record = partenaires.find((p) => p.id === partenaireId);
@@ -96,19 +98,22 @@ export function UsersTablePartenaire({
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord) return;
+    setIsSubmitting(true);
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-
       if (!response.ok) return;
-
+      success(translation.partenaire.message.delete_success);
       closeModal();
       refreshPartenaires(true);
     } catch (error) {
       console.error("Error deleting partenaire:", error);
+    } finally {
+      setIsSubmitting(false);
     }
+
   };
 
   return (
@@ -143,6 +148,8 @@ export function UsersTablePartenaire({
         totalRows={totalPartenaires}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
+        noDataMessage={partenaires_table.no_data.message}
+        sub_text={partenaires_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
@@ -157,6 +164,7 @@ export function UsersTablePartenaire({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.name || ""}
         translation={translation}
+        isLoading={isSubmitting}
       />
 
       <CreatePartenaireForm lang={lang} translation={translation} />

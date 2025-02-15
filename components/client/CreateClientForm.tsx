@@ -2,6 +2,7 @@
 
 // React & Hooks
 import { useState, useMemo } from "react";
+import useToast from "@/hooks/useToast";
 
 // Components
 import ClientForm from "./ClientForm";
@@ -26,7 +27,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
 
   // State
   const [errors, setErrors] = useState<Partial<ICreateClient>>({});
-
+  const { error: toastError, success: toastSuccess } = useToast();
   // Memoized initial form data
   const initialFormData = useMemo<ICreateClient>(
     () => ({
@@ -55,16 +56,20 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.client.message.success);
+        return true;
+      } else {
         const error = await response.json();
+        toastError(error.message || translation.client.message.error);
 
         if (error?.errors?.email) {
           setErrors({ email: error.message });
+          toastError(error?.errors?.emai || translation.auth.error);
+
         }
         return false;
       }
-
-      return true;
     } catch (error) {
       console.error("Error during client creation:", error);
       return false;

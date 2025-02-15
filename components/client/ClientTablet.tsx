@@ -2,6 +2,7 @@
 
 // React & Hooks
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import useToast from "@/hooks/useToast";
 
 // Components
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -54,7 +55,8 @@ export function ClientTable({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error: toastError, success: toastSuccess } = useToast();
   // Memoized values
   const userRows = useMemo(() => rowMapper(clients), [rowMapper, clients]);
 
@@ -86,16 +88,20 @@ export function ClientTable({
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord) return;
+    setIsSubmitting(true);
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients/${selectedRecord.id}`,
         { method: "DELETE" }
       );
       if (!response.ok) return;
+      toastSuccess(translation.client.message.delete_success);
       closeModal();
       refreshClients(true);
     } catch (error) {
       console.error("Error deleting client:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -163,6 +169,8 @@ export function ClientTable({
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
         setCurrentPage={setCurrentPage}
+        noDataMessage={users_table.no_data.message}
+        sub_text={users_table.no_data.sub_text}
         currentPage={currentPage}
       />
 
@@ -178,6 +186,7 @@ export function ClientTable({
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.first_name || ""}
         translation={translation}
+        isLoading={isSubmitting}
       />
 
       {/* Create Client Form */}

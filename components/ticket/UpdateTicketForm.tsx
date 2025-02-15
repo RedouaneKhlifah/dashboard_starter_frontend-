@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useToast from "@/hooks/useToast";
 
 // Components
 import TicketForm from "./TicketForm";
@@ -30,7 +31,7 @@ const UpdateTicketForm: React.FC<TicketFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<TicketFormErrors>({});
-
+  const { error: toastError, success: toastSuccess } = useToast(); 
   const initialFormData = useMemo<ITicketForm>(
     () =>
       selectedRecord ?? {
@@ -68,12 +69,14 @@ const UpdateTicketForm: React.FC<TicketFormProps> = ({
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.Ticket.message.update_success);
+        return true;
+      } else {
         const error = await response.json();
+        toastError(error.message || translation.Ticket.message.error);
         return false;
       }
-
-      return true;
     } catch (error) {
       console.error("Error updating ticket:", error);
       return false;

@@ -6,6 +6,7 @@ import http from "@/lib/http";
 import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
 import { ICreatePartenaire } from "@/dto/partenaire/createPartenaire";
+import useToast from "@/hooks/useToast";
 
 interface PartenaireFormProps {
   translation: DictionaryType;
@@ -14,13 +15,13 @@ interface PartenaireFormProps {
 
 const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang }) => {
   const { modalType } = useModalStore();
-
+  const { error: toastError, success: toastSuccess } = useToast(); 
   const [errors, setErrors] = useState<Partial<ICreatePartenaire>>({});
+  
   const initialFormData = useMemo<ICreatePartenaire>(
     () => ({
       name: "",
       matricule: ""
-      // number: "",
     }),
     []
   );
@@ -36,14 +37,17 @@ const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.partenaire.message.success);
+        return true;
+      } else {
         const error = await response.json();
-
+        toastError(error.message || translation.partenaire.message.error);
         return false;
       }
-      return true;
     } catch (error) {
       console.error("Error during partenaire creation:", error);
+      toastError(translation.partenaire.message.error);
       return false;
     }
   };
@@ -55,7 +59,7 @@ const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
-      isOpen={modalType == "create"}
+      isOpen={modalType === "create"}
     />
   );
 };
