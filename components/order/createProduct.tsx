@@ -3,7 +3,7 @@ import { debounce } from "lodash";
 import SearchInput from "@/components/ui/SearchInput";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { DictionaryType } from "@/lib/i18n";
-import { IProduct } from "@/dto/order/orderForm";
+import { IProduct } from "@/interfaces/IProduct";
 import http from "@/lib/http";
 import GlobalModal from "../shared/GlobalModal";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
@@ -30,13 +30,22 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     new Set(selectedProductIds)
   );
 
+  
+
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
       try {
         setLoading(true);
-        const response = await http(`/api/products?search=${query}&page=1`);
+        const url = `${
+          process.env.NEXT_PUBLIC_API_BASE_PATH
+        }/api/products?search=${encodeURIComponent(query)}&page=1`;
+        const response = await http(url);
+        
+        if (!response.ok) throw new Error(translation.common.errors.fetch_error);
+        
         const data = await response.json();
         setAvailableProducts(data.data || []);
+        setError("");
       } catch (err) {
         setError(translation.common.errors.fetch_error);
       } finally {
@@ -46,50 +55,19 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     [translation]
   );
 
-  const mockProducts: IProduct[] = [
-    {
-      id: 1,
-      name: "Premium Coffee Beans",
-      image: "/images/coffee-beans.jpg",
-      unit: "kg",
-      quantity: 50,
-      costPrice: 12.99,
-      selected: false,
-      total: 0,
-    },
-    {
-      id: 2,
-      name: "Organic Honey",
-      image: "/images/honey.jpg",
-      unit: "bottle",
-      quantity: 100,
-      costPrice: 8.5,
-      selected: false,
-      total: 0,
-    },
-  ];
-
   useEffect(() => {
-    if (searchQuery.trim()) {
-      debouncedSearch(searchQuery);
-    } else {
-      setAvailableProducts(mockProducts);
-    }
-
+    debouncedSearch(searchQuery);
     return () => debouncedSearch.cancel();
   }, [searchQuery, debouncedSearch]);
 
   const toggleSelection = useCallback((productId: number) => {
     setSelectedProducts((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(productId)) {
-        newSet.delete(productId);
-      } else {
-        newSet.add(productId);
-      }
+      newSet.has(productId) ? newSet.delete(productId) : newSet.add(productId);
       return newSet;
     });
   }, []);
+
 
   const handleSelect = useCallback(
     (e: FormEvent<Element>) => {
@@ -106,12 +84,8 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   return (
     <GlobalModal
       open={isSecondOpen}
-      onClose={() => {
-        closeSecondModal();
-      }}
-      title={
-        secondModalType === "create" ? translation.Order.select_products : ""
-      }
+      onClose={closeSecondModal}
+      title={secondModalType === "create" ? translation.Order.select_products : ""}
       submitButtonText={translation.common.select}
       cancelButtonText={translation.common.cancel}
       onSubmit={handleSelect}
@@ -151,13 +125,9 @@ const CreateProduct: React.FC<CreateProductProps> = ({
                 label: translation.Order.form.articles.unit,
               },
               {
-                key: "quantity",
-                label: translation.Order.form.articles.quantity,
-              },
-              {
                 key: "selected",
                 label: translation.Order.form.articles.select,
-                renderCell: (value: boolean, row: IProduct) => (
+                renderCell: (_, row: IProduct) => (
                   <input
                     type="checkbox"
                     checked={selectedProducts.has(row.id)}
@@ -168,7 +138,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
                 ),
               },
             ]}
-            rows={availableProducts.length ? availableProducts : mockProducts}
+            rows={availableProducts}
             className="mt-4"
             emptyMessage={translation.common.no_results}
           />
