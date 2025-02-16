@@ -1,13 +1,14 @@
 "use client";
 
 import { forwardRef } from "react";
+import { Locale } from "@/i18n-config";
 import { IDevis } from "@/interfaces/IDevis";
 import { DictionaryType } from "@/lib/i18n";
-import { Locale } from "@/i18n-config";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
 
+// Types
 interface PrintableOrderProps {
-  order: IDevis;
+  order: IDevis | null;
   translation: DictionaryType;
   lang: Locale;
 }
@@ -20,28 +21,33 @@ interface OrderTotals {
   total: number;
 }
 
+// Utility functions
 const calculateOrderTotals = (order: IDevis): OrderTotals => {
   const subtotal = order.products.reduce(
-    (acc, product) => acc + (product.sale_price * (product.stock || 1)),
+    (acc, product) => acc + product.sale_price * (product.stock || 1),
     0
   );
-  const discount = order.remise_type === "PERCENT" 
-    ? subtotal * (order.remise / 100) 
-    : order.remise;
+
+  const discount =
+    order.remise_type === "PERCENT"
+      ? subtotal * (order.remise / 100)
+      : order.remise;
+
   const totalAfterDiscount = subtotal - discount;
   const taxAmount = totalAfterDiscount * (order.tva / 100);
-  
+
   return {
     subtotal,
     discount,
     totalAfterDiscount,
     taxAmount,
-    total: totalAfterDiscount + taxAmount
+    total: totalAfterDiscount + taxAmount,
   };
 };
 
+// Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
-  <div className="print-header text-center mb-8">
+  <header className="text-center mb-8">
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.orders_table.print.company_name}
     </h1>
@@ -51,19 +57,19 @@ const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
     <p className="text-sm">
       {translation.sidebar.orders_table.print.company_contact}
     </p>
-  </div>
+  </header>
 );
 
-const DocumentInfo = ({ 
-  order, 
-  translation, 
-  lang 
-}: { 
-  order: IDevis; 
-  translation: DictionaryType; 
-  lang: Locale; 
+const DocumentInfo = ({
+  order,
+  translation,
+  lang,
+}: {
+  order: IDevis;
+  translation: DictionaryType;
+  lang: Locale;
 }) => (
-  <div className="print-document-info mb-6">
+  <section className="mb-6">
     <h2 className="text-xl font-semibold mb-3">
       {translation.sidebar.orders_table.print.order_title}
     </h2>
@@ -72,23 +78,25 @@ const DocumentInfo = ({
         {translation.sidebar.orders_table.print.reference}: {order.reference}
       </span>
       <span className="text-sm">
-        {translation.sidebar.orders_table.print.date}:{order.devis_date}
+        {translation.sidebar.orders_table.print.date}:{" "}
+        {formatDate(order.devis_date, lang)}
       </span>
     </div>
     <div className="text-right text-sm">
-      {translation.sidebar.orders_table.print.due_date}: {order.expiration_date}
+      {translation.sidebar.orders_table.print.due_date}:{" "}
+      {formatDate(order.expiration_date, lang)}
     </div>
-  </div>
+  </section>
 );
 
-const ClientInfo = ({ 
-  client, 
-  translation 
-}: { 
-  client: IDevis['client']; 
-  translation: DictionaryType; 
+const ClientInfo = ({
+  client,
+  translation,
+}: {
+  client: IDevis["client"];
+  translation: DictionaryType;
 }) => (
-  <div className="print-client-info mb-6">
+  <section className="mb-6">
     <h3 className="font-medium mb-2">
       {translation.sidebar.orders_table.print.bill_to}
     </h3>
@@ -97,19 +105,19 @@ const ClientInfo = ({
       <p className="mb-1">{client.address}</p>
       <p>{client.email}</p>
     </div>
-  </div>
+  </section>
 );
 
-const ProductsTable = ({ 
-  order, 
+const ProductsTable = ({
+  order,
   translation,
-  lang 
-}: { 
-  order: IDevis; 
+  lang,
+}: {
+  order: IDevis;
   translation: DictionaryType;
   lang: Locale;
 }) => (
-  <table className="print-table w-full mb-6">
+  <table className="w-full mb-6">
     <thead>
       <tr className="border-b-2 border-gray-300">
         <th className="text-left py-2 px-3">
@@ -143,16 +151,16 @@ const ProductsTable = ({
   </table>
 );
 
-const TotalsSection = ({ 
-  totals, 
+const TotalsSection = ({
+  totals,
   translation,
-  lang 
-}: { 
-  totals: OrderTotals; 
+  lang,
+}: {
+  totals: OrderTotals;
   translation: DictionaryType;
   lang: Locale;
-}) => ( 
-  <div className="print-totals ml-auto w-72 !mt-7">
+}) => (
+  <section className="ml-auto w-72 mt-7">
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.orders_table.print.subtotal}:</span>
       <span>{formatCurrency(totals.subtotal, lang)}</span>
@@ -169,44 +177,63 @@ const TotalsSection = ({
       <span>{translation.sidebar.orders_table.print.total}:</span>
       <span>{formatCurrency(totals.total, lang)}</span>
     </div>
-  </div>
+  </section>
 );
 
 const Footer = ({ translation }: { translation: DictionaryType }) => (
-  <div className="print-footer mt-8 text-center text-sm">
+  <footer className="mt-8 text-center text-sm">
     <p className="mb-2">{translation.sidebar.orders_table.print.terms}</p>
     <p>{translation.sidebar.orders_table.print.thank_you}</p>
-  </div>
+  </footer>
 );
 
+// Print styles
+const printStyles = `
+  @media print {
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+    }
+    .border-b-2 {
+      border-bottom-width: 2px;
+    }
+    .border-gray-300 {
+      border-color: #000;
+    }
+  }
+`;
+
+// Main component
 const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
   ({ order, translation, lang }, ref) => {
-    const textDirection = lang === 'ar' ? 'rtl' : 'ltr';
+    if (!order) {
+      return <div ref={ref}>No order data available</div>;
+    }
+
+    const textDirection = lang === "ar" ? "rtl" : "ltr";
     const totals = calculateOrderTotals(order);
 
     return (
-      <div 
-        ref={ref} 
-        className="print-container p-8 max-w-4xl mx-auto"
+      <div
+        ref={ref}
+        className="p-8 max-w-4xl mx-auto"
         dir={textDirection}
+        style={{ fontFamily: "Arial, sans-serif" }}
       >
-        <style>{`
-          @media print {
-            @page {
-              size: A4;
-              margin: 20mm;
-            }
-            body {
-              -webkit-print-color-adjust: exact;
-              print-color-adjust: exact;
-            }
-            .print-container {
-              padding: 0;
-              max-width: none;
-            }
-          }
-        `}</style>
-
+        <style>{printStyles}</style>
         <CompanyHeader translation={translation} />
         <DocumentInfo order={order} translation={translation} lang={lang} />
         <ClientInfo client={order.client} translation={translation} />

@@ -3,25 +3,22 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
-import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
-import { DictionaryType } from "@/lib/i18n";
-import { Locale } from "@/i18n-config";
-import { IDevis } from "@/interfaces/IDevis";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
-import CreateOrderForm from "./CreateOrderForm";
 import Header from "../shared/Header";
+import CreateOrderForm from "./CreateOrderForm";
+import UpdateOrderForm from "./UpdateOrderForm";
+import PrintableOrder from "./printable/PrintableOrder";
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import { usePusher } from "@/hooks/usePusher";
 import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
-import http from "@/lib/http";
-import UpdateOrderForm from "./UpdateOrderForm";
-import { IClient } from "@/interfaces/IClient";
 import { useReactToPrint } from "react-to-print";
-import PrintableOrder from "./printable/PrintableOrder"
-import ReactDOM from "react-dom";
-import { IProduct } from "@/interfaces/IProduct";
-import { ITicket } from "@/interfaces/ITicket";
+import http from "@/lib/http";
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
+import { IDevis } from "@/interfaces/IDevis";
+import { IClient } from "@/interfaces/IClient";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -36,12 +33,12 @@ export function TableOrder({
   translation,
   lang,
 }: TableOrderProps) {
-  const { openModal, modalType, closeModal } = useModalStore();
+  const { openModal, closeModal } = useModalStore();
   const {
     sidebar: { orders_table },
   } = translation;
 
-  // State
+  // State Management
   const [orders, setOrders] = useState<IDevis[]>(records);
   const [totalOrders, setTotalOrders] = useState(totalRecords);
   const [selectedRecord, setSelectedRecord] = useState<IDevis | undefined>(
@@ -49,11 +46,14 @@ export function TableOrder({
   );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [selectedOrderForPrint, setSelectedOrderForPrint] = useState<IDevis | null>(null);
-  const printableRef = useRef(null);
-  const didMountRef = useRef(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedOrderForPrint, setSelectedOrderForPrint] =
+    useState<IDevis | null>(null);
 
+  // Refs
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Hooks
   const handleOrderUpdate = useEntityUpdate<IDevis>(setOrders);
   usePusher("order", handleOrderUpdate);
 
@@ -69,20 +69,36 @@ export function TableOrder({
   const debouncedSearch = useDebounce(refreshOrders, 300);
 
   useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-      return;
-    }
     debouncedSearch();
-  }, [searchQuery, debouncedSearch, currentPage]);
+  }, [searchQuery, currentPage, debouncedSearch]);
 
+  // Print Handling
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
+    onAfterPrint: () => setSelectedOrderForPrint(null),
+  });
+
+  useEffect(() => {
+    if (selectedOrderForPrint) handlePrint();
+  }, [selectedOrderForPrint, handlePrint]);
+
+  const handlePrintRequest = useCallback(
+    (orderId: number) => {
+      const orderToPrint = orders.find((o) => o.id === orderId);
+      if (orderToPrint) setSelectedOrderForPrint(orderToPrint);
+    },
+    [orders]
+  );
+
+  // CRUD Actions
   const handleEdit = useCallback(
     (orderId: number) => {
       const record = orders.find((o) => o.id === orderId);
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },
-    [openModal, orders]
+    [orders, openModal]
   );
 
   const openDeleteModal = useCallback(
@@ -115,109 +131,7 @@ export function TableOrder({
     // Implement email functionality
   }, []);
 
-  const handlePrint = useReactToPrint({
-    content: () => printableRef.current,
-    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
-    onAfterPrint: () => setSelectedOrderForPrint(null),
-    pageStyle: `
-      @media print {
-        @page { margin: 20px; }
-        body { -webkit-print-color-adjust: exact; }
-      }
-    `,
-  });
-  const handlePrintRequest = useCallback((orderId: number) => {
-    const order = orders.find((o) => o.id === orderId);
-    if (!order) {
-      console.error("No order found for printing");
-      return;
-    }
-  
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      console.error("Could not open print window");
-      return;
-    }
-  
-
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Print Order</title>
-          <style>
-            @media print {
-              @page { 
-                margin: 20mm;
-                size: A4;
-              }
-              body { 
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                font-family: Arial, sans-serif;
-              }
-              table {
-                width: 100%;
-                border-collapse: collapse;
-              }
-              th, td {
-                padding: 8px;
-                border-bottom: 1px solid #ddd;
-              }
-              .text-right {
-                text-align: right;
-              }
-              .text-center {
-                text-align: center;
-              }
-              .company-header {
-                margin-bottom: 20px;
-                text-align: center;
-              }
-              .totals-section {
-                margin-top: 20px;
-                margin-left: auto;
-                width: 250px;
-              }
-              .footer {
-                margin-top: 30px;
-                text-align: center;
-                font-size: 12px;
-              }
-            }
-          </style>
-        </head>
-        <body>
-    `);
-  
-    // Render the PrintableOrder component
-    const PrintableContent = (
-      <PrintableOrder
-        order={order}
-        translation={translation}
-        lang={lang}
-      />
-    );
-  
-    // Render to string and write to print window
-    const root = ReactDOM.createRoot(printWindow.document.body);
-    root.render(PrintableContent);
-  
-    // Wait for content to be rendered before printing
-    setTimeout(() => {
-      printWindow.document.close();
-      printWindow.focus();
-      printWindow.print();
-      printWindow.close();
-    }, 1000);
-  }, [orders, lang, translation]);
-
-  useEffect(() => {
-    if (selectedOrderForPrint) {
-      handlePrint();
-    }
-  }, [selectedOrderForPrint]);
-
+  // Table Headers
   const headers = useMemo(
     () => [
       {
@@ -235,19 +149,14 @@ export function TableOrder({
       {
         key: "client" as keyof IDevis,
         label: orders_table.headers.client,
-        renderCell: (
-          value: string | number | IClient | IProduct[] | ITicket | null
-        ) => {
-          const client = value as IClient;
-          return client.full_name;
-        },
+        renderCell: (_: any, row: IDevis) => (row.client as IClient).full_name,
       },
       {
-        key: "id" as keyof IDevis,
+        key: "total" as keyof IDevis,
         label: orders_table.headers.total,
         renderCell: (_: any, row: IDevis) => {
           const subtotal = row.products.reduce(
-            (acc, product) => acc + product.sale_price,
+            (acc, product) => acc + product.sale_price * (product.stock || 1),
             0
           );
           const discount =
@@ -260,9 +169,9 @@ export function TableOrder({
         },
       },
       {
-        key: "id" as keyof IDevis,
+        key: "actions" as keyof IDevis,
         label: orders_table.headers.actions,
-        renderCell: (_: any, row: IDevis) => (
+        renderCell: (_, row: IDevis) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
@@ -275,20 +184,7 @@ export function TableOrder({
         ),
       },
     ],
-    [
-      orders_table.headers.reference,
-      orders_table.headers.devis_date,
-      orders_table.headers.expiration_date,
-      orders_table.headers.client,
-      orders_table.headers.total,
-      orders_table.headers.actions,
-      orders_table.actions.edit,
-      orders_table.actions.delete,
-      handleEdit,
-      openDeleteModal,
-      handleEmail,
-      handlePdf,
-    ]
+    [orders_table, handleEdit, openDeleteModal, handleEmail, handlePrintRequest]
   );
 
   return (
@@ -297,10 +193,9 @@ export function TableOrder({
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
         buttonText={orders_table.create_new_order}
-        showSearch={true}
+        showSearch
         setSearchQuery={setSearchQuery}
       />
-
       <GlobalTable<IDevis>
         headers={headers}
         rows={orders}
@@ -310,33 +205,25 @@ export function TableOrder({
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-
       <UpdateOrderForm
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
       />
-
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.reference || ""}
         translation={translation}
       />
-
-      <CreateOrderForm
-        lang={lang}
-        translation={translation}
-      />
-      {selectedOrderForPrint && (
-        <div className="hidden w-full">
-          <PrintableOrder
-            ref={printableRef}
-            order={selectedOrderForPrint}
-            translation={translation}
-            lang={lang}
-          />
-        </div>
-      )}
+      <CreateOrderForm lang={lang} translation={translation} />
+      <div style={{ display: "none" }}>
+        <PrintableOrder
+          ref={contentRef}
+          order={selectedOrderForPrint}
+          translation={translation}
+          lang={lang}
+        />
+      </div>
     </>
   );
 }

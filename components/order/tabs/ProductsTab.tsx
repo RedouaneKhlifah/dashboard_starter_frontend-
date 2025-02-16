@@ -8,7 +8,6 @@ import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import CreateProduct from "../createProduct";
 import { X } from "lucide-react";
 import InputField from "@/components/ui/InputField";
-import { handleChange } from "@/components/utils/formHandlers";
 
 interface ProductsTabProps {
   formData: IOrderForm;
@@ -180,7 +179,7 @@ const ProductsTab = ({
         >
           {translation.Order.form.add_article}
         </Button>
-        {formData.products.length > 0 && (
+        {formData.products?.length > 0 && (
           <div className="text-right">
             <div className="text-sm text-gray-500">
               {"total_items"}
