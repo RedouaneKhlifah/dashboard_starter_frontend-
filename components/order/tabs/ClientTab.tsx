@@ -9,6 +9,7 @@ import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
+import { IDevis } from "@/interfaces/IDevis";
 
 interface ClientTabProps {
   formData: IOrderForm;
@@ -16,6 +17,7 @@ interface ClientTabProps {
   errors: OrderFormErrors;
   setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
   translation: DictionaryType;
+  selectedRecord?: IDevis | undefined;
 }
 
 const ClientTab = ({
@@ -24,6 +26,7 @@ const ClientTab = ({
   errors,
   setErrors,
   translation,
+  selectedRecord
 }: ClientTabProps) => {
   const API_ENDPOINTS = {
     clients: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
@@ -74,6 +77,7 @@ const ClientTab = ({
           onChange={(e) => handleChange(e, setFormData, setErrors)}
           value={formData.devis_date}
           error={errors.devis_date}
+          disabled={selectedRecord ? true : false}
         />
         <InputField
           id="expiration_date"

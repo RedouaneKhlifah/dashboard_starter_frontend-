@@ -26,7 +26,7 @@ export const validateOrderForm = (
   newErrors.devis_date = validateField(devisDateSchema, formData.devis_date);
   newErrors.expiration_date = validateField(expirationDateSchema, formData.expiration_date);
   newErrors.client = validateField(clientSchema, formData.client);
-  newErrors.product = validateField(productSchema, formData.product);
+  newErrors.products = validateField(productSchema, formData.products);
   newErrors.note = validateField(noteSchema, formData.note);
 
   return Object.fromEntries(

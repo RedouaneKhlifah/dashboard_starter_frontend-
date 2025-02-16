@@ -7,6 +7,8 @@ import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { IOrderForm } from "@/dto/order/orderForm";
+import useToast from "@/hooks/useToast";
+
 
 interface OrderFormProps {
   translation: DictionaryType;
@@ -19,6 +21,7 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<OrderFormErrors>({});
+  const { error: toastError, success: toastSuccess } = useToast();
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
@@ -42,23 +45,41 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   );
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
+    const formattedData = {
+      reference: data.reference,
+      devis_date: data.devis_date,
+      experation_date: data.expiration_date,
+      client_id: data.client.id,
+      products: data.products,
+      note: data.note,
+      subtotal: data.subtotal,
+      tva: data.tva,
+      remise_type: data.remise_type,
+      remise: data.remise,
+      total: data.total,
+      notes: data.note,
+    };
     try {
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders",
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/devis",
         {
           method: "POST",
           lang,
-          body: JSON.stringify(data),
+          body: JSON.stringify(formattedData),
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.Order.form.message.success);
+        return true;
+      } else {
         const error = await response.json();
+        toastError(error.message || translation.Order.form.message.error);
         return false;
       }
-      return true;
     } catch (error) {
       console.error("Error during order creation:", error);
+      toastError(translation.Order.form.message.error);
       return false;
     }
   };

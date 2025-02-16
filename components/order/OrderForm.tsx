@@ -10,6 +10,7 @@ import useModalStore from "@/store/modalStore";
 import { IOrderForm } from "@/dto/order/orderForm";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { ClientTab, ProductsTab, SummaryTab, NotesTab } from "./tabs";
+import { IDevis } from "@/interfaces/IDevis";
 
 export type TabName = "client" | "products" | "summary" | "notes";
 
@@ -33,6 +34,7 @@ interface OrderFormProps {
   setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
   onSubmit: (formData: IOrderForm) => Promise<boolean>;
   isOpen: boolean;
+  selectedRecord?: IDevis | undefined;
 }
 
 const OrderForm = ({
@@ -42,11 +44,12 @@ const OrderForm = ({
   setErrors,
   onSubmit,
   isOpen,
+  selectedRecord
 }: OrderFormProps) => {
   const { modalType, closeModal, isSecondOpen } = useModalStore();
   const [formData, setFormData] = useState<IOrderForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const submitButtonText = useMemo(() => {
     return activeTab.name === "notes"
       ? modalType === "create"
@@ -54,7 +57,6 @@ const OrderForm = ({
         : translation.sidebar.orders_table.update_order
       : translation.Order.common.continue;
   }, [activeTab.name, modalType, translation]);
-
   const validateCurrentTab = (tabName: TabName): OrderFormErrors => {
     const newErrors: OrderFormErrors = {};
 
@@ -65,8 +67,12 @@ const OrderForm = ({
         if (!formData.devis_date)
           newErrors.devis_date = translation.Order.devis_date_required;
         if (!formData.expiration_date)
-          newErrors.expiration_date =
-            translation.Order.expiration_date_required;
+          newErrors.expiration_date = translation.Order.expiration_date_required;
+        break;
+      case "products":
+        if (!formData.products || formData.products.length === 0) {
+          newErrors.products = translation.Order.product_required;
+        }
         break;
     }
     return newErrors;
@@ -96,13 +102,33 @@ const OrderForm = ({
       );
       setErrors(newErrors);
       if (hasNoErrors(newErrors)) {
-        const success = await onSubmit(formData);
-        if (success) {
-          closeModal();
-          setFormData(initialFormData);
-          setErrors({});
+        setIsSubmitting(true);
+        try {
+          const success = await onSubmit(formData);
+          if (success) {
+            closeModal();
+            setFormData(initialFormData);
+            setErrors({});
+          }
+        } catch (error) {
+          console.error("Submission error:", error);
+        } finally {
+          setIsSubmitting(false);
         }
       }
+    }
+  };
+
+  const hasTabError = (tabName: TabName): boolean => {
+    switch (tabName) {
+      case "client":
+        return !!errors.reference || !!errors.devis_date || !!errors.expiration_date;
+      case "products":
+        return !!errors.products;
+      case "notes":
+        return !!errors.note;
+      default:
+        return false;
     }
   };
 
@@ -120,6 +146,7 @@ const OrderForm = ({
           ? translation.sidebar.orders_table.create_new_order
           : translation.sidebar.orders_table.update_order
       }
+      isLoading={isSubmitting}
       submitButtonText={submitButtonText}
       cancelButtonText={translation.Order.common.cancel}
       onSubmit={handleSubmit}
@@ -135,11 +162,12 @@ const OrderForm = ({
                 type="button"
                 onClick={() => handleTabChange(tab)}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg transition-colors
-                ${
-                  activeTab.name === tab.name
-                    ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
+                 ${activeTab.name === tab.name
+                    ? hasTabError(tab.name)
+                      ? "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400"
+                      : "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
                     : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 {tab.icon}
                 {translation.Order.tabs[tab.name]}
@@ -155,6 +183,7 @@ const OrderForm = ({
               errors={errors}
               setErrors={setErrors}
               translation={translation}
+              selectedRecord={selectedRecord}
             />
           )}
           {activeTab.name === "products" && (
@@ -162,6 +191,8 @@ const OrderForm = ({
               formData={formData}
               setFormData={setFormData}
               translation={translation}
+              errors={errors}
+              setErrors={setErrors}
             />
           )}
           {activeTab.name === "summary" && (
