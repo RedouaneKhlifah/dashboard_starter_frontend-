@@ -17,6 +17,8 @@ import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 import UpdateOrderForm from "./UpdateOrderForm";
 import { IClient } from "@/interfaces/IClient";
+import { IProduct } from "@/interfaces/IProduct";
+import { ITicket } from "@/interfaces/ITicket";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -39,7 +41,9 @@ export function TableOrder({
   // State
   const [orders, setOrders] = useState<IDevis[]>(records);
   const [totalOrders, setTotalOrders] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IDevis | undefined>(undefined);
+  const [selectedRecord, setSelectedRecord] = useState<IDevis | undefined>(
+    undefined
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -55,7 +59,7 @@ export function TableOrder({
     setIsLoading,
     entity: "devis",
     setRecords: setOrders,
-    setTotalRecords: setTotalOrders
+    setTotalRecords: setTotalOrders,
   });
 
   const debouncedSearch = useDebounce(refreshOrders, 300);
@@ -111,8 +115,6 @@ export function TableOrder({
     // Implement PDF download functionality
   }, []);
 
-
-
   const headers = useMemo(
     () => [
       {
@@ -130,7 +132,12 @@ export function TableOrder({
       {
         key: "client" as keyof IDevis,
         label: orders_table.headers.client,
-        renderCell: (client: IClient) => client.full_name,
+        renderCell: (
+          value: string | number | IClient | IProduct[] | ITicket | null
+        ) => {
+          const client = value as IClient;
+          return client.full_name;
+        },
       },
       {
         key: "id" as keyof IDevis,
@@ -140,9 +147,10 @@ export function TableOrder({
             (acc, product) => acc + product.sale_price,
             0
           );
-          const discount = row.remise_type === "PERCENT"
-            ? subtotal * (row.remise / 100)
-            : row.remise;
+          const discount =
+            row.remise_type === "PERCENT"
+              ? subtotal * (row.remise / 100)
+              : row.remise;
           const totalAfterDiscount = subtotal - discount;
           const taxAmount = totalAfterDiscount * (row.tva / 100);
           return (totalAfterDiscount + taxAmount).toFixed(2);
@@ -164,7 +172,20 @@ export function TableOrder({
         ),
       },
     ],
-    [orders_table, handleEdit, openDeleteModal]
+    [
+      orders_table.headers.reference,
+      orders_table.headers.devis_date,
+      orders_table.headers.expiration_date,
+      orders_table.headers.client,
+      orders_table.headers.total,
+      orders_table.headers.actions,
+      orders_table.actions.edit,
+      orders_table.actions.delete,
+      handleEdit,
+      openDeleteModal,
+      handleEmail,
+      handlePdf,
+    ]
   );
 
   return (
@@ -173,7 +194,7 @@ export function TableOrder({
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
         buttonText={orders_table.create_new_order}
-        showSearch={true}  
+        showSearch={true}
         setSearchQuery={setSearchQuery}
       />
 
@@ -199,10 +220,7 @@ export function TableOrder({
         translation={translation}
       />
 
-      <CreateOrderForm
-        lang={lang}
-        translation={translation}
-      />
+      <CreateOrderForm lang={lang} translation={translation} />
     </>
   );
 }
