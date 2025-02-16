@@ -5,7 +5,7 @@ interface ActionButtonsProps {
     onEdit: (userId: number) => void;
     onDelete: (userId: number) => void;
     onEmail?: (userId: number) => void;
-    onPdf?: (userId: number) => void;
+    onPrint?: (userId: number) => void;
     onShow?: (userId: number) => void;
     editText: string;
     deleteText: string;
@@ -16,7 +16,7 @@ export const ActionButtons = ({
     onEdit,
     onDelete,
     onEmail,
-    onPdf,
+    onPrint,
     editText,
     deleteText,
 }: ActionButtonsProps) => (
@@ -30,11 +30,11 @@ export const ActionButtons = ({
                 <Mail size={16} />
             </button>
         )}
-        {onPdf && (
+        {onPrint && (
             <button
-                onClick={() => onPdf(Id)}
+                onClick={() => onPrint(Id)}
                 className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary  hover:bg-primary/20 rounded-lg transition-colors"
-                title="Download PDF"
+                title="Print"
             >
                 <FileText size={18} />
             </button>
