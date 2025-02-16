@@ -6,14 +6,17 @@ import { DictionaryType } from "@/lib/i18n";
 import { IProduct } from "@/interfaces/IProduct";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import CreateProduct from "../createProduct";
-import { X } from "lucide-react";
+import { MailWarning, X } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
+import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 
 interface ProductsTabProps {
   formData: IOrderForm;
   setFormData: Dispatch<SetStateAction<IOrderForm>>;
   translation: DictionaryType;
+  errors: OrderFormErrors;
+  setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
 }
 
 interface ProductWithTotal extends IProduct {
@@ -26,9 +29,12 @@ const ProductsTab = ({
   formData,
   setFormData,
   translation,
+  errors,
+  setErrors
+
 }: ProductsTabProps) => {
   const { openSecondModal, secondModalType } = useModalStore();
-
+  console.log("newErrors" ,errors)
   const handleAddProducts = (selectedProducts: IProduct[]) => {
     const newProducts = selectedProducts.map((product) => ({
       product_id: product.id,
@@ -47,7 +53,9 @@ const ProductsTab = ({
           (np) => !prev.products.some((p) => p.product_id === np.product_id)
         ),
       ],
+   
     }));
+    setErrors({})
   };
 
   const handleQuantityChange = (
@@ -100,6 +108,7 @@ const ProductsTab = ({
 
   return (
     <div className="space-y-4">
+      {errors.products ? <div className="flex items-center gap-2 text-sm"><MailWarning className="text-primary"/><span className="text-primary">{errors.products}</span></div> : ''}
       <GlobalTable
         headers={[
           {
@@ -145,7 +154,7 @@ const ProductsTab = ({
           {
             key: "total",
             label: translation.Order.form.articles.total,
-            renderCell: (value: number, row: any) => (
+            renderCell: (_value: number, row: any) => (
               <span className="font-medium">
                 {(row.quantity * row.price_unitaire).toFixed(2)}
               </span>
@@ -157,7 +166,7 @@ const ProductsTab = ({
             renderCell: (value: any, row: any) => (
               <button
                 onClick={(e) => handleRemoveProduct(e, row.product_id)}
-                className="p-1 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50"
+                className="p-2 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50"
               >
                 <X className="w-4 h-4" />
               </button>

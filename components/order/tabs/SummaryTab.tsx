@@ -19,7 +19,7 @@ const SummaryTab = ({
   setErrors,
   translation,
 }: SummaryTabProps) => {
-  // Set default discount type to percentage
+
   useEffect(() => {
     if (formData.remise_type === undefined) {
       setFormData((prev) => ({
@@ -39,11 +39,12 @@ const SummaryTab = ({
 
     const discountAmount =
       formData.remise_type === "PERCENT"
-        ? baseSubtotal * (formData.remise / 100)
+        ? baseSubtotal * ((formData.remise || 0) / 100)
         : formData.remise || 0;
 
     const discountedSubtotal = baseSubtotal - discountAmount;
-    const tva = discountedSubtotal * 0.2;
+    const tvaRate = (formData.tva || 0) / 100; 
+    const tva = discountedSubtotal * tvaRate;
     const total = discountedSubtotal + tva;
 
     setFormData((prev) => ({
@@ -52,16 +53,17 @@ const SummaryTab = ({
       vat: Number(tva.toFixed(2)),
       total: Number(total.toFixed(2)),
     }));
-  }, [formData.products, formData.remise, formData.remise_type, setFormData]);
-
-  useEffect(() => {
-    calculateTotals();
   }, [
-    calculateTotals,
     formData.products,
     formData.remise,
     formData.remise_type,
-  ]);
+    formData.tva,
+    setFormData,
+  ]); 
+
+  useEffect(() => {
+    calculateTotals();
+  }, [calculateTotals]); 
 
   return (
     <div className="space-y-4">

@@ -65,8 +65,12 @@ const OrderForm = ({
         if (!formData.devis_date)
           newErrors.devis_date = translation.Order.devis_date_required;
         if (!formData.expiration_date)
-          newErrors.expiration_date =
-            translation.Order.expiration_date_required;
+          newErrors.expiration_date = translation.Order.expiration_date_required;
+        break;
+      case "products":
+        if (!formData.products || formData.products.length === 0) {
+          newErrors.products = translation.Order.product_required;
+        }
         break;
     }
     return newErrors;
@@ -106,6 +110,19 @@ const OrderForm = ({
     }
   };
 
+  const hasTabError = (tabName: TabName): boolean => {
+    switch (tabName) {
+      case "client":
+        return !!errors.reference || !!errors.devis_date || !!errors.expiration_date;
+      case "products":
+        return !!errors.products;
+      case "notes":
+        return !!errors.note;
+      default:
+        return false;
+    }
+  };
+
   return (
     <GlobalModal
       open={isOpen}
@@ -135,11 +152,12 @@ const OrderForm = ({
                 type="button"
                 onClick={() => handleTabChange(tab)}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg transition-colors
-                ${
-                  activeTab.name === tab.name
-                    ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
+                 ${activeTab.name === tab.name
+                    ? hasTabError(tab.name)
+                      ? "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400"
+                      : "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
                     : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
-                }`}
+                  }`}
               >
                 {tab.icon}
                 {translation.Order.tabs[tab.name]}
@@ -162,6 +180,8 @@ const OrderForm = ({
               formData={formData}
               setFormData={setFormData}
               translation={translation}
+              errors={errors}
+              setErrors={setErrors}
             />
           )}
           {activeTab.name === "summary" && (
