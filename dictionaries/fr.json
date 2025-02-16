@@ -294,7 +294,13 @@
         "fixed": "Fixée",
         "percentage": "Pourcentage",
         "total_after": "Total Après Remise"
-      }
+      },
+      "message": {
+      "success": "Devis créé avec succès",
+      "update_success": "Devis updated successfully",
+      "delete_success": "Devis supprimé avec succès",
+      "error": "Erreur lors de la création du devis"
+    }
     }
   },
   "common": {

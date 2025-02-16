@@ -48,9 +48,9 @@ const ProductsTab = ({
     setFormData((prev) => ({
       ...prev,
       products: [
-        ...prev.products,
+        ...(prev.products || []),
         ...newProducts.filter(
-          (np) => !prev.products.some((p) => p.product_id === np.product_id)
+          (np) => !prev.products?.some((p) => p.product_id === np.product_id)
         ),
       ],
    
@@ -189,7 +189,7 @@ const ProductsTab = ({
         >
           {translation.Order.form.add_article}
         </Button>
-        {formData.products.length > 0 && (
+        { (formData.products || []).length > 0 && (
           <div className="text-right">
             <div className="text-sm text-gray-500">
               {"total_items"}

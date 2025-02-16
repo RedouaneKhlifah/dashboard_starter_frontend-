@@ -303,6 +303,12 @@
         "fixed": "Fixed",
         "percentage": "Percentage",
         "total_after": "Total After Discount"
+      },
+      "message": {
+        "success": "Quote created successfully",
+        "update_success": "Quote updated successfully",
+        "delete_success": "Quote deleted successfully",
+        "error": "An error occurred while creating the quote"
       }
     }
   },
