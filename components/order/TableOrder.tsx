@@ -17,6 +17,9 @@ import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 import UpdateOrderForm from "./UpdateOrderForm";
 import { IClient } from "@/interfaces/IClient";
+import { useReactToPrint } from "react-to-print";
+import PrintableOrder from "./printable/PrintableOrder"
+import ReactDOM from "react-dom";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -43,7 +46,8 @@ export function TableOrder({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-
+  const [selectedOrderForPrint, setSelectedOrderForPrint] = useState<IDevis | null>(null);
+  const printableRef = useRef(null);
   const didMountRef = useRef(false);
 
   const handleOrderUpdate = useEntityUpdate<IDevis>(setOrders);
@@ -107,9 +111,108 @@ export function TableOrder({
     // Implement email functionality
   }, []);
 
-  const handlePdf = useCallback((orderId: number) => {
-    // Implement PDF download functionality
-  }, []);
+  const handlePrint = useReactToPrint({
+    content: () => printableRef.current,
+    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
+    onAfterPrint: () => setSelectedOrderForPrint(null),
+    pageStyle: `
+      @media print {
+        @page { margin: 20px; }
+        body { -webkit-print-color-adjust: exact; }
+      }
+    `,
+  });
+  const handlePrintRequest = useCallback((orderId: number) => {
+    const order = orders.find((o) => o.id === orderId);
+    if (!order) {
+      console.error("No order found for printing");
+      return;
+    }
+  
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      console.error("Could not open print window");
+      return;
+    }
+  
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Print Order</title>
+          <style>
+            @media print {
+              @page { 
+                margin: 20mm;
+                size: A4;
+              }
+              body { 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-family: Arial, sans-serif;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+              }
+              .text-right {
+                text-align: right;
+              }
+              .text-center {
+                text-align: center;
+              }
+              .company-header {
+                margin-bottom: 20px;
+                text-align: center;
+              }
+              .totals-section {
+                margin-top: 20px;
+                margin-left: auto;
+                width: 250px;
+              }
+              .footer {
+                margin-top: 30px;
+                text-align: center;
+                font-size: 12px;
+              }
+            }
+          </style>
+        </head>
+        <body>
+    `);
+  
+    // Render the PrintableOrder component
+    const PrintableContent = (
+      <PrintableOrder
+        order={order}
+        translation={translation}
+        lang={lang}
+      />
+    );
+  
+    // Render to string and write to print window
+    const root = ReactDOM.createRoot(printWindow.document.body);
+    root.render(PrintableContent);
+  
+    // Wait for content to be rendered before printing
+    setTimeout(() => {
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }, 1000);
+  }, [orders, lang, translation]);
+
+  useEffect(() => {
+    if (selectedOrderForPrint) {
+      handlePrint();
+    }
+  }, [selectedOrderForPrint]);
 
 
 
@@ -157,7 +260,7 @@ export function TableOrder({
             onEdit={handleEdit}
             onDelete={openDeleteModal}
             onEmail={handleEmail}
-            onPdf={handlePdf}
+            onPrint={handlePrintRequest}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
           />
@@ -173,7 +276,7 @@ export function TableOrder({
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
         buttonText={orders_table.create_new_order}
-        showSearch={true}  
+        showSearch={true}
         setSearchQuery={setSearchQuery}
       />
 
@@ -203,6 +306,16 @@ export function TableOrder({
         lang={lang}
         translation={translation}
       />
+      {selectedOrderForPrint && (
+        <div className="hidden w-full">
+          <PrintableOrder
+            ref={printableRef}
+            order={selectedOrderForPrint}
+            translation={translation}
+            lang={lang}
+          />
+        </div>
+      )}
     </>
   );
 }
