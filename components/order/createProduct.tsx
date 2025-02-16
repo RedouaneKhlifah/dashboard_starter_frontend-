@@ -38,8 +38,8 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     }
   }, [isSecondOpen, selectedProductIds]);
 
-  const debouncedSearch = useCallback(
-    debounce(async (query: string) => {
+  useEffect(() => {
+    const debouncedSearch = debounce(async (query: string) => {
       try {
         setLoading(true);
         const url = `${
@@ -58,16 +58,13 @@ const CreateProduct: React.FC<CreateProductProps> = ({
       } finally {
         setLoading(false);
       }
-    }, 500),
-    [translation]
-  );
+    }, 500);
 
-  useEffect(() => {
     if (isSecondOpen) {
       debouncedSearch(searchQuery);
     }
     return () => debouncedSearch.cancel();
-  }, [searchQuery, debouncedSearch, isSecondOpen]);
+  }, [searchQuery, translation, isSecondOpen]);
 
   const toggleSelection = useCallback((productId: number) => {
     setSelectedProducts((prev) => {

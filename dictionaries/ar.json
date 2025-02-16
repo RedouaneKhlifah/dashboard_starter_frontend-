@@ -432,7 +432,26 @@
       "actions": {
         "edit": "تعديل",
         "delete": "حذف"
-      }
+      },
+      "print": {
+      "company_name": "اسم الشركة",
+      "company_address": "123 شارع الأعمال، المدينة",
+      "company_contact": "contact@company.com | +966 5 1234 5678",
+      "order_title": "عرض سعر",
+      "reference": "المرجع",
+      "date": "التاريخ",
+      "due_date": "تاريخ الاستحقاق",
+      "bill_to": "فاتورة إلى",
+      "product": "المنتج",
+      "quantity": "الكمية",
+      "unit_price": "سعر الوحدة",
+      "total": "المجموع",
+      "subtotal": "المجموع الفرعي",
+      "discount": "الخصم",
+      "tax": "الضريبة",
+      "terms": "الشروط: الدفع خلال 30 يومًا",
+      "thank_you": "شكرًا لتعاملك معنا!"
+    }
     },
     "products_table": {
       "product_management": "إدارة المنتجات",

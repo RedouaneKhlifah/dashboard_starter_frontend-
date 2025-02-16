@@ -3,22 +3,22 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
-import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
-import { DictionaryType } from "@/lib/i18n";
-import { Locale } from "@/i18n-config";
-import { IDevis } from "@/interfaces/IDevis";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
-import CreateOrderForm from "./CreateOrderForm";
 import Header from "../shared/Header";
+import CreateOrderForm from "./CreateOrderForm";
+import UpdateOrderForm from "./UpdateOrderForm";
+import PrintableOrder from "./printable/PrintableOrder";
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import { usePusher } from "@/hooks/usePusher";
 import { useEntityUpdate } from "@/hooks/useEntityUpdate";
 import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
+import { useReactToPrint } from "react-to-print";
 import http from "@/lib/http";
-import UpdateOrderForm from "./UpdateOrderForm";
+import { DictionaryType } from "@/lib/i18n";
+import { Locale } from "@/i18n-config";
+import { IDevis } from "@/interfaces/IDevis";
 import { IClient } from "@/interfaces/IClient";
-import { IProduct } from "@/interfaces/IProduct";
-import { ITicket } from "@/interfaces/ITicket";
 
 interface TableOrderProps {
   records: IDevis[];
@@ -33,12 +33,12 @@ export function TableOrder({
   translation,
   lang,
 }: TableOrderProps) {
-  const { openModal, modalType, closeModal } = useModalStore();
+  const { openModal, closeModal } = useModalStore();
   const {
     sidebar: { orders_table },
   } = translation;
 
-  // State
+  // State Management
   const [orders, setOrders] = useState<IDevis[]>(records);
   const [totalOrders, setTotalOrders] = useState(totalRecords);
   const [selectedRecord, setSelectedRecord] = useState<IDevis | undefined>(
@@ -46,10 +46,14 @@ export function TableOrder({
   );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedOrderForPrint, setSelectedOrderForPrint] =
+    useState<IDevis | null>(null);
 
-  const didMountRef = useRef(false);
+  // Refs
+  const contentRef = useRef<HTMLDivElement>(null);
 
+  // Hooks
   const handleOrderUpdate = useEntityUpdate<IDevis>(setOrders);
   usePusher("order", handleOrderUpdate);
 
@@ -65,20 +69,36 @@ export function TableOrder({
   const debouncedSearch = useDebounce(refreshOrders, 300);
 
   useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-      return;
-    }
     debouncedSearch();
-  }, [searchQuery, debouncedSearch, currentPage]);
+  }, [searchQuery, currentPage, debouncedSearch]);
 
+  // Print Handling
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
+    onAfterPrint: () => setSelectedOrderForPrint(null),
+  });
+
+  useEffect(() => {
+    if (selectedOrderForPrint) handlePrint();
+  }, [selectedOrderForPrint, handlePrint]);
+
+  const handlePrintRequest = useCallback(
+    (orderId: number) => {
+      const orderToPrint = orders.find((o) => o.id === orderId);
+      if (orderToPrint) setSelectedOrderForPrint(orderToPrint);
+    },
+    [orders]
+  );
+
+  // CRUD Actions
   const handleEdit = useCallback(
     (orderId: number) => {
       const record = orders.find((o) => o.id === orderId);
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },
-    [openModal, orders]
+    [orders, openModal]
   );
 
   const openDeleteModal = useCallback(
@@ -111,10 +131,7 @@ export function TableOrder({
     // Implement email functionality
   }, []);
 
-  const handlePdf = useCallback((orderId: number) => {
-    // Implement PDF download functionality
-  }, []);
-
+  // Table Headers
   const headers = useMemo(
     () => [
       {
@@ -132,19 +149,14 @@ export function TableOrder({
       {
         key: "client" as keyof IDevis,
         label: orders_table.headers.client,
-        renderCell: (
-          value: string | number | IClient | IProduct[] | ITicket | null
-        ) => {
-          const client = value as IClient;
-          return client.full_name;
-        },
+        renderCell: (_: any, row: IDevis) => (row.client as IClient).full_name,
       },
       {
-        key: "id" as keyof IDevis,
+        key: "total" as keyof IDevis,
         label: orders_table.headers.total,
         renderCell: (_: any, row: IDevis) => {
           const subtotal = row.products.reduce(
-            (acc, product) => acc + product.sale_price,
+            (acc, product) => acc + product.sale_price * (product.stock || 1),
             0
           );
           const discount =
@@ -157,35 +169,22 @@ export function TableOrder({
         },
       },
       {
-        key: "id" as keyof IDevis,
+        key: "actions" as keyof IDevis,
         label: orders_table.headers.actions,
-        renderCell: (_: any, row: IDevis) => (
+        renderCell: (_, row: IDevis) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
             onEmail={handleEmail}
-            onPdf={handlePdf}
+            onPrint={handlePrintRequest}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
           />
         ),
       },
     ],
-    [
-      orders_table.headers.reference,
-      orders_table.headers.devis_date,
-      orders_table.headers.expiration_date,
-      orders_table.headers.client,
-      orders_table.headers.total,
-      orders_table.headers.actions,
-      orders_table.actions.edit,
-      orders_table.actions.delete,
-      handleEdit,
-      openDeleteModal,
-      handleEmail,
-      handlePdf,
-    ]
+    [orders_table, handleEdit, openDeleteModal, handleEmail, handlePrintRequest]
   );
 
   return (
@@ -194,10 +193,9 @@ export function TableOrder({
         title={orders_table.order_management}
         searchPlaceholder={orders_table.search_placeholder}
         buttonText={orders_table.create_new_order}
-        showSearch={true}
+        showSearch
         setSearchQuery={setSearchQuery}
       />
-
       <GlobalTable<IDevis>
         headers={headers}
         rows={orders}
@@ -207,20 +205,25 @@ export function TableOrder({
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-
       <UpdateOrderForm
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
       />
-
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.reference || ""}
         translation={translation}
       />
-
       <CreateOrderForm lang={lang} translation={translation} />
+      <div style={{ display: "none" }}>
+        <PrintableOrder
+          ref={contentRef}
+          order={selectedOrderForPrint}
+          translation={translation}
+          lang={lang}
+        />
+      </div>
     </>
   );
 }

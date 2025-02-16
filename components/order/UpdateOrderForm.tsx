@@ -30,7 +30,7 @@ const UpdateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       devis_date: formatDate(new Date()),
       expiration_date: formatDate(addMonths(new Date(), 3)),
       client_id: 0,
-      client: "mohamed",
+      client: { id: 0, title: "mohamed" },
       product: "",
       note: "",
       articles: [],
@@ -39,6 +39,10 @@ const UpdateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       total: 0,
       notes: "",
       status: "draft",
+      tva: 0,
+      remise_type: "PERCENT",
+      remise: 0,
+      products: [],
     }),
     []
   );

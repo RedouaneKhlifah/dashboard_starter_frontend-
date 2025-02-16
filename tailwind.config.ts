@@ -60,6 +60,7 @@ const config = withMT({
           foreground: "hsl(var(--button-foreground))",
         },
       },
+      
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
