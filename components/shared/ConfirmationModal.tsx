@@ -7,12 +7,14 @@ interface ConfirmationModalProps {
   onConfirm: () => Promise<void>;
   itemName: string;
   translation: DictionaryType;
+  isLoading?: boolean;
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onConfirm,
   itemName,
   translation,
+  isLoading
 }) => {
   const { closeModal, modalType } = useModalStore();
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,6 +29,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       title={
         translation.sidebar.partenaires_table.delete_confirmation.modal_title
       }
+      isLoading={isLoading}
       onSubmit={handleSubmit}
       submitButtonText={translation.client.common.delete}
       cancelButtonText={translation.client.common.cancel}

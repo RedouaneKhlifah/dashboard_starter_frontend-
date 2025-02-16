@@ -85,7 +85,7 @@
     "resetPassword": "Mot de passe oublié ?",
     "resetPasswordDescription": "Entrez votre email pour réinitialiser votre mot de passe",
     "submit": "Soumettre",
-    "signup_success_message": "Nous sommes heureux de vous dire que tout s'est bien passé,<br />prenez le temps d'explorer le menu.",
+    "signup_success_message": "Nous sommes heureux de vous dire que tout s'est bien passé,prenez le temps d'explorer le menu.",
     "congrats_you_are_in": "Félicitations, vous êtes connecté !",
     "continue": "Continuer",
     "error": {
@@ -118,6 +118,12 @@
       "cancel": "Annuler",
       "update": "Modifier",
       "delete": "Supprimer"
+    },
+    "message": {
+      "success": "Client créé avec succès",
+      "update_success": "Client updated successfully",
+      "delete_success": "Client supprimé avec succès",
+      "error": "Erreur lors de la création du client"
     }
   },
   "partenaire": {
@@ -131,6 +137,12 @@
       "name": "Nom",
       "matricule": "Matricule",
       "number": "Numéro"
+    },
+    "message": {
+      "success": "Partenaire créé avec succès",
+      "delete_success": "Partenaire supprimé avec succès",
+      "update_success": "Partenaire mis à jour avec succès",
+      "error": "Erreur lors de la création du partenaire"
     }
   },
   "Product": {
@@ -167,6 +179,12 @@
     },
     "labels": {
       "image_alt": "Image du produit"
+    },
+    "message": {
+      "success": "Produit créé avec succès",
+      "update_success": "Produit mis à jour avec succès",
+      "delete_success": "Produit supprimé avec succès",
+      "error": "Erreur lors de la création du produit"
     }
   },
   "Ticket": {
@@ -207,7 +225,16 @@
       "create": "Créer",
       "cancel": "Annuler",
       "update": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "updating": "Mise à jour...",
+      "creating": "Création...",
+      "continue": "Continuer"
+    },
+    "message": {
+      "success": "Ticket créé avec succès",
+      "update_success": "Ticket updated successfully",
+      "delete_success": "Ticket supprimé avec succès",
+      "error": "Erreur lors de la création du ticket"
     }
   },
   "Order": {
@@ -241,7 +268,7 @@
       "add_article": "Ajouter un Produit",
       "subtotal": "Sous-total",
       "total": "Total",
-      "vat": "VAT",
+      "tva": "TVA",
       "client_search": "Rechercher un client",
       "product": "Produit",
       "product_search": "Rechercher un produit",
@@ -325,6 +352,10 @@
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucun Client Trouvé",
+        "sub_text": "Aucun enregistrement client ne correspond à vos critères"
       }
     },
     "partenaires_table": {
@@ -346,6 +377,10 @@
         "modal_title": "Confirmer la Suppression",
         "title": "Êtes-vous sûr de vouloir supprimer",
         "warning": "Cette action ne peut pas être annulée."
+      },
+      "no_data": {
+        "message": "Aucun Partenaire Trouvé",
+        "sub_text": "Aucun enregistrement partenaire ne correspond à vos critères"
       }
     },
     "ticket_table": {
@@ -367,6 +402,10 @@
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucun Ticket Trouvé",
+        "sub_text": "Aucun enregistrement ticket ne correspond à vos critères"
       }
     },
     "orders_table": {
@@ -427,6 +466,10 @@
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucun Produit Trouvé",
+        "sub_text": "Aucun enregistrement produit ne correspond à vos critères"
       }
     },
     "file_upload": {
@@ -435,9 +478,9 @@
   },
   "shared": {
     "continue": "Continuer",
+    "loading ": "Chargement...",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }
   }
 }
-

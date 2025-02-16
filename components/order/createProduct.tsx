@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+// CreateProduct.tsx
+import React, { useState, useEffect, useCallback, FormEvent } from "react";
 import { debounce } from "lodash";
 import SearchInput from "@/components/ui/SearchInput";
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -21,7 +22,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   onSelect,
   isSecondOpen,
 }) => {
-  const { secondModalType, closeSecondModal, openModal } = useModalStore();
+  const { closeSecondModal } = useModalStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [availableProducts, setAvailableProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,12 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     new Set(selectedProductIds)
   );
 
-  
+  // Reset selected products when modal opens
+  useEffect(() => {
+    if (isSecondOpen) {
+      setSelectedProducts(new Set(selectedProductIds));
+    }
+  }, [isSecondOpen, selectedProductIds]);
 
   const debouncedSearch = useCallback(
     debounce(async (query: string) => {
@@ -40,9 +46,10 @@ const CreateProduct: React.FC<CreateProductProps> = ({
           process.env.NEXT_PUBLIC_API_BASE_PATH
         }/api/products?search=${encodeURIComponent(query)}&page=1`;
         const response = await http(url);
-        
-        if (!response.ok) throw new Error(translation.common.errors.fetch_error);
-        
+
+        if (!response.ok)
+          throw new Error(translation.common.errors.fetch_error);
+
         const data = await response.json();
         setAvailableProducts(data.data || []);
         setError("");
@@ -56,9 +63,11 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   );
 
   useEffect(() => {
-    debouncedSearch(searchQuery);
+    if (isSecondOpen) {
+      debouncedSearch(searchQuery);
+    }
     return () => debouncedSearch.cancel();
-  }, [searchQuery, debouncedSearch]);
+  }, [searchQuery, debouncedSearch, isSecondOpen]);
 
   const toggleSelection = useCallback((productId: number) => {
     setSelectedProducts((prev) => {
@@ -68,19 +77,36 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     });
   }, []);
 
-  const handleSelect = useCallback(() => {
-    const selected = availableProducts.filter((product) =>
-      selectedProducts.has(product.id)
-    );
-    onSelect(selected); 
+  const handleSelect = useCallback(
+    (e: FormEvent<Element>) => {
+      e.preventDefault();
+      e.stopPropagation(); // Prevent event bubbling
+
+      const selected = availableProducts.filter((product) =>
+        selectedProducts.has(product.id)
+      );
+
+      onSelect(selected);
+      closeSecondModal();
+
+      // Reset state after selection
+      setSearchQuery("");
+      setSelectedProducts(new Set());
+    },
+    [availableProducts, selectedProducts, onSelect, closeSecondModal]
+  );
+
+  const handleClose = useCallback(() => {
     closeSecondModal();
-  }, [availableProducts, selectedProducts, onSelect, closeSecondModal]);
+    setSearchQuery("");
+    setSelectedProducts(new Set(selectedProductIds));
+  }, [closeSecondModal, selectedProductIds]);
 
   return (
     <GlobalModal
       open={isSecondOpen}
-      onClose={closeSecondModal}
-      title={secondModalType === "create" ? translation.Order.select_products : ""}
+      onClose={handleClose}
+      title={translation.Order.select_products}
       submitButtonText={translation.common.select}
       cancelButtonText={translation.common.cancel}
       onSubmit={handleSelect}
@@ -91,10 +117,10 @@ const CreateProduct: React.FC<CreateProductProps> = ({
       <div className="space-y-4">
         <SearchInput
           placeholder={translation.Order.form.product_search}
-          setSearch={setSearchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
           className="w-full"
           aria-label={translation.Order.form.product_search}
+          setSearch={setSearchQuery}
         />
 
         {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
@@ -104,10 +130,10 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             {translation.common.loading}
           </div>
         ) : (
-          <GlobalTable
+          <GlobalTable<IProduct>
             headers={[
               {
-                key: "image",
+                key: "image" as keyof IProduct,
                 label: translation.Order.form.articles.image,
                 isImage: true,
               },
@@ -117,14 +143,18 @@ const CreateProduct: React.FC<CreateProductProps> = ({
               },
               {
                 key: "unit",
+                renderCell(value, row) {
+                  return `${value}`;
+                },
                 label: translation.Order.form.articles.unit,
               },
               {
-                key: "selected",
+                key: "selected" as keyof IProduct,
                 label: translation.Order.form.articles.select,
                 renderCell: (_, row: IProduct) => (
                   <input
                     type="checkbox"
+                    id={`select-${row.id}`}
                     checked={selectedProducts.has(row.id)}
                     onChange={() => toggleSelection(row.id)}
                     className="h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
@@ -135,7 +165,9 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             ]}
             rows={availableProducts}
             className="mt-4"
-            emptyMessage={translation.common.no_results}
+            totalRows={0}
+            setCurrentPage={() => {}}
+            currentPage={0}
           />
         )}
       </div>

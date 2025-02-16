@@ -17,12 +17,14 @@ import { Locale } from "@/i18n-config";
 import { IProductForm } from "@/dto/product/productForm";
 import { IProduct } from "@/interfaces/IProduct";
 import { ProductFormErrors } from "@/validation/productValidators/ProductValidator";
+import useToast from "@/hooks/useToast";
 import productMappers from "@/mappers/ProductMapper";
 
 interface UpdateProductFormProps {
   translation: DictionaryType;
   lang: Locale;
   selectedRecord?: IProduct;
+  
 }
 
 const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
@@ -32,8 +34,8 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
+  const { error: toastError, success: toastSuccess } = useToast(); 
   const { mapProductToFormData } = productMappers;
-
   const initialFormData = useMemo<IProductForm>(
     () =>
       selectedRecord || {
@@ -62,12 +64,14 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         }
       );
 
-      if (!response.ok) {
-        await response.json();
+      if (response.ok) {
+        toastSuccess(translation.Product.message.update_success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.Product.message.error);
         return false;
       }
-
-      return true;
     } catch (error) {
       console.error("Error updating product:", error);
       return false;

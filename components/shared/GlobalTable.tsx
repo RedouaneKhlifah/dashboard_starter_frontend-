@@ -15,7 +15,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { ChevronLeft, ChevronRight, MoreHorizontal, PackageSearch } from "lucide-react";
 import Image from "next/image";
 
 export interface TableHeader<T> {
@@ -35,6 +35,8 @@ interface TableProps<T> {
   isLoading?: boolean;
   setCurrentPage: Dispatch<SetStateAction<number>>;
   currentPage: number;
+  noDataMessage?: string;
+  sub_text?: string;
 }
 
 export const GlobalTable = <T extends { id: string | number }>({
@@ -46,6 +48,8 @@ export const GlobalTable = <T extends { id: string | number }>({
   isLoading = false,
   setCurrentPage,
   currentPage,
+  noDataMessage,
+  sub_text
 }: TableProps<T>) => {
   const totalPages = useMemo(
     () => Math.ceil(totalRows / pageSize),
@@ -107,26 +111,60 @@ export const GlobalTable = <T extends { id: string | number }>({
           </thead>
           <tbody>
             {isLoading
-              ? Array.from({ length: pageSize }).map((_, index) => {
-                  const isLastSkeletonRow = index === pageSize - 1;
-                  return (
-                    <tr key={index}>
-                      {headers.map((header) => (
-                        <td
-                          key={header.key.toString()}
-                          className={
-                            isLastSkeletonRow
-                              ? "p-5 text-start"
-                              : "p-5 border-b border-blue-gray-50 text-start"
-                          }
+              ? Array.from({ length: totalRows }).map((_, index) => {
+                const isLastSkeletonRow = index === pageSize - 1;
+                return (
+                  <tr key={index}>
+                    {headers.map((header) => (
+                      <td
+                        key={header.key.toString()}
+                        className={
+                          isLastSkeletonRow
+                            ? "p-5 text-start"
+                            : "p-5 border-b border-blue-gray-50 text-start"
+                        }
+                      >
+                        <div className="h-5 bg-gray-200 rounded animate-pulse" />
+                      </td>
+                    ))}
+                  </tr>
+                );
+              }):
+               rows.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={headers.length}
+                    className="p-12 text-center border-b border-blue-gray-50"
+                  >
+                    <div className="flex flex-col items-center justify-center gap-4">
+                      <PackageSearch className="w-12 h-12 text-blue-gray-300" />
+                      <div className="space-y-1">
+                        <Typography
+                          variant="h6"
+                          color="blue-gray"
+                          className="font-medium"
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
                         >
-                          <div className="h-5 bg-gray-200 rounded animate-pulse" />
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })
-              : rows.map((row, index) => {
+                          {noDataMessage || "No Data Available"}
+                        </Typography>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal opacity-60"
+                          placeholder={undefined}
+                          onPointerEnterCapture={undefined}
+                          onPointerLeaveCapture={undefined}
+                        >
+                          {sub_text || "There is no data to display"}
+                        </Typography>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              )
+                : rows.map((row, index) => {
                   const isLast = index === rows.length - 1;
                   return (
                     <TableRow<T>
