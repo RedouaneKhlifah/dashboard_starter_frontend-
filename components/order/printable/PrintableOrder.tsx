@@ -151,7 +151,7 @@ const TotalsSection = ({
   totals: OrderTotals; 
   translation: DictionaryType;
   lang: Locale;
-}) => (
+}) => ( 
   <div className="print-totals ml-auto w-72 !mt-7">
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.orders_table.print.subtotal}:</span>
