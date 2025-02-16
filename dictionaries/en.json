@@ -439,6 +439,25 @@
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
+      },
+      "print": {
+        "company_name": "Your Company Name",
+        "company_address": "123 Business Street, City",
+        "company_contact": "contact@company.com | +1 234 567 890",
+        "order_title": "Quotation",
+        "reference": "Reference",
+        "date": "Date",
+        "due_date": "Due Date",
+        "bill_to": "Bill To",
+        "product": "Product",
+        "quantity": "Qty",
+        "unit_price": "Unit Price",
+        "total": "Total",
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "tax": "Tax",
+        "terms": "Terms: Payment due within 30 days",
+        "thank_you": "Thank you for your business!"
       }
     },
     "products_table": {
@@ -477,7 +496,6 @@
       "label": "Drag & drop files or click to upload"
     }
   },
-
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",

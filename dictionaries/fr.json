@@ -430,7 +430,26 @@
       "actions": {
         "edit": "Modifier",
         "delete": "Supprimer"
-      }
+      },
+      "print": {
+      "company_name": "Nom de votre entreprise",
+      "company_address": "123 Rue Commerciale, Ville",
+      "company_contact": "contact@entreprise.com | +33 1 23 45 67 89",
+      "order_title": "Devis",
+      "reference": "Référence",
+      "date": "Date",
+      "due_date": "Date d'échéance",
+      "bill_to": "Facturer à",
+      "product": "Produit",
+      "quantity": "Quantité",
+      "unit_price": "Prix unitaire",
+      "total": "Total",
+      "subtotal": "Sous-total",
+      "discount": "Remise",
+      "tax": "TVA",
+      "terms": "Conditions : Paiement dans les 30 jours",
+      "thank_you": "Merci pour votre confiance !"
+    }
     },
     "products_table": {
       "product_management": "Gestion des produits",
