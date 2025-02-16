@@ -268,7 +268,7 @@
       "add_article": "Ajouter un Produit",
       "subtotal": "Sous-total",
       "total": "Total",
-      "vat": "VAT",
+      "tva": "TVA",
       "client_search": "Rechercher un client",
       "product": "Produit",
       "product_search": "Rechercher un produit",
@@ -465,4 +465,3 @@
     }
   }
 }
-

@@ -34,7 +34,9 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       client: {
         id: 0,
         title: ""
-      }
+      },
+      subtotal: 0,
+      total: 0
     }),
     []
   );

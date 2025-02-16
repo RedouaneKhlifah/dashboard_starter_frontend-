@@ -21,7 +21,7 @@ interface InputFieldProps {
   rows?: number;
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
-  disabled?: boolean; 
+  disabled?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -64,10 +64,12 @@ const InputField: React.FC<InputFieldProps> = ({
 
       <div className="relative group">
         {(icon || prefix) && (
-          <div className={clsx(
-            "absolute top-0 bottom-0 flex items-center",
-            isRTL ? "right-3" : "left-3"
-          )}>
+          <div
+            className={clsx(
+              "absolute top-0 bottom-0 flex items-center",
+              isRTL ? "right-3" : "left-3"
+            )}
+          >
             {icon && <span className="text-muted-foreground">{icon}</span>}
             {prefix && (
               <span className="text-sm text-muted-foreground">{prefix}</span>
@@ -83,7 +85,9 @@ const InputField: React.FC<InputFieldProps> = ({
           onChange={onChange}
           disabled={disabled}
           className={clsx(
-            disabled ? "cursor-not-allowed opacity-75 bg-primary/10" : "bg-background",
+            disabled
+              ? "cursor-not-allowed opacity-75 bg-primary/10"
+              : "bg-background",
             "w-full px-4 py-2.5 border-2 rounded-md",
             "focus:outline-none focus:ring-2 focus:ring-primary/30",
             "transition-colors duration-200",
