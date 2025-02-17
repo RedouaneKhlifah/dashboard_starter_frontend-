@@ -132,7 +132,7 @@ const ProductsTab = ({
                 onChange={(e) =>
                   handlePriceChange(row.product_id, parseFloat(e.target.value))
                 }
-                className="w-24"
+                className="max-w-20 px-1"
                 min={0}
                 id={"price_unitaire"}
                 label={""}
@@ -146,7 +146,7 @@ const ProductsTab = ({
               <InputField
                 type="number"
                 onChange={(e) => handleQuantityChange(e, row.product_id)}
-                className="w-20"
+                className="max-w-20"
                 min={1}
                 id={"quantity"}
                 label={""}
@@ -170,9 +170,9 @@ const ProductsTab = ({
             renderCell: (value: any, row: any) => (
               <button
                 onClick={(e) => handleRemoveProduct(e, row.product_id)}
-                className="p-2 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50"
+                className="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
               >
-                <X className="w-4 h-4" />
+                {translation.Order.form.articles.remove}
               </button>
             ),
           },
@@ -183,27 +183,27 @@ const ProductsTab = ({
         setCurrentPage={() => { }}
         currentPage={0}
       />
-      <div className="flex justify-between items-center">
-        <Button
-          onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
-          className="bg-black text-primary"
-          placeholder={undefined}
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        >
-          {translation.Order.form.add_article}
-        </Button>
+      <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
+        <div className="border border-dashed rounded-lg p-[2px] flex justify-center items-center">
+          <button
+            type="button"
+            onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
+            className="px-3.5 py-2 text-sm font-medium bg-primary/10 text-primary  hover:bg-primary/20 rounded-md transition-colors"
+          >
+            {translation.Order.form.add_article}
+          </button>
+        </div>
         {(formData.products || []).length > 0 && (
-          <div className="border-t-2 border-dashed border-gray-200 pt-3">
+          <div className=" pt-3">
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-3">
                 <div className="flex flex-col justify-center items-center gap-1 border-r-2 border-dashed border-gray-200 h-full px-2">
                   <span className="text-gray-500">{translation.Order.form.Total_Items}</span>
-                  <span className="text-xl font-bold text-gray-700">{formData.products.length}</span>
+                  <span className="text-xl font-semibold text-gray-700">{formData.products.length}</span>
                 </div>
-                <div className="flex flex-col justify-center items-center gap-1"> 
+                <div className="flex flex-col justify-center items-center gap-1">
                   <span className="text-gray-600">{translation.Order.form.Total_Amount}</span>
-                  <span className="text-2xl font-bold text-gray-900">
+                  <span className="text-xl font-semibold text-gray-900">
                     ${formData.products
                       .reduce(
                         (sum, product) =>
