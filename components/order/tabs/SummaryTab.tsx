@@ -32,25 +32,25 @@ const SummaryTab = ({
   const calculateTotals = useCallback(() => {
     const baseSubtotal =
       formData.products?.reduce(
-        (sum, product) => sum + product.price_unitaire * product.quantity,
+        (sum, product) =>
+          sum + (product.price_unitaire || 0) * (product.quantity || 0),
         0
       ) || 0;
 
-    const tvaRate = (formData.tva || 0) / 100;
-    const tvaAmount = baseSubtotal * tvaRate;
+    const tvaAmount = (baseSubtotal * (formData.tva || 0)) / 100;
+    const totalTTC = baseSubtotal + tvaAmount;
 
     const discountAmount =
       formData.remise_type === "PERCENT"
-        ? baseSubtotal * ((formData.remise || 0) / 100)
+        ? (baseSubtotal * (formData.remise || 0)) / 100 // Apply discount on subtotal (HT)
         : formData.remise || 0;
 
-    const total = baseSubtotal + tvaAmount - discountAmount;
+    const finalTotal = Math.max(totalTTC - discountAmount, 0); // Prevent negative totals
 
+    // Only update total
     setFormData((prev) => ({
       ...prev,
-      subtotal: Number(baseSubtotal.toFixed(2)),
-      vat: Number(tvaAmount.toFixed(2)),
-      total: Number(total.toFixed(2)),
+      total: Number(finalTotal.toFixed(2)), // Final total (TTC)
     }));
   }, [
     formData.products,
@@ -62,7 +62,13 @@ const SummaryTab = ({
 
   useEffect(() => {
     calculateTotals();
-  }, [calculateTotals]);
+  }, [
+    formData.products,
+    formData.tva,
+    formData.remise,
+    formData.remise_type,
+    calculateTotals,
+  ]);
 
   return (
     <div className="space-y-4">
