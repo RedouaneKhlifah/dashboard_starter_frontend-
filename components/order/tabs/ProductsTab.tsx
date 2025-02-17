@@ -11,7 +11,6 @@ import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 
-
 interface ProductsTabProps {
   formData: IOrderForm;
   setFormData: Dispatch<SetStateAction<IOrderForm>>;
@@ -31,11 +30,9 @@ const ProductsTab = ({
   setFormData,
   translation,
   errors,
-  setErrors
-
+  setErrors,
 }: ProductsTabProps) => {
   const { openSecondModal, secondModalType } = useModalStore();
-  console.log("newErrors" ,errors)
   const handleAddProducts = (selectedProducts: IProduct[]) => {
     const newProducts = selectedProducts.map((product) => ({
       product_id: product.id,
@@ -54,9 +51,8 @@ const ProductsTab = ({
           (np) => !prev.products?.some((p) => p.product_id === np.product_id)
         ),
       ],
-   
     }));
-    setErrors({})
+    setErrors({});
   };
 
   const handleQuantityChange = (
@@ -109,7 +105,14 @@ const ProductsTab = ({
 
   return (
     <div className="space-y-4">
-      {errors.products ? <div className="flex items-center gap-2 text-sm"><MailWarning className="text-primary"/><span className="text-primary">{errors.products}</span></div> : ''}
+      {errors.products ? (
+        <div className="flex items-center gap-2 text-sm">
+          <MailWarning className="text-primary" />
+          <span className="text-primary">{errors.products}</span>
+        </div>
+      ) : (
+        ""
+      )}
       <GlobalTable
         headers={[
           {
@@ -190,7 +193,7 @@ const ProductsTab = ({
         >
           {translation.Order.form.add_article}
         </Button>
-        { (formData.products || []).length > 0 && (
+        {(formData.products || []).length > 0 && (
           <div className="text-right">
             <div className="text-sm text-gray-500">
               {"total_items"}

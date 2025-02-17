@@ -24,8 +24,11 @@ export const validateOrderForm = (
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
   newErrors.devis_date = validateField(devisDateSchema, formData.devis_date);
-  newErrors.expiration_date = validateField(expirationDateSchema, formData.expiration_date);
-  newErrors.client = validateField(clientSchema, formData.client);
+  newErrors.expiration_date = validateField(
+    expirationDateSchema,
+    formData.expiration_date
+  );
+  newErrors.client = validateField(clientSchema, formData.client?.title);
   newErrors.products = validateField(productSchema, formData.products);
   newErrors.note = validateField(noteSchema, formData.note);
 
@@ -35,7 +38,7 @@ export const validateOrderForm = (
 };
 
 const OrderValidator = {
-  validateOrderForm
+  validateOrderForm,
 };
 
 export default OrderValidator;

@@ -8,7 +8,8 @@ import useModalStore from "@/store/modalStore";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { IOrderForm } from "@/dto/order/orderForm";
 import useToast from "@/hooks/useToast";
-
+import { ICreateDevis } from "@/dto/devis/createDevis";
+import { DevisMapper } from "@/mappers/DevisMapper";
 
 interface OrderFormProps {
   translation: DictionaryType;
@@ -22,6 +23,7 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<OrderFormErrors>({});
   const { error: toastError, success: toastSuccess } = useToast();
+  const { DevisDataMapper } = DevisMapper;
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
@@ -34,31 +36,15 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       remise: 0,
       note: "",
       products: [],
-      client: {
-        id: 0,
-        title: ""
-      },
+      client: null,
       subtotal: 0,
-      total: 0
+      total: 0,
     }),
     []
   );
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
-    const formattedData = {
-      reference: data.reference,
-      devis_date: data.devis_date,
-      experation_date: data.expiration_date,
-      client_id: data.client.id,
-      products: data.products,
-      note: data.note,
-      subtotal: data.subtotal,
-      tva: data.tva,
-      remise_type: data.remise_type,
-      remise: data.remise,
-      total: data.total,
-      notes: data.note,
-    };
+    const formattedData = DevisDataMapper(data);
     try {
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/devis",

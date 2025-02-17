@@ -1,5 +1,5 @@
 interface IOrderForm {
-  client: DevisRelationShipData;
+  client: DevisRelationShipData | null;
   reference: string;
   devis_date: string;
   expiration_date: string;
@@ -8,6 +8,9 @@ interface IOrderForm {
   remise: number;
   note: string;
   products: Array<{
+    name?: string;
+    unit?: string;
+    tiket_id?: number;
     product_id: number;
     price_unitaire: number;
     quantity: number;

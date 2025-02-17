@@ -31,7 +31,7 @@ const UpdateTicketForm: React.FC<TicketFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<TicketFormErrors>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const initialFormData = useMemo<ITicketForm>(
     () =>
       selectedRecord ?? {
