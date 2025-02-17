@@ -101,7 +101,7 @@ const ClientInfo = ({
       {translation.sidebar.orders_table.print.bill_to}
     </h3>
     <div className="text-sm">
-      <p className="mb-1">{client.full_name}</p>
+      <p className="mb-1">{client?.full_name}</p>
       <p className="mb-1">{client.address}</p>
       <p>{client.email}</p>
     </div>

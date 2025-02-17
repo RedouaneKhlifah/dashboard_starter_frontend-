@@ -150,7 +150,7 @@ export function TableOrder({
       {
         key: "client" as keyof IDevis,
         label: orders_table.headers.client,
-        renderCell: (_: any, row: IDevis) => (row.client as IClient).full_name,
+        renderCell: (_: any, row: IDevis) => (row.client as IClient)?.full_name,
       },
       {
         key: "total" as keyof IDevis,

@@ -36,7 +36,7 @@ interface IDevis {
 
 interface DevisProduct extends IProduct {
   product_id: number;
-  tiket_id?: number;
+  ticket_id?: number;
   price_unitaire: number;
   quantity: number;
 }

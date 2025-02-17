@@ -309,7 +309,9 @@
         "update_success": "Quote updated successfully",
         "delete_success": "Quote deleted successfully",
         "error": "An error occurred while creating the quote"
-      }
+      },
+      "Total_Items": "Total Items",
+      "Total_Amount": "Total Amount"
     }
   },
   "common": {
