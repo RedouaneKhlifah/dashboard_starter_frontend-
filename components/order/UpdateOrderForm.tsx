@@ -58,7 +58,7 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
                 product_id: product.product_id,
                 price_unitaire: product.price_unitaire,
                 quantity: product.quantity,
-                tiket_id: product?.tiket_id,
+                tiket_id: product?.ticket_id,
               })) || [],
             subtotal: selectedRecord.subtotal || 0,
             total: selectedRecord.total || 0,
