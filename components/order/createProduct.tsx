@@ -207,7 +207,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
               ),
             },
           ]}
-          rows={displayedProducts}
+          rows={displayedProducts} 
           className="mt-4"
           totalRows={0}
           setCurrentPage={() => {}}
