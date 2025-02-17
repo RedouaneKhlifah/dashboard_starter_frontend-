@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang={params.lang} dir={dir} className="dark">
       <body className={poppins.className}>
-        <Toaster position="top-center" />
+        <Toaster containerStyle={{ zIndex: 99999 }} position="top-center" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
