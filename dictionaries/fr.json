@@ -300,7 +300,9 @@
       "update_success": "Devis updated successfully",
       "delete_success": "Devis supprimé avec succès",
       "error": "Erreur lors de la création du devis"
-    }
+    },
+    "Total_Items": "Nombre total d'articles",
+    "Total_Amount": "Montant total"
     }
   },
   "common": {

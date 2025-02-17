@@ -10,7 +10,7 @@ interface IOrderForm {
   products: Array<{
     name?: string;
     unit?: string;
-    tiket_id?: number;
+    ticket_id?: number;
     product_id: number;
     price_unitaire: number;
     quantity: number;

@@ -40,46 +40,46 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
     () =>
       selectedRecord
         ? {
-            client: {
-              id: selectedRecord.client_id || 0,
-              title: selectedRecord.client?.full_name || "",
-            },
-            reference: selectedRecord.reference || "",
-            devis_date: selectedRecord.devis_date || "",
-            expiration_date: selectedRecord.expiration_date || "",
-            tva: selectedRecord.tva || 0,
-            remise_type: "FIXED",
-            remise: 0,
-            note: selectedRecord.note || "",
-            products:
-              selectedRecord.products?.map((product) => ({
-                name: product.name,
-                unit: product.unit,
-                product_id: product.product_id,
-                price_unitaire: product.price_unitaire,
-                quantity: product.quantity,
-                tiket_id: product?.tiket_id,
-              })) || [],
-            subtotal: selectedRecord.subtotal || 0,
-            total: selectedRecord.total || 0,
-          }
-        : {
-            client_id: 0,
-            reference: "",
-            devis_date: "",
-            expiration_date: "",
-            tva: 0,
-            remise_type: "PERCENT",
-            remise: 0,
-            note: "",
-            products: [],
-            client: {
-              id: 0,
-              title: "",
-            },
-            subtotal: 0,
-            total: 0,
+          client: {
+            id: selectedRecord.client_id || 0,
+            title: selectedRecord.client?.full_name || "",
           },
+          reference: selectedRecord.reference || "",
+          devis_date: selectedRecord.devis_date || "",
+          expiration_date: selectedRecord.expiration_date || "",
+          tva: selectedRecord.tva || 0,
+          remise_type: "FIXED",
+          remise: 0,
+          note: selectedRecord.note || "",
+          products:
+            selectedRecord.products?.map((product) => ({
+              name: product.name,
+              unit: product.unit,
+              product_id: product.product_id,
+              price_unitaire: product.price_unitaire,
+              quantity: product.quantity,
+              ticket_id: product?.ticket_id,
+            })) || [],
+          subtotal: selectedRecord.subtotal || 0,
+          total: selectedRecord.total || 0,
+        }
+        : {
+          client_id: 0,
+          reference: "",
+          devis_date: "",
+          expiration_date: "",
+          tva: 0,
+          remise_type: "PERCENT",
+          remise: 0,
+          note: "",
+          products: [],
+          client: {
+            id: 0,
+            title: "",
+          },
+          subtotal: 0,
+          total: 0,
+        },
     [selectedRecord]
   );
 

@@ -54,7 +54,6 @@ const ProductsTab = ({
     }));
     setErrors({});
   };
-
   const handleQuantityChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     productId: number
@@ -64,7 +63,7 @@ const ProductsTab = ({
       ...prev,
       products: prev.products.map((product) => {
         if (product.product_id === productId) {
-          const newQuantity = Math.max(1, value); // Ensure quantity is at least 1
+          const newQuantity = Math.max(1, value);
           return {
             ...product,
             quantity: newQuantity,
@@ -81,7 +80,7 @@ const ProductsTab = ({
       ...prev,
       products: prev.products.map((product) => {
         if (product.product_id === productId) {
-          const newPrice = Math.max(0, value); // Ensure price is not negative
+          const newPrice = Math.max(0, value);
           return {
             ...product,
             price_unitaire: newPrice,
@@ -152,6 +151,7 @@ const ProductsTab = ({
                 id={"quantity"}
                 label={""}
                 value={value}
+                disabled={!!row.ticket_id}
               />
             ),
           },
@@ -180,7 +180,7 @@ const ProductsTab = ({
         rows={formData.products || []}
         className="mt-4"
         totalRows={0}
-        setCurrentPage={() => {}}
+        setCurrentPage={() => { }}
         currentPage={0}
       />
       <div className="flex justify-between items-center">
@@ -194,20 +194,26 @@ const ProductsTab = ({
           {translation.Order.form.add_article}
         </Button>
         {(formData.products || []).length > 0 && (
-          <div className="text-right">
-            <div className="text-sm text-gray-500">
-              {"total_items"}
-              {formData.products.length}
-            </div>
-            <div className="text-lg font-medium">
-              {"total_amount"}:
-              {formData.products
-                .reduce(
-                  (sum, product) =>
-                    sum + product.quantity * product.price_unitaire,
-                  0
-                )
-                .toFixed(2)}
+          <div className="border-t-2 border-dashed border-gray-200 pt-3">
+            <div className="flex flex-col items-end">
+              <div className="flex items-center gap-3">
+                <div className="flex flex-col justify-center items-center gap-1 border-r-2 border-dashed border-gray-200 h-full px-2">
+                  <span className="text-gray-500">{translation.Order.form.Total_Items}</span>
+                  <span className="text-xl font-bold text-gray-700">{formData.products.length}</span>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-1"> 
+                  <span className="text-gray-600">{translation.Order.form.Total_Amount}</span>
+                  <span className="text-2xl font-bold text-gray-900">
+                    ${formData.products
+                      .reduce(
+                        (sum, product) =>
+                          sum + product.quantity * product.price_unitaire,
+                        0
+                      )
+                      .toFixed(2)}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}
