@@ -95,6 +95,7 @@ export function TableOrder({
   const handleEdit = useCallback(
     (orderId: number) => {
       const record = orders.find((o) => o.id === orderId);
+      if (!record) return;
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },
@@ -154,19 +155,6 @@ export function TableOrder({
       {
         key: "total" as keyof IDevis,
         label: orders_table.headers.total,
-        renderCell: (_: any, row: IDevis) => {
-          const subtotal = row.products.reduce(
-            (acc, product) => acc + product.sale_price * (product.stock || 1),
-            0
-          );
-          const discount =
-            row.remise_type === "PERCENT"
-              ? subtotal * (row.remise / 100)
-              : row.remise;
-          const totalAfterDiscount = subtotal - discount;
-          const taxAmount = totalAfterDiscount * (row.tva / 100);
-          return (totalAfterDiscount + taxAmount).toFixed(2);
-        },
       },
       {
         key: "actions" as keyof IDevis,

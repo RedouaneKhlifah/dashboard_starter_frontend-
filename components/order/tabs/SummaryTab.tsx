@@ -19,7 +19,6 @@ const SummaryTab = ({
   setErrors,
   translation,
 }: SummaryTabProps) => {
-  // Set default discount type to percentage
   useEffect(() => {
     if (formData.remise_type === undefined) {
       setFormData((prev) => ({
@@ -37,31 +36,33 @@ const SummaryTab = ({
         0
       ) || 0;
 
+    const tvaRate = (formData.tva || 0) / 100;
+    const tvaAmount = baseSubtotal * tvaRate;
+
     const discountAmount =
       formData.remise_type === "PERCENT"
-        ? baseSubtotal * (formData.remise / 100)
+        ? baseSubtotal * ((formData.remise || 0) / 100)
         : formData.remise || 0;
 
-    const discountedSubtotal = baseSubtotal - discountAmount;
-    const tva = discountedSubtotal * 0.2;
-    const total = discountedSubtotal + tva;
+    const total = baseSubtotal + tvaAmount - discountAmount;
 
     setFormData((prev) => ({
       ...prev,
       subtotal: Number(baseSubtotal.toFixed(2)),
-      vat: Number(tva.toFixed(2)),
+      vat: Number(tvaAmount.toFixed(2)),
       total: Number(total.toFixed(2)),
     }));
-  }, [formData.products, formData.remise, formData.remise_type, setFormData]);
-
-  useEffect(() => {
-    calculateTotals();
   }, [
-    calculateTotals,
     formData.products,
     formData.remise,
     formData.remise_type,
+    formData.tva,
+    setFormData,
   ]);
+
+  useEffect(() => {
+    calculateTotals();
+  }, [calculateTotals]);
 
   return (
     <div className="space-y-4">
@@ -86,7 +87,8 @@ const SummaryTab = ({
             <div className="absolute left-[8px] top-[11px] h-5 border-l-2"></div>
             <Select
               id="remise_type"
-              value={formData.remise_type || "percentage"}
+              value={formData.remise_type || "PERCENT"}
+              defaultChecked
               onChange={(e) =>
                 handleChange(
                   {
@@ -107,8 +109,8 @@ const SummaryTab = ({
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
             >
-              <Option value="percentage">%</Option>
-              <Option className="text-sm" value="fixed">
+              <Option value="PERCENT">%</Option>
+              <Option className="text-sm" value="FIXED">
                 {translation.Order.form.remise.fixed}
               </Option>
             </Select>

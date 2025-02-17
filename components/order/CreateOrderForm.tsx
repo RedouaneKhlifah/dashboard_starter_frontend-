@@ -7,6 +7,9 @@ import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
 import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { IOrderForm } from "@/dto/order/orderForm";
+import useToast from "@/hooks/useToast";
+import { ICreateDevis } from "@/dto/devis/createDevis";
+import { DevisMapper } from "@/mappers/DevisMapper";
 
 interface OrderFormProps {
   translation: DictionaryType;
@@ -19,6 +22,8 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<OrderFormErrors>({});
+  const { error: toastError, success: toastSuccess } = useToast();
+  const { DevisDataMapper } = DevisMapper;
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
@@ -31,34 +36,36 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       remise: 0,
       note: "",
       products: [],
-      client: {
-        id: 0,
-        title: ""
-      },
+      client: null,
       subtotal: 0,
-      total: 0
+      total: 0,
     }),
     []
   );
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
+    const formattedData = DevisDataMapper(data);
     try {
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders",
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/devis",
         {
           method: "POST",
           lang,
-          body: JSON.stringify(data),
+          body: JSON.stringify(formattedData),
         }
       );
 
-      if (!response.ok) {
+      if (response.ok) {
+        toastSuccess(translation.Order.form.message.success);
+        return true;
+      } else {
         const error = await response.json();
+        toastError(error.message || translation.Order.form.message.error);
         return false;
       }
-      return true;
     } catch (error) {
       console.error("Error during order creation:", error);
+      toastError(translation.Order.form.message.error);
       return false;
     }
   };
