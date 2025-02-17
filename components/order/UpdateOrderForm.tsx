@@ -58,29 +58,28 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
                 product_id: product.product_id,
                 price_unitaire: product.price_unitaire,
                 quantity: product.quantity,
-                tiket_id: product?.tiket_id,
+                ticket_id: product?.ticket_id,
               })) || [],
             subtotal: selectedRecord.subtotal || 0,
             total: selectedRecord.total || 0,
           }
-
         : {
-          client_id: 0,
-          reference: "",
-          devis_date: "",
-          expiration_date: "",
-          tva: 0,
-          remise_type: "PERCENT",
-          remise: 0,
-          note: "",
-          products: [],
-          client: {
-            id: 0,
-            title: "",
+            client_id: 0,
+            reference: "",
+            devis_date: "",
+            expiration_date: "",
+            tva: 0,
+            remise_type: "PERCENT",
+            remise: 0,
+            note: "",
+            products: [],
+            client: {
+              id: 0,
+              title: "",
+            },
+            subtotal: 0,
+            total: 0,
           },
-          subtotal: 0,
-          total: 0,
-        },
     [selectedRecord]
   );
 

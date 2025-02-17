@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import ReactDOMServer from "react-dom/server";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
@@ -128,9 +129,43 @@ export function TableOrder({
     }
   };
 
-  const handleEmail = useCallback((orderId: number) => {
-    // Implement email functionality
-  }, []);
+  const generateOrderHTML = (
+    order: IDevis,
+    translation: DictionaryType,
+    lang: Locale
+  ) => {
+    return ReactDOMServer.renderToString(
+      <PrintableOrder order={order} translation={translation} lang={lang} />
+    );
+  };
+
+  const handleEmail = useCallback(
+    async (orderId: number) => {
+      try {
+        const orderToEmail = orders.find((o) => o.id === orderId);
+        if (!orderToEmail) return;
+
+        // Generate HTML content
+        const htmlContent = generateOrderHTML(orderToEmail, translation, lang);
+
+        const response = await http(
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/send-devis-email/${orderId}`,
+          {
+            method: "POST",
+            lang,
+            body: JSON.stringify({ htmlContent }),
+          }
+        );
+
+        if (response.ok) {
+          console.log("Email sent successfully");
+        }
+      } catch (error) {
+        console.error("Email sending error:", error);
+      }
+    },
+    [orders, translation, lang]
+  );
 
   // Table Headers
   const headers = useMemo(

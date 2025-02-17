@@ -501,6 +501,7 @@
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",
+    "currency": "MAD",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
     }

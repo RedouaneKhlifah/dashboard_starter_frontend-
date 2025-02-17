@@ -13,35 +13,42 @@ interface PrintableOrderProps {
   lang: Locale;
 }
 
-interface OrderTotals {
-  subtotal: number;
-  discount: number;
-  totalAfterDiscount: number;
-  taxAmount: number;
-  total: number;
+interface OrderSummary {
+  subtotal: string;
+  remise: number;
+  remise_type: string;
+  total: string;
+  tva: string;
 }
 
 // Utility functions
-const calculateOrderTotals = (order: IDevis): OrderTotals => {
-  const subtotal = order.products.reduce(
-    (acc, product) => acc + product.sale_price * (product.stock || 1),
-    0
-  );
+const calculateOrderSummary = (
+  order: IDevis,
+  translation: DictionaryType
+): OrderSummary => {
+  const baseSubtotal =
+    order.products?.reduce(
+      (sum, product) =>
+        sum + (product.price_unitaire || 0) * (product.quantity || 0),
+      0
+    ) || 0;
 
-  const discount =
+  const tvaAmount = (baseSubtotal * (order.tva || 0)) / 100;
+  const totalTTC = baseSubtotal + tvaAmount;
+
+  const discountAmount =
     order.remise_type === "PERCENT"
-      ? subtotal * (order.remise / 100)
-      : order.remise;
+      ? (baseSubtotal * (order.remise || 0)) / 100 // Apply discount on subtotal (HT)
+      : order.remise || 0;
 
-  const totalAfterDiscount = subtotal - discount;
-  const taxAmount = totalAfterDiscount * (order.tva / 100);
-
+  const finalTotal = Math.max(totalTTC - discountAmount, 0);
   return {
-    subtotal,
-    discount,
-    totalAfterDiscount,
-    taxAmount,
-    total: totalAfterDiscount + taxAmount,
+    tva: tvaAmount + " %",
+    remise: order.remise,
+    remise_type:
+      order.remise_type === "PERCENT" ? "%" : translation.shared.currency,
+    subtotal: baseSubtotal + " " + translation.shared.currency,
+    total: finalTotal + " " + translation.shared.currency,
   };
 };
 
@@ -138,12 +145,10 @@ const ProductsTable = ({
       {order.products.map((product, index) => (
         <tr key={index} className="border-b border-gray-200">
           <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.stock || 1}</td>
+          <td className="text-right py-2 px-3">{product.quantity}</td>
+          <td className="text-right py-2 px-3">{product.price_unitaire}</td>
           <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price, lang)}
-          </td>
-          <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price * (product.stock || 1), lang)}
+            {product.price_unitaire * product.quantity}
           </td>
         </tr>
       ))}
@@ -151,34 +156,40 @@ const ProductsTable = ({
   </table>
 );
 
-const TotalsSection = ({
-  totals,
+const SummarySection = ({
+  summary,
   translation,
   lang,
 }: {
-  totals: OrderTotals;
+  summary: OrderSummary;
   translation: DictionaryType;
   lang: Locale;
-}) => (
-  <section className="ml-auto w-72 mt-7">
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.subtotal}:</span>
-      <span>{formatCurrency(totals.subtotal, lang)}</span>
-    </div>
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.discount}:</span>
-      <span>-{formatCurrency(totals.discount, lang)}</span>
-    </div>
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.tax}:</span>
-      <span>{formatCurrency(totals.taxAmount, lang)}</span>
-    </div>
-    <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
-      <span>{translation.sidebar.orders_table.print.total}:</span>
-      <span>{formatCurrency(totals.total, lang)}</span>
-    </div>
-  </section>
-);
+}) => {
+  const {} = summary;
+
+  return (
+    <section className="ml-auto w-72 mt-7">
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.subtotal}:</span>
+        <span>{summary.subtotal}</span>
+      </div>
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.discount}:</span>
+        <span>
+          {summary.remise} {summary.remise_type}
+        </span>
+      </div>
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.tax}:</span>
+        <span>{summary.tva}</span>
+      </div>
+      <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
+        <span>{translation.sidebar.orders_table.print.total}:</span>
+        <span>{summary.total}</span>
+      </div>
+    </section>
+  );
+};
 
 const Footer = ({ translation }: { translation: DictionaryType }) => (
   <footer className="mt-8 text-center text-sm">
@@ -223,8 +234,8 @@ const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
       return <div ref={ref}>No order data available</div>;
     }
 
+    const summary = calculateOrderSummary(order, translation);
     const textDirection = lang === "ar" ? "rtl" : "ltr";
-    const totals = calculateOrderTotals(order);
 
     return (
       <div
@@ -238,7 +249,11 @@ const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
         <DocumentInfo order={order} translation={translation} lang={lang} />
         <ClientInfo client={order.client} translation={translation} />
         <ProductsTable order={order} translation={translation} lang={lang} />
-        <TotalsSection totals={totals} translation={translation} lang={lang} />
+        <SummarySection
+          summary={summary}
+          translation={translation}
+          lang={lang}
+        />
         <Footer translation={translation} />
       </div>
     );
