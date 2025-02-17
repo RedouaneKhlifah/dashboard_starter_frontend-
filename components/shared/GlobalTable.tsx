@@ -82,18 +82,19 @@ export const GlobalTable = <T extends { id: string | number }>({
   return (
     <MTThemeProvider>
       <Card
-        className={`h-full w-full overflow-scroll ${className}`}
+        className={`w-full max-h-60 overflow-scroll relative ${className}`}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
         <table className="w-full min-w-max table-auto text-left">
-          <thead>
+          <thead className="sticky top-0 bg-blue-gray-50 z-10 border-b border-gray-300">
             <tr>
               {headers.map((header) => (
                 <th
                   key={header.key.toString()}
-                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 text-start"
+                  className="sticky top-0 border-b border-blue-gray-100 p-4 text-start"
+                  style={{ background: "inherit" }}
                 >
                   <Typography
                     variant="small"

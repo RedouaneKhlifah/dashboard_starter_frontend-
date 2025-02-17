@@ -14,7 +14,7 @@ export const toastError = (message: string) => {
     style: {
       ...baseStyle,
       background: "#FFF0F0",
-      color: "#D93025",
+      color: "#D93025"
     },
     iconTheme: {
       primary: "#D93025",

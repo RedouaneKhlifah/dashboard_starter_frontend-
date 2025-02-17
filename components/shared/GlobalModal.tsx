@@ -57,7 +57,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
-        className={`bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden !backdrop-blur-none ${contentClassName}`}
+        className={`bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden !backdrop-blur-none  ${contentClassName}`}
         dismiss={{ enabled: dismiss }}
       >
         <div className="flex justify-between">
