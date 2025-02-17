@@ -48,8 +48,8 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
             devis_date: selectedRecord.devis_date || "",
             expiration_date: selectedRecord.expiration_date || "",
             tva: selectedRecord.tva || 0,
-            remise_type: "FIXED",
-            remise: 0,
+            remise_type: selectedRecord.remise_type || "PERCENT",
+            remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
             products:
               selectedRecord.products?.map((product) => ({
