@@ -2,13 +2,13 @@
 
 import { forwardRef } from "react";
 import { Locale } from "@/i18n-config";
-import { Iorders } from "@/interfaces/Iorders";
+import { IOrder } from "@/interfaces/IOrder";
 import { DictionaryType } from "@/lib/i18n";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
 
 // Types
 interface PrintableorderProps {
-  order: Iorders | null;
+  order: IOrder | null;
   translation: DictionaryType;
   lang: Locale;
 }
@@ -23,7 +23,7 @@ interface orderSummary {
 
 // Utility functions
 const calculateorderSummary = (
-  order: Iorders,
+  order: IOrder,
   translation: DictionaryType
 ): orderSummary => {
   const baseSubtotal =
@@ -72,7 +72,7 @@ const DocumentInfo = ({
   translation,
   lang,
 }: {
-  order: Iorders;
+  order: IOrder;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -86,7 +86,7 @@ const DocumentInfo = ({
       </span>
       <span className="text-sm">
         {translation.sidebar.orders_table.print.date}:{" "}
-        {formatDate(order.orders_date, lang)}
+        {formatDate(order.order_date, lang)}
       </span>
     </div>
     <div className="text-right text-sm">
@@ -100,7 +100,7 @@ const ClientInfo = ({
   client,
   translation,
 }: {
-  client: Iorders["client"];
+  client: IOrder["client"];
   translation: DictionaryType;
 }) => (
   <section className="mb-6">
@@ -120,7 +120,7 @@ const ProductsTable = ({
   translation,
   lang,
 }: {
-  order: Iorders;
+  order: IOrder;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -165,7 +165,7 @@ const SummarySection = ({
   translation: DictionaryType;
   lang: Locale;
 }) => {
-  const {} = summary;
+  const { } = summary;
 
   return (
     <section className="ml-auto w-72 mt-7">
@@ -225,8 +225,31 @@ const printStyles = `
       border-color: #000;
     }
   }
-`;
 
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 8px;
+    }
+    .border-b-2 {
+      border-bottom-width: 2px;
+    }
+    .border-gray-300 {
+      border-color: #000;
+    }
+`;
 // Main component
 const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
   ({ order, translation, lang }, ref) => {

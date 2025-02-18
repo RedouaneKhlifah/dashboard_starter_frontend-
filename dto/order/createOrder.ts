@@ -1,7 +1,7 @@
 export interface ICreateorders {
   client_id?: number;
   reference: string;
-  orders_date: string;
+  order_date: string;
   expiration_date: string;
   tva: number;
   remise_type: "PERCENT" | "FIXED";

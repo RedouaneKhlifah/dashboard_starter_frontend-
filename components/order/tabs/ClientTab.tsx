@@ -4,20 +4,20 @@ import { Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IorderForm, ordersRelationShipData } from "@/dto/order/orderForm";
+import { IOrderForm, ordersRelationShipData } from "@/dto/order/orderForm";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
-import { Iorders } from "@/interfaces/Iorders";
+import { IOrder } from "@/interfaces/IOrder";
 
 interface ClientTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
-  selectedRecord?: Iorders | undefined;
+  selectedRecord?: IOrder | undefined;
 }
 
 const ClientTab = ({
@@ -71,12 +71,12 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
-          id="orders_date"
+          id="order_date"
           type="date"
-          label={translation.order.form.orders_date}
+          label={translation.order.form.order_date}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
-          value={formData.orders_date}
-          error={errors.orders_date}
+          value={formData.order_date}
+          error={errors.order_date}
           disabled={selectedRecord ? true : false}
         />
         <InputField

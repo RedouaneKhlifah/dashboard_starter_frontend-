@@ -149,7 +149,7 @@ export function TableOrder({
         const htmlContent = generateorderHTML(orderToEmail, translation, lang);
 
         const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-orders-email/${orderId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-order-email/${orderId}`,
           {
             method: "POST",
             lang,
@@ -175,8 +175,8 @@ export function TableOrder({
         label: orders_table.headers.reference,
       },
       {
-        key: "orders_date" as keyof IOrder,
-        label: orders_table.headers.orders_date,
+        key: "order_date" as keyof IOrder,
+        label: orders_table.headers.order_date,
       },
       {
         key: "expiration_date" as keyof IOrder,

@@ -11,7 +11,7 @@ interface IOrder {
 
   reference: string;
 
-  orders_date: string;
+  order_date: string;
 
   expiration_date: string;
 

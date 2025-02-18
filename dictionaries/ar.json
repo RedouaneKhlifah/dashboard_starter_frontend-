@@ -262,15 +262,19 @@
     "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
-    "orders_date_required": "تاريخ عرض السعر مطلوب",
+    "order_date_required": "تاريخ عرض السعر مطلوب",
     "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
     "client_required": "العميل مطلوب",
     "product_required": "المنتج مطلوب",
     "note_required": "الملاحظة مطلوبة",
+    "status_required": "الحالة مطلوبة",
+    "status_invalid": "الحالة غير صالحة",
+    "paid_amount_required": "المبلغ المدفوع مطلوب",
     "form": {
       "reference": "المرجع",
       "reference_search": "البحث عن مرجع",
-      "orders_date": "تاريخ عرض السعر",
+      "order_date": "تاريخ عرض السعر",
+      "paid_amount": "المبلغ المدفوع",
       "expiration_date": "تاريخ انتهاء الصلاحية",
       "client": "العميل",
       "add_article": "إضافة منتج",
@@ -302,6 +306,13 @@
         "fixed": "ثابت",
         "percentage": "نسبة مئوية",
         "total_after": "المجموع بعد الخصم"
+      },
+      "status": {
+        "label": "الحالة",
+        "DRAFT": "مسودة",
+        "UNPAID": "غير مدفوع",
+        "PARTIALLY_PAID": "مدفوع جزئيًا",
+        "PAID": "مدفوع"
       },
       "message": {
         "success": "تم إنشاء عرض السعر بنجاح",
@@ -344,7 +355,7 @@
         "products": "منتجات فردية",
         "bundles": "الباقات",
         "tickets": "التذاكر",
-        "pricing": "قائمة الأسعار",
+        "factures": "الفواتير",
         "orders": "طلبات الشراء",
         "members": "الأعضاء",
         "settings": "الإعدادات",
@@ -431,7 +442,7 @@
       "search_placeholder": "بحث...",
       "headers": {
         "reference": "المرجع",
-        "orders_date": "تاريخ عرض السعر",
+        "order_date": "تاريخ عرض السعر",
         "expiration_date": "تاريخ انتهاء الصلاحية",
         "client": "العميل",
         "total": "المجموع",
@@ -459,6 +470,48 @@
         "tax": "الضريبة",
         "terms": "الشروط: الدفع خلال 30 يومًا",
         "thank_you": "شكرًا لتعاملك معنا!"
+      }
+    },
+    "factures_table": {
+      "invoice_management": "إدارة الفواتير",
+      "create_new_invoice": "إنشاء فاتورة جديدة",
+      "update_invoice": "تحديث الفاتورة",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "invoice_number": "رقم الفاتورة",
+        "client_name": "اسم العميل",
+        "due_date": "تاريخ الاستحقاق",
+        "vat": "ضريبة القيمة المضافة",
+        "amount": "المبلغ",
+        "paid": "المدفوع",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف",
+        "print": "طباعة",
+        "email": "بريد إلكتروني",
+        "view": "عرض"
+      },
+      "print": {
+        "company_name": "اسم الشركة",
+        "company_address": "123 شارع الأعمال، المدينة",
+        "company_contact": "contact@company.com | +966 5 1234 5678",
+        "invoice_title": "فاتورة",
+        "reference": "المرجع",
+        "date": "التاريخ",
+        "due_date": "تاريخ الاستحقاق",
+        "bill_to": "فاتورة إلى",
+        "product": "المنتج",
+        "quantity": "الكمية",
+        "unit_price": "سعر الوحدة",
+        "total": "المجموع",
+        "subtotal": "المجموع الفرعي",
+        "discount": "الخصم",
+        "tax": "الضريبة",
+        "terms": "الشروط: الدفع خلال 30 يوماً",
+        "thank_you": "شكراً لتعاملك معنا!"
       }
     },
     "products_table": {

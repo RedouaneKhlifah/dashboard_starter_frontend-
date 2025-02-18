@@ -70,8 +70,8 @@ const OrderForm = ({
     if (tabName === "client") {
       if (!formData.reference?.trim())
         newErrors.reference = translation.order.reference_required;
-      if (!formData.orders_date)
-        newErrors.orders_date = translation.order.orders_date_required;
+      if (!formData.order_date)
+        newErrors.order_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
     } else if (tabName === "products") {
@@ -134,7 +134,7 @@ const OrderForm = ({
     return (
       (tabName === "client" &&
         (!!errors.reference ||
-          !!errors.orders_date ||
+          !!errors.order_date ||
           !!errors.expiration_date)) ||
       (tabName === "products" && !!errors.products) ||
       (tabName === "notes" && !!errors.note)

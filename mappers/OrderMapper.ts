@@ -5,7 +5,7 @@ import { IOrderForm } from "@/dto/order/orderForm";
 const ordersDataMapper = (data: IOrderForm): ICreateorders => {
   return {
     reference: data.reference,
-    orders_date: data.orders_date,
+    order_date: data.order_date,
     expiration_date: data.expiration_date,
     client_id: data?.client?.id,
     products: data.products,
