@@ -259,10 +259,14 @@
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
     "note_required": "La note est obligatoire",
+    "status_required": "Le statut est obligatoire",
+    "status_invalid": "Statut invalide",
+    "paid_amount_required": "Le montant payé est obligatoire",
     "form": {
       "reference": "Référence",
       "reference_search": "Rechercher une référence",
       "order_date": "Date du orders",
+      "paid_amount": "Montant Payé",
       "expiration_date": "Date d'expiration",
       "client": "Client",
       "add_article": "Ajouter un Produit",
@@ -294,6 +298,13 @@
         "fixed": "Fixée",
         "percentage": "Pourcentage",
         "total_after": "Total Après Remise"
+      },
+      "status": {
+        "label": "Statut",
+        "DRAFT": "Brouillon",
+        "UNPAID": "Impayé",
+        "PARTIALLY_PAID": "Partiellement Payé",
+        "PAID": "Payé"
       },
       "message": {
         "success": "orders créé avec succès",
@@ -336,7 +347,7 @@
         "products": "Produits simples",
         "bundles": "Pactes",
         "tickets": "Tickets",
-        "pricing": "Liste de prix",
+        "factures": "Factures",
         "orders": "Bons de Commandes",
         "members": "Membres",
         "settings": "P aramètres",
@@ -451,6 +462,48 @@
         "tax": "TVA",
         "terms": "Conditions : Paiement dans les 30 jours",
         "thank_you": "Merci pour votre confiance !"
+      }
+    },
+    "factures_table": {
+      "invoice_management": "Gestion des Factures",
+      "create_new_invoice": "Créer une Facture",
+      "update_invoice": "Modifier la Facture",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "invoice_number": "Numéro de Facture",
+        "client_name": "Nom du Client",
+        "due_date": "Date d'Échéance",
+        "vat": "TVA",
+        "amount": "Montant",
+        "paid": "Payé",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "print": "Imprimer",
+        "email": "Email",
+        "view": "Voir"
+      },
+      "print": {
+        "company_name": "Nom de l'Entreprise",
+        "company_address": "123 Rue des Affaires, Ville",
+        "company_contact": "contact@company.com | +33 1 23 45 67 89",
+        "invoice_title": "Facture",
+        "reference": "Référence",
+        "date": "Date",
+        "due_date": "Date d'Échéance",
+        "bill_to": "Facturer à",
+        "product": "Produit",
+        "quantity": "Quantité",
+        "unit_price": "Prix Unitaire",
+        "total": "Total",
+        "subtotal": "Sous-total",
+        "discount": "Remise",
+        "tax": "TVA",
+        "terms": "Conditions: Paiement sous 30 jours",
+        "thank_you": "Merci pour votre confiance!"
       }
     },
     "products_table": {

@@ -4,20 +4,20 @@ import { Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IorderForm, ordersRelationShipData } from "@/dto/order/orderForm";
+import { IOrderForm, ordersRelationShipData } from "@/dto/order/orderForm";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
-import { Iorders } from "@/interfaces/Iorders";
+import { IOrder } from "@/interfaces/IOrder";
 
 interface ClientTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
-  selectedRecord?: Iorders | undefined;
+  selectedRecord?: IOrder | undefined;
 }
 
 const ClientTab = ({

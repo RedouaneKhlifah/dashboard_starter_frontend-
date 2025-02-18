@@ -165,7 +165,7 @@ const SummarySection = ({
   translation: DictionaryType;
   lang: Locale;
 }) => {
-  const {} = summary;
+  const { } = summary;
 
   return (
     <section className="ml-auto w-72 mt-7">
@@ -225,9 +225,8 @@ const printStyles = `
       border-color: #000;
     }
   }
-    
-`;
 
+`;
 // Main component
 const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
   ({ order, translation, lang }, ref) => {

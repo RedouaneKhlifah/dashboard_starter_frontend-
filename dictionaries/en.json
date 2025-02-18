@@ -268,10 +268,14 @@
     "client_required": "Client is required",
     "product_required": "Product is required",
     "note_required": "Note is required",
+    "status_required":"Status is required",
+    "status_invalid": "Invalid status",
+    "paid_amount_required":"Paid amount is required",
     "form": {
       "reference": "Reference",
       "reference_search": "Search reference",
       "order_date": "Quote date",
+      "paid_amount": "Paid Amount",
       "expiration_date": "Expiration date",
       "client": "Client",
       "client_search": "Search client",
@@ -303,6 +307,13 @@
         "fixed": "Fixed",
         "percentage": "Percentage",
         "total_after": "Total After Discount"
+      },
+      "status": {
+        "label": "Status",
+        "DRAFT": "Draft",
+        "UNPAID": "Unpaid",
+        "PARTIALLY_PAID": "Partially Paid",
+        "PAID": "Paid"
       },
       "message": {
         "success": "Quote created successfully",
@@ -345,7 +356,7 @@
         "products": "Single Products",
         "bundles": "Bundles",
         "tickets": "Tickets",
-        "pricing": "Price List",
+        "factures": "Invoices",
         "orders": "Purchase order",
         "members": "Members",
         "settings": "Settings",
@@ -426,7 +437,7 @@
       }
     },
     "orders_table": {
-      "order_management": "order Management",
+      "order_management": "Order Management",
       "create_new_order": "Create New Quote",
       "update_order": "Update The Quote",
       "search_placeholder": "Search...",
@@ -459,6 +470,48 @@
         "discount": "Discount",
         "tax": "Tax",
         "terms": "Terms: Payment due within 30 days",
+        "thank_you": "Thank you for your business!"
+      }
+    },
+    "factures_table": {
+      "invoice_management": "Invoice Management",
+      "create_new_invoice": "Create New Invoice",
+      "update_invoice": "Update Invoice",
+      "search_placeholder": "Search...",
+      "headers": {
+        "invoice_number": "Invoice Number",
+        "client_name": "Client Name",
+        "due_date": "Due Date",
+        "vat": "VAT",
+        "amount": "Amount",
+        "paid": "Paid",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "print": "Print",
+        "email": "Email",
+        "view": "View"
+      },
+      "print": {
+        "company_name": "Company Name",
+        "company_address": "123 Business Street, City",
+        "company_contact": "contact@company.com | +1 234 567 890",
+        "invoice_title": "Invoice",
+        "reference": "Reference",
+        "date": "Date",
+        "due_date": "Due Date",
+        "bill_to": "Bill To",
+        "product": "Product",
+        "quantity": "Quantity",
+        "unit_price": "Unit Price",
+        "total": "Total",
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "tax": "Tax",
+        "terms": "Terms: Payment within 30 days",
         "thank_you": "Thank you for your business!"
       }
     },

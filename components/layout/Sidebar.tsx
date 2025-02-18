@@ -15,6 +15,7 @@ import {
   Weight,
   ClipboardList,
   Handshake,
+  Factory
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
@@ -49,9 +50,9 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             icon: <ClipboardList className="w-4 h-4" />,
           },
           {
-            name: translation.sidebar.dashboard.items.pricing,
-            href: "/pricing",
-            icon: <Package className="w-4 h-4" />,
+            name: translation.sidebar.dashboard.items.factures,
+            href: "/factures",
+            icon: <Factory className="w-4 h-4" />,
           },
         ],
       },

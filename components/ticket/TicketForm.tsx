@@ -95,6 +95,7 @@ const TicketForm = ({
         if (success) {
           closeModal();
           setFormData(initialFormData);
+          setActiveTab(tabs[0]);
           setErrors({});
         }
       } catch (error) {
