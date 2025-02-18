@@ -38,7 +38,10 @@ export default async function PopularCities({ lang }: { lang: Locale }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
           {cities.map((city, index) =>
             city.isPublished ? (
-              <Link key={index} href={`/${lang}/${city.slug}?categoryId=${city.categories?.[0].id}`}>
+              <Link
+                key={index}
+                href={`/${lang}/${city.slug}?categoryId=${city.categories?.[0].id}`}
+              >
                 <div key={index} className="rounded-md bg-card overflow-hidden">
                   <AspectRatio ratio={16 / 10} className="overflow-hidden">
                     <Image

@@ -1,29 +1,29 @@
 import { DictionaryType } from "@/lib/i18n";
-import { createOrderSchemas } from "../schemas/orderSchemas/createOrderSchemas";
+import { createorderSchemas } from "../schemas/orderSchemas/createorderSchemas";
 import { validateField } from "../helper/validationHelpers";
-import { IOrderForm } from "@/dto/order/orderForm";
+import { IorderForm } from "@/dto/order/orderForm";
 
-export type OrderFormErrors = {
-  [K in keyof IOrderForm]?: string;
+export type orderFormErrors = {
+  [K in keyof IorderForm]?: string;
 };
 
-export const validateOrderForm = (
-  formData: IOrderForm,
+export const validateorderForm = (
+  formData: IorderForm,
   translation: DictionaryType
-): OrderFormErrors => {
+): orderFormErrors => {
   const {
     referenceSchema,
-    devisDateSchema,
+    ordersDateSchema,
     expirationDateSchema,
     clientSchema,
     productSchema,
     noteSchema,
-  } = createOrderSchemas(translation);
+  } = createorderSchemas(translation);
 
-  const newErrors: OrderFormErrors = {};
+  const newErrors: orderFormErrors = {};
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
-  newErrors.devis_date = validateField(devisDateSchema, formData.devis_date);
+  newErrors.orders_date = validateField(ordersDateSchema, formData.orders_date);
   newErrors.expiration_date = validateField(
     expirationDateSchema,
     formData.expiration_date
@@ -34,11 +34,11 @@ export const validateOrderForm = (
 
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)
-  ) as OrderFormErrors;
+  ) as orderFormErrors;
 };
 
-const OrderValidator = {
-  validateOrderForm,
+const orderValidator = {
+  validateorderForm,
 };
 
-export default OrderValidator;
+export default orderValidator;

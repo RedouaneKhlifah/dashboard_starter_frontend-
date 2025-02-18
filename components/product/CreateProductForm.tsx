@@ -12,7 +12,6 @@ import useModalStore from "@/store/modalStore";
 import http from "@/lib/http";
 import useToast from "@/hooks/useToast";
 
-
 // Types
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
@@ -32,7 +31,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const { mapProductToFormData } = productMappers;
 
   const initialFormData = useMemo<ICreateProduct>(

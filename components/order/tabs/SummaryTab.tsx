@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { Select, Option } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IOrderForm } from "@/dto/order/orderForm";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { IorderForm } from "@/dto/order/orderForm";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 
 interface SummaryTabProps {
-  formData: IOrderForm;
-  setFormData: Dispatch<SetStateAction<IOrderForm>>;
-  setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
+  formData: IorderForm;
+  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
 }
 
@@ -76,7 +76,7 @@ const SummaryTab = ({
         <InputField
           id="tva"
           type="number"
-          label={translation.Order.form.tva}
+          label={translation.order.form.tva}
           value={formData.tva || 0}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
         />
@@ -84,7 +84,7 @@ const SummaryTab = ({
           <InputField
             id="remise"
             type="number"
-            label={translation.Order.form.remise.value}
+            label={translation.order.form.remise.value}
             value={formData.remise?.toString() || "0"}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
             className="pr-24"
@@ -117,7 +117,7 @@ const SummaryTab = ({
             >
               <Option value="PERCENT">%</Option>
               <Option className="text-sm" value="FIXED">
-                {translation.Order.form.remise.fixed}
+                {translation.order.form.remise.fixed}
               </Option>
             </Select>
           </div>
@@ -127,7 +127,7 @@ const SummaryTab = ({
         <InputField
           id="subtotal"
           type="number"
-          label={translation.Order.form.subtotal}
+          label={translation.order.form.subtotal}
           value={formData.subtotal?.toString() || ""}
           onChange={() => {}}
           disabled
@@ -135,7 +135,7 @@ const SummaryTab = ({
         <InputField
           id="total"
           type="number"
-          label={translation.Order.form.total}
+          label={translation.order.form.total}
           value={formData.total?.toString() || ""}
           onChange={() => {}}
           disabled

@@ -1,5 +1,5 @@
 import { IOrderForm } from "./orderForm";
 
-interface ICreateOrder extends IOrderForm {}
+interface ICreateorder extends IOrderForm {}
 
-export type { ICreateOrder };
+export type { ICreateorder };

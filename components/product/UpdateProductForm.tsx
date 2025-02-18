@@ -24,7 +24,6 @@ interface UpdateProductFormProps {
   translation: DictionaryType;
   lang: Locale;
   selectedRecord?: IProduct;
-  
 }
 
 const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
@@ -34,7 +33,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<ProductFormErrors>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const { mapProductToFormData } = productMappers;
   const initialFormData = useMemo<IProductForm>(
     () =>

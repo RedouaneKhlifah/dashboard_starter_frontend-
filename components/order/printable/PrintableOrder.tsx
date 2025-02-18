@@ -2,18 +2,18 @@
 
 import { forwardRef } from "react";
 import { Locale } from "@/i18n-config";
-import { IDevis } from "@/interfaces/IDevis";
+import { Iorders } from "@/interfaces/Iorders";
 import { DictionaryType } from "@/lib/i18n";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
 
 // Types
-interface PrintableOrderProps {
-  order: IDevis | null;
+interface PrintableorderProps {
+  order: Iorders | null;
   translation: DictionaryType;
   lang: Locale;
 }
 
-interface OrderSummary {
+interface orderSummary {
   subtotal: string;
   remise: number;
   remise_type: string;
@@ -22,10 +22,10 @@ interface OrderSummary {
 }
 
 // Utility functions
-const calculateOrderSummary = (
-  order: IDevis,
+const calculateorderSummary = (
+  order: Iorders,
   translation: DictionaryType
-): OrderSummary => {
+): orderSummary => {
   const baseSubtotal =
     order.products?.reduce(
       (sum, product) =>
@@ -72,7 +72,7 @@ const DocumentInfo = ({
   translation,
   lang,
 }: {
-  order: IDevis;
+  order: Iorders;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -86,7 +86,7 @@ const DocumentInfo = ({
       </span>
       <span className="text-sm">
         {translation.sidebar.orders_table.print.date}:{" "}
-        {formatDate(order.devis_date, lang)}
+        {formatDate(order.orders_date, lang)}
       </span>
     </div>
     <div className="text-right text-sm">
@@ -100,7 +100,7 @@ const ClientInfo = ({
   client,
   translation,
 }: {
-  client: IDevis["client"];
+  client: Iorders["client"];
   translation: DictionaryType;
 }) => (
   <section className="mb-6">
@@ -120,7 +120,7 @@ const ProductsTable = ({
   translation,
   lang,
 }: {
-  order: IDevis;
+  order: Iorders;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -161,7 +161,7 @@ const SummarySection = ({
   translation,
   lang,
 }: {
-  summary: OrderSummary;
+  summary: orderSummary;
   translation: DictionaryType;
   lang: Locale;
 }) => {
@@ -228,13 +228,13 @@ const printStyles = `
 `;
 
 // Main component
-const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
+const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
   ({ order, translation, lang }, ref) => {
     if (!order) {
       return <div ref={ref}>No order data available</div>;
     }
 
-    const summary = calculateOrderSummary(order, translation);
+    const summary = calculateorderSummary(order, translation);
     const textDirection = lang === "ar" ? "rtl" : "ltr";
 
     return (
@@ -260,6 +260,6 @@ const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
   }
 );
 
-PrintableOrder.displayName = "PrintableOrder";
+Printableorder.displayName = "Printableorder";
 
-export default PrintableOrder;
+export default Printableorder;

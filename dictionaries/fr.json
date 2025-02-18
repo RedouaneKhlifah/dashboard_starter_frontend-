@@ -237,7 +237,7 @@
       "error": "Erreur lors de la création du ticket"
     }
   },
-  "Order": {
+  "order": {
     "tabs": {
       "client": "Info",
       "products": "Produits",
@@ -254,7 +254,7 @@
     "select_products": "Sélectionnez les produits",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
-    "devis_date_required": "La date du devis est obligatoire",
+    "orders_date_required": "La date du orders est obligatoire",
     "expiration_date_required": "La date d'expiration est obligatoire",
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
@@ -262,7 +262,7 @@
     "form": {
       "reference": "Référence",
       "reference_search": "Rechercher une référence",
-      "devis_date": "Date du devis",
+      "orders_date": "Date du orders",
       "expiration_date": "Date d'expiration",
       "client": "Client",
       "add_article": "Ajouter un Produit",
@@ -296,10 +296,10 @@
         "total_after": "Total Après Remise"
       },
       "message": {
-        "success": "Devis créé avec succès",
-        "update_success": "Devis updated successfully",
-        "delete_success": "Devis supprimé avec succès",
-        "error": "Erreur lors de la création du devis"
+        "success": "orders créé avec succès",
+        "update_success": "orders updated successfully",
+        "delete_success": "orders supprimé avec succès",
+        "error": "Erreur lors de la création du orders"
       },
       "Total_Items": "Nombre total d'articles",
       "Total_Amount": "Montant total"
@@ -419,11 +419,11 @@
     "orders_table": {
       "order_management": "Gestion des commandes",
       "create_new_order": "Créer une nouvelle commande",
-      "update_order": "Mettre à jour le devis",
+      "update_order": "Mettre à jour le orders",
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
-        "devis_date": "Date du devis",
+        "orders_date": "Date du orders",
         "expiration_date": "Date d'expiration",
         "client": "Client",
         "total": "Total",
@@ -437,7 +437,7 @@
         "company_name": "Nom de votre entreprise",
         "company_address": "123 Rue Commerciale, Ville",
         "company_contact": "contact@entreprise.com | +33 1 23 45 67 89",
-        "order_title": "Devis",
+        "order_title": "orders",
         "reference": "Référence",
         "date": "Date",
         "due_date": "Date d'échéance",

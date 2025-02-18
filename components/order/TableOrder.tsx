@@ -8,7 +8,7 @@ import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
 import Header from "../shared/Header";
 import CreateOrderForm from "./CreateOrderForm";
 import UpdateOrderForm from "./UpdateOrderForm";
-import PrintableOrder from "./printable/PrintableOrder";
+import Printableorder from "./printable/PrintableOrder";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 import { usePusher } from "@/hooks/usePusher";
 import { useEntityUpdate } from "@/hooks/useEntityUpdate";
@@ -18,11 +18,11 @@ import { useReactToPrint } from "react-to-print";
 import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
-import { IDevis } from "@/interfaces/IDevis";
+import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
 
-interface TableOrderProps {
-  records: IDevis[];
+interface TableorderProps {
+  records: IOrder[];
   totalRecords: number;
   translation: DictionaryType;
   lang: Locale;
@@ -33,41 +33,41 @@ export function TableOrder({
   totalRecords = 0,
   translation,
   lang,
-}: TableOrderProps) {
+}: TableorderProps) {
   const { openModal, closeModal } = useModalStore();
   const {
     sidebar: { orders_table },
   } = translation;
 
   // State Management
-  const [orders, setOrders] = useState<IDevis[]>(records);
-  const [totalOrders, setTotalOrders] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IDevis | undefined>(
+  const [orders, setorders] = useState<IOrder[]>(records);
+  const [totalorders, setTotalorders] = useState(totalRecords);
+  const [selectedRecord, setSelectedRecord] = useState<IOrder | undefined>(
     undefined
   );
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedOrderForPrint, setSelectedOrderForPrint] =
-    useState<IDevis | null>(null);
+  const [selectedorderForPrint, setSelectedorderForPrint] =
+    useState<IOrder | null>(null);
 
   // Refs
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Hooks
-  const handleOrderUpdate = useEntityUpdate<IDevis>(setOrders);
-  usePusher("order", handleOrderUpdate);
+  const handleorderUpdate = useEntityUpdate<IOrder>(setorders);
+  usePusher("orders", handleorderUpdate);
 
-  const refreshOrders = useRefresh({
+  const refreshorders = useRefresh({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "devis",
-    setRecords: setOrders,
-    setTotalRecords: setTotalOrders,
+    entity: "orders",
+    setRecords: setorders,
+    setTotalRecords: setTotalorders,
   });
 
-  const debouncedSearch = useDebounce(refreshOrders, 300);
+  const debouncedSearch = useDebounce(refreshorders, 300);
 
   useEffect(() => {
     debouncedSearch();
@@ -76,18 +76,18 @@ export function TableOrder({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
-    onAfterPrint: () => setSelectedOrderForPrint(null),
+    documentTitle: `order_${selectedorderForPrint?.reference || "document"}`,
+    onAfterPrint: () => setSelectedorderForPrint(null),
   });
 
   useEffect(() => {
-    if (selectedOrderForPrint) handlePrint();
-  }, [selectedOrderForPrint, handlePrint]);
+    if (selectedorderForPrint) handlePrint();
+  }, [selectedorderForPrint, handlePrint]);
 
   const handlePrintRequest = useCallback(
     (orderId: number) => {
       const orderToPrint = orders.find((o) => o.id === orderId);
-      if (orderToPrint) setSelectedOrderForPrint(orderToPrint);
+      if (orderToPrint) setSelectedorderForPrint(orderToPrint);
     },
     [orders]
   );
@@ -116,26 +116,26 @@ export function TableOrder({
     if (!selectedRecord) return;
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
 
       if (!response.ok) return;
 
       closeModal();
-      refreshOrders(true);
+      refreshorders(true);
     } catch (error) {
-      console.error("Error deleting devis:", error);
+      console.error("Error deleting orders:", error);
     }
   };
 
-  const generateOrderHTML = (
-    order: IDevis,
+  const generateorderHTML = (
+    order: IOrder,
     translation: DictionaryType,
     lang: Locale
   ) => {
     return ReactDOMServer.renderToString(
-      <PrintableOrder order={order} translation={translation} lang={lang} />
+      <Printableorder order={order} translation={translation} lang={lang} />
     );
   };
 
@@ -146,10 +146,10 @@ export function TableOrder({
         if (!orderToEmail) return;
 
         // Generate HTML content
-        const htmlContent = generateOrderHTML(orderToEmail, translation, lang);
+        const htmlContent = generateorderHTML(orderToEmail, translation, lang);
 
         const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/send-devis-email/${orderId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-orders-email/${orderId}`,
           {
             method: "POST",
             lang,
@@ -171,30 +171,30 @@ export function TableOrder({
   const headers = useMemo(
     () => [
       {
-        key: "reference" as keyof IDevis,
+        key: "reference" as keyof IOrder,
         label: orders_table.headers.reference,
       },
       {
-        key: "devis_date" as keyof IDevis,
-        label: orders_table.headers.devis_date,
+        key: "orders_date" as keyof IOrder,
+        label: orders_table.headers.orders_date,
       },
       {
-        key: "expiration_date" as keyof IDevis,
+        key: "expiration_date" as keyof IOrder,
         label: orders_table.headers.expiration_date,
       },
       {
-        key: "client" as keyof IDevis,
+        key: "client" as keyof IOrder,
         label: orders_table.headers.client,
-        renderCell: (_: any, row: IDevis) => (row.client as IClient)?.full_name,
+        renderCell: (_: any, row: IOrder) => (row.client as IClient)?.full_name,
       },
       {
-        key: "total" as keyof IDevis,
+        key: "total" as keyof IOrder,
         label: orders_table.headers.total,
       },
       {
-        key: "actions" as keyof IDevis,
+        key: "actions" as keyof IOrder,
         label: orders_table.headers.actions,
-        renderCell: (_, row: IDevis) => (
+        renderCell: (_, row: IOrder) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
@@ -219,10 +219,10 @@ export function TableOrder({
         showSearch
         setSearchQuery={setSearchQuery}
       />
-      <GlobalTable<IDevis>
+      <GlobalTable<IOrder>
         headers={headers}
         rows={orders}
-        totalRows={totalOrders}
+        totalRows={totalorders}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
         setCurrentPage={setCurrentPage}
@@ -240,9 +240,9 @@ export function TableOrder({
       />
       <CreateOrderForm lang={lang} translation={translation} />
       <div style={{ display: "none" }}>
-        <PrintableOrder
+        <Printableorder
           ref={contentRef}
-          order={selectedOrderForPrint}
+          order={selectedorderForPrint}
           translation={translation}
           lang={lang}
         />

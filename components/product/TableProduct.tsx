@@ -199,7 +199,6 @@ export function UsersTableProduct({
         itemName={selectedRecord?.name || ""}
         translation={translation}
         isLoading={isSubmitting}
-
       />
 
       <CreateProductForm lang={lang} translation={translation} />

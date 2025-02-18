@@ -61,7 +61,9 @@ const LineChart: React.FC<LineChartProps> = ({
 
       {metricTotal && (
         <>
-          <p className="text-lg font-bold mb-4 text-foreground">{metricTotal}</p>
+          <p className="text-lg font-bold mb-4 text-foreground">
+            {metricTotal}
+          </p>
           <div className="h-px bg-border my-4" />
         </>
       )}
@@ -69,7 +71,6 @@ const LineChart: React.FC<LineChartProps> = ({
       <div className="h-[260px] w-full">
         {isDrawn ? (
           <div className="h-full w-full bg-muted/20 rounded-lg relative">
-   
             <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between py-4">
               {[...Array(5)].map((_, i) => (
                 <div
@@ -78,7 +79,6 @@ const LineChart: React.FC<LineChartProps> = ({
                 />
               ))}
             </div>
-
 
             <div className="absolute left-12 right-4 top-4 bottom-8">
               {[...Array(5)].map((_, i) => (
@@ -96,7 +96,6 @@ const LineChart: React.FC<LineChartProps> = ({
                 />
               ))}
 
-      
               <svg className="w-full h-full">
                 <path
                   d="M 0,180 Q 100,140 200,160 T 400,120 T 600,140"
@@ -123,18 +122,13 @@ const LineChart: React.FC<LineChartProps> = ({
               data={data}
               margin={{ top: 10, right: 20, bottom: 10, left: 0 }}
             >
-              <CartesianGrid 
-                strokeDasharray="3 3" 
-                stroke="hsl(var(--muted))"
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted))" />
+              <XAxis
+                dataKey="date"
+                interval={interval}
+                stroke="hsl(var(--muted-foreground))"
               />
-              <XAxis 
-                dataKey="date" 
-                interval={interval} 
-                stroke="hsl(var(--muted-foreground))" 
-              />
-              <YAxis 
-                stroke="hsl(var(--muted-foreground))" 
-              />
+              <YAxis stroke="hsl(var(--muted-foreground))" />
               <Tooltip
                 contentStyle={{
                   background: "hsl(var(--popover))",

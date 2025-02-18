@@ -4,20 +4,20 @@ import { Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IOrderForm, DevisRelationShipData } from "@/dto/order/orderForm";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { IorderForm, ordersRelationShipData } from "@/dto/order/orderForm";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
-import { IDevis } from "@/interfaces/IDevis";
+import { Iorders } from "@/interfaces/Iorders";
 
 interface ClientTabProps {
-  formData: IOrderForm;
-  setFormData: Dispatch<SetStateAction<IOrderForm>>;
-  errors: OrderFormErrors;
-  setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
+  formData: IorderForm;
+  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  errors: orderFormErrors;
+  setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
-  selectedRecord?: IDevis | undefined;
+  selectedRecord?: Iorders | undefined;
 }
 
 const ClientTab = ({
@@ -26,7 +26,7 @@ const ClientTab = ({
   errors,
   setErrors,
   translation,
-  selectedRecord
+  selectedRecord,
 }: ClientTabProps) => {
   const API_ENDPOINTS = {
     clients: `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
@@ -45,13 +45,13 @@ const ClientTab = ({
       <div className="grid grid-cols-2 gap-4">
         <SearchAutocomplete
           id="client"
-          label={translation.Order.form.client}
+          label={translation.order.form.client}
           onSearch={fetchClients}
           value={formData.client}
           onChange={(client) =>
             setFormData((prev) => ({
               ...prev,
-              client: client as DevisRelationShipData,
+              client: client as ordersRelationShipData,
             }))
           }
           placeholder={translation.Ticket.form.client_search}
@@ -61,7 +61,7 @@ const ClientTab = ({
         />
         <InputField
           id="reference"
-          label={translation.Order.form.reference}
+          label={translation.order.form.reference}
           value={formData.reference}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
           icon={<Fingerprint className="w-5 h-5 text-gray-400" />}
@@ -71,18 +71,18 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
-          id="devis_date"
+          id="orders_date"
           type="date"
-          label={translation.Order.form.devis_date}
+          label={translation.order.form.orders_date}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
-          value={formData.devis_date}
-          error={errors.devis_date}
+          value={formData.orders_date}
+          error={errors.orders_date}
           disabled={selectedRecord ? true : false}
         />
         <InputField
           id="expiration_date"
           type="date"
-          label={translation.Order.form.expiration_date}
+          label={translation.order.form.expiration_date}
           value={formData.expiration_date}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
           error={errors.expiration_date}

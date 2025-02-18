@@ -4,13 +4,12 @@ import { UserSearch, ShoppingCart, Calculator, FileText } from "lucide-react";
 import GlobalModal from "@/components/shared/GlobalModal";
 import useModalStore from "@/store/modalStore";
 import { hasNoErrors } from "@/components/utils/formHandlers";
-import { OrderValidation } from "@/validation";
+import { orderValidation } from "@/validation";
 import { IOrderForm } from "@/dto/order/orderForm";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { ClientTab, ProductsTab, SummaryTab, NotesTab } from "./tabs";
-import { IDevis } from "@/interfaces/IDevis";
+import { IOrder } from "@/interfaces/IOrder";
 import { DictionaryType } from "@/lib/i18n";
-import { DevisMapper } from "@/mappers/DevisMapper";
 
 export type TabName = "client" | "products" | "summary" | "notes";
 
@@ -27,14 +26,14 @@ const tabs: Tab[] = [
   { name: "notes", index: 3, icon: <FileText className="w-4 h-4" /> },
 ];
 
-interface OrderFormProps {
+interface orderFormProps {
   initialFormData: IOrderForm;
   translation: DictionaryType;
-  errors: OrderFormErrors;
-  setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
+  errors: orderFormErrors;
+  setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   onSubmit: (formData: IOrderForm) => Promise<boolean>;
   isOpen: boolean;
-  selectedRecord?: IDevis;
+  selectedRecord?: IOrder;
 }
 
 const OrderForm = ({
@@ -45,7 +44,7 @@ const OrderForm = ({
   onSubmit,
   isOpen,
   selectedRecord,
-}: OrderFormProps) => {
+}: orderFormProps) => {
   const { modalType, closeModal, isSecondOpen } = useModalStore();
   const [formData, setFormData] = useState<IOrderForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
@@ -61,23 +60,23 @@ const OrderForm = ({
         ? modalType === "create"
           ? translation.sidebar.orders_table.create_new_order
           : translation.sidebar.orders_table.update_order
-        : translation.Order.common.continue,
+        : translation.order.common.continue,
     [activeTab.name, modalType, translation]
   );
 
-  const validateTab = (tabName: TabName): OrderFormErrors => {
-    const newErrors: OrderFormErrors = {};
+  const validateTab = (tabName: TabName): orderFormErrors => {
+    const newErrors: orderFormErrors = {};
 
     if (tabName === "client") {
       if (!formData.reference?.trim())
-        newErrors.reference = translation.Order.reference_required;
-      if (!formData.devis_date)
-        newErrors.devis_date = translation.Order.devis_date_required;
+        newErrors.reference = translation.order.reference_required;
+      if (!formData.orders_date)
+        newErrors.orders_date = translation.order.orders_date_required;
       if (!formData.expiration_date)
-        newErrors.expiration_date = translation.Order.expiration_date_required;
+        newErrors.expiration_date = translation.order.expiration_date_required;
     } else if (tabName === "products") {
       if (!formData.products || formData.products.length === 0)
-        newErrors.products = translation.Order.product_required;
+        newErrors.products = translation.order.product_required;
     }
 
     return newErrors;
@@ -105,7 +104,7 @@ const OrderForm = ({
       return;
     }
 
-    const newErrors = OrderValidation.validateOrderForm(formData, translation);
+    const newErrors = orderValidation.validateorderForm(formData, translation);
     setErrors(newErrors);
     console.log(newErrors);
 
@@ -135,7 +134,7 @@ const OrderForm = ({
     return (
       (tabName === "client" &&
         (!!errors.reference ||
-          !!errors.devis_date ||
+          !!errors.orders_date ||
           !!errors.expiration_date)) ||
       (tabName === "products" && !!errors.products) ||
       (tabName === "notes" && !!errors.note)
@@ -156,7 +155,7 @@ const OrderForm = ({
       }
       isLoading={isSubmitting}
       submitButtonText={submitButtonText}
-      cancelButtonText={translation.Order.common.cancel}
+      cancelButtonText={translation.order.common.cancel}
       onSubmit={handleSubmit}
       contentClassName="2xl:min-w-[60%]"
       dismiss={!isSecondOpen}
@@ -180,7 +179,7 @@ const OrderForm = ({
                  }`}
               >
                 {tab.icon}
-                {translation.Order.tabs[tab.name]}
+                {translation.order.tabs[tab.name]}
               </button>
             ))}
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { DictionaryType } from "@/lib/i18n";
 import { Dispatch, SetStateAction, useState } from "react";
 import { InputField, GoogleButton } from "../ui";
@@ -55,13 +57,13 @@ const AuthForm = ({
   };
 
   // Handle form submission and validation
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validateAuthForm(formData, formType, translation);
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      onSubmit(formData);
+      await onSubmit(formData);
     }
   };
 
@@ -152,7 +154,8 @@ const AuthForm = ({
 
           <button
             type="submit"
-            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-button text-button-foreground hover:bg-button-hover rounded-sm font-medium transition-colors "
+            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-button text-button-foreground hover:bg-button-hover disabled:opacity-80 disabled:cursor-not-allowed rounded-sm font-medium transition-colors"
+            disabled={isLoading}
           >
             <Condition
               if={isLoading}

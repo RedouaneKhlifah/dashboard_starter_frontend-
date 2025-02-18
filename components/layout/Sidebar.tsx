@@ -14,7 +14,7 @@ import {
   PanelLeftClose,
   Weight,
   ClipboardList,
-  Handshake
+  Handshake,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/le_menu_svg_logo.svg";
@@ -71,7 +71,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
           },
           {
             name: translation.sidebar.dashboard.items.orders,
-            href: "/devis",
+            href: "/orders",
             icon: <Package className="w-4 h-4" />,
           },
         ],
@@ -128,20 +128,23 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
     >
       <div className={`${isOpen ? "px-2 py-3" : "p-0"}`}>
         <div
-          className={`flex mb-6 ${isOpen ? "flex-row justify-between" : "flex-col items-center"
-            }`}
+          className={`flex mb-6 ${
+            isOpen ? "flex-row justify-between" : "flex-col items-center"
+          }`}
         >
           <Link href={`/${lang}/`} className={`${!isOpen && "my-2"}`}>
             <div className="flex items-center gap-2">
               <div
-                className={`transition-transform duration-200 ease-in-out ${isOpen ? "scale-100" : "scale-90"
-                  }`}
+                className={`transition-transform duration-200 ease-in-out ${
+                  isOpen ? "scale-100" : "scale-90"
+                }`}
               >
                 <Image src={Logo} alt="" width={30} />
               </div>
               <div
-                className={`overflow-hidden transition-all duration-200 ease-in-out ${isOpen ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
-                  }`}
+                className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                  isOpen ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
+                }`}
               >
                 <p className="font-semibold text-2xl tracking-tight text-primary leading-none whitespace-nowrap">
                   {translation.nav.logo}
@@ -154,8 +157,9 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             className="p-2 hover:bg-accent rounded-full text-muted-foreground"
           >
             <div
-              className={`transition-transform duration-200 ease-in-out ${isOpen ? "" : "rotate-180"
-                }`}
+              className={`transition-transform duration-200 ease-in-out ${
+                isOpen ? "" : "rotate-180"
+              }`}
             >
               <PanelLeftClose className="w-5 h-5" />
             </div>
@@ -168,10 +172,11 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       group flex items-center px-2 py-3 text-sm font-medium  transition-all duration-200 
                       ${isOpen ? "mb-4 rounded-full" : "mb-4 mx-1 rounded-lg"}
                       hover:bg-accent
-                      ${pathname === `/${lang}/dashboard`
-                ? "bg-accent border shadow-sm"
-                : "text-foreground hover:text-foreground/80"
-              }
+                      ${
+                        pathname === `/${lang}/dashboard`
+                          ? "bg-accent border shadow-sm"
+                          : "text-foreground hover:text-foreground/80"
+                      }
                      `}
           >
             <LayoutDashboard
@@ -210,16 +215,18 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                   {isOpen && section.name}
                 </div>
                 <div
-                  className={`text-muted-foreground transition-transform duration-200 ease-in-out ${expandedSection === section.name ? "rotate-180" : ""
-                    }`}
+                  className={`text-muted-foreground transition-transform duration-200 ease-in-out ${
+                    expandedSection === section.name ? "rotate-180" : ""
+                  }`}
                 >
                   {isOpen && <ChevronDown className="h-4 w-4" />}
                 </div>
               </button>
               {expandedSection === section.name && (
                 <div
-                  className={`${isOpen ? "ml-8 space-y-1" : "ml-[5px]"
-                    } animate-in fade-in slide-in-from-top-2`}
+                  className={`${
+                    isOpen ? "ml-8 space-y-1" : "ml-[5px]"
+                  } animate-in fade-in slide-in-from-top-2`}
                 >
                   {section.items.map((item) => (
                     <Link
@@ -234,10 +241,11 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       )}
                     >
                       <span
-                        className={`${pathname === `/${lang}${item.href}` && !isOpen
+                        className={`${
+                          pathname === `/${lang}${item.href}` && !isOpen
                             ? "text-primary"
                             : "mx-2 text-muted-foreground"
-                          }`}
+                        }`}
                       >
                         {item.icon}
                       </span>

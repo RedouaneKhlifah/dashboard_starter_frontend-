@@ -1,7 +1,7 @@
-export interface ICreateDevis {
+export interface ICreateorders {
   client_id?: number;
   reference: string;
-  devis_date: string;
+  orders_date: string;
   expiration_date: string;
   tva: number;
   remise_type: "PERCENT" | "FIXED";

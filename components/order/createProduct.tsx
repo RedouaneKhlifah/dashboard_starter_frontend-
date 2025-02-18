@@ -1,5 +1,11 @@
 // CreateProduct.tsx
-import React, { useState, useEffect, useCallback, FormEvent, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  FormEvent,
+  useMemo,
+} from "react";
 import { debounce } from "lodash";
 import SearchInput from "@/components/ui/SearchInput";
 import { GlobalTable } from "@/components/shared/GlobalTable";
@@ -25,13 +31,14 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   const { closeSecondModal } = useModalStore();
   const [searchQuery, setSearchQuery] = useState("");
   const [availableProducts, setAvailableProducts] = useState<IProduct[]>([]);
-  const [selectedProductsData, setSelectedProductsData] = useState<IProduct[]>([]);
+  const [selectedProductsData, setSelectedProductsData] = useState<IProduct[]>(
+    []
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedProducts, setSelectedProducts] = useState<Set<number>>(
     new Set(selectedProductIds)
   );
-
 
   useEffect(() => {
     const fetchSelectedProducts = async () => {
@@ -55,7 +62,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
 
     fetchSelectedProducts();
   }, [isSecondOpen, selectedProductIds, translation]);
-
 
   useEffect(() => {
     if (isSecondOpen) {
@@ -90,17 +96,14 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     return () => debouncedSearch.cancel();
   }, [searchQuery, translation, isSecondOpen]);
 
-
   const displayedProducts = useMemo(() => {
     const productsMap = new Map<number, IProduct>();
-    
-   
-    availableProducts.forEach(product => {
+
+    availableProducts.forEach((product) => {
       productsMap.set(product.id, product);
     });
 
-
-    selectedProductsData.forEach(product => {
+    selectedProductsData.forEach((product) => {
       if (!productsMap.has(product.id)) {
         productsMap.set(product.id, product);
       }
@@ -109,30 +112,33 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     return Array.from(productsMap.values());
   }, [availableProducts, selectedProductsData]);
 
-  const toggleSelection = useCallback((productId: number, product: IProduct) => {
-    setSelectedProducts((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(productId)) {
-        newSet.delete(productId);
-      } else {
-        newSet.add(productId);
-        setSelectedProductsData(prevData => {
-          if (!prevData.some(p => p.id === productId)) {
-            return [...prevData, product];
-          }
-          return prevData;
-        });
-      }
-      return newSet;
-    });
-  }, []);
+  const toggleSelection = useCallback(
+    (productId: number, product: IProduct) => {
+      setSelectedProducts((prev) => {
+        const newSet = new Set(prev);
+        if (newSet.has(productId)) {
+          newSet.delete(productId);
+        } else {
+          newSet.add(productId);
+          setSelectedProductsData((prevData) => {
+            if (!prevData.some((p) => p.id === productId)) {
+              return [...prevData, product];
+            }
+            return prevData;
+          });
+        }
+        return newSet;
+      });
+    },
+    []
+  );
 
   const handleSelect = useCallback(
     (e: FormEvent<Element>) => {
       e.preventDefault();
       e.stopPropagation();
 
-      const selected = displayedProducts.filter((product: { id: number; }) =>
+      const selected = displayedProducts.filter((product: { id: number }) =>
         selectedProducts.has(product.id)
       );
 
@@ -156,7 +162,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     <GlobalModal
       open={isSecondOpen}
       onClose={handleClose}
-      title={translation.Order.select_products}
+      title={translation.order.select_products}
       submitButtonText={translation.common.select}
       cancelButtonText={translation.common.cancel}
       onSubmit={handleSelect}
@@ -166,10 +172,10 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     >
       <div className="space-y-4">
         <SearchInput
-          placeholder={translation.Order.form.product_search}
+          placeholder={translation.order.form.product_search}
           value={searchQuery}
           className="w-full"
-          aria-label={translation.Order.form.product_search}
+          aria-label={translation.order.form.product_search}
           setSearch={setSearchQuery}
         />
 
@@ -178,23 +184,23 @@ const CreateProduct: React.FC<CreateProductProps> = ({
           headers={[
             {
               key: "image" as keyof IProduct,
-              label: translation.Order.form.articles.image,
+              label: translation.order.form.articles.image,
               isImage: true,
             },
             {
               key: "name",
-              label: translation.Order.form.articles.name,
+              label: translation.order.form.articles.name,
             },
             {
               key: "unit",
               renderCell(value, row) {
                 return `${value}`;
               },
-              label: translation.Order.form.articles.unit,
+              label: translation.order.form.articles.unit,
             },
             {
               key: "selected" as keyof IProduct,
-              label: translation.Order.form.articles.select,
+              label: translation.order.form.articles.select,
               renderCell: (_, row: IProduct) => (
                 <input
                   type="checkbox"
@@ -207,7 +213,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
               ),
             },
           ]}
-          rows={displayedProducts} 
+          rows={displayedProducts}
           className="mt-4"
           totalRows={0}
           setCurrentPage={() => {}}

@@ -47,8 +47,11 @@ export default async function http(
       // Clear authentication data
       Cookies.remove("auth_token");
 
-      // Redirect to sign-in page
-      window.location.href = "/sign-in";
+      // Only redirect if we're not already on the sign-in page
+      const currentPath = window.location.pathname;
+      if (!currentPath.includes("/sign-in")) {
+        window.location.href = "/sign-in";
+      }
     }
 
     // Return the response for successful requests
