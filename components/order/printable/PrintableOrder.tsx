@@ -226,29 +226,6 @@ const printStyles = `
     }
   }
 
-    @page {
-      size: A4;
-      margin: 20mm;
-    }
-    body {
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-      font-family: Arial, sans-serif;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #000;
-      padding: 8px;
-    }
-    .border-b-2 {
-      border-bottom-width: 2px;
-    }
-    .border-gray-300 {
-      border-color: #000;
-    }
 `;
 // Main component
 const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(

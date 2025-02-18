@@ -20,6 +20,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
+import toast from "react-hot-toast";
 
 interface TableorderProps {
   records: IOrder[];
@@ -158,7 +159,7 @@ export function TableOrder({
         );
 
         if (response.ok) {
-          console.log("Email sent successfully");
+          toast.success("Email sent successfully");
         }
       } catch (error) {
         console.error("Email sending error:", error);
