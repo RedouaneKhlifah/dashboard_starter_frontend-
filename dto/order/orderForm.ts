@@ -1,7 +1,7 @@
 interface IOrderForm {
-  client: DevisRelationShipData | null;
+  client: ordersRelationShipData | null;
   reference: string;
-  devis_date: string;
+  orders_date: string;
   expiration_date: string;
   tva: number;
   remise_type: "PERCENT" | "FIXED";
@@ -10,7 +10,7 @@ interface IOrderForm {
   products: Array<{
     name?: string;
     unit?: string;
-    tiket_id?: number;
+    ticket_id?: number;
     product_id: number;
     price_unitaire: number;
     quantity: number;
@@ -21,7 +21,7 @@ interface IOrderForm {
 
 export type { IOrderForm };
 
-export interface DevisRelationShipData {
+export interface ordersRelationShipData {
   id: number;
   title: string;
 }

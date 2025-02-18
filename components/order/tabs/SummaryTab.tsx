@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { Select, Option } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IOrderForm } from "@/dto/order/orderForm";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { IorderForm } from "@/dto/order/orderForm";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 
 interface SummaryTabProps {
-  formData: IOrderForm;
-  setFormData: Dispatch<SetStateAction<IOrderForm>>;
-  setErrors: Dispatch<SetStateAction<OrderFormErrors>>;
+  formData: IorderForm;
+  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
 }
 
@@ -32,25 +32,25 @@ const SummaryTab = ({
   const calculateTotals = useCallback(() => {
     const baseSubtotal =
       formData.products?.reduce(
-        (sum, product) => sum + product.price_unitaire * product.quantity,
+        (sum, product) =>
+          sum + (product.price_unitaire || 0) * (product.quantity || 0),
         0
       ) || 0;
 
-    const tvaRate = (formData.tva || 0) / 100;
-    const tvaAmount = baseSubtotal * tvaRate;
+    const tvaAmount = (baseSubtotal * (formData.tva || 0)) / 100;
+    const totalTTC = baseSubtotal + tvaAmount;
 
     const discountAmount =
       formData.remise_type === "PERCENT"
-        ? baseSubtotal * ((formData.remise || 0) / 100)
+        ? (baseSubtotal * (formData.remise || 0)) / 100 // Apply discount on subtotal (HT)
         : formData.remise || 0;
 
-    const total = baseSubtotal + tvaAmount - discountAmount;
+    const finalTotal = Math.max(totalTTC - discountAmount, 0); // Prevent negative totals
 
+    // Only update total
     setFormData((prev) => ({
       ...prev,
-      subtotal: Number(baseSubtotal.toFixed(2)),
-      vat: Number(tvaAmount.toFixed(2)),
-      total: Number(total.toFixed(2)),
+      total: Number(finalTotal.toFixed(2)), // Final total (TTC)
     }));
   }, [
     formData.products,
@@ -62,7 +62,13 @@ const SummaryTab = ({
 
   useEffect(() => {
     calculateTotals();
-  }, [calculateTotals]);
+  }, [
+    formData.products,
+    formData.tva,
+    formData.remise,
+    formData.remise_type,
+    calculateTotals,
+  ]);
 
   return (
     <div className="space-y-4">
@@ -70,7 +76,7 @@ const SummaryTab = ({
         <InputField
           id="tva"
           type="number"
-          label={translation.Order.form.tva}
+          label={translation.order.form.tva}
           value={formData.tva || 0}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
         />
@@ -78,7 +84,7 @@ const SummaryTab = ({
           <InputField
             id="remise"
             type="number"
-            label={translation.Order.form.remise.value}
+            label={translation.order.form.remise.value}
             value={formData.remise?.toString() || "0"}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
             className="pr-24"
@@ -111,7 +117,7 @@ const SummaryTab = ({
             >
               <Option value="PERCENT">%</Option>
               <Option className="text-sm" value="FIXED">
-                {translation.Order.form.remise.fixed}
+                {translation.order.form.remise.fixed}
               </Option>
             </Select>
           </div>
@@ -121,7 +127,7 @@ const SummaryTab = ({
         <InputField
           id="subtotal"
           type="number"
-          label={translation.Order.form.subtotal}
+          label={translation.order.form.subtotal}
           value={formData.subtotal?.toString() || ""}
           onChange={() => {}}
           disabled
@@ -129,7 +135,7 @@ const SummaryTab = ({
         <InputField
           id="total"
           type="number"
-          label={translation.Order.form.total}
+          label={translation.order.form.total}
           value={formData.total?.toString() || ""}
           onChange={() => {}}
           disabled

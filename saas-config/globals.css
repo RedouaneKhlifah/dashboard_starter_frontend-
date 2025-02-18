@@ -86,5 +86,6 @@ body {
   overflow: auto !important;
 }
 
-
-
+.react-hot-toast {
+  z-index: 99999 !important;
+}

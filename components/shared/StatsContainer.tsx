@@ -1,31 +1,31 @@
-import { FileText, ShoppingCart, Truck, Receipt } from 'lucide-react';
-import StatCard from './StatCard';
+import { FileText, ShoppingCart, Truck, Receipt } from "lucide-react";
+import StatCard from "./StatCard";
 
 const StatsContainer = () => {
   const stats = [
     {
-      title: 'Devis',
+      title: "orders",
       value: 0,
       icon: FileText,
-      variant: 'orange',
+      variant: "orange",
     },
     {
-      title: 'Bons de commandes',
+      title: "Bons de commandes",
       value: 0,
       icon: ShoppingCart,
-      variant: 'green',
+      variant: "green",
     },
     {
-      title: 'Bons de livraison',
+      title: "Bons de livraison",
       value: 0,
       icon: Truck,
-      variant: 'blue',
+      variant: "blue",
     },
     {
-      title: 'Factures',
+      title: "Factures",
       value: 0,
       icon: Receipt,
-      variant: 'red',
+      variant: "red",
     },
   ] as const;
 

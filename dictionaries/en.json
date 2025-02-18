@@ -246,7 +246,7 @@
       "error": "An error occurred while creating the ticket"
     }
   },
-  "Order": {
+  "order": {
     "tabs": {
       "client": "Info",
       "products": "Products",
@@ -263,7 +263,7 @@
     "select_products": "Select Products",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
-    "devis_date_required": "Quote date is required",
+    "orders_date_required": "Quote date is required",
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
@@ -271,7 +271,7 @@
     "form": {
       "reference": "Reference",
       "reference_search": "Search reference",
-      "devis_date": "Quote date",
+      "orders_date": "Quote date",
       "expiration_date": "Expiration date",
       "client": "Client",
       "client_search": "Search client",
@@ -291,7 +291,7 @@
         "quantity": "Quantity",
         "select": "Select",
         "add": "Add Product",
-        "remove": "Remove Product",
+        "remove": "Remove",
         "no_articles": "No products added yet",
         "total": "Total",
         "unit_price": "Unit Price",
@@ -309,7 +309,9 @@
         "update_success": "Quote updated successfully",
         "delete_success": "Quote deleted successfully",
         "error": "An error occurred while creating the quote"
-      }
+      },
+      "Total_Items": "Total Items",
+      "Total_Amount": "Total Amount"
     }
   },
   "common": {
@@ -424,13 +426,13 @@
       }
     },
     "orders_table": {
-      "order_management": "Order Management",
+      "order_management": "order Management",
       "create_new_order": "Create New Quote",
       "update_order": "Update The Quote",
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
-        "devis_date": "Quote Date",
+        "orders_date": "Quote Date",
         "expiration_date": "Expiration Date",
         "client": "Client",
         "total": "Total",
@@ -499,6 +501,7 @@
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",
+    "currency": "MAD",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
     }

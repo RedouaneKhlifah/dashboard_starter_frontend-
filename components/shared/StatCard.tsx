@@ -1,18 +1,18 @@
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
   value: number;
   icon: LucideIcon;
-  variant: 'orange' | 'green' | 'blue' | 'red';
+  variant: "orange" | "green" | "blue" | "red";
 }
 
 const StatCard = ({ title, value, icon: Icon, variant }: StatCardProps) => {
   const variantStyles = {
-    orange: 'bg-orange-400 dark:bg-orange-600',
-    green: 'bg-green-500 dark:bg-green-600',
-    blue: 'bg-blue-500 dark:bg-blue-600',
-    red: 'bg-red-500 dark:bg-red-600',
+    orange: "bg-orange-400 dark:bg-orange-600",
+    green: "bg-green-500 dark:bg-green-600",
+    blue: "bg-blue-500 dark:bg-blue-600",
+    red: "bg-red-500 dark:bg-red-600",
   };
 
   return (

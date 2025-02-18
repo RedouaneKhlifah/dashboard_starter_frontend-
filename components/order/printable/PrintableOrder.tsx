@@ -2,46 +2,53 @@
 
 import { forwardRef } from "react";
 import { Locale } from "@/i18n-config";
-import { IDevis } from "@/interfaces/IDevis";
+import { Iorders } from "@/interfaces/Iorders";
 import { DictionaryType } from "@/lib/i18n";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
 
 // Types
-interface PrintableOrderProps {
-  order: IDevis | null;
+interface PrintableorderProps {
+  order: Iorders | null;
   translation: DictionaryType;
   lang: Locale;
 }
 
-interface OrderTotals {
-  subtotal: number;
-  discount: number;
-  totalAfterDiscount: number;
-  taxAmount: number;
-  total: number;
+interface orderSummary {
+  subtotal: string;
+  remise: number;
+  remise_type: string;
+  total: string;
+  tva: string;
 }
 
 // Utility functions
-const calculateOrderTotals = (order: IDevis): OrderTotals => {
-  const subtotal = order.products.reduce(
-    (acc, product) => acc + product.sale_price * (product.stock || 1),
-    0
-  );
+const calculateorderSummary = (
+  order: Iorders,
+  translation: DictionaryType
+): orderSummary => {
+  const baseSubtotal =
+    order.products?.reduce(
+      (sum, product) =>
+        sum + (product.price_unitaire || 0) * (product.quantity || 0),
+      0
+    ) || 0;
 
-  const discount =
+  const tvaAmount = (baseSubtotal * (order.tva || 0)) / 100;
+  const totalTTC = baseSubtotal + tvaAmount;
+
+  const discountAmount =
     order.remise_type === "PERCENT"
-      ? subtotal * (order.remise / 100)
-      : order.remise;
+      ? (baseSubtotal * (order.remise || 0)) / 100 // Apply discount on subtotal (HT)
+      : order.remise || 0;
 
-  const totalAfterDiscount = subtotal - discount;
-  const taxAmount = totalAfterDiscount * (order.tva / 100);
-
+  const finalTotal = Math.max(totalTTC - discountAmount, 0);
   return {
-    subtotal,
-    discount,
-    totalAfterDiscount,
-    taxAmount,
-    total: totalAfterDiscount + taxAmount,
+    tva: tvaAmount + " %",
+    remise: order.remise,
+    remise_type:
+      order.remise_type === "PERCENT" ? "%" : translation.shared.currency,
+    subtotal: baseSubtotal + " " + translation.shared.currency,
+    total: finalTotal + " " + translation.shared.currency,
   };
 };
 
@@ -65,7 +72,7 @@ const DocumentInfo = ({
   translation,
   lang,
 }: {
-  order: IDevis;
+  order: Iorders;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -79,7 +86,7 @@ const DocumentInfo = ({
       </span>
       <span className="text-sm">
         {translation.sidebar.orders_table.print.date}:{" "}
-        {formatDate(order.devis_date, lang)}
+        {formatDate(order.orders_date, lang)}
       </span>
     </div>
     <div className="text-right text-sm">
@@ -93,7 +100,7 @@ const ClientInfo = ({
   client,
   translation,
 }: {
-  client: IDevis["client"];
+  client: Iorders["client"];
   translation: DictionaryType;
 }) => (
   <section className="mb-6">
@@ -101,7 +108,7 @@ const ClientInfo = ({
       {translation.sidebar.orders_table.print.bill_to}
     </h3>
     <div className="text-sm">
-      <p className="mb-1">{client.full_name}</p>
+      <p className="mb-1">{client?.full_name}</p>
       <p className="mb-1">{client.address}</p>
       <p>{client.email}</p>
     </div>
@@ -113,7 +120,7 @@ const ProductsTable = ({
   translation,
   lang,
 }: {
-  order: IDevis;
+  order: Iorders;
   translation: DictionaryType;
   lang: Locale;
 }) => (
@@ -138,12 +145,10 @@ const ProductsTable = ({
       {order.products.map((product, index) => (
         <tr key={index} className="border-b border-gray-200">
           <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.stock || 1}</td>
+          <td className="text-right py-2 px-3">{product.quantity}</td>
+          <td className="text-right py-2 px-3">{product.price_unitaire}</td>
           <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price, lang)}
-          </td>
-          <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price * (product.stock || 1), lang)}
+            {product.price_unitaire * product.quantity}
           </td>
         </tr>
       ))}
@@ -151,34 +156,40 @@ const ProductsTable = ({
   </table>
 );
 
-const TotalsSection = ({
-  totals,
+const SummarySection = ({
+  summary,
   translation,
   lang,
 }: {
-  totals: OrderTotals;
+  summary: orderSummary;
   translation: DictionaryType;
   lang: Locale;
-}) => (
-  <section className="ml-auto w-72 mt-7">
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.subtotal}:</span>
-      <span>{formatCurrency(totals.subtotal, lang)}</span>
-    </div>
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.discount}:</span>
-      <span>-{formatCurrency(totals.discount, lang)}</span>
-    </div>
-    <div className="flex justify-between mb-2">
-      <span>{translation.sidebar.orders_table.print.tax}:</span>
-      <span>{formatCurrency(totals.taxAmount, lang)}</span>
-    </div>
-    <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
-      <span>{translation.sidebar.orders_table.print.total}:</span>
-      <span>{formatCurrency(totals.total, lang)}</span>
-    </div>
-  </section>
-);
+}) => {
+  const {} = summary;
+
+  return (
+    <section className="ml-auto w-72 mt-7">
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.subtotal}:</span>
+        <span>{summary.subtotal}</span>
+      </div>
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.discount}:</span>
+        <span>
+          {summary.remise} {summary.remise_type}
+        </span>
+      </div>
+      <div className="flex justify-between mb-2">
+        <span>{translation.sidebar.orders_table.print.tax}:</span>
+        <span>{summary.tva}</span>
+      </div>
+      <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
+        <span>{translation.sidebar.orders_table.print.total}:</span>
+        <span>{summary.total}</span>
+      </div>
+    </section>
+  );
+};
 
 const Footer = ({ translation }: { translation: DictionaryType }) => (
   <footer className="mt-8 text-center text-sm">
@@ -217,14 +228,14 @@ const printStyles = `
 `;
 
 // Main component
-const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
+const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
   ({ order, translation, lang }, ref) => {
     if (!order) {
       return <div ref={ref}>No order data available</div>;
     }
 
+    const summary = calculateorderSummary(order, translation);
     const textDirection = lang === "ar" ? "rtl" : "ltr";
-    const totals = calculateOrderTotals(order);
 
     return (
       <div
@@ -238,13 +249,17 @@ const PrintableOrder = forwardRef<HTMLDivElement, PrintableOrderProps>(
         <DocumentInfo order={order} translation={translation} lang={lang} />
         <ClientInfo client={order.client} translation={translation} />
         <ProductsTable order={order} translation={translation} lang={lang} />
-        <TotalsSection totals={totals} translation={translation} lang={lang} />
+        <SummarySection
+          summary={summary}
+          translation={translation}
+          lang={lang}
+        />
         <Footer translation={translation} />
       </div>
     );
   }
 );
 
-PrintableOrder.displayName = "PrintableOrder";
+Printableorder.displayName = "Printableorder";
 
-export default PrintableOrder;
+export default Printableorder;

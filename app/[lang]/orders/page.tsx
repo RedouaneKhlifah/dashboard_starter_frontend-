@@ -2,9 +2,8 @@ import { Locale } from "@/i18n-config";
 import { getDictionary } from "@/lib/i18n";
 import DashboardLayout from "@/components/layout/dashboard-layout";
 import { TableOrder } from "@/components/order/TableOrder";
-import { IDevis } from "@/interfaces/IDevis";
 import httpServer from "@/lib/httpServer";
-
+import { IOrder } from "@/interfaces/IOrder";
 
 interface Props {
   params: {
@@ -12,9 +11,9 @@ interface Props {
   };
 }
 
-const fetchOrders = async (lang: Locale) => {
+const fetchorders = async (lang: Locale) => {
   const response = await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders`,
     {
       method: "GET",
       lang: lang,
@@ -24,12 +23,12 @@ const fetchOrders = async (lang: Locale) => {
   return response;
 };
 
-export default async function DevisPage({ params }: Props) {
+export default async function ordersPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
-  let records: IDevis[] = [];
+  let records: IOrder[] = [];
   let totalRecords: number = 0;
 
-  const res = await fetchOrders(params.lang);
+  const res = await fetchorders(params.lang);
   if (res.ok) {
     const response = await res.json();
     records = response.data;

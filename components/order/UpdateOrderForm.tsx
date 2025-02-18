@@ -16,25 +16,25 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IOrderForm } from "@/dto/order/orderForm";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
-import { IDevis } from "@/interfaces/IDevis";
-import { DevisMapper } from "@/mappers/DevisMapper";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { IOrder } from "@/interfaces/IOrder";
+import { ordersMapper } from "@/mappers/OrderMapper";
 
-interface OrderFormProps {
+interface orderFormProps {
   translation: DictionaryType;
   lang: Locale;
-  selectedRecord?: IDevis | null;
+  selectedRecord?: IOrder | null;
 }
 
-const UpdateOrderForm: React.FC<OrderFormProps> = ({
+const UpdateOrderForm: React.FC<orderFormProps> = ({
   translation,
   lang,
   selectedRecord,
 }) => {
   const { modalType } = useModalStore();
-  const [errors, setErrors] = useState<OrderFormErrors>({});
+  const [errors, setErrors] = useState<orderFormErrors>({});
   const { error: toastError, success: toastSuccess } = useToast();
-  const { DevisDataMapper } = DevisMapper;
+  const { ordersDataMapper } = ordersMapper;
 
   const initialFormData = useMemo<IOrderForm>(
     () =>
@@ -45,11 +45,11 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
               title: selectedRecord.client?.full_name || "",
             },
             reference: selectedRecord.reference || "",
-            devis_date: selectedRecord.devis_date || "",
+            orders_date: selectedRecord.orders_date || "",
             expiration_date: selectedRecord.expiration_date || "",
             tva: selectedRecord.tva || 0,
-            remise_type: "FIXED",
-            remise: 0,
+            remise_type: selectedRecord.remise_type || "PERCENT",
+            remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
             products:
               selectedRecord.products?.map((product) => ({
@@ -58,7 +58,7 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
                 product_id: product.product_id,
                 price_unitaire: product.price_unitaire,
                 quantity: product.quantity,
-                tiket_id: product?.tiket_id,
+                ticket_id: product?.ticket_id,
               })) || [],
             subtotal: selectedRecord.subtotal || 0,
             total: selectedRecord.total || 0,
@@ -66,7 +66,7 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
         : {
             client_id: 0,
             reference: "",
-            devis_date: "",
+            orders_date: "",
             expiration_date: "",
             tva: 0,
             remise_type: "PERCENT",
@@ -85,11 +85,11 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
     if (!selectedRecord?.id) return false;
-    const formattedData = DevisDataMapper(data);
+    const formattedData = ordersDataMapper(data);
 
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/devis/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/${selectedRecord.id}`,
         {
           method: "PATCH",
           lang,
@@ -98,16 +98,16 @@ const UpdateOrderForm: React.FC<OrderFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.Order.form.message.update_success);
+        toastSuccess(translation.order.form.message.update_success);
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.Order.form.message.error);
+        toastError(error.message || translation.order.form.message.error);
         return false;
       }
     } catch (error) {
       console.error("Error updating order:", error);
-      toastError(translation.Order.form.message.error);
+      toastError(translation.order.form.message.error);
       return false;
     }
   };

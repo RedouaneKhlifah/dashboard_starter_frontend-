@@ -245,7 +245,7 @@
       "error": "حدث خطأ أثناء إنشاء التذكرة"
     }
   },
-  "Order": {
+  "order": {
     "tabs": {
       "client": "معلومات اساسية",
       "products": "المنتجات",
@@ -262,7 +262,7 @@
     "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
-    "devis_date_required": "تاريخ عرض السعر مطلوب",
+    "orders_date_required": "تاريخ عرض السعر مطلوب",
     "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
     "client_required": "العميل مطلوب",
     "product_required": "المنتج مطلوب",
@@ -270,7 +270,7 @@
     "form": {
       "reference": "المرجع",
       "reference_search": "البحث عن مرجع",
-      "devis_date": "تاريخ عرض السعر",
+      "orders_date": "تاريخ عرض السعر",
       "expiration_date": "تاريخ انتهاء الصلاحية",
       "client": "العميل",
       "add_article": "إضافة منتج",
@@ -290,7 +290,7 @@
         "quantity": "الكمية",
         "select": "اختيار",
         "add": "إضافة منتج",
-        "remove": "حذف المنتج",
+        "remove": "حذف",
         "no_articles": "لم تتم إضافة منتجات بعد",
         "total": "المجموع",
         "unit_price": "سعر الوحدة",
@@ -304,11 +304,13 @@
         "total_after": "المجموع بعد الخصم"
       },
       "message": {
-      "success": "تم إنشاء عرض السعر بنجاح",
-      "delete_success": "تم حذف عرض السعر بنجاح",
-      "update_success": "تم تحديث عرض السعر بنجاح",
-      "error": "حدث خطأ أثناء إنشاء عرض السعر"
-    }
+        "success": "تم إنشاء عرض السعر بنجاح",
+        "delete_success": "تم حذف عرض السعر بنجاح",
+        "update_success": "تم تحديث عرض السعر بنجاح",
+        "error": "حدث خطأ أثناء إنشاء عرض السعر"
+      },
+      "Total_Items": "مجموع العناصر",
+      "Total_Amount": "المبلغ الإجمالي"
     }
   },
   "common": {
@@ -429,7 +431,7 @@
       "search_placeholder": "بحث...",
       "headers": {
         "reference": "المرجع",
-        "devis_date": "تاريخ عرض السعر",
+        "orders_date": "تاريخ عرض السعر",
         "expiration_date": "تاريخ انتهاء الصلاحية",
         "client": "العميل",
         "total": "المجموع",
@@ -440,24 +442,24 @@
         "delete": "حذف"
       },
       "print": {
-      "company_name": "اسم الشركة",
-      "company_address": "123 شارع الأعمال، المدينة",
-      "company_contact": "contact@company.com | +966 5 1234 5678",
-      "order_title": "عرض سعر",
-      "reference": "المرجع",
-      "date": "التاريخ",
-      "due_date": "تاريخ الاستحقاق",
-      "bill_to": "فاتورة إلى",
-      "product": "المنتج",
-      "quantity": "الكمية",
-      "unit_price": "سعر الوحدة",
-      "total": "المجموع",
-      "subtotal": "المجموع الفرعي",
-      "discount": "الخصم",
-      "tax": "الضريبة",
-      "terms": "الشروط: الدفع خلال 30 يومًا",
-      "thank_you": "شكرًا لتعاملك معنا!"
-    }
+        "company_name": "اسم الشركة",
+        "company_address": "123 شارع الأعمال، المدينة",
+        "company_contact": "contact@company.com | +966 5 1234 5678",
+        "order_title": "عرض سعر",
+        "reference": "المرجع",
+        "date": "التاريخ",
+        "due_date": "تاريخ الاستحقاق",
+        "bill_to": "فاتورة إلى",
+        "product": "المنتج",
+        "quantity": "الكمية",
+        "unit_price": "سعر الوحدة",
+        "total": "المجموع",
+        "subtotal": "المجموع الفرعي",
+        "discount": "الخصم",
+        "tax": "الضريبة",
+        "terms": "الشروط: الدفع خلال 30 يومًا",
+        "thank_you": "شكرًا لتعاملك معنا!"
+      }
     },
     "products_table": {
       "product_management": "إدارة المنتجات",
@@ -493,6 +495,7 @@
   "shared": {
     "continue": "متابعة",
     "loading ": "تحميل...",
+    "currency": "درهم",
     "error": {
       "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
     }

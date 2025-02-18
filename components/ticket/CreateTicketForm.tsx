@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import useToast from "@/hooks/useToast";
 
-
 // Components
 import TicketForm from "./TicketForm";
 
@@ -27,7 +26,7 @@ interface TicketFormProps {
 const CreateTicketForm: React.FC<TicketFormProps> = ({ translation, lang }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<TicketFormErrors>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const initialFormData = useMemo<ITicketForm>(
     () => ({
       partenaire: null,

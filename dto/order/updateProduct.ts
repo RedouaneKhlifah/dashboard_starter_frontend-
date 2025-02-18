@@ -1,7 +1,7 @@
 import { IOrderForm } from "./orderForm";
 
-interface IUpdateOrder extends IOrderForm {
+interface IUpdateorder extends IOrderForm {
   id: number;
 }
 
-export type { IUpdateOrder };
+export type { IUpdateorder };

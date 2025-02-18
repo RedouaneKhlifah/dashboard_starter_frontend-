@@ -1,35 +1,34 @@
 "use client";
 import { DictionaryType } from "@/lib/i18n";
-import OrderForm from "./OrderForm";
 import { useMemo, useState } from "react";
 import http from "@/lib/http";
 import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
-import { OrderFormErrors } from "@/validation/orderValidators/orderValidator";
+import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { IOrderForm } from "@/dto/order/orderForm";
 import useToast from "@/hooks/useToast";
-import { ICreateDevis } from "@/dto/devis/createDevis";
-import { DevisMapper } from "@/mappers/DevisMapper";
+import { ordersMapper } from "@/mappers/OrderMapper";
+import OrderForm from "./OrderForm";
 
-interface OrderFormProps {
+interface orderFormProps {
   translation: DictionaryType;
   lang: Locale;
 }
 
-const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
+const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
   translation,
   lang,
 }) => {
   const { modalType } = useModalStore();
-  const [errors, setErrors] = useState<OrderFormErrors>({});
+  const [errors, setErrors] = useState<orderFormErrors>({});
   const { error: toastError, success: toastSuccess } = useToast();
-  const { DevisDataMapper } = DevisMapper;
+  const { ordersDataMapper } = ordersMapper;
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
       client_id: 0,
       reference: "",
-      devis_date: "",
+      orders_date: "",
       expiration_date: "",
       tva: 0,
       remise_type: "PERCENT",
@@ -44,10 +43,10 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   );
 
   const handleSubmit = async (data: IOrderForm): Promise<boolean> => {
-    const formattedData = DevisDataMapper(data);
+    const formattedData = ordersDataMapper(data);
     try {
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/devis",
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders",
         {
           method: "POST",
           lang,
@@ -56,16 +55,16 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.Order.form.message.success);
+        toastSuccess(translation.order.form.message.success);
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.Order.form.message.error);
+        toastError(error.message || translation.order.form.message.error);
         return false;
       }
     } catch (error) {
       console.error("Error during order creation:", error);
-      toastError(translation.Order.form.message.error);
+      toastError(translation.order.form.message.error);
       return false;
     }
   };
@@ -82,4 +81,4 @@ const CreateOrderFormPropsForm: React.FC<OrderFormProps> = ({
   );
 };
 
-export default CreateOrderFormPropsForm;
+export default CreateorderFormPropsForm;

@@ -2,7 +2,7 @@ import { IClient } from "./IClient";
 import { IProduct } from "./IProduct";
 import { ITicket } from "./ITicket";
 
-interface IDevis {
+interface IOrder {
   id: number;
 
   ticket_id: number | null;
@@ -11,7 +11,7 @@ interface IDevis {
 
   reference: string;
 
-  devis_date: string;
+  orders_date: string;
 
   expiration_date: string;
 
@@ -25,7 +25,7 @@ interface IDevis {
 
   ticket: ITicket | null;
 
-  products: DevisProduct[];
+  products: OrderProduct[];
 
   client: IClient;
 
@@ -34,11 +34,11 @@ interface IDevis {
   subtotal: number;
 }
 
-interface DevisProduct extends IProduct {
+interface OrderProduct extends IProduct {
   product_id: number;
-  tiket_id?: number;
+  ticket_id?: number;
   price_unitaire: number;
   quantity: number;
 }
 
-export type { IDevis };
+export type { IOrder };

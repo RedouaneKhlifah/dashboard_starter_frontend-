@@ -32,23 +32,20 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
         }
       );
 
-
       if (!response.ok) {
         const error = await response.json();
-        toastError(error.message || translation.auth.error);
         setErrors({
           general: error.message,
         });
-
-        return true;
+        setIsLoading(false);
+        return;
       }
       const { token } = await response.json();
       Cookies.set("auth_token", token);
+      router.replace(`/${lang}/dashboard`);
       toastSuccess(translation.auth.signup_success_message);
-      router.push(`/${lang}/dashboard`);
     } catch (error) {
       console.error("Error during sign-in:", error);
-    } finally {
       setIsLoading(false);
     }
   };
