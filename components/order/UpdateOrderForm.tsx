@@ -45,7 +45,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
               title: selectedRecord.client?.full_name || "",
             },
             reference: selectedRecord.reference || "",
-            orders_date: selectedRecord.orders_date || "",
+            order_date: selectedRecord.order_date || "",
             expiration_date: selectedRecord.expiration_date || "",
             tva: selectedRecord.tva || 0,
             remise_type: selectedRecord.remise_type || "PERCENT",
@@ -66,7 +66,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
         : {
             client_id: 0,
             reference: "",
-            orders_date: "",
+            order_date: "",
             expiration_date: "",
             tva: 0,
             remise_type: "PERCENT",

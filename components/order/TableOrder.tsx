@@ -20,6 +20,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
+import toast from "react-hot-toast";
 
 interface TableorderProps {
   records: IOrder[];
@@ -149,7 +150,7 @@ export function TableOrder({
         const htmlContent = generateorderHTML(orderToEmail, translation, lang);
 
         const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-orders-email/${orderId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-order-email/${orderId}`,
           {
             method: "POST",
             lang,
@@ -158,7 +159,7 @@ export function TableOrder({
         );
 
         if (response.ok) {
-          console.log("Email sent successfully");
+          toast.success("Email sent successfully");
         }
       } catch (error) {
         console.error("Email sending error:", error);
@@ -175,8 +176,8 @@ export function TableOrder({
         label: orders_table.headers.reference,
       },
       {
-        key: "orders_date" as keyof IOrder,
-        label: orders_table.headers.orders_date,
+        key: "order_date" as keyof IOrder,
+        label: orders_table.headers.order_date,
       },
       {
         key: "expiration_date" as keyof IOrder,

@@ -28,7 +28,7 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
     () => ({
       client_id: 0,
       reference: "",
-      orders_date: "",
+      order_date: "",
       expiration_date: "",
       tva: 0,
       remise_type: "PERCENT",

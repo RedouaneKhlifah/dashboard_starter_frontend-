@@ -254,7 +254,7 @@
     "select_products": "Sélectionnez les produits",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
-    "orders_date_required": "La date du orders est obligatoire",
+    "order_date_required": "La date du orders est obligatoire",
     "expiration_date_required": "La date d'expiration est obligatoire",
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
@@ -262,7 +262,7 @@
     "form": {
       "reference": "Référence",
       "reference_search": "Rechercher une référence",
-      "orders_date": "Date du orders",
+      "order_date": "Date du orders",
       "expiration_date": "Date d'expiration",
       "client": "Client",
       "add_article": "Ajouter un Produit",
@@ -423,7 +423,7 @@
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
-        "orders_date": "Date du orders",
+        "order_date": "Date du orders",
         "expiration_date": "Date d'expiration",
         "client": "Client",
         "total": "Total",

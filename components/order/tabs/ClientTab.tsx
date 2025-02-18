@@ -71,12 +71,12 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
-          id="orders_date"
+          id="order_date"
           type="date"
-          label={translation.order.form.orders_date}
+          label={translation.order.form.order_date}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
-          value={formData.orders_date}
-          error={errors.orders_date}
+          value={formData.order_date}
+          error={errors.order_date}
           disabled={selectedRecord ? true : false}
         />
         <InputField

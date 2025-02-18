@@ -23,7 +23,7 @@ export const validateorderForm = (
   const newErrors: orderFormErrors = {};
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
-  newErrors.orders_date = validateField(ordersDateSchema, formData.orders_date);
+  newErrors.order_date = validateField(ordersDateSchema, formData.order_date);
   newErrors.expiration_date = validateField(
     expirationDateSchema,
     formData.expiration_date

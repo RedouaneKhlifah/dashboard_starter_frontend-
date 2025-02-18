@@ -262,7 +262,7 @@
     "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
-    "orders_date_required": "تاريخ عرض السعر مطلوب",
+    "order_date_required": "تاريخ عرض السعر مطلوب",
     "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
     "client_required": "العميل مطلوب",
     "product_required": "المنتج مطلوب",
@@ -270,7 +270,7 @@
     "form": {
       "reference": "المرجع",
       "reference_search": "البحث عن مرجع",
-      "orders_date": "تاريخ عرض السعر",
+      "order_date": "تاريخ عرض السعر",
       "expiration_date": "تاريخ انتهاء الصلاحية",
       "client": "العميل",
       "add_article": "إضافة منتج",
@@ -431,7 +431,7 @@
       "search_placeholder": "بحث...",
       "headers": {
         "reference": "المرجع",
-        "orders_date": "تاريخ عرض السعر",
+        "order_date": "تاريخ عرض السعر",
         "expiration_date": "تاريخ انتهاء الصلاحية",
         "client": "العميل",
         "total": "المجموع",

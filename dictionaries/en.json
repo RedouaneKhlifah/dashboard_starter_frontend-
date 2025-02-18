@@ -263,7 +263,7 @@
     "select_products": "Select Products",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
-    "orders_date_required": "Quote date is required",
+    "order_date_required": "Quote date is required",
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
@@ -271,7 +271,7 @@
     "form": {
       "reference": "Reference",
       "reference_search": "Search reference",
-      "orders_date": "Quote date",
+      "order_date": "Quote date",
       "expiration_date": "Expiration date",
       "client": "Client",
       "client_search": "Search client",
@@ -432,7 +432,7 @@
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
-        "orders_date": "Quote Date",
+        "order_date": "Quote Date",
         "expiration_date": "Expiration Date",
         "client": "Client",
         "total": "Total",
