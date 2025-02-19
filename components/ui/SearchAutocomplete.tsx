@@ -138,15 +138,15 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       if (disabled) return;
       const newValue = e.target.value;
       if (newValue === query) return;
-
+  
       setIsDirty(true);
       setQuery(newValue);
       setSelectedIndex(-1);
       debouncedSearch(newValue);
-
+  
       if (value && newValue !== value.title) {
-        setQuery("");
-        onChange?.(null);
+        setQuery(newValue);
+        onChange?.(null); 
       }
     },
     [disabled, query, debouncedSearch, value, onChange]
@@ -189,6 +189,12 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       setQuery("");
     }
   }, [value]);
+
+  // const handleFocus = useCallback(() => {
+  //   if (error) {
+  //     onChange?.(null); 
+  //   }
+  // }, [error, onChange]);
 
   const inputClasses = clsx(
     "w-full h-11 bg-background border-2 rounded-md",
@@ -243,6 +249,7 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
             onChange={handleInputChange}
             onKeyDown={handleKeyNavigation}
             onBlur={handleBlur}
+            // onFocus={handleFocus}
             placeholder={placeholder}
             className={inputClasses}
             aria-controls="search-results"

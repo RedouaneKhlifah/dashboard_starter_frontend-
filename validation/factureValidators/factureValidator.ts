@@ -25,7 +25,7 @@ export const validateOrderForm = (
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
   newErrors.paid_amount = validateField(paidAmountSchema, formData.paid_amount);
-  newErrors.devis_date = validateField(devisDateSchema, formData.devis_date);
+  newErrors.order_date = validateField(devisDateSchema, formData.order_date);
   newErrors.expiration_date = validateField(
     expirationDateSchema,
     formData.expiration_date

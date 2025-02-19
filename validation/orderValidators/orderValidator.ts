@@ -1,14 +1,14 @@
 import { DictionaryType } from "@/lib/i18n";
-import { createorderSchemas } from "../schemas/orderSchemas/createorderSchemas";
+import { createorderSchemas } from "../schemas/orderSchemas/createOrderSchemas";
 import { validateField } from "../helper/validationHelpers";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 
 export type orderFormErrors = {
-  [K in keyof IorderForm]?: string;
+  [K in keyof IOrderForm]?: string;
 };
 
 export const validateorderForm = (
-  formData: IorderForm,
+  formData: IOrderForm,
   translation: DictionaryType
 ): orderFormErrors => {
   const {

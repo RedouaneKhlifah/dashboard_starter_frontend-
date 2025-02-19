@@ -36,6 +36,7 @@ interface TableProps<T> {
   rows: T[];
   totalRows: number;
   className?: string;
+  classHead?: string;
   pageSize?: number;
   isLoading?: boolean;
   setCurrentPage: Dispatch<SetStateAction<number>>;
@@ -49,6 +50,7 @@ export const GlobalTable = <T extends { id: string | number }>({
   rows,
   totalRows,
   className,
+  classHead,
   pageSize = 10,
   isLoading = false,
   setCurrentPage,
@@ -87,13 +89,13 @@ export const GlobalTable = <T extends { id: string | number }>({
   return (
     <MTThemeProvider>
       <Card
-        className={`w-full max-h-60 overflow-scroll relative ${className}`}
+        className={`w-full overflow-scroll relative ${className}`}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
         <table className="w-full min-w-max table-auto text-left">
-          <thead className="sticky top-0 bg-blue-gray-50 z-10 border-b border-gray-300">
+          <thead className={`sticky top-0 bg-blue-gray-50 border-b border-gray-300 ${classHead}`}>
             <tr>
               {headers.map((header) => (
                 <th
