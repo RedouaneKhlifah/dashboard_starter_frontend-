@@ -2,13 +2,13 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { Select, Option } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 
 interface SummaryTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
 }
@@ -50,6 +50,7 @@ const SummaryTab = ({
     // Only update total
     setFormData((prev) => ({
       ...prev,
+      subtotal: Number(baseSubtotal.toFixed(2)),
       total: Number(finalTotal.toFixed(2)), // Final total (TTC)
     }));
   }, [
@@ -76,7 +77,7 @@ const SummaryTab = ({
         <InputField
           id="tva"
           type="number"
-          label={translation.order.form.tva}
+          label={translation.order.form.vat}
           value={formData.tva || 0}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
         />

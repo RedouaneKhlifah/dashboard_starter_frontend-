@@ -1,7 +1,7 @@
 interface IFactureForm {
   client: FactureRelationShipData | null;
   reference: string;
-  order_date: string;
+  facture_date: string;
   expiration_date: string;
   tva: number;
   remise_type: "PERCENT" | "FIXED";
@@ -12,7 +12,7 @@ interface IFactureForm {
   products: Array<{
     name?: string;
     unit?: string;
-    ticket_id?: number;
+    order_id?: number;
     product_id: number;
     price_unitaire: number;
     quantity: number;
@@ -32,5 +32,5 @@ export enum Status {
   DRAFT = "DRAFT",
   UNPAID = "UNPAID",
   PARTIALLY_PAID = "PARTIALLY_PAID",
-  PAID = "PAID"
+  PAID = "PAID",
 }

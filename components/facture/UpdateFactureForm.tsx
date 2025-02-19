@@ -40,51 +40,50 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
     () =>
       selectedRecord
         ? {
-          client: {
-            id: selectedRecord.client_id || 0,
-            title: selectedRecord.client?.full_name || "",
-          },
-          reference: selectedRecord.reference || "",
-          devis_date: selectedRecord.devis_date || "",
-          expiration_date: selectedRecord.expiration_date || "",
-          tva: selectedRecord.tva || 0,
-          remise_type: selectedRecord.remise_type || "PERCENT",
-          remise: selectedRecord.remise || 0,
-          note: selectedRecord.note || "",
-          paid_amount: selectedRecord.paid_amount || 0,
-          status: selectedRecord.status || Status.DRAFT,
-          products:
-            selectedRecord.products?.map((product) => ({
-              name: product.name,
-              unit: product.unit,
-              product_id: product.product_id,
-              price_unitaire: product.price_unitaire,
-              quantity: product.quantity,
-              tiket_id: product?.ticket_id,
-            })) || [],
-          subtotal: selectedRecord.subtotal || 0,
-          total: selectedRecord.total || 0,
-        }
-
+            client: {
+              id: selectedRecord.client_id || 0,
+              title: selectedRecord.client?.full_name || "",
+            },
+            reference: selectedRecord.reference || "",
+            facture_date: selectedRecord.facture_date || "",
+            expiration_date: selectedRecord.expiration_date || "",
+            tva: selectedRecord.tva || 0,
+            remise_type: selectedRecord.remise_type || "PERCENT",
+            remise: selectedRecord.remise || 0,
+            note: selectedRecord.note || "",
+            paid_amount: selectedRecord.paid_amount || 0,
+            status: selectedRecord.status || Status.DRAFT,
+            products:
+              selectedRecord.products?.map((product) => ({
+                name: product.name,
+                unit: product.unit,
+                product_id: product.product_id,
+                price_unitaire: product.price_unitaire,
+                quantity: product.quantity,
+                order_id: product?.order_id,
+              })) || [],
+            subtotal: selectedRecord.subtotal || 0,
+            total: selectedRecord.total || 0,
+          }
         : {
-          client_id: 0,
-          reference: "",
-          devis_date: "",
-          expiration_date: "",
-          tva: 0,
-          remise_type: "PERCENT",
-          remise: 0,
-          note: "",
-          paid_amount: 0,
-          status: Status.DRAFT,
-          products: [],
-          client: {
-            id: 0,
-            title: "",
+            client_id: 0,
+            reference: "",
+            facture_date: "",
+            expiration_date: "",
+            tva: 0,
+            remise_type: "PERCENT",
+            remise: 0,
+            note: "",
+            paid_amount: 0,
+            status: Status.DRAFT,
+            products: [],
+            client: {
+              id: 0,
+              title: "",
+            },
+            subtotal: 0,
+            total: 0,
           },
-          subtotal: 0,
-          total: 0,
-        },
     [selectedRecord]
   );
 
@@ -103,16 +102,16 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.Order.form.message.update_success);
+        toastSuccess(translation.order.form.message.update_success);
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.Order.form.message.error);
+        toastError(error.message || translation.order.form.message.error);
         return false;
       }
     } catch (error) {
       console.error("Error updating facture:", error);
-      toastError(translation.Order.form.message.error);
+      toastError(translation.order.form.message.error);
       return false;
     }
   };

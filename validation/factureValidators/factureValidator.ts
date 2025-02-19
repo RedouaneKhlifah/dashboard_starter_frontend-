@@ -18,14 +18,18 @@ export const validateOrderForm = (
     clientSchema,
     productSchema,
     noteSchema,
-    paidAmountSchema
+    paidAmountSchema,
   } = createFactureSchemas(translation);
 
   const newErrors: FactureFormErrors = {};
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
   newErrors.paid_amount = validateField(paidAmountSchema, formData.paid_amount);
-  newErrors.order_date = validateField(devisDateSchema, formData.order_date);
+
+  newErrors.facture_date = validateField(
+    devisDateSchema,
+    formData.facture_date
+  );
   newErrors.expiration_date = validateField(
     expirationDateSchema,
     formData.expiration_date

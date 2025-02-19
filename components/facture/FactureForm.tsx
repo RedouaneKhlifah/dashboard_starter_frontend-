@@ -71,8 +71,8 @@ const FactureForm = ({
     if (tabName === "client") {
       if (!formData.reference?.trim())
         newErrors.reference = translation.order.reference_required;
-      if (!formData.order_date)
-        newErrors.order_date = translation.order.order_date_required;
+      if (!formData.facture_date)
+        newErrors.facture_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
       if (!formData.client?.title)
@@ -81,6 +81,9 @@ const FactureForm = ({
       if (!formData.products || formData.products.length === 0)
         newErrors.products = translation.order.product_required;
     }
+
+    console.log("New Errors:", formData);
+    console.log(newErrors);
 
     return newErrors;
   };
@@ -107,7 +110,10 @@ const FactureForm = ({
       return;
     }
 
-    const newErrors = FactureValidation.validateOrderForm(formData, translation);
+    const newErrors = FactureValidation.validateOrderForm(
+      formData,
+      translation
+    );
     setErrors(newErrors);
     console.log(newErrors);
 
@@ -137,7 +143,7 @@ const FactureForm = ({
     return (
       (tabName === "client" &&
         (!!errors.reference ||
-          !!errors.order_date ||
+          !!errors.facture_date ||
           !!errors.expiration_date)) ||
       (tabName === "products" && !!errors.products) ||
       (tabName === "notes" && !!errors.note)

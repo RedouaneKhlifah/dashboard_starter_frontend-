@@ -16,7 +16,7 @@ interface IFacture {
 
   reference: string;
 
-  devis_date: string;
+  facture_date: string;
 
   expiration_date: string;
 
@@ -37,12 +37,11 @@ interface IFacture {
   total: number;
 
   subtotal: number;
-  
 }
 
 interface FactureProduct extends IProduct {
   product_id: number;
-  ticket_id?: number;
+  order_id?: number;
   price_unitaire: number;
   quantity: number;
 }

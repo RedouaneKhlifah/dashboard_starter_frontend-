@@ -136,6 +136,7 @@ const ProductsTab = ({
                 min={0}
                 id={"price_unitaire"}
                 label={""}
+                disabled={!!row.order_id}
               />
             ),
           },
@@ -151,7 +152,7 @@ const ProductsTab = ({
                 id={"quantity"}
                 label={""}
                 value={value}
-                disabled={!!row.ticket_id}
+                disabled={!!row.order_id}
               />
             ),
           },
@@ -180,7 +181,7 @@ const ProductsTab = ({
         rows={formData.products || []}
         className="mt-4"
         totalRows={0}
-        setCurrentPage={() => { }}
+        setCurrentPage={() => {}}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
@@ -198,13 +199,20 @@ const ProductsTab = ({
             <div className="flex flex-col items-end">
               <div className="flex items-center gap-3">
                 <div className="flex flex-col justify-center items-center gap-1 border-r-2 border-dashed border-gray-200 h-full px-2">
-                  <span className="text-gray-500">{translation.order.form.Total_Items}</span>
-                  <span className="text-xl font-semibold text-gray-700">{formData.products.length}</span>
+                  <span className="text-gray-500">
+                    {translation.order.form.Total_Items}
+                  </span>
+                  <span className="text-xl font-semibold text-gray-700">
+                    {formData.products.length}
+                  </span>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-1">
-                  <span className="text-gray-600">{translation.order.form.Total_Amount}</span>
+                  <span className="text-gray-600">
+                    {translation.order.form.Total_Amount}
+                  </span>
                   <span className="text-xl font-semibold text-gray-900">
-                    ${formData.products
+                    $
+                    {formData.products
                       .reduce(
                         (sum, product) =>
                           sum + product.quantity * product.price_unitaire,

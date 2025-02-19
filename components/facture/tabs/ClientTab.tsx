@@ -4,7 +4,10 @@ import { Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IFactureForm, FactureRelationShipData } from "@/dto/facture/factureForm";
+import {
+  IFactureForm,
+  FactureRelationShipData,
+} from "@/dto/facture/factureForm";
 import { FactureFormErrors } from "@/validation/factureValidators/factureValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
@@ -76,12 +79,12 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
-          id="order_date"
+          id="facture_date"
           type="date"
           label={translation.order.form.order_date}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
-          value={formData.order_date}
-          error={errors.order_date}
+          value={formData.facture_date}
+          error={errors.facture_date}
           disabled={selectedRecord ? true : false}
         />
         <InputField
