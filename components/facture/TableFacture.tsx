@@ -132,37 +132,43 @@ export function TableFacture({
     // Implement email functionality
   }, []);
 
-
   const headers = useMemo(
     () => [
       {
         key: "invoice_number" as keyof IFacture,
         label: factures_table.headers.invoice_number,
+        renderCell: (_: any, row: IFacture) => row.reference,
       },
       {
         key: "client_name" as keyof IFacture,
         label: factures_table.headers.client_name,
-        renderCell: (_: any, row: IFacture) => (row.client as IClient)?.full_name,
+        renderCell: (_: any, row: IFacture) =>
+          (row.client as IClient)?.full_name,
       },
       {
         key: "due_date" as keyof IFacture,
         label: factures_table.headers.due_date,
+        renderCell: (_: any, row: IFacture) => row.facture_date,
       },
       {
-        key: "vat" as keyof IFacture,
+        key: "tva" as keyof IFacture,
         label: factures_table.headers.vat,
+        renderCell: (_: any, row: IFacture) => row.tva,
       },
       {
-        key: "amount" as keyof IFacture,
+        key: "total" as keyof IFacture,
         label: factures_table.headers.amount,
+        renderCell: (_: any, row: IFacture) => row.total,
       },
       {
         key: "paid" as keyof IFacture,
         label: factures_table.headers.paid,
+        renderCell: (_: any, row: IFacture) => row.paid_amount,
       },
       {
         key: "status" as keyof IFacture,
         label: factures_table.headers.status,
+        renderCell: (_: any, row: IFacture) => row?.status,
       },
       {
         key: "actions" as keyof IFacture,
@@ -180,15 +186,21 @@ export function TableFacture({
         ),
       },
     ],
-    [factures_table, handleEdit, openDeleteModal, handleEmail, handlePrintRequest]
+    [
+      factures_table,
+      handleEdit,
+      openDeleteModal,
+      handleEmail,
+      handlePrintRequest,
+    ]
   );
 
   return (
     <>
       <Header
-         title={factures_table.invoice_management}
-         searchPlaceholder={factures_table.search_placeholder}
-         buttonText={factures_table.create_new_invoice}
+        title={factures_table.invoice_management}
+        searchPlaceholder={factures_table.search_placeholder}
+        buttonText={factures_table.create_new_invoice}
         showSearch
         setSearchQuery={setSearchQuery}
       />

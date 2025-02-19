@@ -50,7 +50,8 @@ const SummaryTab = ({
     // Only update total
     setFormData((prev) => ({
       ...prev,
-      total: Number(finalTotal.toFixed(2)), // Final total (TTC)
+      subtotal: Number(baseSubtotal.toFixed(2)),
+      total: Number(finalTotal.toFixed(2)),
     }));
   }, [
     formData.products,
@@ -76,7 +77,7 @@ const SummaryTab = ({
         <InputField
           id="tva"
           type="number"
-          label={translation.order.form.tva}
+          label={translation.order.form.vat}
           value={formData.tva || 0}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
         />
@@ -137,21 +138,20 @@ const SummaryTab = ({
           type="number"
           label={translation.order.form.subtotal}
           value={formData.subtotal?.toString() || ""}
-          onChange={() => { }}
+          onChange={() => {}}
           disabled
         />
       </div>
-      <div>   
+      <div>
         <InputField
           id="total"
           type="number"
           label={translation.order.form.total}
           value={formData.total?.toString() || ""}
-          onChange={() => { }}
+          onChange={() => {}}
           disabled
         />
       </div>
-
     </div>
   );
 };

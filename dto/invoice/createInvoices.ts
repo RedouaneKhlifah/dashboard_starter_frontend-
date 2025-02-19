@@ -1,8 +1,9 @@
 export interface ICreateInvoice {
   client_id?: number;
   reference: string;
-  devis_date: string;
+  facture_date: string;
   expiration_date: string;
+  paid_amount: number;
   tva: number;
   remise_type: "PERCENT" | "FIXED";
   remise: number;
