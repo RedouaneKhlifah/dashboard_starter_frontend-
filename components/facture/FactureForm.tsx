@@ -75,6 +75,8 @@ const FactureForm = ({
         newErrors.facture_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
+      if (!formData.client?.title)
+        newErrors.client = translation.order.client_required;
     } else if (tabName === "products") {
       if (!formData.products || formData.products.length === 0)
         newErrors.products = translation.order.product_required;
@@ -177,13 +179,12 @@ const FactureForm = ({
                 type="button"
                 onClick={() => handleTabChange(tab)}
                 className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg transition-colors
-                 ${
-                   activeTab.name === tab.name
-                     ? hasTabError(tab.name)
-                       ? "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400"
-                       : "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
-                     : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
-                 }`}
+                 ${activeTab.name === tab.name
+                    ? hasTabError(tab.name)
+                      ? "text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400"
+                      : "text-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:text-blue-400"
+                    : "text-gray-500 hover:bg-gray-50 dark:text-gray-400 dark:hover:bg-gray-800"
+                  }`}
               >
                 {tab.icon}
                 {translation.order.tabs[tab.name]}

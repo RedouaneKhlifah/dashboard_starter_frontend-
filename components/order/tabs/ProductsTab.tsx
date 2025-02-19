@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@material-tailwind/react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 import { DictionaryType } from "@/lib/i18n";
 import { IProduct } from "@/interfaces/IProduct";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
@@ -12,8 +12,8 @@ import { handleChange } from "@/components/utils/formHandlers";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 
 interface ProductsTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   translation: DictionaryType;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
@@ -178,9 +178,9 @@ const ProductsTab = ({
           },
         ]}
         rows={formData.products || []}
-        className="mt-4"
+        className="mt-4 max-h-60 z-10"
         totalRows={0}
-        setCurrentPage={() => {}}
+        setCurrentPage={() => { }}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">

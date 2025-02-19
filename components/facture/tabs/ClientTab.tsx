@@ -51,12 +51,16 @@ const ClientTab = ({
           label={translation.order.form.client}
           onSearch={fetchClients}
           value={formData.client}
-          onChange={(client) =>
+          onChange={(client) => {
             setFormData((prev) => ({
               ...prev,
               client: client as FactureRelationShipData,
-            }))
-          }
+            }));
+            setErrors((prev) => ({
+              ...prev,
+              client: undefined
+            }));
+          }}
           placeholder={translation.Ticket.form.client_search}
           icon={<UserSearch className="w-5 h-5 text-gray-400" />}
           error={errors.client}
@@ -69,6 +73,7 @@ const ClientTab = ({
           onChange={(e) => handleChange(e, setFormData, setErrors)}
           icon={<Fingerprint className="w-5 h-5 text-gray-400" />}
           error={errors.reference}
+          
           required
         />
       </div>

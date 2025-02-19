@@ -50,6 +50,7 @@ const OrderForm = ({
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  console.log("errors", errors)
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -74,6 +75,8 @@ const OrderForm = ({
         newErrors.order_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
+      if(!formData.client?.title)
+        newErrors.client = translation.order.client_required;
     } else if (tabName === "products") {
       if (!formData.products || formData.products.length === 0)
         newErrors.products = translation.order.product_required;
