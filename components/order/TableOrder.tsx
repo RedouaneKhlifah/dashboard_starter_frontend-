@@ -57,13 +57,13 @@ export function TableOrder({
 
   // Hooks
   const handleorderUpdate = useEntityUpdate<IOrder>(setorders);
-  usePusher("orders", handleorderUpdate);
+  usePusher("order", handleorderUpdate);
 
   const refreshorders = useRefresh({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "orders",
+    entity: "order",
     setRecords: setorders,
     setTotalRecords: setTotalorders,
   });

@@ -26,10 +26,9 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
-      client_id: 0,
+      client_id: null,
       reference: "",
       order_date: "",
-      orders_date: "",
       expiration_date: "",
       tva: 0,
       remise_type: "PERCENT",

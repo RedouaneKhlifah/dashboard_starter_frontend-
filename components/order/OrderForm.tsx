@@ -50,7 +50,6 @@ const OrderForm = ({
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  console.log("errors", errors)
   useEffect(() => {
     setFormData(initialFormData);
   }, [initialFormData]);
@@ -75,7 +74,7 @@ const OrderForm = ({
         newErrors.order_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
-      if(!formData.client?.title)
+      if (!formData.client?.title)
         newErrors.client = translation.order.client_required;
     } else if (tabName === "products") {
       if (!formData.products || formData.products.length === 0)
@@ -100,6 +99,7 @@ const OrderForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("for ma data ggggggggggggggggggg", formData);
 
     if (activeTab.name !== "notes") {
       const nextTab = tabs.find((t) => t.index === activeTab.index + 1);
@@ -109,7 +109,6 @@ const OrderForm = ({
 
     const newErrors = orderValidation.validateorderForm(formData, translation);
     setErrors(newErrors);
-    console.log(newErrors);
 
     if (hasNoErrors(newErrors)) {
       setIsSubmitting(true);
