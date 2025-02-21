@@ -135,33 +135,40 @@
     "firstNameTooLong": "يجب أن يكون الاسم الأول أقل من 50 حرفًا",
     "lastNameRequired": "الاسم الأخير مطلوب",
     "lastNameTooLong": "يجب أن يكون الاسم الأخير أقل من 50 حرفًا",
-    "emailRequired": "البريد الإلكتروني مطلوب",
-    "invalidEmail": "بريد إلكتروني غير صحيح",
-    "phoneRequired": "رقم الهاتف مطلوب",
-    "invalidPhone": "تنسيق رقم هاتف غير صالح",
+    "MonthlySalaryRequired": "الراتب الشهري مطلوب",
+    "PricePerHourRequired": "السعر لكل ساعة مطلوب",
+    "PricePerDayRequired": "السعر لكل يوم مطلوب",
+    "DateEngagementRequired": "تاريخ التعيين مطلوب",
     "addressRequired": "العنوان مطلوب",
-    "countryRequired": "البلد مطلوب",
+    "NationalRequired": "الرقم الوطني (CIN) مطلوب",
     "cityRequired": "المدينة مطلوبة",
+    "employee_idRequired": "رقم الموظف (ID) مطلوب",
     "form": {
       "first_name": "الاسم الأول",
       "last_name": "الاسم الأخير",
-      "email": "عنوان البريد الإلكتروني",
+      "email": "البريد الإلكتروني",
       "phone": "رقم الهاتف",
       "address": "العنوان",
-      "country": "البلد",
-      "city": "المدينة"
+      "country": "البلد",  
+      "city": "المدينة",
+      "employee_id": "رقم الموظف (ID)",
+      "national_id": "الرقم الوطني (CIN)",
+      "date_of_engagement": "تاريخ التعيين",
+      "monthly_salary": "الراتب الشهري",
+      "price_per_hour": "السعر / ساعة",
+      "price_per_day": "السعر / يوم"
     },
     "common": {
       "create": "إنشاء",
       "cancel": "إلغاء",
-      "update": "تعديل",
+      "update": "تحديث",
       "delete": "حذف"
     },
     "message": {
       "success": "تم إنشاء الموظف بنجاح",
       "update_success": "تم تحديث الموظف بنجاح",
       "delete_success": "تم حذف الموظف بنجاح",
-      "error": "حدث خطأ أثناء إنشاء الموظف"
+      "error": "خطأ أثناء إنشاء الموظف"
     }
   },
   "partenaire": {
@@ -384,7 +391,7 @@
         "inventory": "المخزون",
         "administration": "الإدارة",
         "sales": "المبيعات",
-          "payroll_management": "إدارة الرواتب"
+        "payroll_management": "إدارة الرواتب"
       },
       "items": {
         "products": "منتجات فردية",
@@ -413,7 +420,14 @@
         "phone": "الهاتف",
         "city": "المدينة",
         "country": "الدولة",
-        "actions": "الإجراءات"
+        "actions": "الإجراءات",
+        "id": "رقم الموظف",
+        "full_name": "الاسم الكامل",
+        "national_id": "رقم البطاقة الوطنية",
+        "date_of_engagement": "تاريخ التوظيف",
+        "monthly_salary": "الراتب الشهري",
+        "price_per_hour": "السعر/ساعة",
+        "price_per_day": "السعر/يوم"
       },
       "actions": {
         "edit": "تعديل",

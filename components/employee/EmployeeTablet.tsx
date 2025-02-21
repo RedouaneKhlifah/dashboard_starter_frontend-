@@ -22,12 +22,12 @@ import useDebounce from "@/hooks/useDebounce";
 // Utils & Interfaces & Mappers
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
-import { IEmployees } from "@/interfaces/IEmployee";
+import { IEmployee } from "@/interfaces/IEmployee";
 import EmployeesMappers, { UserRow } from "@/mappers/EmployeesMapper";
 import http from "@/lib/http";
 
 interface EmployeesTableProps {
-  records: IEmployees[];
+  records: IEmployee[];
   totalRecords: number;
   translation: DictionaryType;
   lang: Locale;
@@ -47,9 +47,9 @@ export function EmployeesTable({
   } = translation;
 
   // State
-  const [Employeess, setEmployeess] = useState<IEmployees[]>(records);
+  const [Employeess, setEmployeess] = useState<IEmployee[]>(records);
   const [totalEmployeess, setTotalEmployeess] = useState(totalRecords);
-  const [selectedRecord, setSelectedRecord] = useState<IEmployees | undefined>(
+  const [selectedRecord, setSelectedRecord] = useState<IEmployee | undefined>(
     undefined
   );
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +64,7 @@ export function EmployeesTable({
   const didMountRef = useRef(false);
 
   // Real-time updates
-  const handleEmployeesUpdate = useEntityUpdate<IEmployees>(setEmployeess);
+  const handleEmployeesUpdate = useEntityUpdate<IEmployee>(setEmployeess);
   usePusher("Employees", handleEmployeesUpdate);
 
   // Handlers
@@ -91,7 +91,7 @@ export function EmployeesTable({
     setIsSubmitting(true);
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/Employeess/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/${selectedRecord.id}`,
         { method: "DELETE" }
       );
       if (!response.ok) return;
@@ -129,11 +129,14 @@ export function EmployeesTable({
   // Memoized headers to prevent re-renders
   const tableHeaders = useMemo(
     () => [
+      { key: "employee_id" as keyof UserRow, label: users_table.headers.id },
       { key: "name" as keyof UserRow, label: users_table.headers.name },
-      { key: "email" as keyof UserRow, label: users_table.headers.email },
-      { key: "phone" as keyof UserRow, label: users_table.headers.phone },
-      { key: "country" as keyof UserRow, label: users_table.headers.country },
-      { key: "city" as keyof UserRow, label: users_table.headers.city },
+      { key: "national_id" as keyof UserRow, label: users_table.headers.national_id },
+      { key: "date_of_engagement" as keyof UserRow, label: users_table.headers.date_of_engagement },
+      { key: "monthly_salary" as keyof UserRow, label: users_table.headers.monthly_salary },
+      { key: "price_per_hour" as keyof UserRow, label: users_table.headers.price_per_hour },
+      { key: "price_per_day" as keyof UserRow, label: users_table.headers.price_per_day },
+
       {
         key: "id" as keyof UserRow,
         label: users_table.headers.actions,

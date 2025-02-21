@@ -1,13 +1,14 @@
-interface IEmployees {
-  id: number;
-  full_name: string;
+export interface IEmployee {
+  id: number,
+  employee_id: string;
   first_name: string;
   last_name: string;
-  email: string;
-  phone: string;
+  full_name: string;
+  national_id: string;
   address: string;
-  country: string;
   city: string;
+  date_of_engagement: string;
+  monthly_salary: number;
+  price_per_hour: number;
+  price_per_day: number;
 }
-
-export type { IEmployees };

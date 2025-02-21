@@ -6,10 +6,9 @@ import { z } from "zod";
  * @param t - The dictionary containing localized strings.
  * @returns A Zod schema for email validation.
  */
-export default function createEmailSchema(t: DictionaryType): z.ZodString {
+export default function createMonthlySalarySchema(t: DictionaryType): z.ZodNumber {
   const { employee } = t;
   return z
-    .string()
-    .min(1, { message: employee.emailRequired })
-    .email({ message: employee.invalidEmail });
+    .number()
+    .min(1, { message: employee.MonthlySalaryRequired })
 }
