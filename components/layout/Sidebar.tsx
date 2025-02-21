@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Package,
   Settings,
+  NotepadTextDashed,
   Users,
   Box,
   Gem,
@@ -24,7 +25,7 @@ import { DictionaryType } from "@/lib/i18n";
 
 interface SidebarProps {
   translation: DictionaryType;
-  lang: Locale;
+  lang: Locale; 
 }
 
 const Sidebar = ({ lang, translation }: SidebarProps) => {
@@ -61,11 +62,6 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
         icon: <Weight className="w-5 h-5" />,
         items: [
           {
-            name: translation.sidebar.dashboard.items.clients,
-            href: "/clients",
-            icon: <Users className="w-4 h-4" />,
-          },
-          {
             name: translation.sidebar.dashboard.items.partners,
             href: "/partenaire",
             icon: <Handshake className="w-4 h-4" />,
@@ -75,6 +71,17 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             href: "/orders",
             icon: <Package className="w-4 h-4" />,
           },
+        ],
+      },
+      {
+        name: translation.sidebar.dashboard.sections.payroll_management,
+        icon: <NotepadTextDashed className="w-5 h-5" />,
+        items: [
+          {
+            name: translation.sidebar.dashboard.items.employees,
+            href: "/employees",
+            icon: <Users className="w-4 h-4" />,
+          }
         ],
       },
       {

@@ -130,6 +130,40 @@
       "error": "حدث خطأ أثناء إنشاء العميل"
     }
   },
+  "employee": {
+    "firstNameRequired": "الاسم الأول مطلوب",
+    "firstNameTooLong": "يجب أن يكون الاسم الأول أقل من 50 حرفًا",
+    "lastNameRequired": "الاسم الأخير مطلوب",
+    "lastNameTooLong": "يجب أن يكون الاسم الأخير أقل من 50 حرفًا",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "invalidEmail": "بريد إلكتروني غير صحيح",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "invalidPhone": "تنسيق رقم هاتف غير صالح",
+    "addressRequired": "العنوان مطلوب",
+    "countryRequired": "البلد مطلوب",
+    "cityRequired": "المدينة مطلوبة",
+    "form": {
+      "first_name": "الاسم الأول",
+      "last_name": "الاسم الأخير",
+      "email": "عنوان البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "country": "البلد",
+      "city": "المدينة"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تعديل",
+      "delete": "حذف"
+    },
+    "message": {
+      "success": "تم إنشاء الموظف بنجاح",
+      "update_success": "تم تحديث الموظف بنجاح",
+      "delete_success": "تم حذف الموظف بنجاح",
+      "error": "حدث خطأ أثناء إنشاء الموظف"
+    }
+  },
   "partenaire": {
     "nameRequired": "الاسم مطلوب",
     "nameTooLong": "يجب أن يكون الاسم أقل من 50 حرفًا",
@@ -349,7 +383,8 @@
       "sections": {
         "inventory": "المخزون",
         "administration": "الإدارة",
-        "sales": "المبيعات"
+        "sales": "المبيعات",
+          "payroll_management": "إدارة الرواتب"
       },
       "items": {
         "products": "منتجات فردية",
@@ -360,6 +395,7 @@
         "members": "الأعضاء",
         "settings": "الإعدادات",
         "clients": "العملاء",
+        "employees": "الموظفين",
         "partners": "الشركاء"
       }
     },
@@ -367,6 +403,9 @@
       "customer_management": "إدارة العملاء",
       "create_new_client": "إنشاء عميل جديد",
       "update_client": "تحديث العميل",
+      "Employee_management": "إدارة الموظفين",
+      "update_Employees": "تحديث الموظفين",
+      "create_new_Employees": "إنشاء موظف جديد",
       "search_placeholder": "البحث...",
       "headers": {
         "name": "الاسم",

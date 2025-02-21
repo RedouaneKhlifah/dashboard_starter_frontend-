@@ -126,6 +126,40 @@
       "error": "Erreur lors de la création du client"
     }
   },
+  "employee": {
+    "firstNameRequired": "Le prénom est requis",
+    "firstNameTooLong": "Le prénom doit contenir moins de 50 caractères",
+    "lastNameRequired": "Le nom de famille est requis",
+    "lastNameTooLong": "Le nom de famille doit contenir moins de 50 caractères",
+    "emailRequired": "L'email est requis",
+    "invalidEmail": "Format d'email invalide",
+    "phoneRequired": "Le numéro de téléphone est requis",
+    "invalidPhone": "Format de numéro de téléphone invalide",
+    "addressRequired": "L'adresse est requise",
+    "countryRequired": "Le pays est requis",
+    "cityRequired": "La ville est requise",
+    "form": {
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone",
+      "address": "Adresse",
+      "country": "Pays",
+      "city": "Ville"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Modifier",
+      "delete": "Supprimer"
+    },
+    "message": {
+      "success": "Employée créé avec succès",
+      "update_success": "Employée updated successfully",
+      "delete_success": "Employée supprimé avec succès",
+      "error": "Erreur lors de la création du employée"
+    }
+  },
   "partenaire": {
     "nameRequired": "Le nom est requis",
     "nameTooLong": "Le nom doit contenir moins de 50 caractères",
@@ -341,7 +375,8 @@
       "sections": {
         "inventory": "Inventaire",
         "administration": "Administration",
-        "sales": "Les ventes"
+        "sales": "Les ventes",
+        "payroll_management": "Gestion de la paie"
       },
       "items": {
         "products": "Produits simples",
@@ -352,6 +387,7 @@
         "members": "Membres",
         "settings": "P aramètres",
         "clients": "Clients",
+        "employees": "Employés",
         "partners": "Partenaires"
       }
     },
@@ -359,6 +395,9 @@
       "customer_management": "Gestion des clients",
       "create_new_client": "Créer un nouveau client",
       "update_client": "Mettre à jour le client",
+      "Employee_management": "Gestion des employées",
+      "update_Employees": "Mettre à jour le employée",
+      "create_new_Employees": "Créer un nouveau employée",
       "search_placeholder": "Rechercher...",
       "headers": {
         "name": "Nom",

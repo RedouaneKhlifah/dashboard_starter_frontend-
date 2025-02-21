@@ -1,7 +1,7 @@
-import { IClientForm } from "./clientForm";
+import { IEmployeesForm } from "./EmployeesForm";
 
-interface IUpdateClient extends IClientForm {
+interface IUpdateEmployees extends IEmployeesForm {
   id: number;
 }
 
-export type { IUpdateClient };
+export type { IUpdateEmployees };

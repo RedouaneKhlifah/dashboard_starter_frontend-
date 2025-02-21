@@ -72,9 +72,8 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   useEffect(() => {
     const debouncedSearch = debounce(async (query: string) => {
       try {
-        const url = `${
-          process.env.NEXT_PUBLIC_API_BASE_PATH
-        }/api/products?search=${encodeURIComponent(query)}&page=1`;
+        const url = `${process.env.NEXT_PUBLIC_API_BASE_PATH
+          }/api/products?search=${encodeURIComponent(query)}&page=1`;
         const response = await http(url);
 
         if (!response.ok)
@@ -214,9 +213,10 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             },
           ]}
           rows={displayedProducts}
-          className="mt-4"
+          className="mt-4 max-h-60"
+          classHead="z-10"
           totalRows={0}
-          setCurrentPage={() => {}}
+          setCurrentPage={() => { }}
           currentPage={0}
           isLoading={loading}
         />

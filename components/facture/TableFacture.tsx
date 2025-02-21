@@ -18,7 +18,7 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IFacture } from "@/interfaces/IFacture";
-import { IClient } from "@/interfaces/IClient";
+import { IClient } from "@/interfaces/IEmployee";
 
 interface TableFactureProps {
   records: IFacture[];
