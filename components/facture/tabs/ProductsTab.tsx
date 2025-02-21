@@ -179,9 +179,10 @@ const ProductsTab = ({
           },
         ]}
         rows={formData.products || []}
-        className="mt-4"
+        className="mt-4 max-h-60"
+        classHead="z-10"
         totalRows={0}
-        setCurrentPage={() => {}}
+        setCurrentPage={() => { }}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
