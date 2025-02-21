@@ -25,7 +25,7 @@ import { DictionaryType } from "@/lib/i18n";
 
 interface SidebarProps {
   translation: DictionaryType;
-  lang: Locale;
+  lang: Locale; 
 }
 
 const Sidebar = ({ lang, translation }: SidebarProps) => {
