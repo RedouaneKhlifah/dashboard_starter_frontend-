@@ -25,6 +25,8 @@ import { Locale } from "@/i18n-config";
 import { IEmployees } from "@/interfaces/IEmployee";
 import EmployeesMappers, { UserRow } from "@/mappers/EmployeesMapper";
 import http from "@/lib/http";
+import PrintableEmployee from "./printable/PrintableEmployee";
+import { useReactToPrint } from "react-to-print";
 
 interface EmployeesTableProps {
   records: IEmployees[];
@@ -59,7 +61,8 @@ export function EmployeesTable({
   const { error: toastError, success: toastSuccess } = useToast();
   // Memoized values
   const userRows = useMemo(() => rowMapper(Employeess), [rowMapper, Employeess]);
-
+  const [selectedEmployeeForPrint, setSelectedEmployeeForPrint] = useState<IEmployees | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   // Refs
   const didMountRef = useRef(false);
 
@@ -126,6 +129,24 @@ export function EmployeesTable({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: `Bulletin de Paie${selectedEmployeeForPrint?.id || "document"}`,
+    onAfterPrint: () => setSelectedEmployeeForPrint(null),
+  });
+
+  useEffect(() => {
+    if (selectedEmployeeForPrint) handlePrint();
+  }, [selectedEmployeeForPrint, handlePrint]);
+
+  const handlePrintRequest = useCallback(
+    (employeeId: number) => {
+      const employeesToPrint = Employeess.find((d) => d.id === employeeId);
+      if (employeesToPrint) setSelectedEmployeeForPrint(employeesToPrint);
+    },
+    [Employeess]
+  );
+
   // Memoized headers to prevent re-renders
   const tableHeaders = useMemo(
     () => [
@@ -142,6 +163,7 @@ export function EmployeesTable({
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
+            onPrint={handlePrintRequest}
             editText={users_table.actions.edit}
             deleteText={users_table.actions.delete}
           />
@@ -191,6 +213,15 @@ export function EmployeesTable({
 
       {/* Create Employees Form */}
       <CreateEmployeesForm lang={lang} translation={translation} />
+
+      <div style={{ display: "none" }}>
+        <PrintableEmployee
+          ref={contentRef}
+          employee={selectedEmployeeForPrint}
+          translation={translation}
+          lang={lang}
+        />
+      </div>
     </>
   );
 }
