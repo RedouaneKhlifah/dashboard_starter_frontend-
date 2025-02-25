@@ -16,16 +16,16 @@ import {
   Weight,
   ClipboardList,
   Handshake,
-  Factory
+  Factory,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
-import Logo from "@/public/le_menu_svg_logo.svg";
+import Logo from "@/public/logo_Zroudi.svg";
 import Image from "next/image";
 import { DictionaryType } from "@/lib/i18n";
 
 interface SidebarProps {
   translation: DictionaryType;
-  lang: Locale; 
+  lang: Locale;
 }
 
 const Sidebar = ({ lang, translation }: SidebarProps) => {
@@ -50,11 +50,6 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             href: "/tickets",
             icon: <ClipboardList className="w-4 h-4" />,
           },
-          {
-            name: translation.sidebar.dashboard.items.factures,
-            href: "/factures",
-            icon: <Factory className="w-4 h-4" />,
-          },
         ],
       },
       {
@@ -62,14 +57,19 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
         icon: <Weight className="w-5 h-5" />,
         items: [
           {
-            name: translation.sidebar.dashboard.items.partners,
-            href: "/partenaire",
-            icon: <Handshake className="w-4 h-4" />,
+            name: translation.sidebar.dashboard.items.clients,
+            href: "/clients",
+            icon: <Users className="w-4 h-4" />,
           },
           {
             name: translation.sidebar.dashboard.items.orders,
             href: "/orders",
             icon: <Package className="w-4 h-4" />,
+          },
+          {
+            name: translation.sidebar.dashboard.items.factures,
+            href: "/factures",
+            icon: <Factory className="w-4 h-4" />,
           },
         ],
       },
@@ -81,25 +81,30 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             name: translation.sidebar.dashboard.items.employees,
             href: "/employees",
             icon: <Users className="w-4 h-4" />,
-          }
-        ],
-      },
-      {
-        name: translation.sidebar.dashboard.sections.administration,
-        icon: <Settings className="w-5 h-5" />,
-        items: [
-          {
-            name: translation.sidebar.dashboard.items.members,
-            href: "/members",
-            icon: <Users className="w-4 h-4" />,
           },
           {
-            name: translation.sidebar.dashboard.items.settings,
-            href: "/settings",
-            icon: <Settings className="w-4 h-4" />,
+            name: translation.sidebar.dashboard.items.partners,
+            href: "/partenaire",
+            icon: <Handshake className="w-4 h-4" />,
           },
         ],
       },
+      // {
+      //   name: translation.sidebar.dashboard.sections.administration,
+      //   icon: <Settings className="w-5 h-5" />,
+      //   items: [
+      //     {
+      //       name: translation.sidebar.dashboard.items.members,
+      //       href: "/members",
+      //       icon: <Users className="w-4 h-4" />,
+      //     },
+      //     {
+      //       name: translation.sidebar.dashboard.items.settings,
+      //       href: "/settings",
+      //       icon: <Settings className="w-4 h-4" />,
+      //     },
+      //   ],
+      // },
     ],
     [translation]
   );
@@ -136,7 +141,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
     >
       <div className={`${isOpen ? "px-2 py-3" : "p-0"}`}>
         <div
-          className={`flex mb-6 ${
+          className={`flex mb-4 ${
             isOpen ? "flex-row justify-between" : "flex-col items-center"
           }`}
         >
@@ -144,19 +149,10 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             <div className="flex items-center gap-2">
               <div
                 className={`transition-transform duration-200 ease-in-out ${
-                  isOpen ? "scale-100" : "scale-90"
+                  isOpen ? "scale-100 ml-5" : "scale-90"
                 }`}
               >
-                <Image src={Logo} alt="" width={30} />
-              </div>
-              <div
-                className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                  isOpen ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
-                }`}
-              >
-                <p className="font-semibold text-2xl tracking-tight text-primary leading-none whitespace-nowrap">
-                  {translation.nav.logo}
-                </p>
+                <Image src={Logo} alt="" width={100} />
               </div>
             </div>
           </Link>

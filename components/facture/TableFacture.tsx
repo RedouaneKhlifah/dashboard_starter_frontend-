@@ -18,7 +18,7 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IFacture } from "@/interfaces/IFacture";
-import { IClient } from "@/interfaces/IEmployee";
+import { IEmployees } from "@/interfaces/IEmployee";
 
 interface TableFactureProps {
   records: IFacture[];
@@ -143,7 +143,7 @@ export function TableFacture({
         key: "client_name" as keyof IFacture,
         label: factures_table.headers.client_name,
         renderCell: (_: any, row: IFacture) =>
-          (row.client as IClient)?.full_name,
+          (row.client as IEmployees)?.full_name,
       },
       {
         key: "due_date" as keyof IFacture,

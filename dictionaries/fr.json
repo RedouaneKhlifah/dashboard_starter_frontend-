@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "Saveurs du Maroc avec Le-Menu.ma",
@@ -379,7 +379,7 @@
         "payroll_management": "Gestion de la paie"
       },
       "items": {
-        "products": "Produits simples",
+        "products": "Produits",
         "bundles": "Pactes",
         "tickets": "Tickets",
         "factures": "Factures",

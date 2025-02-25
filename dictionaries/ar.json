@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "نكهات المغرب مع Le-Menu.ma",
@@ -384,7 +384,7 @@
         "inventory": "المخزون",
         "administration": "الإدارة",
         "sales": "المبيعات",
-          "payroll_management": "إدارة الرواتب"
+        "payroll_management": "إدارة الرواتب"
       },
       "items": {
         "products": "منتجات فردية",

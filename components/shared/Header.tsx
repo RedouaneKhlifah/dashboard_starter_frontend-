@@ -61,7 +61,7 @@ const Header = <T,>({
         {showButton && (
           <Button
             onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
             {buttonText}
           </Button>
