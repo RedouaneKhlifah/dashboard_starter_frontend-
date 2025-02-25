@@ -18,9 +18,11 @@ interface HeaderProps<T = unknown> {
   title: string;
   searchPlaceholder?: string;
   buttonText?: string;
+  execlButtonText?: string;
   showSearch?: boolean;
   setSearchQuery?: Dispatch<SetStateAction<string>>;
   showButton?: boolean;
+  execlButton?: boolean;
   className?: string;
   children?: React.ReactNode;
   translation?: DictionaryType;
@@ -32,9 +34,11 @@ const Header = <T,>({
   title,
   searchPlaceholder = "Search...",
   buttonText = "Add New",
+  execlButtonText = "Export",
   showSearch = false,
   setSearchQuery,
   showButton = true,
+  execlButton = false,
   className = "",
   translation,
   lang,
@@ -46,8 +50,7 @@ const Header = <T,>({
       <h2 className="text-2xl text-foreground font-bold">{title}</h2>
       <div
         className={cn(
-          `flex items-center gap-4 ${
-            showSearch ? "justify-between" : "justify-end"
+          `flex items-center gap-4 ${showSearch ? "justify-between" : "justify-end"
           }`
         )}
       >
@@ -58,14 +61,24 @@ const Header = <T,>({
             className="w-full"
           />
         )}
-        {showButton && (
-          <Button
-            onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap"
-          >
-            {buttonText}
-          </Button>
-        )}
+        <div className={`${execlButton ? "flex gap-2" : ""}`}>
+          {execlButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.UPLOAD)}
+              className="whitespace-nowrap bg-[#28774b] hover:bg-[#1f5f3d] text-white"
+            >
+              {execlButtonText}
+            </Button>
+          )}
+          {showButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.CREATE)}
+              className="whitespace-nowrap"
+            >
+              {buttonText}
+            </Button>
+          )}
+        </div>
       </div>
       {translation && lang && (
         <CreateClientForm lang={lang} translation={translation} />

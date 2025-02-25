@@ -25,6 +25,7 @@ import { Locale } from "@/i18n-config";
 import { IEmployees } from "@/interfaces/IEmployee";
 import EmployeesMappers, { UserRow } from "@/mappers/EmployeesMapper";
 import http from "@/lib/http";
+import { UploadEmployee } from "./UploadEmployee";
 
 interface EmployeesTableProps {
   records: IEmployees[];
@@ -157,6 +158,8 @@ export function EmployeesTable({
         title={users_table.Employee_management}
         searchPlaceholder={users_table.search_placeholder}
         buttonText={users_table.create_new_Employees}
+        execlButtonText={users_table.upload_execl}
+        execlButton={true}
         showSearch={true}
         setSearchQuery={setSearchQuery}
       />
@@ -191,6 +194,11 @@ export function EmployeesTable({
 
       {/* Create Employees Form */}
       <CreateEmployeesForm lang={lang} translation={translation} />
+
+      <UploadEmployee
+        translation={translation}
+        lang={lang}
+      />
     </>
   );
 }
