@@ -33,11 +33,15 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({ translation, lang }
     () => ({
       first_name: "",
       last_name: "",
-      email: "",
-      phone: "",
       address: "",
-      country: "",
+      national_id: "",
+      monthly_salary: 0,
+      price_per_hour: 0,
+      price_per_day: 0,
       city: "",
+      date_of_engagement: "",
+      employee_id: "",
+
     }),
     []
   );
@@ -63,11 +67,6 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({ translation, lang }
         const error = await response.json();
         toastError(error.message || translation.employee.message.error);
 
-        if (error?.errors?.email) {
-          setErrors({ email: error.message });
-          toastError(error?.errors?.emai || translation.auth.error);
-
-        }
         return false;
       }
     } catch (error) {

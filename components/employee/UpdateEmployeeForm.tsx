@@ -15,12 +15,12 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IEmployeesForm } from "@/dto/employee/employeeForm";
-import { IEmployees } from "@/interfaces/IEmployee";
+import { IEmployee } from "@/interfaces/IEmployee";
 
 interface EmployeesFormProps {
   translation: DictionaryType;
   lang: Locale;
-  selectedRecord?: IEmployees;
+  selectedRecord?: IEmployee;
 }
 
 const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
@@ -40,11 +40,14 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
       selectedRecord || {
         first_name: "",
         last_name: "",
-        email: "",
-        phone: "",
         address: "",
-        country: "",
+        national_id: "",
+        monthly_salary: 0,
+        price_per_hour: 0,
+        price_per_day: 0,
         city: "",
+        date_of_engagement: "",
+        employee_id: ""
       },
     [selectedRecord]
   );
@@ -53,7 +56,7 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
   const handleSubmit = async (data: IEmployeesForm): Promise<boolean> => {
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/Employeess/${selectedRecord?.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/${selectedRecord?.id}`,
         {
           method: "PATCH",
           lang,

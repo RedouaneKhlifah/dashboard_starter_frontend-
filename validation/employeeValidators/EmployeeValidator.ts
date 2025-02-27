@@ -16,24 +16,31 @@ export const validateEmployeesForm = (
   translation: DictionaryType
 ): Partial<IEmployeesForm> => {
   const {
-    emailSchema,
+    monthlySalarySchema,
     firstNameSchema,
     lastNameSchema,
     citySchema,
-    countrySchema,
+    dateEngagementSchema,
+    pricePerDaySchema,
+    pricePerHourSchema,
     addressSchema,
-    phoneSchema,
+    nationalSchema,
+    employee_idSchema
   } = createEmployeesSchemas(translation);
 
   const newErrors: Partial<IEmployeesForm> = {};
 
   newErrors.first_name = validateField(firstNameSchema, formData.first_name);
   newErrors.last_name = validateField(lastNameSchema, formData.last_name);
-  newErrors.email = validateField(emailSchema, formData.email);
-  newErrors.phone = validateField(phoneSchema, formData.phone.toString());
+  newErrors.employee_id = validateField(employee_idSchema, formData.employee_id);
   newErrors.address = validateField(addressSchema, formData.address);
-  newErrors.country = validateField(countrySchema, formData.country);
+  newErrors.national_id = validateField(nationalSchema, formData.national_id);
+  newErrors.monthly_salary = validateField(monthlySalarySchema, formData.monthly_salary);
   newErrors.city = validateField(citySchema, formData.city);
+  newErrors.date_of_engagement = validateField(dateEngagementSchema, formData.date_of_engagement);
+  newErrors.price_per_day = validateField(pricePerDaySchema, formData.price_per_day);
+  newErrors.price_per_hour = validateField(pricePerHourSchema, formData.price_per_hour);
+
 
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)

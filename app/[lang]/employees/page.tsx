@@ -8,7 +8,7 @@ import DashboardLayout from "@/components/layout/dashboard-layout";
 import { EmployeesTable } from "@/components/employee/EmployeeTablet";
 
 // Types
-import { IEmployees } from "@/interfaces/IEmployee";
+import { IEmployee } from "@/interfaces/IEmployee";
 
 // Props Interface
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 // Fetch Employeess Function
 const fetchEmployeess = async (lang: Locale) => {
   return await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees`,
     {
       method: "GET",
       lang: lang,
@@ -31,7 +31,7 @@ const fetchEmployeess = async (lang: Locale) => {
 // UsersPage Component
 export default async function UsersPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
-  let records: IEmployees[] = [];
+  let records: IEmployee[] = [];
   let totalRecords: number = 0;
 
   const res = await fetchEmployeess(params.lang);

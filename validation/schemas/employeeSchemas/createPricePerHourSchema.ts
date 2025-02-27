@@ -6,7 +6,7 @@ import { z } from "zod";
  * @param t - The dictionary containing localized strings.
  * @returns A Zod schema for phone number validation.
  */
-export function createPhoneSchema(t: DictionaryType): z.ZodNumber {
+export function createPricePerHourSchema(t: DictionaryType): z.ZodNumber {
   const { employee } = t;
-  return z.number().min(1, { message: employee.phoneRequired });
+  return z.number().min(1, { message: employee.PricePerHourRequired });
 }

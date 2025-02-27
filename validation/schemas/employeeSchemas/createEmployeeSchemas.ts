@@ -1,11 +1,14 @@
 import { DictionaryType } from "@/lib/i18n";
-import { createCountrySchema } from "./createCountrySchema"
+import { createNationalSchema } from "./createNationalSchema"
 import { createCitySchema } from "./createCitySchema";
-import { createPhoneSchema } from "./createPhoneSchema"
+import { createPricePerHourSchema } from "./createPricePerHourSchema"
+import { createPricePerDaySchema } from "./createPricePerDaySchema"
 import { createAddressSchema } from "./createAddressSchema"
 import { createFirstNameSchema } from "./createFirstNameSchema"
 import { createLastNameSchema } from "./createLastNameSchema"
-import  createEmailSchema  from "./createEmailSchema"
+import { createDateEngagementSchema } from "./createDateEngagementSchema"
+import  createMonthlySalarySchema  from "./createMonthlySalarySchema"
+import { createemployee_idSchema } from "./createEmployeeIdSchema";
 
 
 
@@ -20,10 +23,14 @@ export const createEmployeesSchemas = (t: DictionaryType) => {
     return {
         firstNameSchema: createFirstNameSchema(t),
         lastNameSchema: createLastNameSchema(t),
-        phoneSchema: createPhoneSchema(t),
+        monthlySalarySchema: createMonthlySalarySchema(t),
         addressSchema: createAddressSchema(t),
-        countrySchema: createCountrySchema(t),
+        nationalSchema: createNationalSchema(t),
         citySchema: createCitySchema(t),
-        emailSchema: createEmailSchema(t),
+        pricePerHourSchema: createPricePerHourSchema(t),
+        pricePerDaySchema: createPricePerDaySchema(t),
+        dateEngagementSchema: createDateEngagementSchema(t),
+        employee_idSchema: createemployee_idSchema(t)
+      
     };
 };

@@ -131,12 +131,13 @@
     "firstNameTooLong": "Le prénom doit contenir moins de 50 caractères",
     "lastNameRequired": "Le nom de famille est requis",
     "lastNameTooLong": "Le nom de famille doit contenir moins de 50 caractères",
-    "emailRequired": "L'email est requis",
-    "invalidEmail": "Format d'email invalide",
-    "phoneRequired": "Le numéro de téléphone est requis",
-    "invalidPhone": "Format de numéro de téléphone invalide",
+    "MonthlySalaryRequired": "Le salaire mensuel est requis",
+    "PricePerHourRequired": "Le prix par heure est requis",
+    "PricePerDayRequired": "Le prix par jour est requis",
+    "DateEngagementRequired": "La date d'engagement est requise",
     "addressRequired": "L'adresse est requise",
-    "countryRequired": "Le pays est requis",
+    "NationalRequired": "Le CIN est requis",
+    "employee_idRequired": "Le Emplois ID est requis",
     "cityRequired": "La ville est requise",
     "form": {
       "first_name": "Prénom",
@@ -145,7 +146,13 @@
       "phone": "Numéro de téléphone",
       "address": "Adresse",
       "country": "Pays",
-      "city": "Ville"
+      "city": "Ville",
+      "employee_id": "Emplois ID",
+      "national_id": "CIN",
+      "date_of_engagement": "Date d’engagement",
+      "monthly_salary": "Salaire mensuel",
+      "price_per_hour": "Prix / Heure",
+      "price_per_day": "Prix / Jour"
     },
     "common": {
       "create": "Créer",
@@ -156,6 +163,7 @@
     },
     "message": {
       "success": "Employée créé avec succès",
+      "update_success": "Employée mis à jour avec succès",
       "update_success": "Employée updated successfully",
       "upload_success": "Les employés ont été téléchargés avec succès",
       "upload_error": "Erreur lors du téléchargement des employés",
@@ -487,7 +495,14 @@
         "phone": "Téléphone",
         "city": "Ville",
         "country": "Pays",
-        "actions": "Actions"
+        "actions": "Actions",
+        "id": "ID Employé",
+        "full_name": "Nom Complet",
+        "national_id": "CIN",
+        "date_of_engagement": "Date d'engagement",
+        "monthly_salary": "Salaire mensuel",
+        "price_per_hour": "Prix/Heure",
+        "price_per_day": "Prix/Jour"
       },
       "actions": {
         "edit": "Modifier",

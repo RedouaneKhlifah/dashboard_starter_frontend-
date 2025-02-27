@@ -1,9 +1,12 @@
 export interface IEmployeesForm {
+  employee_id: string;
   first_name: string;
   last_name: string;
-  email: string;
-  phone: string;
+  national_id: string;
   address: string;
-  country: string;
   city: string;
+  date_of_engagement: string;
+  monthly_salary: number;
+  price_per_hour: number;
+  price_per_day: number;
 }

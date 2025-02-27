@@ -15,6 +15,7 @@ import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
 import { EmployeesValidation } from "@/validation";
 import { DictionaryType } from "@/lib/i18n";
 import { IEmployeesForm } from "@/dto/employee/employeeForm";
+import { Calendar, ScanEye } from "lucide-react";
 
 interface EmployeesFormProps {
   initialFormData: IEmployeesForm;
@@ -91,9 +92,11 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           : translation.employee.common.update
       }
       cancelButtonText={translation.employee.common.cancel}
+      contentClassName="2xl:min-w-[50%]"
       onSubmit={handleSubmit}
     >
       <div className="space-y-4">
+
         {/* First & Last Name */}
         <div className="flex gap-4">
           <InputField
@@ -114,27 +117,30 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           />
         </div>
 
-        {/* Email */}
-        <InputField
-          id="email"
-          label={translation.employee.form.email}
-          value={formData.email}
-          onChange={(e) => handleChange(e, setFormData, setErrors)}
-          error={errors.email}
-          required
-        />
 
-        {/* Phone */}
-        <InputField
-          id="phone"
-          label={translation.employee.form.phone}
-          value={formData.phone}
-          onChange={(e) => handleChange(e, setFormData, setErrors)}
-          error={errors.phone}
-          required
-        />
+        <div className="grid grid-cols-2 gap-4">
+          {/* national_id */}
+          <InputField
+            id="national_id"
+            label={translation.employee.form.national_id}
+            value={formData.national_id}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            // icon={<ScanEye size={18} />}
+            error={errors.national_id}
+            placeholder="XX-XXX-XX"
+            required
+          />
 
-        {/* Address */}
+          <InputField
+            id="employee_id"
+            label={translation.employee.form.employee_id}
+            value={formData.employee_id}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.employee_id}
+            required
+          />
+        </div>
+        {/* adress */}
         <InputField
           id="address"
           label={translation.employee.form.address}
@@ -144,16 +150,7 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           required
         />
 
-        {/* Country & City */}
-        <div className="flex gap-4">
-          <InputField
-            id="country"
-            label={translation.employee.form.country}
-            value={formData.country}
-            onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.country}
-            required
-          />
+        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="city"
             label={translation.employee.form.city}
@@ -161,6 +158,48 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             onChange={(e) => handleChange(e, setFormData, setErrors)}
             error={errors.city}
             required
+          />
+          <InputField
+            id="date_of_engagement"
+            type="date"
+            label={translation.employee.form.date_of_engagement}
+            value={formData.date_of_engagement}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            // icon={<Calendar size={18} />}
+            error={errors.date_of_engagement}
+            required
+          />
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+        <InputField
+            id="monthly_salary"
+            type="number"
+            label={translation.employee.form.monthly_salary}
+            value={formData.monthly_salary}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.monthly_salary}
+            required
+            suffix={translation.shared.currency}
+          />
+          <InputField
+            id="price_per_hour"
+            type="number"
+            label={translation.employee.form.price_per_hour}
+            value={formData.price_per_hour}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.price_per_hour}
+            required
+            suffix={translation.shared.currency}
+          />
+          <InputField
+            id="price_per_day"
+            type="number"
+            label={translation.employee.form.price_per_day}
+            value={formData.price_per_day}
+            onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.price_per_day}
+            required
+            suffix={translation.shared.currency}
           />
         </div>
       </div>

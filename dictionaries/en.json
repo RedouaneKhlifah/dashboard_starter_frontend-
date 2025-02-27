@@ -131,12 +131,13 @@
     "firstNameTooLong": "First name must be less than 50 characters",
     "lastNameRequired": "Last name is required",
     "lastNameTooLong": "Last name must be less than 50 characters",
-    "emailRequired": "Email is required",
-    "invalidEmail": "Invalid email format",
-    "phoneRequired": "Phone number is required",
-    "invalidPhone": "Invalid phone number format",
+    "MonthlySalaryRequired": "Monthly Salary is required",
+    "DateEngagementRequired": "Date Engagement is required",
     "addressRequired": "Address is required",
-    "countryRequired": "Country is required",
+    "NationalRequired": "Country is required",
+    "PricePerDayRequired": "Price Per Day is required",
+    "PricePerHourRequired": "Price Per Hour is required",
+    "employee_idRequired": "Jobs ID is required",
     "cityRequired": "City is required",
     "form": {
       "first_name": "First Name",
@@ -145,7 +146,13 @@
       "phone": "Phone Number",
       "address": "Address",
       "country": "Country",
-      "city": "City"
+      "city": "City",
+      "employee_id": "Emplois ID",
+      "national_id": "CIN",
+      "date_of_engagement": "Date of Engagement",
+      "monthly_salary": "Monthly Salary",
+      "price_per_hour": "Price / Hour",
+      "price_per_day": "Price / Day"
     },
     "common": {
       "create": "Create",
@@ -496,7 +503,14 @@
         "phone": "Phone",
         "city": "City",
         "country": "Country",
-        "actions": "Actions"
+        "actions": "Actions",
+        "id": "Employee ID",
+        "full_name": "Full Name",
+        "national_id": "CIN",
+        "date_of_engagement": "Engagement Date",
+        "monthly_salary": "Monthly Salary",
+        "price_per_hour": "Price/Hour",
+        "price_per_day": "Price/Day"
       },
       "actions": {
         "edit": "Edit",
