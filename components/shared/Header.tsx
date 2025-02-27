@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 // Props Interface
 interface HeaderProps<T = unknown> {
-  title: string;
+  title?: string;
   searchPlaceholder?: string;
   buttonText?: string;
   showSearch?: boolean;
@@ -43,7 +43,7 @@ const Header = <T,>({
 
   return (
     <div className={`flex flex-col gap-4 mb-4 ${className}`}>
-      <h2 className="text-2xl text-foreground font-bold">{title}</h2>
+      {title && <h2 className="text-2xl text-foreground font-bold">{title}</h2>}
       <div
         className={cn(
           `flex items-center gap-4 ${
@@ -61,7 +61,7 @@ const Header = <T,>({
         {showButton && (
           <Button
             onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
             {buttonText}
           </Button>
