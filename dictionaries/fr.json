@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "Saveurs du Maroc avec Le-Menu.ma",
@@ -158,11 +158,15 @@
       "create": "Créer",
       "cancel": "Annuler",
       "update": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "upload": "Télécharger"
     },
     "message": {
       "success": "Employée créé avec succès",
       "update_success": "Employée mis à jour avec succès",
+      "update_success": "Employée updated successfully",
+      "upload_success": "Les employés ont été téléchargés avec succès",
+      "upload_error": "Erreur lors du téléchargement des employés",
       "delete_success": "Employée supprimé avec succès",
       "error": "Erreur lors de la création du employée"
     }
@@ -227,6 +231,57 @@
       "delete_success": "Produit supprimé avec succès",
       "error": "Erreur lors de la création du produit"
     }
+  },
+  "payslip": {
+    "employer": "EMPLOYEUR",
+    "PayslipName":"Bulletin de Paie",
+    "company_name": "MUTIPLAST 2023",
+    "company_activity": "MATIERES THERMOPLASTIQUES",
+    "company_address": "65. Q.I SIDI GHANEM JNANATE",
+    "postal_code": "B-P 12624",
+    "city": "MARRAKECH",
+    "registration_number": "N° d'affiliation CNSS",
+    "employee_address": "DR LAHRACH N°5",
+    "employee_city": "Marrakech",
+    "employee_id": "N°CNSS",
+    "registration_num": "Matricule",
+    "hire_date": "D.Entrée",
+    "birth_date": "D.Naissa",
+    "id_number": "C.I.N",
+    "gender": "S.F N.En",
+    "children": "N.Déd",
+    "qualification": "Qualification",
+    "department": "Service",
+    "period": "Période",
+    "january": "Janvier",
+    "base_salary": "Salaire de Base",
+    "pay_frequency": "Quinzai",
+    "biweekly": "Quinzai",
+    "pay_period": "Période Paie",
+    "category": "RUBRIQUE",
+    "amount": "Amount",
+    "base": "Base/Nombre",
+    "rate": "TAUX",
+    "earnings": "GAIN",
+    "deductions": "RETENUE",
+    "rubric": "RUBRIQUE",
+    "base_units": "Base/Nombre",
+    "vacation_days": "Jours Fériés",
+    "normal_hours": "Heures Taux Normal (10,89 jours)",
+    "seniority": "Ancienneté",
+    "gross_salary": "Salaire Brut",
+    "taxable_income": "Revenu Brut Imposable",
+    "social_security": "C.N.S.S",
+    "health_insurance": "Assurance AMO",
+    "income_tax": "I.R",
+    "payment": "TRAITE",
+    "total": "TOTAL",
+    "total_deductions": "Total Déductible",
+    "net_salary": "Salaire Net",
+    "net_to_pay": "Net à Payer",
+    "paid_by": "PAYE PAR",
+    "bank_transfer": "Virement",
+    "signature": "Signature"
   },
   "Ticket": {
     "matricule_create": "Créer nouveau matricule",
@@ -357,6 +412,30 @@
       "Total_Amount": "Montant total"
     }
   },
+  "transaction": {
+    "balance": "Solde",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Créer une nouvelle transaction",
+    "form": {
+      "reason": "Raison",
+      "amount": "Montant",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "La raison est obligatoire",
+        "amount_required": "Le montant est obligatoire",
+        "amount_invalid": "Montant invalide, il doit être au moins 1",
+        "type_required": "Le type est obligatoire"
+      }
+    },
+    "message": {
+      "success": "Transaction créée avec succès",
+      "update_success": "Transaction mise à jour avec succès",
+      "delete_success": "Transaction supprimée avec succès",
+      "error": "Erreur lors de la création de la transaction"
+    }
+  },
   "common": {
     "errors": {
       "fetch_error": "Erreur de récupération des données",
@@ -386,7 +465,7 @@
         "payroll_management": "Gestion de la paie"
       },
       "items": {
-        "products": "Produits simples",
+        "products": "Produits",
         "bundles": "Pactes",
         "tickets": "Tickets",
         "factures": "Factures",
@@ -401,6 +480,10 @@
     "users_table": {
       "customer_management": "Gestion des clients",
       "create_new_client": "Créer un nouveau client",
+      "upload_execl": "Télécharger employée (Excel)",
+      "upload_instructions": "Glissez et déposez le fichier ici ou cliquez pour le télécharger",
+      "supported_formats": "Formats pris en charge : .xlsx, .xls",
+      "upload_complete": "Terminé",
       "update_client": "Mettre à jour le client",
       "Employee_management": "Gestion des employées",
       "update_Employees": "Mettre à jour le employée",
@@ -584,6 +667,44 @@
       "no_data": {
         "message": "Aucun Produit Trouvé",
         "sub_text": "Aucun enregistrement produit ne correspond à vos critères"
+      }
+    },
+    "transactions_table": {
+      "live_cash_register": "Caisse en ligne",
+      "transaction_management": "Gestion des transactions",
+      "create_new_transaction": "Créer une nouvelle transaction",
+      "update_transaction": "Mettre à jour la transaction",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "reason": "Raison",
+        "amount": "Montant",
+        "type": "Type",
+        "note": "Remarque",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucune transaction trouvée",
+        "sub_text": "Aucun enregistrement de transaction ne correspond à vos critères"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirmation de suppression",
+        "title": "Êtes-vous sûr de vouloir supprimer ?",
+        "warning": "Cette action est irréversible."
+      },
+      "add_transaction": {
+        "title": "Ajouter une transaction",
+        "amount": "Montant",
+        "type": "Type de transaction",
+        "reason": "Raison",
+        "note": "Remarque"
+      },
+      "transaction_types": {
+        "credit": "Crédit",
+        "debit": "Débit"
       }
     },
     "file_upload": {

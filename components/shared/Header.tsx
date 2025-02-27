@@ -15,12 +15,14 @@ import { cn } from "@/lib/utils";
 
 // Props Interface
 interface HeaderProps<T = unknown> {
-  title: string;
+  title?: string;
   searchPlaceholder?: string;
   buttonText?: string;
+  execlButtonText?: string;
   showSearch?: boolean;
   setSearchQuery?: Dispatch<SetStateAction<string>>;
   showButton?: boolean;
+  execlButton?: boolean;
   className?: string;
   children?: React.ReactNode;
   translation?: DictionaryType;
@@ -32,9 +34,11 @@ const Header = <T,>({
   title,
   searchPlaceholder = "Search...",
   buttonText = "Add New",
+  execlButtonText = "Export",
   showSearch = false,
   setSearchQuery,
   showButton = true,
+  execlButton = false,
   className = "",
   translation,
   lang,
@@ -43,11 +47,10 @@ const Header = <T,>({
 
   return (
     <div className={`flex flex-col gap-4 mb-4 ${className}`}>
-      <h2 className="text-2xl text-foreground font-bold">{title}</h2>
+      {title && <h2 className="text-2xl text-foreground font-bold">{title}</h2>}
       <div
         className={cn(
-          `flex items-center gap-4 ${
-            showSearch ? "justify-between" : "justify-end"
+          `flex items-center gap-4 ${showSearch ? "justify-between" : "justify-end"
           }`
         )}
       >
@@ -58,10 +61,28 @@ const Header = <T,>({
             className="w-full"
           />
         )}
+        <div className={`${execlButton ? "flex gap-2" : ""}`}>
+          {execlButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.UPLOAD)}
+              className="whitespace-nowrap bg-[#28774b] hover:bg-[#1f5f3d] text-white"
+            >
+              {execlButtonText}
+            </Button>
+          )}
+          {showButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.CREATE)}
+              className="whitespace-nowrap"
+            >
+              {buttonText}
+            </Button>
+          )}
+        </div>
         {showButton && (
           <Button
             onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap"
+            className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
             {buttonText}
           </Button>

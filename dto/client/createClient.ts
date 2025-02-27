@@ -1,5 +1,5 @@
-import { IEmployeesForm } from "./EmployeesForm";
+import { IClientForm } from "./clientForm";
 
-interface ICreateEmployees extends IEmployeesForm {}
+interface ICreateClient extends IClientForm {}
 
-export type { ICreateEmployees };
+export type { ICreateClient };

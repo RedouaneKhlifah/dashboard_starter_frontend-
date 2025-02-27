@@ -20,6 +20,7 @@ import {
   ChevronRight,
   MoreHorizontal,
   PackageSearch,
+  FileClock,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -95,7 +96,9 @@ export const GlobalTable = <T extends { id: string | number }>({
         onPointerLeaveCapture={undefined}
       >
         <table className="w-full min-w-max table-auto text-left">
-          <thead className={`sticky top-0 bg-blue-gray-50 border-b border-gray-300 ${classHead}`}>
+          <thead
+            className={`sticky top-0 bg-blue-gray-50 border-b border-gray-300 ${classHead}`}
+          >
             <tr>
               {headers.map((header) => (
                 <th

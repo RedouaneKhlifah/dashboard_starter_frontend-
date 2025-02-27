@@ -7,6 +7,8 @@ export enum ModalTypeEnum {
   CREATE = "create",
   UPDATE = "update",
   DELETE = "delete",
+  UPLOAD = "upload",
+  History = "history",
 }
 
 // Modal store state interface

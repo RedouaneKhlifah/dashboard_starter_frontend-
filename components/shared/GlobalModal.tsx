@@ -106,7 +106,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
               onPointerEnterCapture={undefined}
               onPointerLeaveCapture={undefined}
               type="submit"
-              className="bg-primary text-black"
+              className="bg-primary text-white hover:bg-primary/90 transition-colors"
               disabled={isLoading}
             >
               {isLoading ? (
