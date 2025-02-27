@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "Moroccan Flavors with Le-Menu.ma",
@@ -182,6 +182,57 @@
       "error": "An error occurred while creating the Client"
     }
   },
+  "payslip": {
+    "employer": "EMPLOYER",
+    "PayslipName": "Payslip",
+    "company_name": "MUTIPLAST 2023",
+    "company_activity": "THERMAL PLASTICS MATERIALS",
+    "company_address": "65. Q.I SIDI GHANEM JNANATE",
+    "postal_code": "B-P 12624",
+    "city": "MARRAKECH",
+    "registration_number": "Registration number CNSS",
+    "employee_address": "DR LAHRACH N°5",
+    "employee_city": "Marrakech",
+    "employee_id": "CNSS Number",
+    "registration_num": "Registration",
+    "hire_date": "Hire Date",
+    "birth_date": "Birth Date",
+    "id_number": "ID Number",
+    "gender": "Gender",
+    "children": "Children",
+    "qualification": "Qualification",
+    "department": "Department",
+    "period": "Period",
+    "january": "January",
+    "base_salary": "Base Salary",
+    "pay_frequency": "Frequency",
+    "biweekly": "Biweekly",
+    "pay_period": "Pay Period",
+    "category": "Category",
+    "amount": "Amount",
+    "base": "Base",
+    "rate": "Rate",
+    "earnings": "Earnings",
+    "deductions": "Deductions",
+    "rubric": "RUBRIC",
+    "base_units": "Base/Units",
+    "vacation_days": "Vacation Days",
+    "normal_hours": "Normal Hours (10.89 days)",
+    "seniority": "Seniority",
+    "gross_salary": "Gross Salary",
+    "taxable_income": "Taxable Income",
+    "social_security": "Social Security",
+    "health_insurance": "Health Insurance",
+    "income_tax": "Income Tax",
+    "payment": "Payment",
+    "total": "TOTAL",
+    "total_deductions": "Total Deductions",
+    "net_salary": "Net Salary",
+    "net_to_pay": "Net to Pay",
+    "paid_by": "PAID BY",
+    "bank_transfer": "Bank Transfer",
+    "signature": "Signature"
+  },
   "Product": {
     "product": "Product",
     "products": "Products",
@@ -360,6 +411,30 @@
       },
       "Total_Items": "Total Items",
       "Total_Amount": "Total Amount"
+    }
+  },
+  "transaction": {
+    "balance": "Balance",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Create New Transaction",
+    "form": {
+      "reason": "Reason",
+      "amount": "Amount",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "Reason is required",
+        "amount_required": "Amount is required",
+        "amount_invalid": "Invalid amount, it must be at least 1",
+        "type_required": "Type is required"
+      }
+    },
+    "message": {
+      "success": "Transaction created successfully",
+      "update_success": "Transaction updated successfully",
+      "delete_success": "Transaction deleted successfully",
+      "error": "An error occurred while creating the transaction"
     }
   },
   "common": {
@@ -593,10 +668,49 @@
         "sub_text": "No product records match your criteria"
       }
     },
+    "transactions_table": {
+      "live_cash_register": "Live Cash Register",
+      "transaction_management": "Transaction Management",
+      "create_new_transaction": "Create New Transaction",
+      "update_transaction": "Update Transaction",
+      "search_placeholder": "Search...",
+      "headers": {
+        "reason": "Reason",
+        "amount": "Amount",
+        "type": "Type",
+        "note": "Note",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No transactions found",
+        "sub_text": "There are no transaction records that match your criteria"
+      },
+      "delete_confirmation": {
+        "modal_title": "Delete Confirmation",
+        "title": "Are you sure you want to delete?",
+        "warning": "This action cannot be undone."
+      },
+      "add_transaction": {
+        "title": "Add Transaction",
+        "amount": "Amount",
+        "type": "Transaction Type",
+        "reason": "Reason",
+        "note": "Note"
+      },
+      "transaction_types": {
+        "credit": "Credit",
+        "debit": "Debit"
+      }
+    },
     "file_upload": {
       "label": "Drag & drop files or click to upload"
     }
   },
+
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",

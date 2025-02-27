@@ -26,6 +26,9 @@ import { IEmployees } from "@/interfaces/IEmployee";
 import EmployeesMappers, { UserRow } from "@/mappers/EmployeesMapper";
 import http from "@/lib/http";
 import { UploadEmployee } from "./UploadEmployee";
+import PrintableEmployee from "./printable/PrintableEmployee";
+import { useReactToPrint } from "react-to-print";
+import HistoryModal from "./HistoryModal";
 
 interface EmployeesTableProps {
   records: IEmployees[];
@@ -41,7 +44,7 @@ export function EmployeesTable({
   lang,
 }: EmployeesTableProps) {
   // Store & Hooks
-  const { openModal, closeModal } = useModalStore();
+  const { openModal, closeModal, modalType } = useModalStore();
   const { rowMapper } = EmployeesMappers;
   const {
     sidebar: { users_table },
@@ -60,6 +63,8 @@ export function EmployeesTable({
   const { error: toastError, success: toastSuccess } = useToast();
   // Memoized values
   const userRows = useMemo(() => rowMapper(Employeess), [rowMapper, Employeess]);
+  const [selectedEmployeeForPrint, setSelectedEmployeeForPrint] = useState<IEmployees | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   // Refs
   const didMountRef = useRef(false);
@@ -74,6 +79,17 @@ export function EmployeesTable({
       const record = Employeess.find((user) => user.id === recordId);
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
+    },
+    [openModal, Employeess]
+  );
+
+  const handleShowHistory = useCallback(
+    (recordId: number) => {
+      const SelectedRecord = Employeess.find(
+        (record) => record.id === recordId
+      );
+      setSelectedRecord(SelectedRecord);
+      openModal(ModalTypeEnum.History);
     },
     [openModal, Employeess]
   );
@@ -127,29 +143,67 @@ export function EmployeesTable({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: `Bulletin de Paie${selectedEmployeeForPrint?.id || "document"}`,
+    onAfterPrint: () => setSelectedEmployeeForPrint(null),
+  });
+
+  useEffect(() => {
+    if (selectedEmployeeForPrint) handlePrint();
+  }, [selectedEmployeeForPrint, handlePrint]);
+
+  const handlePrintRequest = useCallback(
+    (employeeId: number) => {
+      const employeesToPrint = Employeess.find((d) => d.id === employeeId);
+      if (employeesToPrint) setSelectedEmployeeForPrint(employeesToPrint);
+    },
+    [Employeess]
+  );
+
   // Memoized headers to prevent re-renders
-  const tableHeaders = useMemo(
+  interface TableHeader {
+    key: keyof UserRow;
+    label: string;
+    renderCell?: (_: any, row: UserRow) => JSX.Element;
+  }
+
+  const tableHeaders: TableHeader[] = useMemo(
     () => [
-      { key: "name" as keyof UserRow, label: users_table.headers.name },
-      { key: "email" as keyof UserRow, label: users_table.headers.email },
-      { key: "phone" as keyof UserRow, label: users_table.headers.phone },
-      { key: "country" as keyof UserRow, label: users_table.headers.country },
-      { key: "city" as keyof UserRow, label: users_table.headers.city },
+      { key: "name", label: users_table.headers.name },
+      { key: "email", label: users_table.headers.email },
+      { key: "phone", label: users_table.headers.phone },
+      { key: "country", label: users_table.headers.country },
+      { key: "city", label: users_table.headers.city },
       {
         key: "id" as keyof UserRow,
         label: users_table.headers.actions,
         renderCell: (_: any, row: UserRow) => (
           <ActionButtons
             Id={row.id}
+            onShowHistory={handleShowHistory}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
+            onPrint={handlePrintRequest}
             editText={users_table.actions.edit}
             deleteText={users_table.actions.delete}
           />
         ),
       },
     ],
-    [users_table, handleEdit, openDeleteModal]
+    [
+      users_table.headers.name,
+      users_table.headers.email,
+      users_table.headers.phone,
+      users_table.headers.country,
+      users_table.headers.city,
+      users_table.headers.actions,
+      users_table.actions.edit,
+      users_table.actions.delete,
+      handleShowHistory,
+      handleEdit,
+      openDeleteModal,
+    ]
   );
 
   return (
@@ -198,6 +252,20 @@ export function EmployeesTable({
       <UploadEmployee
         translation={translation}
         lang={lang}
+      <div style={{ display: "none" }}>
+        <PrintableEmployee
+          ref={contentRef}
+          employee={selectedEmployeeForPrint}
+          translation={translation}
+          lang={lang}
+        />
+      </div>
+      {/* history modal */}
+      <HistoryModal
+        lang={lang}
+        isOpen={modalType === ModalTypeEnum.History}
+        translation={translation}
+        selectedRecord={selectedRecord}
       />
     </>
   );

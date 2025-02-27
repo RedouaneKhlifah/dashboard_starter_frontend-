@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "نكهات المغرب مع Le-Menu.ma",
@@ -232,6 +232,57 @@
       "error": "حدث خطأ أثناء إنشاء المنتج"
     }
   },
+  "payslip": {
+    "employer": "المُشغِّل",
+    "company_name": "موتيبلاست 2023",
+    "PayslipName":"ورقة الأداء",
+    "company_activity": "مواد البلاستيك الحراري",
+    "company_address": "65. حي صناعي سيدي غانم جنانات",
+    "postal_code": "ص-ب 12624",
+    "city": "مراكش",
+    "registration_number": "رقم التسجيل CNSS",
+    "employee_address": "دوار لحراش رقم 5",
+    "employee_city": "مراكش",
+    "employee_id": "رقم CNSS",
+    "registration_num": "الرقم التسلسلي",
+    "hire_date": "تاريخ التوظيف",
+    "birth_date": "تاريخ الميلاد",
+    "id_number": "رقم الهوية",
+    "gender": "الجنس",
+    "children": "الأطفال",
+    "qualification": "المؤهل",
+    "department": "القسم",
+    "period": "الفترة",
+    "january": "يناير",
+    "base_salary": "الراتب الأساسي",
+    "pay_frequency": "الدورية",
+    "biweekly": "نصف شهري",
+    "pay_period": "فترة الدفع",
+    "category": "الفئة",
+    "amount": "المبلغ",
+    "base": "الأساس/الوحدات",
+    "rate": "المعدل",
+    "earnings": "المكاسب",
+    "deductions": "الاقتطاعات",
+    "rubric": "البند",
+    "base_units": "الأساس/العدد",
+    "vacation_days": "أيام العطلة",
+    "normal_hours": "ساعات العمل العادية (10.89 يوم)",
+    "seniority": "الأقدمية",
+    "gross_salary": "الراتب الإجمالي",
+    "taxable_income": "الدخل الخاضع للضريبة",
+    "social_security": "الضمان الاجتماعي",
+    "health_insurance": "التأمين الصحي",
+    "income_tax": "ضريبة الدخل",
+    "payment": "السداد",
+    "total": "المجموع",
+    "total_deductions": "مجموع الاقتطاعات",
+    "net_salary": "الراتب الصافي",
+    "net_to_pay": "صافي المستحق",
+    "paid_by": "طريقة الدفع",
+    "bank_transfer": "تحويل بنكي",
+    "signature": "التوقيع"
+  },
   "Ticket": {
     "matricule_required": "رقم التسجيل مطلوب",
     "product_required": "المنتج مطلوب",
@@ -359,6 +410,30 @@
       },
       "Total_Items": "مجموع العناصر",
       "Total_Amount": "المبلغ الإجمالي"
+    }
+  },
+  "transaction": {
+    "balance": "الرصيد",
+    "transaction": "المعاملة",
+    "transactions": "المعاملات",
+    "create_new_transaction": "إنشاء معاملة جديدة",
+    "form": {
+      "reason": "السبب",
+      "amount": "المبلغ",
+      "type": "النوع",
+      "note": "ملاحظة",
+      "errors": {
+        "amount_required": "المبلغ مطلوب",
+        "amount_invalid": "المبلغ غير صالح، يجب أن يكون على الأقل ",
+        "reason_required": "السبب مطلوب",
+        "type_required": "النوع مطلوب"
+      }
+    },
+    "message": {
+      "success": "تم إنشاء المعاملة بنجاح",
+      "update_success": "تم تحديث المعاملة بنجاح",
+      "delete_success": "تم حذف المعاملة بنجاح",
+      "error": "حدث خطأ أثناء إنشاء المعاملة"
     }
   },
   "common": {
@@ -585,6 +660,44 @@
       "no_data": {
         "message": "لم يتم العثور على منتجات",
         "sub_text": "لا توجد سجلات منتجات تطابق معاييرك"
+      }
+    },
+    "transactions_table": {
+      "live_cash_register": "الصندوق النقدي المباشر",
+      "transaction_management": "ادارة المعاملات",
+      "create_new_transaction": "انشاء معاملة جديدة",
+      "update_transaction": "تحديث المعاملة",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "reason": "السبب",
+        "amount": "المبلغ",
+        "type": "النوع",
+        "note": "ملاحظة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "no_data": {
+        "message": "لم يتم العثور على معاملات",
+        "sub_text": "لا توجد سجلات معاملات تطابق معاييرك"
+      },
+      "delete_confirmation": {
+        "modal_title": "تأكيد الحذف",
+        "title": "هل أنت متأكد أنك تريد الحذف",
+        "warning": "لا يمكن التراجع عن هذا الإجراء."
+      },
+      "add_transaction": {
+        "title": "اضافة معاملة",
+        "amount": "المبلغ",
+        "type": "نوع المعاملة",
+        "reason": "السبب",
+        "note": "ملاحظة"
+      },
+      "transaction_types": {
+        "credit": "ائتمان",
+        "debit": "مدين"
       }
     },
     "file_upload": {
