@@ -151,11 +151,14 @@
       "create": "Créer",
       "cancel": "Annuler",
       "update": "Modifier",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "upload": "Télécharger"
     },
     "message": {
       "success": "Employée créé avec succès",
       "update_success": "Employée updated successfully",
+      "upload_success": "Les employés ont été téléchargés avec succès",
+      "upload_error": "Erreur lors du téléchargement des employés",
       "delete_success": "Employée supprimé avec succès",
       "error": "Erreur lors de la création du employée"
     }
@@ -469,6 +472,10 @@
     "users_table": {
       "customer_management": "Gestion des clients",
       "create_new_client": "Créer un nouveau client",
+      "upload_execl": "Télécharger employée (Excel)",
+      "upload_instructions": "Glissez et déposez le fichier ici ou cliquez pour le télécharger",
+      "supported_formats": "Formats pris en charge : .xlsx, .xls",
+      "upload_complete": "Terminé",
       "update_client": "Mettre à jour le client",
       "Employee_management": "Gestion des employées",
       "update_Employees": "Mettre à jour le employée",

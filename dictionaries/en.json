@@ -151,12 +151,15 @@
       "create": "Create",
       "cancel": "Cancel",
       "update": "Update",
-      "delete": "Delete"
+      "delete": "Delete",
+      "upload": "Upload File"
     },
     "message": {
       "success": "Employee created successfully",
       "update_success": "Employee updated successfully",
       "delete_success": "Employee deleted successfully",
+      "upload_success": "Employees uploaded successfully",
+      "upload_error": "Error uploading employees",
       "error": "An error occurred while creating the employee"
     }
   },
@@ -478,6 +481,10 @@
     "users_table": {
       "customer_management": "Customer Management",
       "create_new_client": "Create New Client",
+      "upload_execl": "Upload Employee (Excel)",
+      "upload_instructions": "Drag & drop file here or click to upload",
+      "supported_formats": "Supported formats: .xlsx, .xls",
+      "upload_complete": "Complete",
       "update_client": "Update Client",
       "Employee_management": "Employees Management",
       "update_Employees": "Update Employee",

@@ -48,7 +48,7 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({ translation, lang }
       setIsLoading(true);
 
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/Employeess`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees`,
         {
           method: "POST",
           lang,

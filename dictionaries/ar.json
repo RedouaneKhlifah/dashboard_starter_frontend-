@@ -155,12 +155,15 @@
       "create": "إنشاء",
       "cancel": "إلغاء",
       "update": "تعديل",
-      "delete": "حذف"
+      "delete": "حذف",
+      "upload": "تحميل الملف"
     },
     "message": {
       "success": "تم إنشاء الموظف بنجاح",
       "update_success": "تم تحديث الموظف بنجاح",
       "delete_success": "تم حذف الموظف بنجاح",
+      "upload_success": "تم تحميل الموظفين بنجاح",
+      "upload_error": "خطأ في تحميل الموظفين",
       "error": "حدث خطأ أثناء إنشاء الموظف"
     }
   },
@@ -477,6 +480,10 @@
     "users_table": {
       "customer_management": "إدارة العملاء",
       "create_new_client": "إنشاء عميل جديد",
+      "upload_execl": "تحميل ملف موظف (Excel)",
+      "upload_instructions": "اسحب الملف وأفلِته هنا أو انقر للتحميل",
+      "supported_formats": "التنسيقات المدعومة: .xlsx، .xls",
+      "upload_complete": "مكتمل",
       "update_client": "تحديث العميل",
       "Employee_management": "إدارة الموظفين",
       "update_Employees": "تحديث الموظفين",
