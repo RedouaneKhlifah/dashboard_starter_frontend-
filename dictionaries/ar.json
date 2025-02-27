@@ -69,6 +69,7 @@
     "password": "كلمة المرور",
     "signIn": "تسجيل الدخول",
     "signUp": "إنشاء حساب",
+    "signinIn": "...جاري تسجيل الدخول",
     "continueWith": "أو تابع باستخدام",
     "dontHaveAccount": "ليس لديك حساب ؟",
     "alreadyHaveAccount": "لديك حساب بالفعل ؟",
@@ -149,7 +150,7 @@
       "email": "البريد الإلكتروني",
       "phone": "رقم الهاتف",
       "address": "العنوان",
-      "country": "البلد",  
+      "country": "البلد",
       "city": "المدينة",
       "employee_id": "رقم الموظف (ID)",
       "national_id": "الرقم الوطني (CIN)",
@@ -161,7 +162,7 @@
     "common": {
       "create": "إنشاء",
       "cancel": "إلغاء",
-      "delete": "حذف"
+      "delete": "حذف",
       "update": "تعديل",
       "upload": "تحميل الملف"
     },
@@ -169,10 +170,9 @@
       "success": "تم إنشاء الموظف بنجاح",
       "update_success": "تم تحديث الموظف بنجاح",
       "delete_success": "تم حذف الموظف بنجاح",
-      "error": "خطأ أثناء إنشاء الموظف"
+      "error": "خطأ أثناء إنشاء الموظف",
       "upload_success": "تم تحميل الموظفين بنجاح",
-      "upload_error": "خطأ في تحميل الموظفين",
-      "error": "حدث خطأ أثناء إنشاء الموظف"
+      "upload_error": "خطأ في تحميل الموظفين"
     }
   },
   "partenaire": {
@@ -243,7 +243,7 @@
   "payslip": {
     "employer": "المُشغِّل",
     "company_name": "موتيبلاست 2023",
-    "PayslipName":"ورقة الأداء",
+    "PayslipName": "ورقة الأداء",
     "company_activity": "مواد البلاستيك الحراري",
     "company_address": "65. حي صناعي سيدي غانم جنانات",
     "postal_code": "ص-ب 12624",

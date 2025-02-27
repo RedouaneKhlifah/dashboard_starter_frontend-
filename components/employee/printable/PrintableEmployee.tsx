@@ -2,201 +2,194 @@
 
 import { forwardRef } from "react";
 import { Locale } from "@/i18n-config";
-import { IEmployees } from "@/interfaces/IEmployee";
+import { IEmployee } from "@/interfaces/IEmployee";
 import { DictionaryType } from "@/lib/i18n";
 import { formatDate } from "@/components/utils/formatters";
 import Image from "next/image";
 
-
 interface PrintablePayslipProps {
-    employee: IEmployees | null;
-    translation: DictionaryType;
-    lang: Locale;
+  employee: IEmployee | null;
+  translation: DictionaryType;
+  lang: Locale;
 }
 
-
 const DocumentHeader = ({
-    translation,
-    lang,
+  translation,
+  lang,
 }: {
-    translation: DictionaryType;
-    lang: Locale;
+  translation: DictionaryType;
+  lang: Locale;
 }) => (
-    <div className="flex gap-1 border-b-2 pb-2 mb-4 w-full">
-        <div className="flex flex-col w-full h-full">
-            <div className="border p-3">
-                <div className="border-b text-center"><h2 className="font-bold text-lg">{translation.payslip.employer}</h2></div>
-
-                <div className="mt-2">
-                    <p className="font-bold">MUTIPLAST 2023</p>
-                    <p>{translation.payslip.company_activity}</p>
-                    <p>{translation.payslip.company_address}</p>
-                    <p>{translation.payslip.postal_code}</p>
-                    <p>{translation.payslip.city}</p>
-                </div>
-            </div>
-            <div className="border w-full px-3 py-1">
-                <p>{translation.payslip.registration_number}: 2228022</p>
-            </div>
+  <div className="flex gap-1 border-b-2 pb-2 mb-4 w-full">
+    <div className="flex flex-col w-full h-full">
+      <div className="border p-3">
+        <div className="border-b text-center">
+          <h2 className="font-bold text-lg">{translation.payslip.employer}</h2>
         </div>
-        <div className="flex flex-col w-full h-full">
-            <div className="border p-3">
-                <div className="border-b  text-center">
-                    <h2 className="font-bold text-lg">
-                        {translation.payslip.PayslipName}
-                    </h2>
-                </div>
 
-                <div className="mt-2">
-                    <p className="font-bold">BRIH LARBI</p>
-                    <p>DR LAHRACH N°5</p>
-                    <p>Marrakech</p>
-                </div>
-            </div>
-            <div className="border w-full px-3 py-1">
-                <p>{translation.payslip.employee_id}: 104731940</p>
-            </div>
+        <div className="mt-2">
+          <p className="font-bold">MUTIPLAST 2023</p>
+          <p>{translation.payslip.company_activity}</p>
+          <p>{translation.payslip.company_address}</p>
+          <p>{translation.payslip.postal_code}</p>
+          <p>{translation.payslip.city}</p>
         </div>
+      </div>
+      <div className="border w-full px-3 py-1">
+        <p>{translation.payslip.registration_number}: 2228022</p>
+      </div>
     </div>
+    <div className="flex flex-col w-full h-full">
+      <div className="border p-3">
+        <div className="border-b  text-center">
+          <h2 className="font-bold text-lg">
+            {translation.payslip.PayslipName}
+          </h2>
+        </div>
+
+        <div className="mt-2">
+          <p className="font-bold">BRIH LARBI</p>
+          <p>DR LAHRACH N°5</p>
+          <p>Marrakech</p>
+        </div>
+      </div>
+      <div className="border w-full px-3 py-1">
+        <p>{translation.payslip.employee_id}: 104731940</p>
+      </div>
+    </div>
+  </div>
 );
 
 const EmployeeInfoTable = ({
-    translation,
+  translation,
 }: {
-    translation: DictionaryType;
+  translation: DictionaryType;
 }) => (
-    <table className="w-full border-collapse mb-4">
-        <thead>
-            <tr>
-                <th className="border p-2">{translation.payslip.registration_num}</th>
-                <th className="border p-2">{translation.payslip.hire_date}</th>
-                <th className="border p-2">{translation.payslip.birth_date}</th>
-                <th className="border p-2">{translation.payslip.id_number}</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr className="text-center">
-                <td className="border p-2">3400</td>
-                <td className="border p-2">7/09/01</td>
-                <td className="border p-2">30/06/74</td>
-                <td className="border p-2">E537395</td>
-            </tr>
-        </tbody>
-    </table>
+  <table className="w-full border-collapse mb-4">
+    <thead>
+      <tr>
+        <th className="border p-2">{translation.payslip.registration_num}</th>
+        <th className="border p-2">{translation.payslip.hire_date}</th>
+        <th className="border p-2">{translation.payslip.birth_date}</th>
+        <th className="border p-2">{translation.payslip.id_number}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="text-center">
+        <td className="border p-2">3400</td>
+        <td className="border p-2">7/09/01</td>
+        <td className="border p-2">30/06/74</td>
+        <td className="border p-2">E537395</td>
+      </tr>
+    </tbody>
+  </table>
 );
 
-const PaymentPeriodRow = ({
-    translation,
-}: {
-    translation: DictionaryType;
-}) => (
-    <div>
-        <div className="border p-3 text-center">
-            <div className="mb-2">
-                <strong className="text-nowrap">{translation.payslip.base_salary}</strong>
-            </div>
-            <span>1 495,53</span>
-        </div>
+const PaymentPeriodRow = ({ translation }: { translation: DictionaryType }) => (
+  <div>
+    <div className="border p-3 text-center">
+      <div className="mb-2">
+        <strong className="text-nowrap">
+          {translation.payslip.base_salary}
+        </strong>
+      </div>
+      <span>1 495,53</span>
     </div>
+  </div>
 );
 
-const PayDetailsTable = ({
-    translation,
-}: {
-    translation: DictionaryType;
-}) => (
-    <table className="w-full border-collapse mb-4">
-        <thead>
-            <tr>
-                <th className="border p-2">{translation.payslip.category}</th>
-                <th className="border p-2">{translation.payslip.amount}</th>
-                <th className="border p-2">{translation.payslip.base}</th>
-                <th className="border p-2">{translation.payslip.rate}</th>
-                <th className="border p-2">{translation.payslip.earnings}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr className="border">
-                <td className="border p-2">{translation.payslip.rubric}</td>
-                <td className="border p-2 text-right">1 495,53</td>
-                <td className="border p-2 text-center">{translation.payslip.base_units}</td>
-                <td className="border p-2"></td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.normal_hours}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">80,00</td>
-                <td className="border p-2 text-right">15,660</td>
-                <td className="border p-2 text-right">1 252,80</td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.seniority}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 367,85</td>
-                <td className="border p-2 text-right">20,000</td>
-                <td className="border p-2"></td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.gross_salary}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 641,42</td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.taxable_income}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 641,42</td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.social_security}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 641,42</td>
-                <td className="border p-2 text-right">4,480</td>
-                <td className="border p-2 text-right">73,54</td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.health_insurance}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 641,42</td>
-                <td className="border p-2 text-right">2,260</td>
-                <td className="border p-2 text-right">37,10</td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.income_tax}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">1 202,50</td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-            </tr>
-            <tr>
-                <td className="border p-2">{translation.payslip.payment}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2"></td>
-                <td className="border p-2 text-right">523,19</td>
-            </tr>
-            <tr className="font-bold">
-                <td className="border p-2" colSpan={3}>{translation.payslip.total}</td>
-                <td className="border p-2 text-right">1 641,41</td>
-                <td className="border p-2 text-right">633,83</td>
-            </tr>
-        </tbody>
-    </table>
+const PayDetailsTable = ({ translation }: { translation: DictionaryType }) => (
+  <table className="w-full border-collapse mb-4">
+    <thead>
+      <tr>
+        <th className="border p-2">{translation.payslip.category}</th>
+        <th className="border p-2">{translation.payslip.amount}</th>
+        <th className="border p-2">{translation.payslip.base}</th>
+        <th className="border p-2">{translation.payslip.rate}</th>
+        <th className="border p-2">{translation.payslip.earnings}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border">
+        <td className="border p-2">{translation.payslip.rubric}</td>
+        <td className="border p-2 text-right">1 495,53</td>
+        <td className="border p-2 text-center">
+          {translation.payslip.base_units}
+        </td>
+        <td className="border p-2"></td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.normal_hours}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">80,00</td>
+        <td className="border p-2 text-right">15,660</td>
+        <td className="border p-2 text-right">1 252,80</td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.seniority}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 367,85</td>
+        <td className="border p-2 text-right">20,000</td>
+        <td className="border p-2"></td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.gross_salary}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2"></td>
+        <td className="border p-2"></td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.taxable_income}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2"></td>
+        <td className="border p-2"></td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.social_security}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2 text-right">4,480</td>
+        <td className="border p-2 text-right">73,54</td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.health_insurance}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2 text-right">2,260</td>
+        <td className="border p-2 text-right">37,10</td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.income_tax}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">1 202,50</td>
+        <td className="border p-2"></td>
+        <td className="border p-2"></td>
+      </tr>
+      <tr>
+        <td className="border p-2">{translation.payslip.payment}</td>
+        <td className="border p-2"></td>
+        <td className="border p-2"></td>
+        <td className="border p-2"></td>
+        <td className="border p-2 text-right">523,19</td>
+      </tr>
+      <tr className="font-bold">
+        <td className="border p-2" colSpan={3}>
+          {translation.payslip.total}
+        </td>
+        <td className="border p-2 text-right">1 641,41</td>
+        <td className="border p-2 text-right">633,83</td>
+      </tr>
+    </tbody>
+  </table>
 );
 
-const SignatureArea = ({
-    translation,
-}: {
-    translation: DictionaryType;
-}) => (
-    <div className="mt-8">
-        <p>{translation.payslip.signature}</p>
-        <div className="h-16"></div>
-    </div>
+const SignatureArea = ({ translation }: { translation: DictionaryType }) => (
+  <div className="mt-8">
+    <p>{translation.payslip.signature}</p>
+    <div className="h-16"></div>
+  </div>
 );
 
 // Print styles
@@ -244,35 +237,32 @@ const printStyles = `
 
 // Main component
 const PrintablePayslip = forwardRef<HTMLDivElement, PrintablePayslipProps>(
-    ({ employee, translation, lang }, ref) => {
-        if (!employee) {
-            return <div ref={ref}>No employee data available</div>;
-        }
-
-        const textDirection = lang === "ar" ? "rtl" : "ltr";
-
-        return (
-            <div
-                ref={ref}
-                className="p-8 max-w-4xl mx-auto bg-white"
-                dir={textDirection}
-                style={{ fontFamily: "Arial, sans-serif" }}
-            >
-                <style>{printStyles}</style>
-                <DocumentHeader
-                    translation={translation}
-                    lang={lang}
-                />
-                <div className="flex gap-1">
-                    <EmployeeInfoTable translation={translation} />
-
-                    <PaymentPeriodRow translation={translation} />
-                </div>
-                <PayDetailsTable translation={translation} />
-                <SignatureArea translation={translation} />
-            </div>
-        );
+  ({ employee, translation, lang }, ref) => {
+    if (!employee) {
+      return <div ref={ref}>No employee data available</div>;
     }
+
+    const textDirection = lang === "ar" ? "rtl" : "ltr";
+
+    return (
+      <div
+        ref={ref}
+        className="p-8 max-w-4xl mx-auto bg-white"
+        dir={textDirection}
+        style={{ fontFamily: "Arial, sans-serif" }}
+      >
+        <style>{printStyles}</style>
+        <DocumentHeader translation={translation} lang={lang} />
+        <div className="flex gap-1">
+          <EmployeeInfoTable translation={translation} />
+
+          <PaymentPeriodRow translation={translation} />
+        </div>
+        <PayDetailsTable translation={translation} />
+        <SignatureArea translation={translation} />
+      </div>
+    );
+  }
 );
 
 PrintablePayslip.displayName = "PrintablePayslip";

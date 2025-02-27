@@ -15,14 +15,11 @@ interface UploadEmployeeProps {
   lang: Locale;
 }
 
-export function UploadEmployee({
-  translation,
-  lang,
-}: UploadEmployeeProps) {
+export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
   const { modalType, closeModal } = useModalStore();
   const { success: toastSuccess, error: toastError } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -31,14 +28,14 @@ export function UploadEmployee({
 
   const handleExcelUpload = async () => {
     if (!selectedFile) return;
-    
+
     try {
       setIsUploading(true);
       setError(null);
       setUploadProgress(0);
-  
+
       const reader = new FileReader();
-      
+
       reader.onloadstart = () => setUploadProgress(10);
       reader.onload = async (e) => {
         try {
@@ -46,12 +43,15 @@ export function UploadEmployee({
           const data = new Uint8Array(e.target?.result as ArrayBuffer);
           const workbook = XLSX.read(data, { type: "array", cellDates: true });
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet, { raw: false, dateNF: 'yyyy-mm-dd' });
-  
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+            raw: false,
+            dateNF: "yyyy-mm-dd",
+          });
+
           const employees = jsonData.map((item: any) => {
             let engagementDate;
             try {
-              if (typeof item["Engagement Date"] === 'string') {
+              if (typeof item["Engagement Date"] === "string") {
                 engagementDate = new Date(item["Engagement Date"]);
               } else {
                 engagementDate = item["Engagement Date"];
@@ -60,10 +60,12 @@ export function UploadEmployee({
                 throw new Error("Invalid date");
               }
             } catch (err) {
-              console.warn(`Invalid date format for employee: ${item["Employee ID"]}`);
+              console.warn(
+                `Invalid date format for employee: ${item["Employee ID"]}`
+              );
               engagementDate = new Date();
             }
-  
+
             return {
               employee_id: item["Employee ID"],
               first_name: item["First Name"],
@@ -77,9 +79,9 @@ export function UploadEmployee({
               city: item["City"],
             };
           });
-  
+
           setUploadProgress(60);
-          
+
           const response = await http(
             `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/upload`,
             {
@@ -88,16 +90,20 @@ export function UploadEmployee({
               lang,
             }
           );
-  
+
           if (response.ok) {
             setUploadProgress(100);
             toastSuccess(translation.employee.message.upload_success);
             setTimeout(() => closeModal(), 1000);
           } else {
             const errorData = await response.json();
-            setError(errorData.message || translation.employee.message.upload_error);
-            toastError(errorData.message || translation.employee.message.upload_error);
-            
+            setError(
+              errorData.message || translation.employee.message.upload_error
+            );
+            toastError(
+              errorData.message || translation.employee.message.upload_error
+            );
+
             if (errorData?.errors) {
               console.error("Validation errors:", errorData.errors);
             }
@@ -110,13 +116,13 @@ export function UploadEmployee({
           setIsUploading(false);
         }
       };
-  
+
       reader.onerror = () => {
         setError(translation.employee.message.upload_error);
         toastError(translation.employee.message.upload_error);
         setIsUploading(false);
       };
-  
+
       reader.readAsArrayBuffer(selectedFile);
     } catch (error) {
       console.error("Error processing file:", error);
@@ -146,7 +152,7 @@ export function UploadEmployee({
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    
+
     const file = e.dataTransfer.files?.[0];
     if (file && [".xlsx", ".xls"].includes(file.name.slice(-4))) {
       setSelectedFile(file);
@@ -171,8 +177,11 @@ export function UploadEmployee({
       <div className="space-y-4">
         <div
           className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors
-            ${isDragging ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : 
-            "border-gray-300 dark:border-gray-600"}`}
+            ${
+              isDragging
+                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                : "border-gray-300 dark:border-gray-600"
+            }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -215,15 +224,14 @@ export function UploadEmployee({
                 />
               </div>
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                {uploadProgress}% {translation.sidebar.users_table.upload_complete}
+                {uploadProgress}%{" "}
+                {translation.sidebar.users_table.upload_complete}
               </p>
             </div>
           )}
         </div>
 
-        {error && (
-          <p className="text-red-500 text-sm text-center">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       </div>
     </GlobalModal>
   );

@@ -16,12 +16,13 @@ import { EmployeesValidation } from "@/validation";
 import { DictionaryType } from "@/lib/i18n";
 import { IEmployeesForm } from "@/dto/employee/employeeForm";
 import { Calendar, ScanEye } from "lucide-react";
+import { DeepPartialString } from "@/utils/typeScript_interface";
 
 interface EmployeesFormProps {
   initialFormData: IEmployeesForm;
   translation: DictionaryType;
-  errors: Partial<IEmployeesForm>;
-  setErrors: Dispatch<SetStateAction<Partial<IEmployeesForm>>>;
+  errors: DeepPartialString<IEmployeesForm>;
+  setErrors: Dispatch<SetStateAction<DeepPartialString<IEmployeesForm>>>;
   onSubmit: (formData: IEmployeesForm) => Promise<boolean>;
   isOpen: boolean;
 }
@@ -96,7 +97,6 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
       onSubmit={handleSubmit}
     >
       <div className="space-y-4">
-
         {/* First & Last Name */}
         <div className="flex gap-4">
           <InputField
@@ -116,7 +116,6 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             required
           />
         </div>
-
 
         <div className="grid grid-cols-2 gap-4">
           {/* national_id */}
@@ -171,7 +170,7 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-        <InputField
+          <InputField
             id="monthly_salary"
             type="number"
             label={translation.employee.form.monthly_salary}

@@ -16,6 +16,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IEmployeesForm } from "@/dto/employee/employeeForm";
 import { IEmployee } from "@/interfaces/IEmployee";
+import { DeepPartialString } from "@/utils/typeScript_interface";
 
 interface EmployeesFormProps {
   translation: DictionaryType;
@@ -32,8 +33,8 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
   const { modalType } = useModalStore();
 
   // State
-  const [errors, setErrors] = useState<Partial<IEmployeesForm>>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const [errors, setErrors] = useState<DeepPartialString<IEmployeesForm>>({});
+  const { error: toastError, success: toastSuccess } = useToast();
   // Memoized initial form data
   const initialFormData = useMemo<IEmployeesForm>(
     () =>
@@ -47,7 +48,7 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
         price_per_day: 0,
         city: "",
         date_of_engagement: "",
-        employee_id: ""
+        employee_id: "",
       },
     [selectedRecord]
   );

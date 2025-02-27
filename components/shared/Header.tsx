@@ -50,7 +50,8 @@ const Header = <T,>({
       {title && <h2 className="text-2xl text-foreground font-bold">{title}</h2>}
       <div
         className={cn(
-          `flex items-center gap-4 ${showSearch ? "justify-between" : "justify-end"
+          `flex items-center gap-4 ${
+            showSearch ? "justify-between" : "justify-end"
           }`
         )}
       >
@@ -61,32 +62,24 @@ const Header = <T,>({
             className="w-full"
           />
         )}
-        <div className={`${execlButton ? "flex gap-2" : ""}`}>
-          {execlButton && (
-            <Button
-              onClick={() => openModal(ModalTypeEnum.UPLOAD)}
-              className="whitespace-nowrap bg-[#28774b] hover:bg-[#1f5f3d] text-white"
-            >
-              {execlButtonText}
-            </Button>
-          )}
+        <div className={`${true ? "flex gap-4" : ""}`}>
           {showButton && (
             <Button
               onClick={() => openModal(ModalTypeEnum.CREATE)}
-              className="whitespace-nowrap"
+              className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
             >
               {buttonText}
             </Button>
           )}
+          {execlButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.UPLOAD)}
+              className="whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
+            >
+              {execlButtonText}
+            </Button>
+          )}
         </div>
-        {showButton && (
-          <Button
-            onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            {buttonText}
-          </Button>
-        )}
       </div>
       {translation && lang && (
         <CreateClientForm lang={lang} translation={translation} />

@@ -12,6 +12,7 @@ import { Spinner, Button } from "@material-tailwind/react";
 interface AuthFormProps {
   formType: FormTypeEnum;
   translation: DictionaryType;
+  success: boolean;
   errors: PartialAuthForm;
   setErrors: Dispatch<SetStateAction<PartialAuthForm>>;
   onSubmit: (formData: IAuthForm, error?: string | undefined) => void;
@@ -21,6 +22,7 @@ interface AuthFormProps {
 const AuthForm = ({
   formType,
   translation,
+  success,
   errors,
   setErrors,
   onSubmit,
@@ -93,6 +95,22 @@ const AuthForm = ({
         }
       />
 
+      <Condition
+        if={success}
+        render={
+          <div className="flex items-center justify-center">
+            <Spinner
+              className="h-4 w-4 text-primary mr-2 font-semibold"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+            <p className="text-primary text-lg font-medium">
+              {translation.auth.signinIn}
+            </p>
+          </div>
+        }
+      />
+
       {/* Form body */}
       <form onSubmit={handleSubmit}>
         <div className="lg:space-y-4 space-y-5">
@@ -154,11 +172,11 @@ const AuthForm = ({
 
           <button
             type="submit"
-            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-button text-button-foreground hover:bg-button-hover disabled:opacity-80 disabled:cursor-not-allowed rounded-sm font-medium transition-colors"
-            disabled={isLoading}
+            className="w-full !mt-6 lg:py-2 py-3 px-3 bg-primary text-white hover:bg-primary/90 disabled:opacity-80 disabled:cursor-not-allowed rounded-sm font-medium transition-colors"
+            disabled={isLoading && !success}
           >
             <Condition
-              if={isLoading}
+              if={isLoading && !success}
               render={
                 <div className="flex items-center justify-center gap-2">
                   <Spinner

@@ -62,8 +62,12 @@ export function EmployeesTable({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { error: toastError, success: toastSuccess } = useToast();
   // Memoized values
-  const userRows = useMemo(() => rowMapper(Employeess), [rowMapper, Employeess]);
-  const [selectedEmployeeForPrint, setSelectedEmployeeForPrint] = useState<IEmployees | null>(null);
+  const userRows = useMemo(
+    () => rowMapper(Employeess),
+    [rowMapper, Employeess]
+  );
+  const [selectedEmployeeForPrint, setSelectedEmployeeForPrint] =
+    useState<IEmployee | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Refs
@@ -145,7 +149,9 @@ export function EmployeesTable({
 
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `Bulletin de Paie${selectedEmployeeForPrint?.id || "document"}`,
+    documentTitle: `Bulletin de Paie${
+      selectedEmployeeForPrint?.id || "document"
+    }`,
     onAfterPrint: () => setSelectedEmployeeForPrint(null),
   });
 
@@ -172,11 +178,26 @@ export function EmployeesTable({
     () => [
       { key: "employee_id" as keyof UserRow, label: users_table.headers.id },
       { key: "name" as keyof UserRow, label: users_table.headers.name },
-      { key: "national_id" as keyof UserRow, label: users_table.headers.national_id },
-      { key: "date_of_engagement" as keyof UserRow, label: users_table.headers.date_of_engagement },
-      { key: "monthly_salary" as keyof UserRow, label: users_table.headers.monthly_salary },
-      { key: "price_per_hour" as keyof UserRow, label: users_table.headers.price_per_hour },
-      { key: "price_per_day" as keyof UserRow, label: users_table.headers.price_per_day },
+      {
+        key: "national_id" as keyof UserRow,
+        label: users_table.headers.national_id,
+      },
+      {
+        key: "date_of_engagement" as keyof UserRow,
+        label: users_table.headers.date_of_engagement,
+      },
+      {
+        key: "monthly_salary" as keyof UserRow,
+        label: users_table.headers.monthly_salary,
+      },
+      {
+        key: "price_per_hour" as keyof UserRow,
+        label: users_table.headers.price_per_hour,
+      },
+      {
+        key: "price_per_day" as keyof UserRow,
+        label: users_table.headers.price_per_day,
+      },
       {
         key: "id" as keyof UserRow,
         label: users_table.headers.actions,
@@ -194,17 +215,20 @@ export function EmployeesTable({
       },
     ],
     [
+      users_table.headers.id,
       users_table.headers.name,
-      users_table.headers.email,
-      users_table.headers.phone,
-      users_table.headers.country,
-      users_table.headers.city,
+      users_table.headers.national_id,
+      users_table.headers.date_of_engagement,
+      users_table.headers.monthly_salary,
+      users_table.headers.price_per_hour,
+      users_table.headers.price_per_day,
       users_table.headers.actions,
       users_table.actions.edit,
       users_table.actions.delete,
       handleShowHistory,
       handleEdit,
       openDeleteModal,
+      handlePrintRequest,
     ]
   );
 
@@ -251,9 +275,7 @@ export function EmployeesTable({
       {/* Create Employees Form */}
       <CreateEmployeesForm lang={lang} translation={translation} />
 
-      <UploadEmployee
-        translation={translation}
-        lang={lang}
+      <UploadEmployee translation={translation} lang={lang} />
       <div style={{ display: "none" }}>
         <PrintableEmployee
           ref={contentRef}

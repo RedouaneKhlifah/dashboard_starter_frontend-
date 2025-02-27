@@ -69,6 +69,7 @@
     "password": "Password",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "signinIn": "Signing in...",
     "continueWith": "Or continue with",
     "dontHaveAccount": "Don't have an account ?",
     "alreadyHaveAccount": "Already have an account ?",

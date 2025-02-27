@@ -11,7 +11,7 @@ import useModalStore from "@/store/modalStore";
 
 // Validation & Types
 import { DictionaryType } from "@/lib/i18n";
-import { IEmployees } from "@/interfaces/IEmployee";
+import { IEmployee } from "@/interfaces/IEmployee";
 import { Locale } from "@/i18n-config";
 import { FileText, Pencil } from "lucide-react";
 
@@ -19,7 +19,7 @@ interface EmployeesFormProps {
   lang: Locale;
   translation: DictionaryType;
   isOpen: boolean;
-  selectedRecord?: IEmployees;
+  selectedRecord?: IEmployee;
 }
 
 const EmployeesForm: React.FC<EmployeesFormProps> = ({

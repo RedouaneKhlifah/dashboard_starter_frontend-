@@ -15,18 +15,22 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { ICreateEmployees } from "@/dto/employee/createEmployee";
+import { DeepPartialString } from "@/utils/typeScript_interface";
 
 interface EmployeesFormProps {
   translation: DictionaryType;
   lang: Locale;
 }
 
-const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({ translation, lang }) => {
+const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({
+  translation,
+  lang,
+}) => {
   // Modal store
   const { modalType, setIsLoading } = useModalStore();
 
   // State
-  const [errors, setErrors] = useState<Partial<ICreateEmployees>>({});
+  const [errors, setErrors] = useState<DeepPartialString<ICreateEmployees>>({});
   const { error: toastError, success: toastSuccess } = useToast();
   // Memoized initial form data
   const initialFormData = useMemo<ICreateEmployees>(
@@ -41,7 +45,6 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({ translation, lang }
       city: "",
       date_of_engagement: "",
       employee_id: "",
-
     }),
     []
   );

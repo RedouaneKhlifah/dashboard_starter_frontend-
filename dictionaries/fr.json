@@ -69,6 +69,7 @@
     "password": "Mot de passe",
     "signIn": "Se connecter",
     "signUp": "S'inscrire",
+    "signinIn": "Connexion...",
     "continueWith": "Ou continuez avec",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
@@ -234,7 +235,7 @@
   },
   "payslip": {
     "employer": "EMPLOYEUR",
-    "PayslipName":"Bulletin de Paie",
+    "PayslipName": "Bulletin de Paie",
     "company_name": "MUTIPLAST 2023",
     "company_activity": "MATIERES THERMOPLASTIQUES",
     "company_address": "65. Q.I SIDI GHANEM JNANATE",
