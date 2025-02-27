@@ -62,7 +62,7 @@ const Header = <T,>({
             className="w-full"
           />
         )}
-        <div className={`${true ? "flex gap-4" : ""}`}>
+        <div className={`${execlButton ? "flex gap-4" : ""}`}>
           {showButton && (
             <Button
               onClick={() => openModal(ModalTypeEnum.CREATE)}
