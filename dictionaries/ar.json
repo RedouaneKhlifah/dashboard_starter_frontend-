@@ -358,6 +358,30 @@
       "Total_Amount": "المبلغ الإجمالي"
     }
   },
+  "transaction": {
+    "balance": "الرصيد",
+    "transaction": "المعاملة",
+    "transactions": "المعاملات",
+    "create_new_transaction": "إنشاء معاملة جديدة",
+    "form": {
+      "reason": "السبب",
+      "amount": "المبلغ",
+      "type": "النوع",
+      "note": "ملاحظة",
+      "errors": {
+        "amount_required": "المبلغ مطلوب",
+        "amount_invalid": "المبلغ غير صالح، يجب أن يكون على الأقل ",
+        "reason_required": "السبب مطلوب",
+        "type_required": "النوع مطلوب"
+      }
+    },
+    "message": {
+      "success": "تم إنشاء المعاملة بنجاح",
+      "update_success": "تم تحديث المعاملة بنجاح",
+      "delete_success": "تم حذف المعاملة بنجاح",
+      "error": "حدث خطأ أثناء إنشاء المعاملة"
+    }
+  },
   "common": {
     "errors": {
       "fetch_error": "خطأ في جلب البيانات",
@@ -578,6 +602,44 @@
       "no_data": {
         "message": "لم يتم العثور على منتجات",
         "sub_text": "لا توجد سجلات منتجات تطابق معاييرك"
+      }
+    },
+    "transactions_table": {
+      "live_cash_register": "الصندوق النقدي المباشر",
+      "transaction_management": "ادارة المعاملات",
+      "create_new_transaction": "انشاء معاملة جديدة",
+      "update_transaction": "تحديث المعاملة",
+      "search_placeholder": "بحث...",
+      "headers": {
+        "reason": "السبب",
+        "amount": "المبلغ",
+        "type": "النوع",
+        "note": "ملاحظة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "no_data": {
+        "message": "لم يتم العثور على معاملات",
+        "sub_text": "لا توجد سجلات معاملات تطابق معاييرك"
+      },
+      "delete_confirmation": {
+        "modal_title": "تأكيد الحذف",
+        "title": "هل أنت متأكد أنك تريد الحذف",
+        "warning": "لا يمكن التراجع عن هذا الإجراء."
+      },
+      "add_transaction": {
+        "title": "اضافة معاملة",
+        "amount": "المبلغ",
+        "type": "نوع المعاملة",
+        "reason": "السبب",
+        "note": "ملاحظة"
+      },
+      "transaction_types": {
+        "credit": "ائتمان",
+        "debit": "مدين"
       }
     },
     "file_upload": {

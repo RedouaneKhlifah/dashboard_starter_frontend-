@@ -350,6 +350,30 @@
       "Total_Amount": "Montant total"
     }
   },
+  "transaction": {
+    "balance": "Solde",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Créer une nouvelle transaction",
+    "form": {
+      "reason": "Raison",
+      "amount": "Montant",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "La raison est obligatoire",
+        "amount_required": "Le montant est obligatoire",
+        "amount_invalid": "Montant invalide, il doit être au moins 1",
+        "type_required": "Le type est obligatoire"
+      }
+    },
+    "message": {
+      "success": "Transaction créée avec succès",
+      "update_success": "Transaction mise à jour avec succès",
+      "delete_success": "Transaction supprimée avec succès",
+      "error": "Erreur lors de la création de la transaction"
+    }
+  },
   "common": {
     "errors": {
       "fetch_error": "Erreur de récupération des données",
@@ -570,6 +594,44 @@
       "no_data": {
         "message": "Aucun Produit Trouvé",
         "sub_text": "Aucun enregistrement produit ne correspond à vos critères"
+      }
+    },
+    "transactions_table": {
+      "live_cash_register": "Caisse en ligne",
+      "transaction_management": "Gestion des transactions",
+      "create_new_transaction": "Créer une nouvelle transaction",
+      "update_transaction": "Mettre à jour la transaction",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "reason": "Raison",
+        "amount": "Montant",
+        "type": "Type",
+        "note": "Remarque",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucune transaction trouvée",
+        "sub_text": "Aucun enregistrement de transaction ne correspond à vos critères"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirmation de suppression",
+        "title": "Êtes-vous sûr de vouloir supprimer ?",
+        "warning": "Cette action est irréversible."
+      },
+      "add_transaction": {
+        "title": "Ajouter une transaction",
+        "amount": "Montant",
+        "type": "Type de transaction",
+        "reason": "Raison",
+        "note": "Remarque"
+      },
+      "transaction_types": {
+        "credit": "Crédit",
+        "debit": "Débit"
       }
     },
     "file_upload": {

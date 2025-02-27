@@ -359,6 +359,30 @@
       "Total_Amount": "Total Amount"
     }
   },
+  "transaction": {
+    "balance": "Balance",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Create New Transaction",
+    "form": {
+      "reason": "Reason",
+      "amount": "Amount",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "Reason is required",
+        "amount_required": "Amount is required",
+        "amount_invalid": "Invalid amount, it must be at least 1",
+        "type_required": "Type is required"
+      }
+    },
+    "message": {
+      "success": "Transaction created successfully",
+      "update_success": "Transaction updated successfully",
+      "delete_success": "Transaction deleted successfully",
+      "error": "An error occurred while creating the transaction"
+    }
+  },
   "common": {
     "errors": {
       "fetch_error": "Error fetching data",
@@ -586,10 +610,49 @@
         "sub_text": "No product records match your criteria"
       }
     },
+    "transactions_table": {
+      "live_cash_register": "Live Cash Register",
+      "transaction_management": "Transaction Management",
+      "create_new_transaction": "Create New Transaction",
+      "update_transaction": "Update Transaction",
+      "search_placeholder": "Search...",
+      "headers": {
+        "reason": "Reason",
+        "amount": "Amount",
+        "type": "Type",
+        "note": "Note",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No transactions found",
+        "sub_text": "There are no transaction records that match your criteria"
+      },
+      "delete_confirmation": {
+        "modal_title": "Delete Confirmation",
+        "title": "Are you sure you want to delete?",
+        "warning": "This action cannot be undone."
+      },
+      "add_transaction": {
+        "title": "Add Transaction",
+        "amount": "Amount",
+        "type": "Transaction Type",
+        "reason": "Reason",
+        "note": "Note"
+      },
+      "transaction_types": {
+        "credit": "Credit",
+        "debit": "Debit"
+      }
+    },
     "file_upload": {
       "label": "Drag & drop files or click to upload"
     }
   },
+
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",
