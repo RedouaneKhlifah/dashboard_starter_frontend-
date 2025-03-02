@@ -11,6 +11,7 @@ interface ITicket {
   partenaire: IPartenaire;
   product: IProduct;
   client?: IClient;
+  created_at: string;
 }
 
 export type { ITicket };

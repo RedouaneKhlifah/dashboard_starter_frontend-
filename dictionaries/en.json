@@ -466,6 +466,32 @@
     "delete": "Delete",
     "confirm": "Confirm"
   },
+  "StatsContainer": {
+    "receivables_balance": "Receivables Balance",
+    "collected_revenue": "Collected Revenue",
+    "waste_stock": "Waste Stock",
+    "profitability_rate": "Profitability Rate",
+    "Turnover": "Turnover",
+    "Total_Sales": "Total winnings"
+  },
+  "partenaireModal": {
+    "common": {
+      "cancel": "Cancel",
+      "apply": "Calculate",
+      "product": "Product",
+      "noProduct": "No product available",
+      "pricePerKg": "Price per Kg",
+      "discount": "Discount",
+      "tickets": "Tickets",
+      "date": "Date",
+      "netWeight": "Net Weight",
+      "noTicketsFound": "No tickets found for the selected period",
+      "summary": "Summary",
+      "totalWeight": "Total Weight",
+      "totalValue": "Total Value",
+      "netTotal": "Net Total"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -485,7 +511,8 @@
         "settings": "Settings",
         "clients": "Clients",
         "employees": "Employees",
-        "partners": "Partners"
+        "partners": "Partners",
+        "transactions": "Transactions"
       }
     },
     "users_table": {
@@ -530,6 +557,27 @@
       "create_new_partner": "Create New Partner",
       "update_partner": "Update Partner",
       "search_placeholder": "Search...",
+      "print": {
+        "company_name": "Company Name",
+        "company_address": "123 Business Street, City",
+        "ticket_number": "Ticket Number",
+        "gross_weight": "gross weight",
+        "tare_weight": "tare weigh",
+        "net_weight": "net weight",
+        "company_contact": "Tel: +1 234 567 890 | Email: info@company.com",
+        "partner_info": "Partner Information",
+        "name": "Name",
+        "matricule": "Registration Number",
+        "date_range": "Date Range",
+        "product": "Product",
+        "weight": "Weight (kg)",
+        "value": "Value",
+        "date": "Date",
+        "total_weight": "Total Weight",
+        "total_value": "Total Value",
+        "discount": "Discount",
+        "net_total": "Net Total"
+      },
       "headers": {
         "name": "Name",
         "matricule": "Matricule",
@@ -728,11 +776,11 @@
       "label": "Drag & drop files or click to upload"
     }
   },
-
   "shared": {
     "continue": "Continue",
     "loading ": "Loading...",
     "currency": "MAD",
+    "printable": "Print",
     "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"

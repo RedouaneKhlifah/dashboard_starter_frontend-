@@ -465,6 +465,32 @@
     "delete": "حذف",
     "confirm": "تأكيد"
   },
+  "StatsContainer": {
+    "receivables_balance": "رصيد الذمم المدينة",
+    "collected_revenue": "الإيرادات المحصلة",
+    "waste_stock": "مخزون النفايات",
+    "profitability_rate": "معدل الربحية",
+    "Turnover": "دوران الأعمال",
+    "Total_Sales": "إجمالي المبيعات"
+  },
+  "partenaireModal": {
+    "common": {
+      "cancel": "إلغاء",
+      "apply": "حساب",
+      "product": "المنتج",
+      "noProduct": "لا يوجد منتج متاح",
+      "pricePerKg": "السعر لكل كيلوغرام",
+      "discount": "الخصم",
+      "tickets": "التذاكر",
+      "date": "التاريخ",
+      "netWeight": "الوزن الصافي",
+      "noTicketsFound": "لم يتم العثور على تذاكر للفترة المحددة",
+      "summary": "الملخص",
+      "totalWeight": "الوزن الإجمالي",
+      "totalValue": "القيمة الإجمالية",
+      "netTotal": "المجموع الصافي"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
@@ -484,7 +510,8 @@
         "settings": "الإعدادات",
         "clients": "العملاء",
         "employees": "الموظفين",
-        "partners": "الشركاء"
+        "partners": "الشركاء",
+        "transactions": "المعاملات"
       }
     },
     "users_table": {
@@ -529,6 +556,27 @@
       "create_new_partner": "إنشاء شريك جديد",
       "update_partner": "تحديث الشريك",
       "search_placeholder": "البحث...",
+      "print": {
+        "company_name": "اسم الشركة",
+        "company_address": "شارع الأعمال 123، المدينة",
+        "ticket_number": "رقم التذكرة",
+        "gross_weight": "الوزن الإجمالي",
+        "tare_weight": "الوزن",
+        "net_weight": "الوزن الصافي",
+        "company_contact": "هاتف: +1 234 567 890 | البريد الإلكتروني: info@company.com",
+        "partner_info": "معلومات الشريك",
+        "name": "الاسم",
+        "matricule": "رقم التسجيل",
+        "date_range": "الفترة الزمنية",
+        "product": "المنتج",
+        "weight": "الوزن (كجم)",
+        "value": "القيمة",
+        "date": "التاريخ",
+        "total_weight": "إجمالي الوزن",
+        "total_value": "إجمالي القيمة",
+        "discount": "الخصم",
+        "net_total": "الصافي الإجمالي"
+      },
       "headers": {
         "name": "الاسم",
         "matricule": "الماتريكول",
@@ -726,6 +774,7 @@
     "continue": "متابعة",
     "loading ": "تحميل...",
     "currency": "درهم",
+    "printable": "ممكن طبعه",
     "email_sent_successfully": "تم ارسال البريد الالكتروني بنجاح",
     "error": {
       "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"

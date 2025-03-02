@@ -26,6 +26,7 @@ import { ITransaction } from "@/interfaces/ITransaction";
 import http from "@/lib/http";
 import LiveClock from "../shared/LiveClock";
 import UpdateTransactionForm from "./UpdateTransactionForm";
+import { Clock9, CreditCard } from "lucide-react";
 
 interface TransactionTableProps {
   initialBalance: number;
@@ -170,14 +171,30 @@ export function TransactionTable({
 
   return (
     <>
-      <div className="flex justify-between items-center p-4 bg-primary/60 text-white rounded-xl shadow-lg mb-4">
-        <p className="text-xl font-semibold">
-          {translation.transaction.balance}: {balance} DH
-        </p>
-        <LiveClock />
+      <div className="grid grid-cols-3 gap-6 items-center p-6 mb-6 bg-primary/5 rounded-lg">
+        <div className="p-5 rounded-lg shadow-md border border-gray-100 bg-background hover:shadow-lg transition-shadow">
+          <h3 className="text-lg font-medium text-gray-800 mb-1">{transactions_table.transaction_management}</h3>
+          <div className="h-1 w-16 bg-primary rounded"></div>
+        </div>
+
+        <div className="p-5 rounded-lg shadow-md border border-gray-100 bg-background hover:shadow-lg transition-shadow flex items-center space-x-3">
+          <div className="bg-green-100 p-2 rounded-full">
+            <CreditCard className="h-5 w-5 text-green-600" />
+          </div>
+          <div>
+            <span className="text-sm text-gray-500">{translation.transaction.balance}</span>
+            <p className="text-xl font-semibold text-gray-800">{balance} DH</p>
+          </div>
+        </div>
+
+        <div className="p-5 rounded-lg shadow-md border border-gray-100 bg-background hover:shadow-lg transition-shadow flex items-center space-x-3">
+          <div className="bg-black p-2 rounded-full">
+            <Clock9 className="h-5 w-5 text-white" />
+          </div>
+          <LiveClock className="text-xl font-semibold text-gray-800" />
+        </div>
       </div>
       <Header
-        title={transactions_table.transaction_management}
         searchPlaceholder={transactions_table.search_placeholder}
         buttonText={transactions_table.create_new_transaction}
         showSearch={true}

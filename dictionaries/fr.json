@@ -458,6 +458,32 @@
     "delete": "Supprimer",
     "confirm": "Confirmer"
   },
+  "StatsContainer": {
+    "receivables_balance": "Solde des créances",
+    "collected_revenue": "Revenus encaissés",
+    "waste_stock": "Stock de déchets",
+    "profitability_rate": "Taux de rentabilité",
+    "Turnover": "Chiffre d'affaires",
+    "Total_Sales": "Total des gains"
+  },
+  "partenaireModal": {
+    "common": {
+      "cancel": "Annuler",
+      "apply": "Calculer",
+      "product": "Produit",
+      "noProduct": "Aucun produit disponible",
+      "pricePerKg": "Prix par Kg",
+      "discount": "Remise",
+      "tickets": "Tickets",
+      "date": "Date",
+      "netWeight": "Poids Net",
+      "noTicketsFound": "Aucun ticket trouvé pour la période sélectionnée",
+      "summary": "Résumé",
+      "totalWeight": "Poids Total",
+      "totalValue": "Valeur Totale",
+      "netTotal": "Total Net"
+    }
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -477,7 +503,8 @@
         "settings": "P aramètres",
         "clients": "Clients",
         "employees": "Employés",
-        "partners": "Partenaires"
+        "partners": "Partenaires",
+        "transactions": "Transactions"
       }
     },
     "users_table": {
@@ -522,6 +549,27 @@
       "create_new_partner": "Créer un nouveau partenaire",
       "update_partner": "Mettre à jour le partenaire",
       "search_placeholder": "Rechercher...",
+      "print": {
+        "company_name": "Nom de l'Entreprise",
+        "ticket_number": "Numéro de Ticket",
+        "gross_weight": "poids brut",
+        "tare_weight": "tare de poids",
+        "net_weight": "poids net",
+        "company_address": "123 Rue des Affaires, Ville",
+        "company_contact": "Tél: +33 1 23 45 67 89 | Email: info@entreprise.com",
+        "partner_info": "Informations sur le Partenaire",
+        "name": "Nom",
+        "matricule": "Matricule",
+        "date_range": "Période",
+        "product": "Produit",
+        "weight": "Poids (kg)",
+        "value": "Valeur",
+        "date": "Date",
+        "total_weight": "Poids Total",
+        "total_value": "Valeur Totale",
+        "discount": "Remise",
+        "net_total": "Total Net"
+      },
       "headers": {
         "name": "Nom",
         "matricule": "Matricule",
@@ -719,6 +767,7 @@
     "continue": "Continuer",
     "loading ": "Chargement...",
     "currency": "MAD",
+    "printable": "Imprimer",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }

@@ -1,4 +1,4 @@
-import { Mail, FileText, FileClock } from "lucide-react";
+import { Mail, FileText, FileClock, Eye } from "lucide-react";
 
 interface ActionButtonsProps {
   Id: number;
@@ -19,6 +19,7 @@ export const ActionButtons = ({
   onEmail,
   onPrint,
   onShowHistory,
+  onShow,
   editText,
   deleteText,
 }: ActionButtonsProps) => (
@@ -39,6 +40,15 @@ export const ActionButtons = ({
         title="Print"
       >
         <FileText size={18} />
+      </button>
+    )}
+    {onShow && (
+      <button
+        onClick={() => onShow(Id)}
+        className="px-3 py-1.5 text-xs font-medium bg-gray-50 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        title="Show"
+      >
+        <Eye size={16} />
       </button>
     )}
     {onShowHistory && (

@@ -68,7 +68,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
         className={`bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden !backdrop-blur-none  ${contentClassName}`}
         dismiss={{ enabled: dismiss }}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <DialogHeader
             placeholder={undefined}
             onPointerEnterCapture={undefined}
@@ -109,6 +109,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
             >
               {cancelButtonText}
             </Button>
+            {submitButtonText && (
             <Button
               placeholder={undefined}
               onPointerEnterCapture={undefined}
@@ -128,6 +129,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
                 submitButtonText
               )}
             </Button>
+          )}
 
             {isSecondaryBtnVisible && (
               <Button

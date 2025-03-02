@@ -136,32 +136,38 @@ export function TableFacture({
       {
         key: "invoice_number" as keyof IFacture,
         label: factures_table.headers.invoice_number,
+        width: "100px",
         renderCell: (_: any, row: IFacture) => row.reference,
       },
       {
         key: "client_name" as keyof IFacture,
         label: factures_table.headers.client_name,
+        width: "100px",
         renderCell: (_: any, row: IFacture) =>
           (row.client as IClient)?.full_name,
       },
       {
         key: "due_date" as keyof IFacture,
         label: factures_table.headers.due_date,
+        width: "100px",
         renderCell: (_: any, row: IFacture) => row.facture_date,
       },
       {
         key: "tva" as keyof IFacture,
         label: factures_table.headers.vat,
+        width: "70px",
         renderCell: (_: any, row: IFacture) => row.tva,
       },
       {
         key: "total" as keyof IFacture,
         label: factures_table.headers.amount,
+        width: "70px",
         renderCell: (_: any, row: IFacture) => row.total,
       },
       {
         key: "paid" as keyof IFacture,
         label: factures_table.headers.paid,
+        width: "70px",
         renderCell: (_: any, row: IFacture) => row.paid_amount,
       },
       {
@@ -230,6 +236,8 @@ export function TableFacture({
           translation={translation}
           lang={lang}
         />
+         
+        
       </div>
     </>
   );

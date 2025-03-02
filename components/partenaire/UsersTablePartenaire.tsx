@@ -18,6 +18,7 @@ import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 import useToast from "@/hooks/useToast";
+import ModalPartainer from "@/components/partenaire/ModalPartainer";
 
 interface UsersTablePartenaireProps {
   records: IPartenaire[];
@@ -25,6 +26,39 @@ interface UsersTablePartenaireProps {
   translation: DictionaryType;
   lang: Locale;
 }
+
+const dummyPartenaire: IPartenaire = {
+  id: 1,
+  name: "EcoFarm Agriculture",
+  matricule: "ECO-2024",
+  address: "123 Green Valley, Agro City",
+  products: {
+    id: 101,
+    name: "Organic Wheat",
+    sale_price: 2.5, 
+  },
+  tickets: [
+    {
+      id: 1,
+      created_at: "2025-03-01T14:15:00",
+      poids_brut: 500,
+      poids_tare: 50,
+    },
+    {
+      id: 2,
+      created_at: "2025-03-05T14:15:00",
+      poids_brut: 750,
+      poids_tare: 75,
+    },
+    {
+      id: 3,
+      created_at: "2025-03-10T11:00:00",
+      poids_brut: 600,
+      poids_tare: 60,
+    },
+  ],
+};
+
 
 export function UsersTablePartenaire({
   records = [],
@@ -50,6 +84,14 @@ export function UsersTablePartenaire({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const didMountRef = useRef(false);
   const { error, success} = useToast(); 
+  const [selectedPartenaireDetails, setSelectedPartenaireDetails] = useState<IPartenaire | null>(null);
+  
+  const handleView = useCallback((partenaireId: number) => {
+    const record = partenaires.find((p) => p.id === partenaireId);
+    setSelectedPartenaireDetails(record || null);
+    openModal(ModalTypeEnum.VIEW);
+  }, [openModal, partenaires]);
+
 
   const partenairRows = useMemo(
     () => rowMapper(partenaires),
@@ -138,8 +180,10 @@ export function UsersTablePartenaire({
                 Id={row.id}
                 onEdit={handleEdit}
                 onDelete={openDeleteModal}
+                onShow={() => handleView(row.id)}
                 editText={partenaires_table.actions.edit}
                 deleteText={partenaires_table.actions.delete}
+
               />
             ),
           },
@@ -168,6 +212,14 @@ export function UsersTablePartenaire({
       />
 
       <CreatePartenaireForm lang={lang} translation={translation} />
+
+      <ModalPartainer
+        partenaire={dummyPartenaire}
+        isOpen={modalType === ModalTypeEnum.VIEW}
+        onClose={closeModal}
+        translation={translation}
+        lang={lang} 
+      />
     </>
   );
 }

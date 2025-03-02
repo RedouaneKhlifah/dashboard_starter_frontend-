@@ -1,30 +1,41 @@
-import { FileText, ShoppingCart, Truck, Receipt } from "lucide-react";
+import { DollarSign, TrendingUp, Box, CircleDollarSign } from "lucide-react";
 import StatCard from "./StatCard";
 
-const StatsContainer = () => {
+interface StatsContainerProps {
+  translation: {
+    StatsContainer: {
+      receivables_balance: string;
+      collected_revenue: string;
+      waste_stock: string;
+      profitability_rate: string;
+    };
+  };
+}
+
+const StatsContainer = ({ translation }: StatsContainerProps) => {
   const stats = [
     {
-      title: "orders",
-      value: 0,
-      icon: FileText,
+      title: translation.StatsContainer.receivables_balance,
+      value: "0.00",
+      icon: DollarSign,
       variant: "orange",
     },
     {
-      title: "Bons de commandes",
-      value: 0,
-      icon: ShoppingCart,
+      title: translation.StatsContainer.collected_revenue,
+      value: "136,254.00",
+      icon: CircleDollarSign,
       variant: "green",
     },
     {
-      title: "Bons de livraison",
-      value: 0,
-      icon: Truck,
+      title: translation.StatsContainer.waste_stock,
+      value: "3,000,000 KG",
+      icon: Box,
       variant: "blue",
     },
     {
-      title: "Factures",
-      value: 0,
-      icon: Receipt,
+      title: translation.StatsContainer.profitability_rate,
+      value: "78.17%",
+      icon: TrendingUp,
       variant: "red",
     },
   ] as const;
