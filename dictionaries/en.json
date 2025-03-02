@@ -138,7 +138,7 @@
     "NationalRequired": "Country is required",
     "PricePerDayRequired": "Price Per Day is required",
     "PricePerHourRequired": "Price Per Hour is required",
-    "employee_idRequired": "Jobs ID is required",
+    "matriculeRequired": "Matricule is required",
     "cityRequired": "City is required",
     "form": {
       "first_name": "First Name",
@@ -148,12 +148,12 @@
       "address": "Address",
       "country": "Country",
       "city": "City",
-      "employee_id": "Emplois ID",
+      "matricule": "Matricule",
       "national_id": "CIN",
       "date_of_engagement": "Date of Engagement",
-      "monthly_salary": "Monthly Salary",
       "price_per_hour": "Price / Hour",
-      "price_per_day": "Price / Day"
+      "cnss_number": "CNSS Number",
+      "birth_date": "Birth Date"
     },
     "common": {
       "create": "Create",
@@ -193,9 +193,9 @@
   "payslip": {
     "employer": "EMPLOYER",
     "PayslipName": "Payslip",
-    "company_name": "MUTIPLAST 2023",
-    "company_activity": "THERMAL PLASTICS MATERIALS",
-    "company_address": "65. Q.I SIDI GHANEM JNANATE",
+    "company_name": "ZROUDI COMPANY",
+    "company_activity": "Waste Collection",
+    "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
     "postal_code": "B-P 12624",
     "city": "MARRAKECH",
     "registration_number": "Registration number CNSS",
@@ -354,7 +354,9 @@
       "cancel": "Cancel",
       "update": "Update",
       "delete": "Delete",
-      "continue": "Continue"
+      "continue": "Continue",
+      "create_and_publish": "Create and Publish",
+      "update_and_publish": "Update and Publish"
     },
     "select_products": "Select Products",
     "reference_create": "Create new reference",
@@ -536,6 +538,7 @@
         "full_name": "Full Name",
         "national_id": "CIN",
         "date_of_engagement": "Engagement Date",
+        "matricule": "Matricule",
         "monthly_salary": "Monthly Salary",
         "price_per_hour": "Price/Hour",
         "price_per_day": "Price/Day"
@@ -778,6 +781,7 @@
     "loading ": "Loading...",
     "currency": "MAD",
     "printable": "Print",
+    "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
     }

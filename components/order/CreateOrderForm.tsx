@@ -70,6 +70,33 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
     }
   };
 
+  const handlePublich = async (data: IOrderForm): Promise<boolean> => {
+    const formattedData = ordersDataMapper(data);
+    try {
+      const response = await http(
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders/store-and-publish",
+        {
+          method: "POST",
+          lang,
+          body: JSON.stringify(formattedData),
+        }
+      );
+
+      if (response.ok) {
+        toastSuccess(translation.order.form.message.success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.order.form.message.error);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error during order creation:", error);
+      toastError(translation.order.form.message.error);
+      return false;
+    }
+  };
+
   return (
     <OrderForm
       translation={translation}
@@ -77,6 +104,7 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      OnPublish={handlePublich}
       isOpen={modalType === "create"}
     />
   );

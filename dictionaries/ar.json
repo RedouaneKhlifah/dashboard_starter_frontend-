@@ -143,7 +143,7 @@
     "addressRequired": "العنوان مطلوب",
     "NationalRequired": "الرقم الوطني (CIN) مطلوب",
     "cityRequired": "المدينة مطلوبة",
-    "employee_idRequired": "رقم الموظف (ID) مطلوب",
+    "matriculeRequired": "رقم الموظف (ID) مطلوب",
     "form": {
       "first_name": "الاسم الأول",
       "last_name": "الاسم الأخير",
@@ -152,12 +152,12 @@
       "address": "العنوان",
       "country": "البلد",
       "city": "المدينة",
-      "employee_id": "رقم الموظف (ID)",
+      "matricule": "رمز الموظف",
       "national_id": "الرقم الوطني (CIN)",
       "date_of_engagement": "تاريخ التعيين",
-      "monthly_salary": "الراتب الشهري",
       "price_per_hour": "السعر / ساعة",
-      "price_per_day": "السعر / يوم"
+      "cnss_number": "رقم الضمان الاجتماعي",
+      "birth_date": "تاريخ الميلاد"
     },
     "common": {
       "create": "إنشاء",
@@ -242,10 +242,10 @@
   },
   "payslip": {
     "employer": "المُشغِّل",
-    "company_name": "موتيبلاست 2023",
-    "PayslipName": "ورقة الأداء",
-    "company_activity": "مواد البلاستيك الحراري",
-    "company_address": "65. حي صناعي سيدي غانم جنانات",
+    "company_name": "شركة زرودي",
+    "PayslipName": "جمع النفايات",
+    "company_activity": "جمع النفايات",
+    "company_address": "الدكتور آيت مسعود، حربيل الغابة",
     "postal_code": "ص-ب 12624",
     "city": "مراكش",
     "registration_number": "رقم التسجيل CNSS",
@@ -353,7 +353,9 @@
       "cancel": "إلغاء",
       "update": "تحديث",
       "delete": "حذف",
-      "continue": "متابعة"
+      "continue": "متابعة",
+      "create_and_publish": "إنشاء ونشر",
+      "update_and_publish": "تحديث ونشر"
     },
     "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
@@ -535,6 +537,7 @@
         "full_name": "الاسم الكامل",
         "national_id": "رقم البطاقة الوطنية",
         "date_of_engagement": "تاريخ التوظيف",
+        "matricule": "رقم الموظف",
         "monthly_salary": "الراتب الشهري",
         "price_per_hour": "السعر/ساعة",
         "price_per_day": "السعر/يوم"
@@ -772,6 +775,7 @@
     "loading ": "تحميل...",
     "currency": "درهم",
     "printable": "ممكن طبعه",
+    "email_sent_successfully": "تم ارسال البريد الالكتروني بنجاح",
     "error": {
       "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
     }

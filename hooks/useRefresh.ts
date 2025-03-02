@@ -28,11 +28,10 @@ const useRefresh = ({
 
   return useCallback(
     async (force?: boolean): Promise<void> => {
-      if (!shouldRefresh || force) {
+      if (!shouldRefresh && !force) {
         return;
       }
-      // If the search query has changed compared to the previous value,
-      // reset the CurrentPage to 1; otherwise, keep the current CurrentPage.
+
       const currentPageToUse =
         prevSearchQueryRef.current !== trimmedSearchQuery ? 1 : currentPage;
 
@@ -60,7 +59,9 @@ const useRefresh = ({
         setRecords(data);
         setTotalRecords(totalRecords);
 
-        prevSearchQueryRef.current = trimmedSearchQuery; // Update the reference after successful request.
+        // Update both refs after successful request
+        prevSearchQueryRef.current = trimmedSearchQuery;
+        prevCurrentPageRef.current = currentPageToUse;
       } catch (error) {
         console.error("Error during search:", error);
       } finally {

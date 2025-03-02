@@ -63,7 +63,7 @@ export function TableOrder({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "order",
+    entity: "orders",
     setRecords: setorders,
     setTotalRecords: setTotalorders,
   });
