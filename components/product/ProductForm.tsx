@@ -11,7 +11,7 @@ import ImageUpload from "@/components/shared/ImageUpload";
 import useModalStore from "@/store/modalStore";
 
 // Utilities & Validation
-import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
+import { handleChange, handleSelect, hasNoErrors } from "@/components/utils/formHandlers";
 import { ProductValidation } from "@/validation";
 
 // Types
@@ -21,6 +21,7 @@ import { ProductFormErrors } from "@/validation/productValidators/ProductValidat
 
 // Icons
 import { Group, Tag, BarChart, Package, Info } from "lucide-react";
+import SelectInput from "../ui/SelectInput";
 
 interface ProductFormProps {
   initialFormData: IProductForm;
@@ -115,7 +116,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.sku}
             />
-            <InputField
+            {/* <InputField
               id="unit"
               label={translation.Product.form.unit}
               icon={<Group className="w-5 h-5 text-gray-400" />}
@@ -123,7 +124,21 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.unit}
               required
-            />
+            /> */}
+            <div>
+              <SelectInput
+                options={[
+                  { value: "kg", label: "Kilogram" },
+                  { value: "unit", label: "Unit" },
+                ]}
+                id="unit"
+                label={translation.Product.form.unit}
+                value={formData.unit}
+                onChange={(e) => { }}
+                onSelect={(option) => handleSelect(option, "unit", setFormData, setErrors)}
+                error={errors.unit}
+              />
+            </div>
             <InputField
               id="description"
               label={translation.Product.form.description}

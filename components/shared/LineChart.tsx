@@ -140,7 +140,7 @@ const LineChart: React.FC<LineChartProps> = ({
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="#2458d4"
+                stroke="hsl(var(--primary))"
                 strokeWidth={2}
               />
             </RechartLineChar>
@@ -154,13 +154,6 @@ const LineChart: React.FC<LineChartProps> = ({
           </div>
         )}
       </div>
-
-      {data && data.length > 0 && (
-        <p className="mt-4 text-center text-xs text-muted-foreground">
-          The dates on this chart use the UTC timezone. Use this data to
-          understand the performance over time.
-        </p>
-      )}
     </div>
   );
 };

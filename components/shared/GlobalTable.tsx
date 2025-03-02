@@ -30,6 +30,7 @@ export interface TableHeader<T> {
   renderCell?: (value: T[keyof T], row: T) => ReactNode;
   isImage?: boolean;
   imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
+  width?: string;
 }
 
 interface TableProps<T> {
@@ -104,12 +105,15 @@ export const GlobalTable = <T extends { id: string | number }>({
                 <th
                   key={header.key.toString()}
                   className="sticky top-0 border-b border-blue-gray-100 p-4 text-start"
-                  style={{ background: "inherit" }}
+                  style={{ 
+                    background: "inherit",
+                    maxWidth: header.width
+                  }}
                 >
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="font-normal leading-none opacity-70"
+                    className="font-normal leading-none opacity-70 truncate"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
@@ -134,6 +138,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                             ? "p-5 text-start"
                             : "p-5 border-b border-blue-gray-50 text-start"
                         }
+                        style={{ maxWidth: header.width }}
                       >
                         <div className="h-5 bg-gray-200 rounded animate-pulse" />
                       </td>
@@ -273,9 +278,8 @@ interface TableRowProps<T> {
 const TableRow = <T extends { id: string | number }>({
   row,
   headers,
+  isLast,
 }: TableRowProps<T>) => {
-  const isLast = false;
-
   return (
     <tr>
       {headers.map((header) => (
@@ -286,6 +290,10 @@ const TableRow = <T extends { id: string | number }>({
               ? "p-4 text-start"
               : "p-4 border-b border-blue-gray-50 text-start"
           }
+          style={{
+            maxWidth: header.width,
+            overflow: 'hidden',
+          }}
         >
           <TableCell<T> header={header} row={row} />
         </td>
@@ -312,7 +320,9 @@ const TableCell = <T extends { id: string | number }>({
   if (header.isImage) {
     if (!value) return null;
     return (
-      <Image src={String(value)} alt={header.label} width={20} height={20} />
+      <div className="max-w-full overflow-hidden">
+         <Image src={String(value)} alt={header.label} width={20} height={20} />
+      </div>
     );
   }
 
@@ -320,7 +330,7 @@ const TableCell = <T extends { id: string | number }>({
     <Typography
       variant="small"
       color="blue-gray"
-      className="font-normal"
+      className="font-normal truncate"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}

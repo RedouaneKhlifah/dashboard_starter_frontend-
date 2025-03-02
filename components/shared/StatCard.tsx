@@ -2,7 +2,7 @@ import { LucideIcon } from "lucide-react";
 
 interface StatCardProps {
   title: string;
-  value: number;
+  value: string;
   icon: LucideIcon;
   variant: "orange" | "green" | "blue" | "red";
 }
