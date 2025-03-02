@@ -39,16 +39,16 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
   const initialFormData = useMemo<IEmployeesForm>(
     () =>
       selectedRecord || {
+        matricule: "",
         first_name: "",
         last_name: "",
         address: "",
         national_id: "",
-        monthly_salary: 0,
+        cnss_number: null,
         price_per_hour: 0,
-        price_per_day: 0,
         city: "",
         date_of_engagement: "",
-        employee_id: "",
+        birth_date: null,
       },
     [selectedRecord]
   );

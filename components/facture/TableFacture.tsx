@@ -129,9 +129,7 @@ export function TableFacture({
     }
   };
 
-  const handleEmail = useCallback((orderId: number) => {
-    // Implement email functionality
-  }, []);
+  const handleEmail = useCallback((orderId: number) => {}, []);
 
   const headers = useMemo(
     () => [

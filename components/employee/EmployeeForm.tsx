@@ -96,6 +96,27 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
       contentClassName="2xl:min-w-[50%]"
       onSubmit={handleSubmit}
     >
+      <div className="grid grid-cols-2 gap-4">
+        <InputField
+          id="matricule"
+          label={translation.employee.form.matricule}
+          value={formData.matricule}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          error={errors.matricule}
+          required
+        />
+        {/* national_id */}
+        <InputField
+          id="national_id"
+          label={translation.employee.form.national_id}
+          value={formData.national_id}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          // icon={<ScanEye size={18} />}
+          error={errors.national_id}
+          placeholder="XX-XXX-XX"
+          required
+        />
+      </div>
       <div className="space-y-4">
         {/* First & Last Name */}
         <div className="flex gap-4">
@@ -116,29 +137,24 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             required
           />
         </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          {/* national_id */}
+        <div className="flex gap-4">
           <InputField
-            id="national_id"
-            label={translation.employee.form.national_id}
-            value={formData.national_id}
+            id="birth_date"
+            type="date"
+            label={translation.employee.form.birth_date}
+            value={formData.birth_date || ""}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            // icon={<ScanEye size={18} />}
-            error={errors.national_id}
-            placeholder="XX-XXX-XX"
             required
           />
-
           <InputField
-            id="employee_id"
-            label={translation.employee.form.employee_id}
-            value={formData.employee_id}
+            id="cnss_number"
+            type="string"
+            label={translation.employee.form.cnss_number}
+            value={formData.cnss_number || ""}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.employee_id}
-            required
           />
         </div>
+
         {/* adress */}
         <InputField
           id="address"
@@ -158,28 +174,17 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             error={errors.city}
             required
           />
+
           <InputField
-            id="date_of_engagement"
+            id="birth_date"
             type="date"
-            label={translation.employee.form.date_of_engagement}
-            value={formData.date_of_engagement}
+            label={translation.employee.form.birth_date}
+            value={formData.birth_date || ""}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            // icon={<Calendar size={18} />}
-            error={errors.date_of_engagement}
             required
           />
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <InputField
-            id="monthly_salary"
-            type="number"
-            label={translation.employee.form.monthly_salary}
-            value={formData.monthly_salary}
-            onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.monthly_salary}
-            required
-            suffix={translation.shared.currency}
-          />
+        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="price_per_hour"
             type="number"
@@ -191,14 +196,13 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             suffix={translation.shared.currency}
           />
           <InputField
-            id="price_per_day"
-            type="number"
-            label={translation.employee.form.price_per_day}
-            value={formData.price_per_day}
+            id="date_of_engagement"
+            type="date"
+            label={translation.employee.form.date_of_engagement}
+            value={formData.date_of_engagement}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.price_per_day}
+            error={errors.date_of_engagement}
             required
-            suffix={translation.shared.currency}
           />
         </div>
       </div>

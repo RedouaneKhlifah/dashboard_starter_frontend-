@@ -5,7 +5,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import useToast from "@/hooks/useToast";
 
 // Components
-import { GlobalTable } from "@/components/shared/GlobalTable";
+import { GlobalTable, TableHeader } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
 import UpdateEmployeesForm from "./UpdateEmployeeForm";
@@ -23,7 +23,6 @@ import useDebounce from "@/hooks/useDebounce";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IEmployee } from "@/interfaces/IEmployee";
-import EmployeesMappers, { UserRow } from "@/mappers/EmployeesMapper";
 import http from "@/lib/http";
 import { UploadEmployee } from "./UploadEmployee";
 import PrintableEmployee from "./printable/PrintableEmployee";
@@ -45,7 +44,6 @@ export function EmployeesTable({
 }: EmployeesTableProps) {
   // Store & Hooks
   const { openModal, closeModal, modalType } = useModalStore();
-  const { rowMapper } = EmployeesMappers;
   const {
     sidebar: { users_table },
   } = translation;
@@ -62,13 +60,8 @@ export function EmployeesTable({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { error: toastError, success: toastSuccess } = useToast();
   // Memoized values
-  const userRows = useMemo(
-    () => rowMapper(Employeess),
-    [rowMapper, Employeess]
-  );
   const [selectedEmployeeForPrint, setSelectedEmployeeForPrint] =
     useState<IEmployee | null>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   // Refs
   const didMountRef = useRef(false);
@@ -147,67 +140,39 @@ export function EmployeesTable({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
-  const handlePrint = useReactToPrint({
-    contentRef,
-    documentTitle: `Bulletin de Paie${
-      selectedEmployeeForPrint?.id || "document"
-    }`,
-    onAfterPrint: () => setSelectedEmployeeForPrint(null),
-  });
-
-  useEffect(() => {
-    if (selectedEmployeeForPrint) handlePrint();
-  }, [selectedEmployeeForPrint, handlePrint]);
-
-  const handlePrintRequest = useCallback(
-    (employeeId: number) => {
-      const employeesToPrint = Employeess.find((d) => d.id === employeeId);
-      if (employeesToPrint) setSelectedEmployeeForPrint(employeesToPrint);
-    },
-    [Employeess]
-  );
-
   // Memoized headers to prevent re-renders
-  interface TableHeader {
-    key: keyof UserRow;
-    label: string;
-    renderCell?: (_: any, row: UserRow) => JSX.Element;
-  }
-
-  const tableHeaders: TableHeader[] = useMemo(
+  const tableHeaders: TableHeader<IEmployee>[] = useMemo(
     () => [
-      { key: "employee_id" as keyof UserRow, label: users_table.headers.id },
-      { key: "name" as keyof UserRow, label: users_table.headers.name },
       {
-        key: "national_id" as keyof UserRow,
+        key: "matricule" as keyof IEmployee,
+        label: users_table.headers.matricule,
+      },
+      {
+        key: "full_name" as keyof IEmployee,
+        label: users_table.headers.name,
+        renderCell: (_: any, row: IEmployee) => `${row.full_name}`,
+      },
+      {
+        key: "national_id",
         label: users_table.headers.national_id,
       },
       {
-        key: "date_of_engagement" as keyof UserRow,
+        key: "date_of_engagement",
         label: users_table.headers.date_of_engagement,
       },
       {
-        key: "monthly_salary" as keyof UserRow,
-        label: users_table.headers.monthly_salary,
-      },
-      {
-        key: "price_per_hour" as keyof UserRow,
+        key: "price_per_hour" as keyof IEmployee,
         label: users_table.headers.price_per_hour,
       },
       {
-        key: "price_per_day" as keyof UserRow,
-        label: users_table.headers.price_per_day,
-      },
-      {
-        key: "id" as keyof UserRow,
+        key: "id" as keyof IEmployee,
         label: users_table.headers.actions,
-        renderCell: (_: any, row: UserRow) => (
+        renderCell: (_: any, row: IEmployee) => (
           <ActionButtons
             Id={row.id}
             onShowHistory={handleShowHistory}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
-            onPrint={handlePrintRequest}
             editText={users_table.actions.edit}
             deleteText={users_table.actions.delete}
           />
@@ -215,20 +180,17 @@ export function EmployeesTable({
       },
     ],
     [
-      users_table.headers.id,
+      users_table.headers.matricule,
       users_table.headers.name,
       users_table.headers.national_id,
       users_table.headers.date_of_engagement,
-      users_table.headers.monthly_salary,
       users_table.headers.price_per_hour,
-      users_table.headers.price_per_day,
       users_table.headers.actions,
       users_table.actions.edit,
       users_table.actions.delete,
       handleShowHistory,
       handleEdit,
       openDeleteModal,
-      handlePrintRequest,
     ]
   );
 
@@ -245,9 +207,9 @@ export function EmployeesTable({
       />
 
       {/* Employeess Table */}
-      <GlobalTable<UserRow>
+      <GlobalTable<IEmployee>
         headers={tableHeaders}
-        rows={userRows}
+        rows={Employeess}
         totalRows={totalEmployeess}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
@@ -276,14 +238,6 @@ export function EmployeesTable({
       <CreateEmployeesForm lang={lang} translation={translation} />
 
       <UploadEmployee translation={translation} lang={lang} />
-      <div style={{ display: "none" }}>
-        <PrintableEmployee
-          ref={contentRef}
-          employee={selectedEmployeeForPrint}
-          translation={translation}
-          lang={lang}
-        />
-      </div>
       {/* history modal */}
       <HistoryModal
         lang={lang}

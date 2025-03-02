@@ -32,6 +32,7 @@ interface orderFormProps {
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   onSubmit: (formData: IOrderForm) => Promise<boolean>;
+  OnPublish: (formData: IOrderForm) => Promise<boolean>;
   isOpen: boolean;
   selectedRecord?: IOrder;
 }
@@ -42,6 +43,7 @@ const OrderForm = ({
   errors,
   setErrors,
   onSubmit,
+  OnPublish,
   isOpen,
   selectedRecord,
 }: orderFormProps) => {
@@ -49,6 +51,7 @@ const OrderForm = ({
   const [formData, setFormData] = useState<IOrderForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSecondSubmitting, setIsSecondSubmitting] = useState(false);
 
   useEffect(() => {
     setFormData(initialFormData);
@@ -61,6 +64,16 @@ const OrderForm = ({
           ? translation.sidebar.orders_table.create_new_order
           : translation.sidebar.orders_table.update_order
         : translation.order.common.continue,
+    [activeTab.name, modalType, translation]
+  );
+
+  const secondarySubmitButtonText = useMemo(
+    () =>
+      activeTab.name === "notes"
+        ? modalType === "create"
+          ? translation.order.common.create_and_publish
+          : translation.order.common.update_and_publish
+        : translation.order.common.update_and_publish,
     [activeTab.name, modalType, translation]
   );
 
@@ -99,8 +112,6 @@ const OrderForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("for ma data ggggggggggggggggggg", formData);
-
     if (activeTab.name !== "notes") {
       const nextTab = tabs.find((t) => t.index === activeTab.index + 1);
       if (nextTab) handleTabChange(nextTab);
@@ -122,6 +133,28 @@ const OrderForm = ({
         console.error("Submission error:", error);
       } finally {
         setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handlePublish = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newErrors = orderValidation.validateorderForm(formData, translation);
+    setErrors(newErrors);
+
+    if (hasNoErrors(newErrors)) {
+      setIsSecondSubmitting(true);
+      try {
+        const success = await OnPublish(formData);
+        if (success) {
+          closeModal();
+          resetForm();
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSecondSubmitting(false);
       }
     }
   };
@@ -156,9 +189,13 @@ const OrderForm = ({
           : translation.sidebar.orders_table.update_order
       }
       isLoading={isSubmitting}
+      isSecondLoading={isSecondSubmitting}
       submitButtonText={submitButtonText}
       cancelButtonText={translation.order.common.cancel}
       onSubmit={handleSubmit}
+      onSecondarySubmit={handlePublish}
+      secondarySubmitButtonText={secondarySubmitButtonText}
+      isSecondaryBtnVisible={activeTab.name === "notes"}
       contentClassName="2xl:min-w-[60%]"
       dismiss={!isSecondOpen}
     >

@@ -4,11 +4,11 @@ import { forwardRef } from "react";
 import { Locale } from "@/i18n-config";
 import { IEmployee } from "@/interfaces/IEmployee";
 import { DictionaryType } from "@/lib/i18n";
-import { formatDate } from "@/components/utils/formatters";
-import Image from "next/image";
+import { PaymentHistory } from "../HistoryModal";
 
 interface PrintablePayslipProps {
   employee: IEmployee | null;
+  selectedHistory: PaymentHistory | undefined;
   translation: DictionaryType;
   lang: Locale;
 }
@@ -16,9 +16,11 @@ interface PrintablePayslipProps {
 const DocumentHeader = ({
   translation,
   lang,
+  employee,
 }: {
   translation: DictionaryType;
   lang: Locale;
+  employee: IEmployee;
 }) => (
   <div className="flex gap-1 border-b-2 pb-2 mb-4 w-full">
     <div className="flex flex-col w-full h-full">
@@ -28,7 +30,7 @@ const DocumentHeader = ({
         </div>
 
         <div className="mt-2">
-          <p className="font-bold">MUTIPLAST 2023</p>
+          <p className="font-bold">SOCIETE ZROUDI</p>
           <p>{translation.payslip.company_activity}</p>
           <p>{translation.payslip.company_address}</p>
           <p>{translation.payslip.postal_code}</p>
@@ -48,13 +50,15 @@ const DocumentHeader = ({
         </div>
 
         <div className="mt-2">
-          <p className="font-bold">BRIH LARBI</p>
-          <p>DR LAHRACH N°5</p>
-          <p>Marrakech</p>
+          <p className="font-bold">{employee.full_name}</p>
+          <p>{employee.address}</p>
+          <p>{employee.city}</p>
         </div>
       </div>
       <div className="border w-full px-3 py-1">
-        <p>{translation.payslip.employee_id}: 104731940</p>
+        <p>
+          {translation.payslip.employee_id}: {employee.cnss_number}
+        </p>
       </div>
     </div>
   </div>
@@ -62,8 +66,10 @@ const DocumentHeader = ({
 
 const EmployeeInfoTable = ({
   translation,
+  employee,
 }: {
   translation: DictionaryType;
+  employee: IEmployee;
 }) => (
   <table className="w-full border-collapse mb-4">
     <thead>
@@ -76,16 +82,22 @@ const EmployeeInfoTable = ({
     </thead>
     <tbody>
       <tr className="text-center">
-        <td className="border p-2">3400</td>
-        <td className="border p-2">7/09/01</td>
-        <td className="border p-2">30/06/74</td>
-        <td className="border p-2">E537395</td>
+        <td className="border p-2">{employee.matricule}</td>
+        <td className="border p-2">{employee.date_of_engagement}</td>
+        <td className="border p-2">{employee.birth_date}</td>
+        <td className="border p-2">{employee.national_id}</td>
       </tr>
     </tbody>
   </table>
 );
 
-const PaymentPeriodRow = ({ translation }: { translation: DictionaryType }) => (
+const PaymentPeriodRow = ({
+  translation,
+  selectedHistory,
+}: {
+  translation: DictionaryType;
+  selectedHistory: PaymentHistory;
+}) => (
   <div>
     <div className="border p-3 text-center">
       <div className="mb-2">
@@ -93,12 +105,20 @@ const PaymentPeriodRow = ({ translation }: { translation: DictionaryType }) => (
           {translation.payslip.base_salary}
         </strong>
       </div>
-      <span>1 495,53</span>
+      <span>{selectedHistory.total_gain}</span>
     </div>
   </div>
 );
 
-const PayDetailsTable = ({ translation }: { translation: DictionaryType }) => (
+const PayDetailsTable = ({
+  translation,
+  historyOfPay,
+  employee,
+}: {
+  translation: DictionaryType;
+  historyOfPay: PaymentHistory;
+  employee: IEmployee;
+}) => (
   <table className="w-full border-collapse mb-4">
     <thead>
       <tr>
@@ -112,7 +132,7 @@ const PayDetailsTable = ({ translation }: { translation: DictionaryType }) => (
     <tbody>
       <tr className="border">
         <td className="border p-2">{translation.payslip.rubric}</td>
-        <td className="border p-2 text-right">1 495,53</td>
+        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
         <td className="border p-2 text-center">
           {translation.payslip.base_units}
         </td>
@@ -121,49 +141,49 @@ const PayDetailsTable = ({ translation }: { translation: DictionaryType }) => (
       <tr>
         <td className="border p-2">{translation.payslip.normal_hours}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">80,00</td>
-        <td className="border p-2 text-right">15,660</td>
-        <td className="border p-2 text-right">1 252,80</td>
+        <td className="border p-2 text-right">{historyOfPay.total_hours}</td>
+        <td className="border p-2 text-right">{employee.price_per_hour}</td>
+        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.seniority}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 367,85</td>
-        <td className="border p-2 text-right">20,000</td>
+        <td className="border p-2 text-right"></td>
+        <td className="border p-2 text-right"></td>
         <td className="border p-2"></td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.gross_salary}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2 text-right"></td>
         <td className="border p-2"></td>
         <td className="border p-2"></td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.taxable_income}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 641,42</td>
+        <td className="border p-2 text-right"></td>
         <td className="border p-2"></td>
         <td className="border p-2"></td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.social_security}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 641,42</td>
-        <td className="border p-2 text-right">4,480</td>
-        <td className="border p-2 text-right">73,54</td>
+        <td className="border p-2 text-right"></td>
+        <td className="border p-2 text-right"></td>
+        <td className="border p-2 text-right"></td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.health_insurance}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 641,42</td>
-        <td className="border p-2 text-right">2,260</td>
-        <td className="border p-2 text-right">37,10</td>
+        <td className="border p-2 text-right"></td>
+        <td className="border p-2 text-right"></td>
+        <td className="border p-2 text-right"></td>
       </tr>
       <tr>
         <td className="border p-2">{translation.payslip.income_tax}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">1 202,50</td>
+        <td className="border p-2 text-right"></td>
         <td className="border p-2"></td>
         <td className="border p-2"></td>
       </tr>
@@ -172,14 +192,14 @@ const PayDetailsTable = ({ translation }: { translation: DictionaryType }) => (
         <td className="border p-2"></td>
         <td className="border p-2"></td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">523,19</td>
+        <td className="border p-2 text-right"></td>
       </tr>
       <tr className="font-bold">
         <td className="border p-2" colSpan={3}>
           {translation.payslip.total}
         </td>
-        <td className="border p-2 text-right">1 641,41</td>
-        <td className="border p-2 text-right">633,83</td>
+        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
+        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
       </tr>
     </tbody>
   </table>
@@ -237,8 +257,8 @@ const printStyles = `
 
 // Main component
 const PrintablePayslip = forwardRef<HTMLDivElement, PrintablePayslipProps>(
-  ({ employee, translation, lang }, ref) => {
-    if (!employee) {
+  ({ employee, translation, lang, selectedHistory }, ref) => {
+    if (!employee && !selectedHistory) {
       return <div ref={ref}>No employee data available</div>;
     }
 
@@ -252,13 +272,27 @@ const PrintablePayslip = forwardRef<HTMLDivElement, PrintablePayslipProps>(
         style={{ fontFamily: "Arial, sans-serif" }}
       >
         <style>{printStyles}</style>
-        <DocumentHeader translation={translation} lang={lang} />
+        <DocumentHeader
+          translation={translation}
+          lang={lang}
+          employee={employee as IEmployee}
+        />
         <div className="flex gap-1">
-          <EmployeeInfoTable translation={translation} />
+          <EmployeeInfoTable
+            translation={translation}
+            employee={employee as IEmployee}
+          />
 
-          <PaymentPeriodRow translation={translation} />
+          <PaymentPeriodRow
+            translation={translation}
+            selectedHistory={selectedHistory as PaymentHistory}
+          />
         </div>
-        <PayDetailsTable translation={translation} />
+        <PayDetailsTable
+          translation={translation}
+          historyOfPay={selectedHistory as PaymentHistory}
+          employee={employee as IEmployee}
+        />
         <SignatureArea translation={translation} />
       </div>
     );

@@ -138,7 +138,7 @@
     "DateEngagementRequired": "La date d'engagement est requise",
     "addressRequired": "L'adresse est requise",
     "NationalRequired": "Le CIN est requis",
-    "employee_idRequired": "Le Emplois ID est requis",
+    "matriculeRequired": "Le matricule est requis",
     "cityRequired": "La ville est requise",
     "form": {
       "first_name": "Prénom",
@@ -148,12 +148,12 @@
       "address": "Adresse",
       "country": "Pays",
       "city": "Ville",
-      "employee_id": "Emplois ID",
+      "matricule": "Matricule",
       "national_id": "CIN",
       "date_of_engagement": "Date d’engagement",
-      "monthly_salary": "Salaire mensuel",
       "price_per_hour": "Prix / Heure",
-      "price_per_day": "Prix / Jour"
+      "cnss_number": "N° CNSS",
+      "birth_date": "Date de naissance"
     },
     "common": {
       "create": "Créer",
@@ -165,7 +165,6 @@
     "message": {
       "success": "Employée créé avec succès",
       "update_success": "Employée mis à jour avec succès",
-      "update_success": "Employée updated successfully",
       "upload_success": "Les employés ont été téléchargés avec succès",
       "upload_error": "Erreur lors du téléchargement des employés",
       "delete_success": "Employée supprimé avec succès",
@@ -236,9 +235,9 @@
   "payslip": {
     "employer": "EMPLOYEUR",
     "PayslipName": "Bulletin de Paie",
-    "company_name": "MUTIPLAST 2023",
-    "company_activity": "MATIERES THERMOPLASTIQUES",
-    "company_address": "65. Q.I SIDI GHANEM JNANATE",
+    "company_name": "SOCIÉTÉ ZROUDI",
+    "company_activity": "Collecte des déchets et recyclages",
+    "company_address": "Dr Aït Messaoud Harbil El Ghaba",
     "postal_code": "B-P 12624",
     "city": "MARRAKECH",
     "registration_number": "N° d'affiliation CNSS",
@@ -346,7 +345,9 @@
       "cancel": "Annuler",
       "update": "Mettre à jour",
       "delete": "Supprimer",
-      "continue": "Continuer"
+      "continue": "Continuer",
+      "create_and_publish": "Créer et Publier",
+      "update_and_publish": "Mettre à jour et Publier"
     },
     "select_products": "Sélectionnez les produits",
     "reference_create": "Créer nouvelle référence",
@@ -407,7 +408,8 @@
         "success": "orders créé avec succès",
         "update_success": "orders updated successfully",
         "delete_success": "orders supprimé avec succès",
-        "error": "Erreur lors de la création du orders"
+        "error": "Erreur lors de la création du orders",
+        "email_success": "Email envoyé avec succès"
       },
       "Total_Items": "Nombre total d'articles",
       "Total_Amount": "Montant total"
@@ -501,6 +503,7 @@
         "full_name": "Nom Complet",
         "national_id": "CIN",
         "date_of_engagement": "Date d'engagement",
+        "matricule": "Matricule",
         "monthly_salary": "Salaire mensuel",
         "price_per_hour": "Prix/Heure",
         "price_per_day": "Prix/Jour"

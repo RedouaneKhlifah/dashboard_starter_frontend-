@@ -173,7 +173,7 @@ const AuthForm = ({
           <button
             type="submit"
             className="w-full !mt-6 lg:py-2 py-3 px-3 bg-primary text-white hover:bg-primary/90 disabled:opacity-80 disabled:cursor-not-allowed rounded-sm font-medium transition-colors"
-            disabled={isLoading && !success}
+            disabled={isLoading || success}
           >
             <Condition
               if={isLoading && !success}

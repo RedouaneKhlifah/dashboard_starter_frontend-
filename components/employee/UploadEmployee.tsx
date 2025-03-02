@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, use, useEffect } from "react";
 import * as XLSX from "xlsx";
 import { Upload, FileSpreadsheet } from "lucide-react";
 import useToast from "@/hooks/useToast";
@@ -9,6 +9,7 @@ import type { DictionaryType } from "@/lib/i18n";
 import GlobalModal from "../shared/GlobalModal";
 import { Locale } from "@/i18n-config";
 import useModalStore from "@/store/modalStore";
+import { start } from "repl";
 
 interface UploadEmployeeProps {
   translation: DictionaryType;
@@ -25,8 +26,16 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
   const [error, setError] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [extractedData, setExtractedData] = useState<any[]>([]);
 
-  const handleExcelUpload = async () => {
+  useEffect(() => {
+    setSelectedFile(null);
+    setError(null);
+    setUploadProgress(0);
+  }, []);
+
+  const handleExcelUpload = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!selectedFile) return;
 
     try {
@@ -37,81 +46,78 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
       const reader = new FileReader();
 
       reader.onloadstart = () => setUploadProgress(10);
+
       reader.onload = async (e) => {
         try {
           setUploadProgress(30);
+          // Read and parse Excel file
           const data = new Uint8Array(e.target?.result as ArrayBuffer);
           const workbook = XLSX.read(data, { type: "array", cellDates: true });
           const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+          // Convert to JSON with proper date formatting
           const jsonData = XLSX.utils.sheet_to_json(worksheet, {
             raw: false,
             dateNF: "yyyy-mm-dd",
           });
 
+          // Track extraction progress
+          const totalRows = jsonData.length;
+          if (totalRows === 0) {
+            throw new Error("The uploaded file is empty.");
+          }
+
+          let processedRows = 0;
+          const progressIncrement = 30 / totalRows; // 30% of total progress for data extraction
+
+          // Map to required format with progress updates
           const employees = jsonData.map((item: any) => {
-            let engagementDate;
-            try {
-              if (typeof item["Engagement Date"] === "string") {
-                engagementDate = new Date(item["Engagement Date"]);
-              } else {
-                engagementDate = item["Engagement Date"];
-              }
-              if (isNaN(engagementDate.getTime())) {
-                throw new Error("Invalid date");
-              }
-            } catch (err) {
-              console.warn(
-                `Invalid date format for employee: ${item["Employee ID"]}`
-              );
-              engagementDate = new Date();
-            }
-
-            return {
-              employee_id: item["Employee ID"],
-              first_name: item["First Name"],
-              last_name: item["Last Name"],
-              national_id: item["National ID"],
-              date_of_engagement: engagementDate.toISOString(),
-              monthly_salary: Number(item["Monthly Salary"] || 0),
-              price_per_hour: Number(item["Price per Hour"] || 0),
-              price_per_day: Number(item["Price per Day"] || 0),
-              address: item["Address"],
-              city: item["City"],
+            console.log("item --->", item);
+            const employee = {
+              matricule: item["matricule"],
+              date: item["date"],
+              presence: item["presence"],
             };
+
+            processedRows++;
+            setUploadProgress((prev) =>
+              Math.min(60, 30 + Math.floor(processedRows * progressIncrement))
+            );
+
+            return employee;
           });
+          setExtractedData(employees);
 
-          setUploadProgress(60);
+          setUploadProgress(60); // Ensure we reach 60% after mapping
 
+          // Send extracted data to backend
+          setUploadProgress(70);
           const response = await http(
-            `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/upload`,
+            `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/history-of-pay`,
             {
               method: "POST",
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify(employees),
-              lang,
             }
           );
 
-          if (response.ok) {
-            setUploadProgress(100);
-            toastSuccess(translation.employee.message.upload_success);
-            setTimeout(() => closeModal(), 1000);
-          } else {
+          if (!response.ok) {
             const errorData = await response.json();
-            setError(
-              errorData.message || translation.employee.message.upload_error
-            );
-            toastError(
-              errorData.message || translation.employee.message.upload_error
-            );
-
-            if (errorData?.errors) {
-              console.error("Validation errors:", errorData.errors);
-            }
+            setUploadProgress(0);
+            throw new Error(errorData.message || "Upload failed");
           }
+
+          setUploadProgress(100);
+          toastSuccess(translation.employee.message.upload_success);
+          setTimeout(() => closeModal(), 1000);
+          setSelectedFile(null); // Set the new file
+          setError(null); // Clear any previous errors
+          setUploadProgress(0);
         } catch (err) {
           console.error("Upload error:", err);
-          setError(translation.employee.message.upload_error);
-          toastError(translation.employee.message.upload_error);
+          setError(
+            (err as Error)?.message || translation.employee.message.upload_error
+          );
         } finally {
           setIsUploading(false);
         }
@@ -135,7 +141,9 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile(file); // Set the new file
+      setError(null); // Clear any previous errors
+      setUploadProgress(0); // Reset progress
     }
   };
 

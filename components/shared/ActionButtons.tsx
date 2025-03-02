@@ -44,10 +44,10 @@ export const ActionButtons = ({
     {onShowHistory && (
       <button
         onClick={() => onShowHistory(Id)}
-        className="px-3 py-1.5 text-xs font-medium bg-gray-50 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-colors"
         title="Show History"
       >
-        <FileClock size={16} />
+        <FileClock size={18} />
       </button>
     )}
     <button

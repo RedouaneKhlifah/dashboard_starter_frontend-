@@ -112,6 +112,35 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
     }
   };
 
+  const handlePublich = async (data: IOrderForm): Promise<boolean> => {
+    if (!selectedRecord?.id) return false;
+    const formattedData = ordersDataMapper(data);
+
+    try {
+      const response = await http(
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/update-and-publish/${selectedRecord.id}`,
+        {
+          method: "PATCH",
+          lang,
+          body: JSON.stringify(formattedData),
+        }
+      );
+
+      if (response.ok) {
+        toastSuccess(translation.order.form.message.update_success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.order.form.message.error);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error updating order:", error);
+      toastError(translation.order.form.message.error);
+      return false;
+    }
+  };
+
   return (
     <OrderForm
       translation={translation}
@@ -119,6 +148,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      OnPublish={handlePublich}
       isOpen={modalType === "update"}
     />
   );
