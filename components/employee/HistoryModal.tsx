@@ -86,7 +86,8 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
   }, [printData, handlePrint]);
 
   const handlePrintRequest = useCallback(
-    (history: PaymentHistory) => {
+    (e: React.MouseEvent<HTMLButtonElement>, history: PaymentHistory) => {
+      e.preventDefault();
       if (employeeWithHistory) {
         setPrintData({
           employee: employeeWithHistory,
@@ -107,7 +108,7 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
       open={isOpen}
       onClose={handleCloseModal}
       isLoading={isSubmitting}
-      title={"translation.employee.history.title"}
+      title={translation.HistoryModal.history.title}
       submitButtonText={translation.common.update}
       cancelButtonText={translation.common.cancel}
       onSubmit={(e) => e.preventDefault()}
@@ -117,12 +118,12 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
         {/* Table Header */}
         <div className="flex items-center bg-accent p-4 rounded-sm">
           {[
-            "translation.employee.history.period",
-            "translation.employee.fullName",
-            "translation.employee.hourlyRate",
-            " translation.employee.hours",
-            "translation.employee.total",
-            " translation.common.actions",
+            translation.HistoryModal.history.period,
+            translation.HistoryModal.fullName,
+            translation.HistoryModal.hourlyRate,
+             translation.HistoryModal.hours,
+            translation.HistoryModal.total,
+             translation.HistoryModal.common.actions,
           ].map((header, index) => (
             <p key={index} className="flex-1">
               {header}
@@ -154,7 +155,7 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
         {/* Empty State */}
         {!isLoading && !employeeWithHistory?.payment_histories?.length && (
           <div className="text-center py-4 text-gray-500">
-            {"translation.employee.history.noData"}
+            {translation.HistoryModal.history.noData}
           </div>
         )}
 
@@ -175,9 +176,9 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
               <p className="flex-1">{history.total_gain} DH</p>
               <div className="flex-1">
                 <button
-                  onClick={() => handlePrintRequest(history)}
+                  onClick={(e) => handlePrintRequest(e, history)}
                   className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-colors"
-                  title={"translation.common.print"}
+                  title={translation.HistoryModal.common.print}
                 >
                   <FileText size={18} />
                 </button>

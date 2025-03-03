@@ -485,6 +485,23 @@
       "netTotal": "Total Net"
     }
   },
+  "HistoryModal": {
+    "common": {
+      "update": "Mettre à jour",
+      "cancel": "Annuler",
+      "actions": "Actions",
+      "print": "Imprimer"
+    },
+    "history": {
+      "title": "Historique de Paiement",
+      "period": "Période",
+      "noData": "Aucun historique de paiement trouvé"
+    },
+    "fullName": "Nom Complet",
+    "hourlyRate": "Taux Horaire",
+    "hours": "Heures",
+    "total": "Total"
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "Dashboard",
@@ -635,9 +652,9 @@
         "delete": "Supprimer"
       },
       "print": {
-        "company_name": "Nom de votre entreprise",
-        "company_address": "123 Rue Commerciale, Ville",
-        "company_contact": "contact@entreprise.com | +33 1 23 45 67 89",
+        "company_name": "SOCIETE ZROUDI DE COLLECTE DES DECHETS USES",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "orders",
         "reference": "Référence",
         "date": "Date",
@@ -677,9 +694,9 @@
         "view": "Voir"
       },
       "print": {
-        "company_name": "Nom de l'Entreprise",
-        "company_address": "123 Rue des Affaires, Ville",
-        "company_contact": "contact@company.com | +33 1 23 45 67 89",
+        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Facture",
         "reference": "Référence",
         "date": "Date",

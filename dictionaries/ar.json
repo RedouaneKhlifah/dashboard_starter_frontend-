@@ -492,6 +492,23 @@
       "netTotal": "المجموع الصافي"
     }
   },
+  "HistoryModal": {
+    "common": {
+      "update": "تحديث",
+      "cancel": "إلغاء",
+      "actions": "إجراءات",
+      "print": "طباعة"
+    },
+    "history": {
+      "title": "سجل المدفوعات",
+      "period": "الفترة",
+      "noData": "لم يتم العثور على سجل مدفوعات"
+    },
+    "fullName": "الاسم الكامل",
+    "hourlyRate": "أجر الساعة",
+    "hours": "الساعات",
+    "total": "المجموع"
+  },
   "sidebar": {
     "dashboard": {
       "dashboard_link": "لوحة التحكم",
@@ -642,9 +659,9 @@
         "delete": "حذف"
       },
       "print": {
-        "company_name": "اسم الشركة",
-        "company_address": "123 شارع الأعمال، المدينة",
-        "company_contact": "contact@company.com | +966 5 1234 5678",
+        "company_name": "جمعية الزرودي للتجميع النفايات المستعملة",
+        "company_address": "أيت مسعود حربيل الغابة",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "عرض سعر",
         "reference": "المرجع",
         "date": "التاريخ",
@@ -684,9 +701,9 @@
         "view": "عرض"
       },
       "print": {
-        "company_name": "اسم الشركة",
-        "company_address": "123 شارع الأعمال، المدينة",
-        "company_contact": "contact@company.com | +966 5 1234 5678",
+        "company_name": "جمعية الزرودي للتجميع النفايات المستعملة",
+        "company_address": "أيت مسعود حربيل الغابة",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "فاتورة",
         "reference": "المرجع",
         "date": "التاريخ",

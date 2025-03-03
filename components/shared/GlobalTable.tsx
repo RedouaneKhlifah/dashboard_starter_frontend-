@@ -146,7 +146,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                   </tr>
                 );
               })
-            ) : rows?.length === 0 ? (
+            ) : !rows || rows.length === 0 ? (
               <tr>
                 <td
                   colSpan={headers.length}
