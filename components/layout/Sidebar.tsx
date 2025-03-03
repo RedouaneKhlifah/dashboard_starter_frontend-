@@ -73,11 +73,6 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             href: "/factures",
             icon: <Factory className="w-4 h-4" />,
           },
-          {
-            name: translation.sidebar.dashboard.items.transactions,
-            href: "/transactions",
-            icon: <ArrowLeftRight className="w-4 h-4" />,
-          },
         ],
       },
       {
