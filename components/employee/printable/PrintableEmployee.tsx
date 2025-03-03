@@ -98,17 +98,23 @@ const PaymentPeriodRow = ({
   translation: DictionaryType;
   selectedHistory: PaymentHistory;
 }) => (
-  <div>
-    <div className="border p-3 text-center">
-      <div className="mb-2">
-        <strong className="text-nowrap">
-          {translation.payslip.base_salary}
-        </strong>
-      </div>
-      <span>{selectedHistory.total_gain}</span>
-    </div>
-  </div>
+  <table className="w-full border-collapse mb-4">
+    <thead>
+      <tr>
+        <th className="border p-2">{translation.payslip.base_salary}</th>
+        <th className="border p-2">{translation.payslip.pay_period}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="text-center">
+        <td className="border p-2">{selectedHistory.total_gain}</td>
+        <td className="border p-2"><span className="mx-2">{selectedHistory.start_date}</span><span className="mx-2">{selectedHistory.end_date}</span></td>
+      </tr>
+    </tbody>
+  </table>
 );
+
+
 
 const PayDetailsTable = ({
   translation,
@@ -277,17 +283,17 @@ const PrintablePayslip = forwardRef<HTMLDivElement, PrintablePayslipProps>(
           lang={lang}
           employee={employee as IEmployee}
         />
-        <div className="flex gap-1">
-          <EmployeeInfoTable
-            translation={translation}
-            employee={employee as IEmployee}
-          />
 
+        <EmployeeInfoTable
+          translation={translation}
+          employee={employee as IEmployee}
+        />
+     
           <PaymentPeriodRow
             translation={translation}
             selectedHistory={selectedHistory as PaymentHistory}
           />
-        </div>
+        
         <PayDetailsTable
           translation={translation}
           historyOfPay={selectedHistory as PaymentHistory}

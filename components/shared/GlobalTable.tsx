@@ -105,7 +105,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                 <th
                   key={header.key.toString()}
                   className="sticky top-0 border-b border-blue-gray-100 p-4 text-start"
-                  style={{ 
+                  style={{
                     background: "inherit",
                     maxWidth: header.width
                   }}
@@ -146,7 +146,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                   </tr>
                 );
               })
-            ) : rows.length === 0 ? (
+            ) : !rows || rows.length === 0 ? (
               <tr>
                 <td
                   colSpan={headers.length}
@@ -321,7 +321,7 @@ const TableCell = <T extends { id: string | number }>({
     if (!value) return null;
     return (
       <div className="max-w-full overflow-hidden">
-         <Image src={String(value)} alt={header.label} width={20} height={20} />
+        <Image src={String(value)} alt={header.label} width={20} height={20} />
       </div>
     );
   }

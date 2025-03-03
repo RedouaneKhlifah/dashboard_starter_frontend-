@@ -27,7 +27,7 @@ export const ActionButtons = ({
     {onEmail && (
       <button
         onClick={() => onEmail(Id)}
-        className="px-3 py-1.5 text-xs font-medium bg-gray-50 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        className="px-3 py-1.5 text-xs font-medium bg-yellow-50 text-orange-400 hover:bg-yellow-100 rounded-lg transition-colors"
         title="Send Email"
       >
         <Mail size={16} />
@@ -62,7 +62,7 @@ export const ActionButtons = ({
     )}
     <button
       onClick={() => onEdit(Id)}
-      className="px-3 py-1.5 text-xs font-medium bg-green text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+      className="px-3 py-1.5 text-xs font-medium bg-blue-gray-50/50 text-blue-500 hover:bg-blue-100/50 rounded-lg transition-colors"
     >
       {editText}
     </button>

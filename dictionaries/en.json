@@ -342,6 +342,24 @@
       "error": "An error occurred while creating the ticket"
     }
   },
+  "HistoryModal": {
+    "common": {
+      "update": "Update",
+      "cancel": "Cancel",
+      "actions": "Actions",
+      "print": "Print"
+    },
+    "history": {
+      "title": "Payment History",
+      "period": "Period",
+      "noData": "No payment history found"
+    },
+    "fullName": "Full Name",
+    "hourlyRate": "Hourly Rate",
+    "hours": "Hours",
+    "total": "Total"
+  },
+
   "order": {
     "tabs": {
       "client": "Info",
@@ -641,9 +659,9 @@
         "delete": "Delete"
       },
       "print": {
-        "company_name": "Your Company Name",
-        "company_address": "123 Business Street, City",
-        "company_contact": "contact@company.com | +1 234 567 890",
+        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "Quotation",
         "reference": "Reference",
         "date": "Date",
@@ -683,9 +701,9 @@
         "view": "View"
       },
       "print": {
-        "company_name": "Company Name",
-        "company_address": "123 Business Street, City",
-        "company_contact": "contact@company.com | +1 234 567 890",
+        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Invoice",
         "reference": "Reference",
         "date": "Date",
