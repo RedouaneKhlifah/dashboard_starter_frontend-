@@ -127,33 +127,53 @@ export function UsersTableProduct({
         key: "image" as keyof ProductRow,
         label: products_table.headers.image,
         isImage: true,
-        width: "75px"
+        width: "75px",
       },
-      { key: "name" as keyof ProductRow, label: products_table.headers.name,  width: "100px" },
-      { key: "sku" as keyof ProductRow, label: products_table.headers.sku, width: "70px" },
-      { key: "unit" as keyof ProductRow, label: products_table.headers.unit, width: "50px" },
+      {
+        key: "name" as keyof ProductRow,
+        label: products_table.headers.name,
+        width: "100px",
+      },
+      {
+        key: "sku" as keyof ProductRow,
+        label: products_table.headers.sku,
+        width: "70px",
+      },
+      {
+        key: "unit" as keyof ProductRow,
+        label: products_table.headers.unit,
+        width: "50px",
+      },
       {
         key: "sale_price" as keyof ProductRow,
         label: products_table.headers.sale_price,
-         width: "75px"
+        width: "75px",
       },
       {
         key: "cost_price" as keyof ProductRow,
         label: products_table.headers.cost_price,
-          width: "75px"
+        width: "75px",
       },
-      { key: "tax" as keyof ProductRow, label: products_table.headers.tax,   width: "50px" },
-      { key: "stock" as keyof ProductRow, label: products_table.headers.stock, width: "50px" },
+      {
+        key: "tax" as keyof ProductRow,
+        label: products_table.headers.tax,
+        width: "50px",
+      },
+      {
+        key: "stock" as keyof ProductRow,
+        label: products_table.headers.stock,
+        width: "50px",
+      },
 
       {
         key: "description" as keyof ProductRow,
         label: products_table.headers.description,
-        width: "200px" 
+        width: "200px",
       },
       {
         key: "reorder_point" as keyof ProductRow,
         label: products_table.headers.reorder_point,
-        width: "80px" 
+        width: "80px",
       },
       {
         key: "id" as keyof ProductRow,

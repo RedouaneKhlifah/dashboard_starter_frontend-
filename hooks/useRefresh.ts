@@ -54,11 +54,13 @@ const useRefresh = ({
         }
 
         const res = await response.json();
-        const data = res.data;
+        let data = res.data;
         const totalRecords = res.total;
+        if (entity == "transactions") {
+          data = res.transactions.data;
+        }
         setRecords(data);
         setTotalRecords(totalRecords);
-
         // Update both refs after successful request
         prevSearchQueryRef.current = trimmedSearchQuery;
         prevCurrentPageRef.current = currentPageToUse;
