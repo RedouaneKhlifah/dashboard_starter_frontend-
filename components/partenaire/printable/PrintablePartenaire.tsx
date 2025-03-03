@@ -57,7 +57,8 @@ const PartenaireInfo = ({
 
       {partenaire.products && (
         <p className="mb-1">
-          {translation.sidebar.partenaires_table.print.product}: {partenaire.products.name}
+          {translation.sidebar.partenaires_table.print.product}:{" "}
+          {partenaire.products.name}
         </p>
       )}
     </div>
@@ -105,16 +106,20 @@ const TicketsTable = ({
       <thead>
         <tr className="border-b-2 border-gray-300">
           <th className="text-left py-2 px-3">
-            {translation.sidebar.partenaires_table.print.ticket_number || "ticket number"}
+            {translation.sidebar.partenaires_table.print.ticket_number ||
+              "ticket number"}
           </th>
           <th className="text-center py-2 px-3">
-            {translation.sidebar.partenaires_table.print.gross_weight || "gross weight"}
+            {translation.sidebar.partenaires_table.print.gross_weight ||
+              "gross weight"}
           </th>
           <th className="text-center py-2 px-3">
-            {translation.sidebar.partenaires_table.print.tare_weight || "tare weight"}
+            {translation.sidebar.partenaires_table.print.tare_weight ||
+              "tare weight"}
           </th>
           <th className="text-center py-2 px-3">
-            {translation.sidebar.partenaires_table.print.net_weight || "net weight"}
+            {translation.sidebar.partenaires_table.print.net_weight ||
+              "net weight"}
           </th>
           <th className="text-center py-2 px-3">
             {translation.sidebar.partenaires_table.print.date}
@@ -127,9 +132,11 @@ const TicketsTable = ({
             <td className="py-2 px-3">#{ticket.id}</td>
             <td className="text-center py-2 px-3">{ticket.poids_brut} kg</td>
             <td className="text-center py-2 px-3">{ticket.poids_tare} kg</td>
-            <td className="text-center py-2 px-3">{(ticket.poids_brut - ticket.poids_tare).toFixed(2)} kg</td>
             <td className="text-center py-2 px-3">
-              {formatDate(new Date(ticket.created_at), lang)}
+              {(ticket.poids_brut - ticket.poids_tare).toFixed(2)} kg
+            </td>
+            <td className="text-center py-2 px-3">
+              {formatDate(ticket.created_at, lang)}
             </td>
           </tr>
         ))}
@@ -144,10 +151,10 @@ const TotalsSection = ({
   lang,
 }: {
   totals?: {
-    totalWeight: number;
-    totalValue: number;
-    discount: number;
-    netTotal: number;
+    totalWeight: number | undefined;
+    totalValue: number | undefined;
+    discount: number | undefined;
+    netTotal: number | undefined;
   };
   translation: DictionaryType;
   lang: Locale;
@@ -160,19 +167,19 @@ const TotalsSection = ({
     <section className="ml-auto w-72 mt-7">
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.total_weight}:</span>
-        <span>{totals.totalWeight.toFixed(2)} kg</span>
+        <span>{(Number(totals?.totalWeight) || 0).toFixed(2)} kg</span>
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.total_value}:</span>
-        <span>{formatCurrency(totals.totalValue, lang)}</span>
+        <span>{formatCurrency(totals.totalValue || 0, lang)}</span>
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.discount}:</span>
-        <span>-{formatCurrency(totals.discount, lang)}</span>
+        <span>-{formatCurrency(totals?.discount || 0, lang)}</span>
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.partenaires_table.print.net_total}:</span>
-        <span>{formatCurrency(totals.netTotal, lang)}</span>
+        <span>{formatCurrency(totals?.netTotal || 0, lang)}</span>
       </div>
     </section>
   );
@@ -206,8 +213,14 @@ const printStyles = `
   }
 `;
 
-const PrintablePartenaire = forwardRef<HTMLDivElement, PrintablePartenaireProps>(
-  ({ partenaire, translation, lang, startDate, endDate, tickets, totals }, ref) => {
+const PrintablePartenaire = forwardRef<
+  HTMLDivElement,
+  PrintablePartenaireProps
+>(
+  (
+    { partenaire, translation, lang, startDate, endDate, tickets, totals },
+    ref
+  ) => {
     if (!partenaire) {
       return <div ref={ref}>No partner data available</div>;
     }
@@ -231,16 +244,8 @@ const PrintablePartenaire = forwardRef<HTMLDivElement, PrintablePartenaireProps>
           translation={translation}
           lang={lang}
         />
-        <TicketsTable
-          tickets={ticketsToShow}
-          translation={translation}
-          lang={lang}
-        />
-        <TotalsSection
-          totals={totals || partenaire.montant_total}
-          translation={translation}
-          lang={lang}
-        />
+        <TicketsTable tickets={tickets} translation={translation} lang={lang} />
+        <TotalsSection totals={totals} translation={translation} lang={lang} />
       </div>
     );
   }

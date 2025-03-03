@@ -1,6 +1,13 @@
-export const formatDate = (dateString: string, locale: string) => {
+export const formatDate = (
+  date: Date | string | null | undefined,
+  locale: string
+) => {
+  if (!date) return "N/A"; // Handle null/undefined values
+
   try {
-    return new Date(dateString).toLocaleDateString(locale, {
+    // If it's a string, convert it to a Date first
+    const parsedDate = typeof date === "string" ? new Date(date) : date;
+    return parsedDate.toLocaleDateString(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",

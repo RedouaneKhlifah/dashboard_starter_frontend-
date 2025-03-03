@@ -27,6 +27,7 @@ import http from "@/lib/http";
 import LiveClock from "../shared/LiveClock";
 import UpdateTransactionForm from "./UpdateTransactionForm";
 import { Clock9, CreditCard } from "lucide-react";
+import { formatDate } from "@/utils/Date";
 
 interface TransactionTableProps {
   initialBalance: number;
@@ -149,6 +150,12 @@ export function TransactionTable({
 
   const tableHeaders: TableHeader<ITransaction>[] = useMemo(
     () => [
+      {
+        key: "date" as keyof ITransaction,
+        label: transactions_table.headers.date,
+        renderCell: (_: any, row: ITransaction) =>
+          formatDate(new Date(row.created_at)),
+      },
       { key: "reason", label: transactions_table.headers.reason },
       { key: "amount", label: transactions_table.headers.amount },
       { key: "type", label: transactions_table.headers.type },
@@ -173,7 +180,9 @@ export function TransactionTable({
     <>
       <div className="grid grid-cols-3 gap-6 items-center p-6 mb-6 bg-primary/5 rounded-lg">
         <div className="p-5 rounded-lg shadow-md border border-gray-100 bg-background hover:shadow-lg transition-shadow">
-          <h3 className="text-lg font-medium text-gray-800 mb-1">{transactions_table.transaction_management}</h3>
+          <h3 className="text-lg font-medium text-gray-800 mb-1">
+            {transactions_table.transaction_management}
+          </h3>
           <div className="h-1 w-16 bg-primary rounded"></div>
         </div>
 
@@ -182,7 +191,9 @@ export function TransactionTable({
             <CreditCard className="h-5 w-5 text-green-600" />
           </div>
           <div>
-            <span className="text-sm text-gray-500">{translation.transaction.balance}</span>
+            <span className="text-sm text-gray-500">
+              {translation.transaction.balance}
+            </span>
             <p className="text-xl font-semibold text-gray-800">{balance} DH</p>
           </div>
         </div>
