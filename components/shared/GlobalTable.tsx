@@ -41,8 +41,8 @@ interface TableProps<T> {
   classHead?: string;
   pageSize?: number;
   isLoading?: boolean;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  currentPage: number;
+  setCurrentPage?: Dispatch<SetStateAction<number>>;
+  currentPage?: number;
   noDataMessage?: string;
   sub_text?: string;
 }
@@ -73,8 +73,8 @@ export const GlobalTable = <T extends { id: string | number }>({
     if (totalPages <= MAX_VISIBLE_PAGES) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      const leftBound = Math.max(2, currentPage - 1);
-      const rightBound = Math.min(totalPages - 1, currentPage + 1);
+      const leftBound = Math.max(2, (currentPage ?? 1) - 1);
+      const rightBound = Math.min(totalPages - 1, (currentPage ?? 1) + 1);
 
       pages.push(1);
       if (leftBound > 2) pages.push(ELLIPSIS);
@@ -105,9 +105,9 @@ export const GlobalTable = <T extends { id: string | number }>({
                 <th
                   key={header.key.toString()}
                   className="sticky top-0 border-b border-blue-gray-100 p-4 text-start"
-                  style={{ 
+                  style={{
                     background: "inherit",
-                    maxWidth: header.width
+                    maxWidth: header.width,
                   }}
                 >
                   <Typography
@@ -146,7 +146,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                   </tr>
                 );
               })
-            ) : rows.length === 0 ? (
+            ) : rows?.length === 0 ? (
               <tr>
                 <td
                   colSpan={headers.length}
@@ -195,7 +195,7 @@ export const GlobalTable = <T extends { id: string | number }>({
           </tbody>
         </table>
 
-        {totalRows > pageSize && (
+        {totalRows > pageSize && setCurrentPage && (
           <CardFooter
             className="flex items-center justify-between border-t border-blue-gray-50 p-4"
             placeholder={undefined}
@@ -292,7 +292,7 @@ const TableRow = <T extends { id: string | number }>({
           }
           style={{
             maxWidth: header.width,
-            overflow: 'hidden',
+            overflow: "hidden",
           }}
         >
           <TableCell<T> header={header} row={row} />
@@ -321,7 +321,7 @@ const TableCell = <T extends { id: string | number }>({
     if (!value) return null;
     return (
       <div className="max-w-full overflow-hidden">
-         <Image src={String(value)} alt={header.label} width={20} height={20} />
+        <Image src={String(value)} alt={header.label} width={20} height={20} />
       </div>
     );
   }

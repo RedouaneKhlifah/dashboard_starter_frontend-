@@ -17,7 +17,8 @@ import {
   ClipboardList,
   Handshake,
   Factory,
-  ArrowLeftRight
+  ArrowLeftRight,
+  ArrowRightLeft,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/logo_Zroudi.svg";
@@ -73,10 +74,10 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             icon: <Factory className="w-4 h-4" />,
           },
           {
-            name : translation.sidebar.dashboard.items.transactions,
+            name: translation.sidebar.dashboard.items.transactions,
             href: "/transactions",
-            icon: <ArrowLeftRight className="w-4 h-4" />
-          }
+            icon: <ArrowLeftRight className="w-4 h-4" />,
+          },
         ],
       },
       {
@@ -92,6 +93,11 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             name: translation.sidebar.dashboard.items.partners,
             href: "/partenaire",
             icon: <Handshake className="w-4 h-4" />,
+          },
+          {
+            name: translation.sidebar.dashboard.items.transactions,
+            href: "/transactions",
+            icon: <ArrowRightLeft className="w-4 h-4" />,
           },
         ],
       },

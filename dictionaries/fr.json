@@ -469,7 +469,8 @@
   "partenaireModal": {
     "common": {
       "cancel": "Annuler",
-      "apply": "Calculer",
+      "calculate": "Calculer",
+      "recalculate": "Recalculer",
       "product": "Produit",
       "noProduct": "Aucun produit disponible",
       "pricePerKg": "Prix par Kg",
@@ -568,7 +569,8 @@
         "total_weight": "Poids Total",
         "total_value": "Valeur Totale",
         "discount": "Remise",
-        "net_total": "Total Net"
+        "net_total": "Total Net",
+        "no_tickets": "Aucun ticket trouvé pour la période sélectionnée"
       },
       "headers": {
         "name": "Nom",
@@ -728,6 +730,7 @@
       "update_transaction": "Mettre à jour la transaction",
       "search_placeholder": "Rechercher...",
       "headers": {
+        "date": "Date",
         "reason": "Raison",
         "amount": "Montant",
         "type": "Type",

@@ -26,8 +26,8 @@ interface GlobalModalProps {
   open: boolean;
   onClose: () => void;
   title: string;
-  onSubmit: (e: React.FormEvent) => void;
-  submitButtonText: string;
+  onSubmit?: (e: React.FormEvent) => void;
+  submitButtonText?: string;
   onSecondarySubmit?: (e: React.FormEvent) => void;
   secondarySubmitButtonText?: string;
   cancelButtonText: string;
@@ -109,27 +109,27 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
             >
               {cancelButtonText}
             </Button>
-            {submitButtonText && (
-            <Button
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              onClick={onSubmit}
-              type="submit"
-              className="bg-primary text-white hover:bg-primary/90 transition-colors"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Spinner
-                  className="h-4 w-4"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              ) : (
-                submitButtonText
-              )}
-            </Button>
-          )}
+            {submitButtonText && onSubmit && (
+              <Button
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                onClick={onSubmit}
+                type="submit"
+                className="bg-primary text-white hover:bg-primary/90 transition-colors"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Spinner
+                    className="h-4 w-4"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  submitButtonText
+                )}
+              </Button>
+            )}
 
             {isSecondaryBtnVisible && (
               <Button

@@ -476,7 +476,8 @@
   "partenaireModal": {
     "common": {
       "cancel": "إلغاء",
-      "apply": "حساب",
+      "calculate": "حساب",
+      "recalculate": "إعادة حساب",
       "product": "المنتج",
       "noProduct": "لا يوجد منتج متاح",
       "pricePerKg": "السعر لكل كيلوغرام",
@@ -575,7 +576,8 @@
         "total_weight": "إجمالي الوزن",
         "total_value": "إجمالي القيمة",
         "discount": "الخصم",
-        "net_total": "الصافي الإجمالي"
+        "net_total": "الصافي الإجمالي",
+        "no_tickets": "لا يوجد تذاكر للفترة المحددة"
       },
       "headers": {
         "name": "الاسم",
@@ -735,6 +737,7 @@
       "update_transaction": "تحديث المعاملة",
       "search_placeholder": "بحث...",
       "headers": {
+        "date": "التاريخ",
         "reason": "السبب",
         "amount": "المبلغ",
         "type": "النوع",
