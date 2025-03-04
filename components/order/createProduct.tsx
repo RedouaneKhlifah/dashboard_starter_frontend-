@@ -162,6 +162,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
       open={isSecondOpen}
       onClose={handleClose}
       title={translation.order.select_products}
+      submitButtonText={translation.common.select}
       cancelButtonText={translation.common.cancel}
       onSubmit={handleSelect}
       contentClassName="2xl:min-w-[50%]"
