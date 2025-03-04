@@ -105,6 +105,7 @@
     "addressRequired": "Address is required",
     "countryRequired": "Country is required",
     "cityRequired": "City is required",
+    "patsRequired": "Pays is required",
     "form": {
       "first_name": "First Name",
       "last_name": "Last Name",
@@ -804,6 +805,7 @@
     "currency": "MAD",
     "printable": "Print",
     "logout": "Logout",
+    "date_range" : "Select Date Range",
     "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"

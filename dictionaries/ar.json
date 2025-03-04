@@ -109,6 +109,7 @@
     "addressRequired": "العنوان مطلوب",
     "countryRequired": "البلد مطلوب",
     "cityRequired": "المدينة مطلوبة",
+    "patsRequired": "الدفع مطلوب",
     "form": {
       "first_name": "الاسم الأول",
       "last_name": "الاسم الأخير",
@@ -796,7 +797,8 @@
     "loading ": "تحميل...",
     "currency": "درهم",
     "printable": "ممكن طبعه",
-     "logout": "تسجيل الخروج",
+    "logout": "تسجيل الخروج",
+    "date_range": "حدد نطاق التاريخ",
     "email_sent_successfully": "تم ارسال البريد الالكتروني بنجاح",
     "error": {
       "number_greater_than_zero": "يجب أن يكون الرقم أكبر من 0"
