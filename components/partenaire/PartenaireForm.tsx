@@ -30,9 +30,8 @@ const PartenaireForm = ({
   const { modalType, closeModal } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<IPartenaireForm>(initialFormData);
-  const {  error: toastError, success : toastSuccess} = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const { validatePartenaireForm } = PartenaireValidation;
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

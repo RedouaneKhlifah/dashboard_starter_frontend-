@@ -27,7 +27,6 @@ export const validatePartenaireForm = (
   newErrors.matricule = validateField(matriculeSchema, formData.matricule);
   // newErrors.number = validateField(numberSchema, formData.number);
 
-
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)
   ) as Partial<IPartenaireForm>;
