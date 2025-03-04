@@ -21,6 +21,7 @@ import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
 import useToast from "@/hooks/useToast";
+import  { OrderRow, ordersMapper } from "@/mappers/OrderMapper";
 
 interface TableorderProps {
   records: IOrder[];
@@ -46,7 +47,7 @@ export function TableOrder({
   const [selectedRecord, setSelectedRecord] = useState<IOrder | undefined>(
     undefined
   );
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -193,6 +194,8 @@ export function TableOrder({
       {
         key: "total" as keyof IOrder,
         label: orders_table.headers.total,
+        renderCell: (_: any, row: OrderRow) =>
+          `${row.total} ${translation.shared.currency}`
       },
       {
         key: "actions" as keyof IOrder,

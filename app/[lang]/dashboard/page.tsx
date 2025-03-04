@@ -5,7 +5,9 @@ import StatsContainer from "@/components/shared/StatsContainer";
 import { getDictionary } from "@/lib/i18n";
 import PartnersChart from "@/components/shared/PartnersChart";
 import SingleInputDateRangePicker from "@/components/shared/SingleInputDateRangePicker";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Gem, LayoutDashboard } from "lucide-react";
+import { useState } from "react";
+import RangePicker from "@/components/shared/RangePicker";
 
 interface Props {
   params: {
@@ -15,6 +17,7 @@ interface Props {
 
 export default async function HowItWorksPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
+
 
   const data = [
     { date: "2024-01-01", value: 150 },
@@ -92,16 +95,12 @@ export default async function HowItWorksPage({ params }: Props) {
 
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
-
+      <div className="flex justify-between items-center container">
+      <div className="flex gap-1"><LayoutDashboard className="w-6 h-6 mx-2 text-foreground"/><h2 className="text-2xl text-foreground font-bold">{translation.sidebar.dashboard.dashboard_link}</h2></div><RangePicker translation={translation}/>
+      </div>
       <div className="container mt-1">
         <StatsContainer translation={translation} />
-
       </div>
-      <div className="flex justify-end items-center container">
-        {/* <SingleInputDateRangePicker /> */}
-      </div>
-
-
       <div className="pt-8">
         <div className="container flex flex-col md:flex-row gap-6">
           <div className="flex flex-col gap-5 w-full md:w-[32.334%]">

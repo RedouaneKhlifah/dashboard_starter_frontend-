@@ -105,6 +105,7 @@
     "addressRequired": "L'adresse est requise",
     "countryRequired": "Le pays est requis",
     "cityRequired": "La ville est requise",
+    "patsRequired": "La Pays est requise",
     "form": {
       "first_name": "Prénom",
       "last_name": "Nom de famille",
@@ -791,6 +792,7 @@
     "currency": "MAD",
     "printable": "Imprimer",
     "logout": "Déconnexion",
+    "date_range": "Plage de dates",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }

@@ -172,6 +172,7 @@ const ModalPartenaireDetails = ({
                 <SingleInputDateRangePicker
                   value={dateRange}
                   onChange={setDateRange}
+                  translation={translation}
                 />
               </div>
               <button

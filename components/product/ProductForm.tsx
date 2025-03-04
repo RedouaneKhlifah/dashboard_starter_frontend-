@@ -129,6 +129,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
               <SelectInput
                 options={[
                   { value: "kg", label: "Kilogram" },
+                  { value: "g", label: "Gram" },
+                  { value: "l", label: "Liter" },
+                  { value: "ml", label: "Milliliter" },
                   { value: "unit", label: "Unit" },
                 ]}
                 id="unit"

@@ -1,6 +1,35 @@
 import { ICreateorders } from "@/dto/order/createOrder";
 import { IOrderForm } from "@/dto/order/orderForm";
 
+
+export interface OrderRow {
+  id: number;
+
+  ticket_id: number | null;
+
+  client_id: number;
+
+  reference: string;
+
+  order_date: string;
+
+  expiration_date: string;
+
+  tva: number;
+
+  remise_type: "PERCENT" | "FIXED";
+
+  remise: number;
+
+  note: string;
+
+  total: number;
+
+  subtotal: number;
+}
+
+
+
 // Mapper function to format ICreateorders data into the required structure
 const ordersDataMapper = (data: IOrderForm): ICreateorders => {
   return {

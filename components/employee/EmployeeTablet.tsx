@@ -28,6 +28,7 @@ import { UploadEmployee } from "./UploadEmployee";
 import PrintableEmployee from "./printable/PrintableEmployee";
 import { useReactToPrint } from "react-to-print";
 import HistoryModal from "./HistoryModal";
+import { EmployeeRow } from "@/mappers/EmployeesMapper";
 
 interface EmployeesTableProps {
   records: IEmployee[];
@@ -161,8 +162,10 @@ export function EmployeesTable({
         label: users_table.headers.date_of_engagement,
       },
       {
-        key: "price_per_hour" as keyof IEmployee,
+        key: "price_per_hour" as keyof EmployeeRow,
         label: users_table.headers.price_per_hour,
+        renderCell: (_: any, row: EmployeeRow) =>
+          `${row.price_per_hour} ${translation.shared.currency}`,
       },
       {
         key: "id" as keyof IEmployee,

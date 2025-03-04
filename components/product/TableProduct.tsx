@@ -143,14 +143,14 @@ export function UsersTableProduct({
         key: "sale_price" as keyof ProductRow,
         label: products_table.headers.sale_price,
         renderCell: (_: any, row: ProductRow) =>
-          `$${row.sale_price} ${translation.shared.currency}`,
+          `${row.sale_price} ${translation.shared.currency}`,
         width: "75px",
       },
       {
         key: "cost_price" as keyof ProductRow,
         label: products_table.headers.cost_price,
         renderCell: (_: any, row: ProductRow) =>
-          `$${row.cost_price} ${translation.shared.currency}`,
+          `${row.cost_price} ${translation.shared.currency}`,
         width: "75px",
       },
       {

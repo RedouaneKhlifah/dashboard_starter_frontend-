@@ -42,7 +42,7 @@ const DocumentHeader = ({
       </div>
     </div>
     <div className="flex flex-col w-full h-full">
-      <div className="border p-3">
+      <div className="border px-3 pt-3 pb-[60px]">
         <div className="border-b  text-center">
           <h2 className="font-bold text-lg">
             {translation.payslip.PayslipName}

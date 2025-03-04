@@ -217,7 +217,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                   {!isOpen && (
                     <div
                       className={cn(
-                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-gray-900 px-2 py-1 text-xs",
+                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-white px-2 py-1 text-xs",
                         "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
                         "whitespace-nowrap z-20",
                         isRTL ? "right-14" : "left-14"
@@ -244,16 +244,16 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                 >
                   {section.items.map((item) => (
                     <Link
-                      key={item.href}
-                      href={`/${lang}${item.href}`}
-                      className={cn(
-                        "flex items-center px-3 py-2 text-sm font-medium rounded-lg group relative",
-                        "transition-all ease-in-out duration-200 hover:pl-4 hover:bg-accent/30",
-                        pathname === `/${lang}${item.href}`
-                          ? "bg-accent shadow-sm border border-primary/10"
-                          : "text-muted-foreground hover:text-foreground"
-                      )}
-                    >
+                    key={item.href}
+                    href={`/${lang}${item.href}`}
+                    className={cn(
+                      "flex items-center px-3 py-2 text-sm font-medium group relative",
+                      "transition-all ease-in-out duration-200 hover:pl-5 hover:bg-accent/30",
+                      pathname === `/${lang}${item.href}` && isOpen && "shadow-sm border border-primary/10 rounded-lg bg-accent",
+                      pathname === `/${lang}${item.href}` && !isOpen && "border-l-2 border-primary pl-5",
+                      pathname !== `/${lang}${item.href}` && "text-muted-foreground hover:text-foreground rounded-lg"
+                    )}
+                  >
                       <span
                         className={`${
                           pathname === `/${lang}${item.href}` && !isOpen

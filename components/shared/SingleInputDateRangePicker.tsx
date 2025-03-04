@@ -3,15 +3,19 @@ import { useState } from 'react';
 import DateRangePicker from './DateRangePicker';
 import { addDays } from 'date-fns';
 import { CalendarIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import { DictionaryType } from '@/lib/i18n';
 
 interface SingleInputDateRangePickerProps {
   value: { start: Date | null; end: Date | null };
   onChange: (newRange: { start: Date | null; end: Date | null }) => void;
+  translation: DictionaryType;
+
 }
 
 export default function SingleInputDateRangePicker({ 
   value, 
-  onChange 
+  onChange,
+  translation
 }: SingleInputDateRangePickerProps) {
   const [showPicker, setShowPicker] = useState(false);
 
@@ -22,7 +26,7 @@ export default function SingleInputDateRangePicker({
 
   const displayText = value.start && value.end 
     ? `${value.start.toLocaleDateString()} - ${value.end.toLocaleDateString()}`
-    : 'Select Date Range';
+    : translation.shared.date_range;
 
 
   const togglePicker = (e: React.MouseEvent<HTMLButtonElement>) => {
