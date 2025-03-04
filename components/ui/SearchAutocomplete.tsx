@@ -35,6 +35,7 @@ interface SearchComponentProps<T extends AutoCompleteSearchResult> {
   icon?: React.ReactNode;
   prefix?: React.ReactNode;
   disabled?: boolean;
+  dropdownPosition?: "above" | "below"; // New prop
 }
 
 const KEYS = {
@@ -59,6 +60,7 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   icon,
   prefix,
   disabled = false,
+  dropdownPosition = "below", // Default value
 }: SearchComponentProps<T>) => {
   const [query, setQuery] = useState(value?.title || "");
   const [results, setResults] = useState<T[]>([]);
@@ -138,19 +140,29 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       if (disabled) return;
       const newValue = e.target.value;
       if (newValue === query) return;
-  
+
       setIsDirty(true);
       setQuery(newValue);
       setSelectedIndex(-1);
       debouncedSearch(newValue);
-  
+
       if (value && newValue !== value.title) {
         setQuery(newValue);
-        onChange?.(null); 
+        onChange?.(null);
       }
     },
     [disabled, query, debouncedSearch, value, onChange]
   );
+
+  const hanldePast = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const newValue = e.clipboardData.getData("text/plain");
+    console.log("newValue", newValue);
+    setIsDirty(true);
+    setQuery(newValue);
+    setSelectedIndex(-1);
+    debouncedSearch(newValue);
+  };
 
   const handleKeyNavigation = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -189,12 +201,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
       setQuery("");
     }
   }, [value]);
-
-  // const handleFocus = useCallback(() => {
-  //   if (error) {
-  //     onChange?.(null); 
-  //   }
-  // }, [error, onChange]);
 
   const inputClasses = clsx(
     "w-full h-11 bg-background border-2 rounded-md",
@@ -249,7 +255,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
             onChange={handleInputChange}
             onKeyDown={handleKeyNavigation}
             onBlur={handleBlur}
-            // onFocus={handleFocus}
             placeholder={placeholder}
             className={inputClasses}
             aria-controls="search-results"
@@ -257,6 +262,7 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
             aria-invalid={!!error}
             aria-describedby={error ? `${id}-error` : undefined}
             disabled={disabled}
+            onPaste={hanldePast}
           />
 
           <div
@@ -267,9 +273,9 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
           >
             {showLoading ? (
               <Loader2 className="w-5 h-5 text-muted-foreground animate-spin" />
-            ) : query ? (
+            ) : query && !disabled ? (
               <button
-                type="button" // Added to prevent form submission
+                type="button"
                 onClick={clearSearch}
                 className={clsx(
                   "text-muted-foreground hover:text-foreground transition-colors",
@@ -298,7 +304,12 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
         {showResults && !disabled && (
           <div
             ref={resultsRef}
-            className="absolute w-full mt-2 bg-background border border-input rounded-md shadow-lg max-h-[400px] overflow-y-auto z-50"
+            className={clsx(
+              "absolute w-full bg-background border border-input rounded-md shadow-lg max-h-[400px] overflow-y-auto z-50",
+              dropdownPosition === "above"
+                ? "bottom-full mb-2"
+                : "top-full mt-2" // Adjust positioning based on dropdownPosition
+            )}
             role="listbox"
             id="search-results"
           >

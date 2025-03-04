@@ -5,6 +5,7 @@ import { TicketFormErrors } from "@/validation/ticketValidators/TicketValidator"
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
+import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
 
 interface FinalTabProps {
   formData: ITicketForm;
@@ -36,6 +37,8 @@ const FinalTab = ({
     productAutoCompleteMapper,
   } = AutoCompleteMappers;
 
+  const { modalType } = useModalStore();
+
   const fetchClients = async (query: string) => {
     const data = await fetchAutocompleteData(API_ENDPOINTS.clients, query);
     return clientAutoCompleteMapper(data.data);
@@ -66,6 +69,7 @@ const FinalTab = ({
           error={errors.partenaire}
           required
           value={formData.partenaire}
+          disabled={modalType === ModalTypeEnum.UPDATE}
         />
         <SearchAutocomplete
           id="product"
@@ -76,6 +80,8 @@ const FinalTab = ({
           placeholder={translation.Ticket.form.product_search}
           icon={<PackageSearch className="w-5 h-5 text-gray-400" />}
           error={errors.product}
+          disabled={modalType === ModalTypeEnum.UPDATE}
+          dropdownPosition={formData.status === "EXIT" ? "below" : "above"}
           required
         />
         {formData.status === "EXIT" && (
@@ -88,6 +94,8 @@ const FinalTab = ({
             placeholder={translation.Ticket.form.client_search}
             icon={<UserSearch className="w-5 h-5 text-gray-400" />}
             error={errors.client}
+            disabled={modalType === ModalTypeEnum.UPDATE}
+            dropdownPosition="above"
             required
           />
         )}

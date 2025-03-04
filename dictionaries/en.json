@@ -311,7 +311,7 @@
     "form": {
       "matricule": "Partner",
       "matricule_search": "Registration number",
-      "number_prints": "Number of prints",
+      "number_prints": "N° prints",
       "poids_brut": "Gross weight",
       "poids_tare": "Tare weight",
       "status": "Status",
@@ -628,7 +628,7 @@
       "headers": {
         "matricule": "Matricule",
         "product": "Product",
-        "number_prints": "Number of Prints",
+        "number_prints": "N° prints",
         "poids_brut": "Gross Weight",
         "poids_tare": "Tare Weight",
         "status": "Status",
@@ -803,10 +803,14 @@
     "loading ": "Loading...",
     "currency": "MAD",
     "printable": "Print",
-     "logout": "Logout",
+    "logout": "Logout",
     "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
+    },
+    "no_data": {
+      "message": "No data found",
+      "sub_text": "There are no records that match your criteria"
     }
   }
 }

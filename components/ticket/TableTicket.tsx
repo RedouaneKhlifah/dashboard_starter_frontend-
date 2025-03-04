@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import useToast from "@/hooks/useToast";
 
 // Shared Components
@@ -31,6 +31,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { ITicket } from "@/interfaces/ITicket";
 import { ITicketForm } from "@/dto/ticket/ticketForm";
+import { TableHeader } from "@/components/shared/GlobalTable";
 
 interface TableTicketProps {
   records: ITicket[];
@@ -65,7 +66,7 @@ export function TableTicket({
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
 
   // Ref to track initial mount.
   const didMountRef = useRef(false);
@@ -141,10 +142,87 @@ export function TableTicket({
       refreshTickets(true);
     } catch (error) {
       console.error("Error deleting product:", error);
-    }finally {
+    } finally {
       setIsSubmitting(false);
     }
   };
+
+  // Table Headers
+  const headers: TableHeader<ITicket>[] = useMemo(
+    () => [
+      {
+        key: "partenaire" as keyof ITicket,
+        label: ticket_table.headers.matricule,
+        renderCell: (_: any, row: ITicket) => (
+          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
+            {row.partenaire?.matricule}
+          </p>
+        ),
+      },
+      {
+        key: "product" as keyof ITicket,
+        label: ticket_table.headers.product,
+        width: "100px",
+        renderCell: (_: any, row: ITicket) => (
+          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
+            {row.product?.name}
+          </p>
+        ),
+      },
+      {
+        key: "number_prints" as keyof ITicket,
+        label: ticket_table.headers.number_prints,
+        width: "120px",
+      },
+      {
+        key: "poids_brut" as keyof ITicket,
+        label: ticket_table.headers.poids_brut,
+        renderCell: (_: any, row: ITicket) => row.poids_brut + " Kg",
+      },
+      {
+        key: "poids_tare" as keyof ITicket,
+        label: ticket_table.headers.poids_tare,
+        renderCell: (_: any, row: ITicket) => row.poids_tare + " Kg",
+      },
+      {
+        key: "status" as keyof ITicket,
+        label: ticket_table.headers.status,
+        renderCell: (_: any, row: ITicket) => (
+          <span
+            className={`px-2 py-1 text-xs font-semibold leading-tight text-white  bg-${
+              row.status === "ENTRY" ? "green" : "red"
+            }-400 rounded-full  `}
+          >
+            {row.status}
+          </span>
+        ),
+      },
+      {
+        key: "client" as keyof ITicket,
+        label: ticket_table.headers.client,
+        width: "130px",
+        renderCell: (_: any, row: ITicket) => (
+          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
+            {row.client?.full_name}
+          </p>
+        ),
+      },
+      {
+        key: "id",
+        label: ticket_table.headers.actions,
+        renderCell: (_, row: ITicket) => (
+          <ActionButtons
+            Id={row.id}
+            onEdit={handleEdit}
+            onDelete={openDeleteModal}
+            editText={ticket_table.actions.edit}
+            deleteText={ticket_table.actions.delete}
+          />
+        ),
+      },
+    ],
+    [ticket_table, handleEdit, openDeleteModal]
+  );
 
   // ──────────────────────────────────────────────
   // Render
@@ -158,46 +236,12 @@ export function TableTicket({
         showSearch={true}
         setSearchQuery={setSearchQuery}
       />
-
       <GlobalTable
-        headers={[
-          {
-            key: "partenaire",
-            label: ticket_table.headers.matricule,
-            renderCell: (_, row: ITicket) => row.partenaire?.matricule,
-          },
-          {
-            key: "product",
-            label: ticket_table.headers.product,
-            renderCell: (_, row: ITicket) => row.product?.name,
-          },
-          { key: "number_prints", label: ticket_table.headers.number_prints },
-          { key: "poids_brut", label: ticket_table.headers.poids_brut },
-          { key: "poids_tare", label: ticket_table.headers.poids_tare },
-          { key: "status", label: ticket_table.headers.status },
-          {
-            key: "client",
-            label: ticket_table.headers.client,
-            renderCell: (_, row: ITicket) => row.client?.full_name,
-          },
-          {
-            key: "id",
-            label: ticket_table.headers.actions,
-            renderCell: (_, row: ITicket) => (
-              <ActionButtons
-                Id={row.id}
-                onEdit={handleEdit}
-                onDelete={openDeleteModal}
-                editText={ticket_table.actions.edit}
-                deleteText={ticket_table.actions.delete}
-              />
-            ),
-          },
-        ]}
+        headers={headers}
         rows={tickets}
         totalRows={totalTickets}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg overflow-y-hidden overflow-x-auto "
         noDataMessage={ticket_table.no_data.message}
         sub_text={ticket_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}

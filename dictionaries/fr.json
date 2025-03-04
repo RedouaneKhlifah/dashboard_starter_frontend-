@@ -620,7 +620,7 @@
       "headers": {
         "matricule": "Matricule",
         "product": "Produit",
-        "number_prints": "Nombre d'impressions",
+        "number_prints": "N° Impr",
         "poids_brut": "Poids brut",
         "poids_tare": "Poids tare",
         "status": "Statut",

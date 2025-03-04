@@ -225,7 +225,6 @@ export function TableFacture({
       {
         key: "status" as keyof IFacture,
         label: factures_table.headers.status,
-        valueClassName: "bg-green-700 w-fit rounded-full px-2 py-1 text-white",
         renderCell: (_: any, row: IFacture) => row?.status,
       },
       {
