@@ -53,7 +53,7 @@ export function TableFacture({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrderForPrint, setSelectedOrderForPrint] =
     useState<IFacture | null>(null);
-  const { error: toastError, success: toastSuccess } = useToast()
+  const { error: toastError, success: toastSuccess } = useToast();
 
   // Refs
   const contentRef = useRef<HTMLDivElement>(null);
@@ -147,12 +147,16 @@ export function TableFacture({
     async (orderId: number) => {
       try {
         const orderToEmail = orders.find((o) => o.id === orderId);
-        if (!orderToEmail){
+        if (!orderToEmail) {
           toastError("facture not found");
           return;
-        } 
+        }
 
-        const htmlContent = generateFactureHTML(orderToEmail, translation, lang);
+        const htmlContent = generateFactureHTML(
+          orderToEmail,
+          translation,
+          lang
+        );
 
         const response = await http(
           `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/send-facture-email/${orderId}`,
@@ -171,7 +175,7 @@ export function TableFacture({
         toastError("Failed to send email");
       }
     },
-    [orders, translation, lang]
+    [orders, translation, lang, toastError, toastSuccess]
   );
 
   const headers = useMemo(
@@ -199,29 +203,35 @@ export function TableFacture({
         key: "tva" as keyof IFacture,
         label: factures_table.headers.vat,
         width: "70px",
-        renderCell: (_: any, row: IFacture) => row.tva,
+        renderCell: (_: any, row: IFacture) =>
+          row.tva + row.remise_type == "PERCENT"
+            ? "%"
+            : translation.shared.currency,
       },
       {
         key: "total" as keyof IFacture,
         label: factures_table.headers.amount,
         width: "70px",
-        renderCell: (_: any, row: IFacture) => row.total,
+        renderCell: (_: any, row: IFacture) =>
+          row.total + " " + translation.shared.currency,
       },
       {
         key: "paid" as keyof IFacture,
         label: factures_table.headers.paid,
         width: "70px",
-        renderCell: (_: any, row: IFacture) => row.paid_amount,
+        renderCell: (_: any, row: IFacture) =>
+          row.paid_amount + " " + translation.shared.currency,
       },
       {
         key: "status" as keyof IFacture,
         label: factures_table.headers.status,
+        valueClassName: "bg-green-700 w-fit rounded-full px-2 py-1 text-white",
         renderCell: (_: any, row: IFacture) => row?.status,
       },
       {
         key: "actions" as keyof IFacture,
         label: factures_table.headers.actions,
-        renderCell: (_, row: IFacture) => (
+        renderCell: (_: any, row: IFacture) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
@@ -235,7 +245,17 @@ export function TableFacture({
       },
     ],
     [
-      factures_table,
+      factures_table.headers.invoice_number,
+      factures_table.headers.client_name,
+      factures_table.headers.due_date,
+      factures_table.headers.vat,
+      factures_table.headers.amount,
+      factures_table.headers.paid,
+      factures_table.headers.status,
+      factures_table.headers.actions,
+      factures_table.actions.edit,
+      factures_table.actions.delete,
+      translation.shared.currency,
       handleEdit,
       openDeleteModal,
       handleEmail,
@@ -279,8 +299,6 @@ export function TableFacture({
           translation={translation}
           lang={lang}
         />
-         
-        
       </div>
     </>
   );

@@ -14,34 +14,75 @@ interface PrintableFactureProps {
 }
 
 interface OrderTotals {
-  subtotal: number;
-  discount: number;
-  totalAfterDiscount: number;
-  taxAmount: number;
-  total: number;
+  subtotal: string;
+  discount: string;
+  taxAmount: string;
+  total: string;
 }
 
 // Utility functions
-const calculateOrderTotals = (facture: IFacture): OrderTotals => {
-  const subtotal = facture.products.reduce(
-    (acc, product) => acc + product.sale_price * (product.stock || 1),
-    0
+// const calculateOrderTotals = (facture: IFacture): OrderTotals => {
+//   const subtotal = facture.products.reduce(
+//     (acc, product) => acc + product.sale_price * (product.stock || 1),
+//     0
+//   );
+
+//   const discount =
+//     facture.remise_type === "PERCENT"
+//       ? subtotal * (facture.remise / 100)
+//       : facture.remise;
+
+//   const totalAfterDiscount = subtotal - discount;
+//   const taxAmount = totalAfterDiscount * (facture.tva / 100);
+
+//   return {
+//     subtotal,
+//     discount,
+//     totalAfterDiscount,
+//     taxAmount,
+//     total: totalAfterDiscount + taxAmount,
+//   };
+// };
+
+const calculateOrderTotals = (
+  order: IFacture,
+  translation: DictionaryType
+): OrderTotals => {
+  const baseSubtotal =
+    order.products?.reduce(
+      (sum, product) =>
+        sum +
+        (Number(product.price_unitaire) || 0) * (Number(product.quantity) || 0),
+      0
+    ) || 0;
+
+  const tvaAmount = (baseSubtotal * (order.tva || 0)) / 100;
+  const totalTTC = baseSubtotal + tvaAmount;
+
+  const discountAmount =
+    order.remise_type === "PERCENT"
+      ? (baseSubtotal * (order.remise || 0)) / 100 // Apply discount on subtotal (HT)
+      : order.remise || 0;
+
+  const finalTotal = Math.max(totalTTC - discountAmount, 0);
+  console.log(
+    "order.remise_type ",
+    order.remise +
+      " " +
+      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
   );
 
-  const discount =
-    facture.remise_type === "PERCENT"
-      ? subtotal * (facture.remise / 100)
-      : facture.remise;
-
-  const totalAfterDiscount = subtotal - discount;
-  const taxAmount = totalAfterDiscount * (facture.tva / 100);
-
   return {
-    subtotal,
-    discount,
-    totalAfterDiscount,
-    taxAmount,
-    total: totalAfterDiscount + taxAmount,
+    taxAmount:
+      tvaAmount +
+      " " +
+      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency),
+    discount:
+      order.remise +
+      " " +
+      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency),
+    subtotal: baseSubtotal + " " + translation.shared.currency,
+    total: finalTotal + " " + translation.shared.currency,
   };
 };
 
@@ -139,12 +180,13 @@ const ProductsTable = ({
       {facture.products.map((product, index) => (
         <tr key={index} className="border-b border-gray-200">
           <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.stock || 1}</td>
+          <td className="text-right py-2 px-3">{product.quantity || 0}</td>
+          <td className="text-right py-2 px-3">{product.price_unitaire} MAD</td>
           <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price, lang)}
-          </td>
-          <td className="text-right py-2 px-3">
-            {formatCurrency(product.sale_price * (product.stock || 1), lang)}
+            {formatCurrency(
+              product.quantity * (product.price_unitaire || 0),
+              lang
+            )}
           </td>
         </tr>
       ))}
@@ -164,19 +206,19 @@ const TotalsSection = ({
   <section className="ml-auto w-72 mt-7">
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.factures_table.print.subtotal}:</span>
-      <span>{formatCurrency(totals.subtotal, lang)}</span>
+      <span>{totals.subtotal}</span>
     </div>
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.factures_table.print.discount}:</span>
-      <span>-{formatCurrency(totals.discount, lang)}</span>
+      <span>-{totals.discount}</span>
     </div>
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.factures_table.print.tax}:</span>
-      <span>{formatCurrency(totals.taxAmount, lang)}</span>
+      <span>{totals.taxAmount}</span>
     </div>
     <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
       <span>{translation.sidebar.factures_table.print.total}:</span>
-      <span>{formatCurrency(totals.total, lang)}</span>
+      <span>{totals.total}</span>
     </div>
   </section>
 );
@@ -225,7 +267,7 @@ const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
     }
 
     const textDirection = lang === "ar" ? "rtl" : "ltr";
-    const totals = calculateOrderTotals(facture);
+    const totals = calculateOrderTotals(facture, translation);
 
     return (
       <div

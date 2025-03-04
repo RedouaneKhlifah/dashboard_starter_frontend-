@@ -182,7 +182,7 @@ const ProductsTab = ({
         className="mt-4 max-h-60"
         classHead="z-10"
         totalRows={0}
-        setCurrentPage={() => { }}
+        setCurrentPage={() => {}}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
@@ -212,14 +212,14 @@ const ProductsTab = ({
                     {translation.order.form.Total_Amount}
                   </span>
                   <span className="text-xl font-semibold text-gray-900">
-                    $
                     {formData.products
                       .reduce(
                         (sum, product) =>
                           sum + product.quantity * product.price_unitaire,
                         0
                       )
-                      .toFixed(2)}
+                      .toFixed(2)}{" "}
+                    {translation.shared.currency}
                   </span>
                 </div>
               </div>

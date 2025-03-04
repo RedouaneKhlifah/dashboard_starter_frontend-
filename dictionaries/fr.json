@@ -203,7 +203,7 @@
     "salePriceRequired": "Le prix de vente est obligatoire",
     "invalidSalePrice": "Format de prix de vente invalide",
     "invalidCostPrice": "Format de prix de revient invalide",
-    "invalidTax": "Format de taxe invalide",
+    "invalidTax": "Format de TVA invalide",
     "stockRequired": "Le stock est obligatoire",
     "invalidStock": "Quantité de stock invalide",
     "reorderPointRequired": "Le point de réapprovisionnement est obligatoire",
@@ -217,7 +217,7 @@
       "sale_price": "Prix de vente",
       "cost_price": "Prix d'achat",
       "description": "Description",
-      "tax": "Taxe",
+      "tax": "TVA",
       "image": "Image",
       "stock": "Stock",
       "reorder_point": "Point de commande"
@@ -723,12 +723,12 @@
       "headers": {
         "image": "Image",
         "name": "Nom",
-        "sku": "Prix",
+        "sku": "Sku",
         "unit": "Unité",
         "sale_price": "Prix de vente",
         "cost_price": "Prix d'achat",
         "description": "Description",
-        "tax": "Taxe",
+        "tax": "TVA",
         "stock": "Stock",
         "reorder_point": "Point de commande",
         "actions": "Actions"
@@ -790,7 +790,7 @@
     "loading ": "Chargement...",
     "currency": "MAD",
     "printable": "Imprimer",
-     "logout": "Déconnexion",
+    "logout": "Déconnexion",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }
