@@ -111,6 +111,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     return Array.from(productsMap.values());
   }, [availableProducts, selectedProductsData]);
 
+
   const toggleSelection = useCallback(
     (productId: number, product: IProduct) => {
       setSelectedProducts((prev) => {
@@ -126,12 +127,16 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             return prevData;
           });
         }
+
+        // Immediately update parent with selected products
+        const selected = displayedProducts.filter((p) => newSet.has(p.id));
+        onSelect(selected);
+
         return newSet;
       });
     },
-    []
+    [displayedProducts, onSelect] // Add dependencies here
   );
-
   const handleSelect = useCallback(
     (e: FormEvent<Element>) => {
       e.preventDefault();
@@ -163,7 +168,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
       onClose={handleClose}
       title={translation.order.select_products}
       cancelButtonText={translation.common.cancel}
-      onSubmit={handleSelect}
       contentClassName="2xl:min-w-[50%]"
       backdrop={false}
       dismiss={false}
