@@ -165,7 +165,6 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           required
         />
 
-        <div className="grid grid-cols-2 gap-4">
           <InputField
             id="city"
             label={translation.employee.form.city}
@@ -174,16 +173,7 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             error={errors.city}
             required
           />
-
-          <InputField
-            id="birth_date"
-            type="date"
-            label={translation.employee.form.birth_date}
-            value={formData.birth_date || ""}
-            onChange={(e) => handleChange(e, setFormData, setErrors)}
-            required
-          />
-        </div>
+ 
         <div className="grid grid-cols-2 gap-4">
           <InputField
             id="price_per_hour"

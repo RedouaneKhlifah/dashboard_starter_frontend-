@@ -120,7 +120,7 @@ const ProductsTable = ({
 }) => (
   <table className="w-full mb-6">
     <thead>
-      <tr className="bfacture-b-2 bfacture-gray-300">
+      <tr className="border-b-2 border-gray-300">
         <th className="text-left py-2 px-3">
           {translation.sidebar.factures_table.print.product}
         </th>
@@ -137,7 +137,7 @@ const ProductsTable = ({
     </thead>
     <tbody>
       {facture.products.map((product, index) => (
-        <tr key={index} className="bfacture-b bfacture-gray-200">
+        <tr key={index} className="border-b border-gray-200">
           <td className="py-2 px-3">{product.name}</td>
           <td className="text-right py-2 px-3">{product.stock || 1}</td>
           <td className="text-right py-2 px-3">
@@ -174,7 +174,7 @@ const TotalsSection = ({
       <span>{translation.sidebar.factures_table.print.tax}:</span>
       <span>{formatCurrency(totals.taxAmount, lang)}</span>
     </div>
-    <div className="flex justify-between bfacture-t-2 bfacture-gray-300 pt-2 font-semibold">
+    <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
       <span>{translation.sidebar.factures_table.print.total}:</span>
       <span>{formatCurrency(totals.total, lang)}</span>
     </div>
@@ -202,17 +202,17 @@ const printStyles = `
     }
     table {
       width: 100%;
-      bfacture-collapse: collapse;
+      border-collapse: collapse;
     }
     th, td {
-      bfacture: 1px solid #000;
+      border: 1px solid #000;
       padding: 8px;
     }
-    .bfacture-b-2 {
-      bfacture-bottom-width: 2px;
+    .border-b-2 {
+      border-bottom-width: 2px;
     }
-    .bfacture-gray-300 {
-      bfacture-color: #000;
+    .border-gray-300 {
+      border-color: #000;
     }
   }
 `;

@@ -7,7 +7,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { useMemo, useState, useEffect, useRef, useCallback } from "react";
 import { IPartenaire } from "@/interfaces/IPartenaire";
 import { InputField } from "../ui";
-import { FileText } from "lucide-react";
+import { FileText, Loader } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
 import PrintablePartenaire from "./printable/PrintablePartenaire";
 import { GlobalTable, TableHeader } from "@/components/shared/GlobalTable";
@@ -49,10 +49,26 @@ const ModalPartenaireDetails = ({
       total_poids_net: 0,
     });
   const [hasCalculated, setHasCalculated] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  const resetData = () => {
+    setDateRange({ start: null, end: null });
+    setRemise(0);
+    setPricePerKg(0);
+    setCalculationData({
+      tickets: [],
+      product: null,
+      total_poids_net: 0,
+    });
+    setHasCalculated(false);
+  };
 
   const handleCalculate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!partenaire) return;
+    
+    setIsCalculating(true);
+    
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${
@@ -68,6 +84,8 @@ const ModalPartenaireDetails = ({
       if (data.product) setHasCalculated(true);
     } catch (error) {
       console.error("Error fetching tickets:", error);
+    } finally {
+      setIsCalculating(false);
     }
   };
 
@@ -108,12 +126,18 @@ const ModalPartenaireDetails = ({
     netWeight: `${(ticket.poids_brut - ticket.poids_tare).toFixed(2)} kg`,
   }));
 
+  const skeletonRows = Array(5).fill(0).map((_, index) => ({
+    id: index,
+    created_at: "",
+    netWeight: "",
+  }));
+
   return (
     partenaire && (
       <GlobalModal
         open={isOpen}
         onClose={() => {
-          setHasCalculated(false);
+          resetData();
           onClose();
         }}
         title={partenaire?.name}
@@ -152,10 +176,14 @@ const ModalPartenaireDetails = ({
               </div>
               <button
                 onClick={handleCalculate}
+                disabled={isCalculating}
                 type="button"
-                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
+                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center gap-2"
               >
-                {hasCalculated
+                {isCalculating && <Loader size={18} className="animate-spin" />}
+                {isCalculating 
+                  ? translation.partenaireModal?.common?.calculating || "Calculating..."
+                  : hasCalculated
                   ? translation.partenaireModal?.common?.recalculate
                   : translation.partenaireModal?.common?.calculate}
               </button>
@@ -205,15 +233,15 @@ const ModalPartenaireDetails = ({
             <h3 className="font-medium mb-3 text-gray-700">
               {translation.partenaireModal?.common?.tickets}
               <span className="ml-2 text-sm text-gray-500">
-                ({calculationData?.tickets?.length ?? 0})
+                ({!isCalculating ? calculationData?.tickets?.length ?? 0 : "..."})
               </span>
             </h3>
 
             <GlobalTable
               headers={ticketHeaders}
-              rows={ticketRows ?? []}
-              totalRows={calculationData?.tickets?.length ?? 0}
-              isLoading={false}
+              rows={isCalculating ? skeletonRows : (ticketRows ?? [])}
+              totalRows={isCalculating ? 5 : (calculationData?.tickets?.length ?? 0)}
+              isLoading={isCalculating}
               className="shadow-lg rounded-lg overflow-hidden"
               noDataMessage={
                 translation.partenaireModal?.common?.noTicketsFound
@@ -227,23 +255,29 @@ const ModalPartenaireDetails = ({
               <div className="flex justify-between py-2">
                 <span>{translation.partenaireModal?.common?.totalWeight}</span>
                 <span className="font-medium">
-                  {Number(calculationData?.total_poids_net || 0).toFixed(2)} kg
+                  {isCalculating ? 
+                    "..." : 
+                    `${Number(calculationData?.total_poids_net || 0).toFixed(2)} KG`}
                 </span>
               </div>
               <div className="flex justify-between py-2">
                 <span>{translation.partenaireModal?.common?.totalValue}</span>
-                <span className="font-medium">{totalValue.toFixed(2)}</span>
+                <span className="font-medium">
+                  {isCalculating ? "..." : totalValue.toFixed(2)} {translation.shared.currency}
+                </span>
               </div>
               <div className="flex justify-between py-2 border-b">
                 <span>{translation.partenaireModal?.common?.discount}</span>
-                <span className="font-medium">{remise.toFixed(2)}</span>
+                <span className="font-medium">
+                  {isCalculating ? "..." : remise.toFixed(2)} {translation.shared.currency}
+                </span>
               </div>
               <div className="flex justify-between py-3 mt-2 bg-gray-50 rounded-lg p-2">
                 <span className="font-semibold text-lg">
-                  {translation.partenaireModal?.common?.netTotal}
+                  {translation.partenaireModal?.common?.netTotal} {translation.shared.currency}
                 </span>
                 <span className="font-bold text-lg text-primary">
-                  {netTotal.toFixed(2)}
+                  {isCalculating ? "..." : netTotal.toFixed(2)} {translation.shared.currency}
                 </span>
               </div>
             </div>

@@ -309,7 +309,7 @@
       "exit": "Exit"
     },
     "form": {
-      "matricule": "Registration Number",
+      "matricule": "Partner",
       "matricule_search": "Registration number",
       "number_prints": "Number of prints",
       "poids_brut": "Gross weight",
@@ -359,7 +359,6 @@
     "hours": "Hours",
     "total": "Total"
   },
-
   "order": {
     "tabs": {
       "client": "Info",
@@ -508,7 +507,8 @@
       "summary": "Summary",
       "totalWeight": "Total Weight",
       "totalValue": "Total Value",
-      "netTotal": "Net Total"
+      "netTotal": "Net Total",
+      "calculating": "Calculating"
     }
   },
   "sidebar": {
@@ -577,13 +577,14 @@
       "update_partner": "Update Partner",
       "search_placeholder": "Search...",
       "print": {
-        "company_name": "Company Name",
-        "company_address": "123 Business Street, City",
+        "company_name": "ZROUDI COMPANY",
+        "company_activity": "Waste Collection",
+        "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "ticket_number": "Ticket Number",
         "gross_weight": "gross weight",
         "tare_weight": "tare weigh",
         "net_weight": "net weight",
-        "company_contact": "Tel: +1 234 567 890 | Email: info@company.com",
         "partner_info": "Partner Information",
         "name": "Name",
         "matricule": "Registration Number",
@@ -802,6 +803,7 @@
     "loading ": "Loading...",
     "currency": "MAD",
     "printable": "Print",
+     "logout": "Logout",
     "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
