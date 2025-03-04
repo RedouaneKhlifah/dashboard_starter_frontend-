@@ -184,11 +184,11 @@ const ProductsTab = ({
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
-        <div className="border border-dashed rounded-lg p-[2px] flex justify-center items-center">
+        <div className="flex justify-center items-center mt-2">
           <button
             type="button"
             onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
-            className="px-3.5 py-2 text-sm font-medium bg-primary/10 text-primary  hover:bg-primary/20 rounded-md transition-colors"
+            className="px-3.5 py-2 text-sm font-medium bg-blue-300 text-white  hover:bg-blue-400 rounded-md transition-colors shadow-sm hover:shadow-md"
           >
             {translation.order.form.add_article}
           </button>

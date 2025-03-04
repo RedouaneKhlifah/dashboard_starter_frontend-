@@ -24,18 +24,21 @@ import { Locale } from "@/i18n-config";
 import Logo from "@/public/logo_Zroudi.svg";
 import Image from "next/image";
 import { DictionaryType } from "@/lib/i18n";
+import LogoutButton from "../shared/logout-button";
 
 interface SidebarProps {
   translation: DictionaryType;
   lang: Locale;
+  authToken: string | undefined;
 }
 
-const Sidebar = ({ lang, translation }: SidebarProps) => {
+const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
   const isRTL = lang === "ar";
   const pathname = usePathname();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(true);
 
+  
   const menuSections = useMemo(
     () => [
       {
@@ -279,8 +282,9 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
               )}
             </div>
           ))}
-        </nav>
+        </nav> {authToken &&<div className="absolute bottom-10 flex justify-center w-full"> <LogoutButton lang={lang} isOpen={isOpen} translation={translation}/></div>}
       </div>
+      
     </aside>
   );
 };

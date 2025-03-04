@@ -20,7 +20,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
-import toast from "react-hot-toast";
+import useToast from "@/hooks/useToast";
 
 interface TableorderProps {
   records: IOrder[];
@@ -46,6 +46,7 @@ export function TableOrder({
   const [selectedRecord, setSelectedRecord] = useState<IOrder | undefined>(
     undefined
   );
+  const { error: toastError, success: toastSuccess } = useToast(); 
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -159,10 +160,11 @@ export function TableOrder({
         );
 
         if (response.ok) {
-          toast.success("Email sent successfully");
+          const responseData = await response.json();
+          toastSuccess(responseData.message || "Email sent successfully");
         }
       } catch (error) {
-        console.error("Email sending error:", error);
+        toastError("Failed to send email");
       }
     },
     [orders, translation, lang]

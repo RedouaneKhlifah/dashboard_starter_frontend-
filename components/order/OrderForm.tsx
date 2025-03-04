@@ -98,14 +98,15 @@ const OrderForm = ({
   };
 
   const handleTabChange = (targetTab: Tab) => {
-    if (targetTab.index > activeTab.index + 1) return; // Prevent skipping tabs
+    if (targetTab.index < activeTab.index) {
+      setActiveTab(targetTab);
+      return;
+    }
 
-    if (targetTab.index > activeTab.index) {
-      const currentTabErrors = validateTab(activeTab.name);
-      setErrors(currentTabErrors);
+    const currentTabErrors = validateTab(activeTab.name);
+    setErrors(currentTabErrors);
 
-      if (hasNoErrors(currentTabErrors)) setActiveTab(targetTab);
-    } else {
+    if (hasNoErrors(currentTabErrors)) {
       setActiveTab(targetTab);
     }
   };
@@ -200,7 +201,6 @@ const OrderForm = ({
       dismiss={!isSecondOpen}
     >
       <div className="space-y-6">
-        {/* Tabs Navigation */}
         <div className="border-b border-gray-200 dark:border-gray-700">
           <div className="flex gap-2">
             {tabs.map((tab) => (

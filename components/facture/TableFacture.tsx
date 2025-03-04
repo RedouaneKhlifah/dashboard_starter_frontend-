@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect, use } from "react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
@@ -20,6 +20,9 @@ import { Locale } from "@/i18n-config";
 import { IFacture } from "@/interfaces/IFacture";
 import { IEmployee } from "@/interfaces/IEmployee";
 import { IClient } from "@/interfaces/IClient";
+import Printableorder from "../facture/printable/PrintableOrder";
+import ReactDOMServer from "react-dom/server";
+import useToast from "@/hooks/useToast";
 
 interface TableFactureProps {
   records: IFacture[];
@@ -50,6 +53,7 @@ export function TableFacture({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrderForPrint, setSelectedOrderForPrint] =
     useState<IFacture | null>(null);
+  const { error: toastError, success: toastSuccess } = useToast()
 
   // Refs
   const contentRef = useRef<HTMLDivElement>(null);
@@ -92,6 +96,16 @@ export function TableFacture({
     [orders]
   );
 
+  const generateFactureHTML = (
+    facture: IFacture,
+    translation: DictionaryType,
+    lang: Locale
+  ) => {
+    return ReactDOMServer.renderToString(
+      <Printableorder facture={facture} translation={translation} lang={lang} />
+    );
+  };
+
   // CRUD Actions
   const handleEdit = useCallback(
     (orderId: number) => {
@@ -129,7 +143,36 @@ export function TableFacture({
     }
   };
 
-  const handleEmail = useCallback((orderId: number) => {}, []);
+  const handleEmail = useCallback(
+    async (orderId: number) => {
+      try {
+        const orderToEmail = orders.find((o) => o.id === orderId);
+        if (!orderToEmail){
+          toastError("facture not found");
+          return;
+        } 
+
+        const htmlContent = generateFactureHTML(orderToEmail, translation, lang);
+
+        const response = await http(
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/send-facture-email/${orderId}`,
+          {
+            method: "POST",
+            lang,
+            body: JSON.stringify({ htmlContent }),
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          toastSuccess(responseData.message || "Email sent successfully");
+        }
+      } catch (error) {
+        toastError("Failed to send email");
+      }
+    },
+    [orders, translation, lang]
+  );
 
   const headers = useMemo(
     () => [

@@ -300,7 +300,7 @@
       "exit": "Sortie"
     },
     "form": {
-      "matricule": "Matricule",
+      "matricule": "Partenaire",
       "matricule_search": "Matricule",
       "product": "Produit",
       "product_search": "Produit",
@@ -482,7 +482,8 @@
       "summary": "Résumé",
       "totalWeight": "Poids Total",
       "totalValue": "Valeur Totale",
-      "netTotal": "Total Net"
+      "netTotal": "Total Net",
+      "calculating": "Calcul en cours..."
     }
   },
   "HistoryModal": {
@@ -568,13 +569,14 @@
       "update_partner": "Mettre à jour le partenaire",
       "search_placeholder": "Rechercher...",
       "print": {
-        "company_name": "Nom de l'Entreprise",
+        "company_name": "SOCIÉTÉ ZROUDI",
+        "company_activity": "Collecte des déchets et recyclages",
+        "company_address": "Dr Aït Messaoud Harbil El Ghaba",
         "ticket_number": "Numéro de Ticket",
         "gross_weight": "poids brut",
         "tare_weight": "tare de poids",
         "net_weight": "poids net",
-        "company_address": "123 Rue des Affaires, Ville",
-        "company_contact": "Tél: +33 1 23 45 67 89 | Email: info@entreprise.com",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
         "partner_info": "Informations sur le Partenaire",
         "name": "Nom",
         "matricule": "Matricule",
@@ -635,9 +637,9 @@
       }
     },
     "orders_table": {
-      "order_management": "Gestion des commandes",
-      "create_new_order": "Créer une nouvelle commande",
-      "update_order": "Mettre à jour le orders",
+      "order_management": "Gestion des bons de commande",
+      "create_new_order": "Créer un nouveau bon de commande",
+      "update_order": "Mettre à jour le bon de commande",
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
@@ -655,7 +657,7 @@
         "company_name": "SOCIETE ZROUDI DE COLLECTE DES DECHETS USES",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
-        "order_title": "orders",
+        "order_title": "Bon de commande",
         "reference": "Référence",
         "date": "Date",
         "due_date": "Date d'échéance",
@@ -788,6 +790,7 @@
     "loading ": "Chargement...",
     "currency": "MAD",
     "printable": "Imprimer",
+     "logout": "Déconnexion",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }
