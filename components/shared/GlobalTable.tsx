@@ -31,7 +31,6 @@ export interface TableHeader<T> {
   isImage?: boolean;
   imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
   width?: string;
-  valueClassName?: string;
 }
 
 interface TableProps<T> {
@@ -296,9 +295,7 @@ const TableRow = <T extends { id: string | number }>({
             overflow: "hidden",
           }}
         >
-          <span className={header.valueClassName}>
-            <TableCell<T> header={header} row={row} />
-          </span>
+          <TableCell<T> header={header} row={row} />
         </td>
       ))}
     </tr>
