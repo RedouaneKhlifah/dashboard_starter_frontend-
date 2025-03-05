@@ -284,7 +284,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                   "absolute top-1/2 -translate-y-1/2 bg-red-700/70 px-2 py-1 text-xs text-white",
                   "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
                   "whitespace-nowrap z-20",
-                  isRTL ? "right-16" : "left-16"
+                  isRTL ? "right-16" : "left-16" 
                 )}
               >
                 {translation.shared.logout}
