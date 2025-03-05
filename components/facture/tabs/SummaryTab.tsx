@@ -139,6 +139,7 @@ const SummaryTab = ({
           label={translation.order.form.subtotal}
           value={formData.subtotal?.toString() || ""}
           onChange={() => {}}
+          suffix={translation.shared.currency}
           disabled
         />
       </div>
@@ -149,6 +150,7 @@ const SummaryTab = ({
           label={translation.order.form.total}
           value={formData.total?.toString() || ""}
           onChange={() => {}}
+          suffix={translation.shared.currency}
           disabled
         />
       </div>

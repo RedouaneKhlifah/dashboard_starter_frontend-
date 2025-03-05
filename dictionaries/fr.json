@@ -268,7 +268,7 @@
     "rubric": "RUBRIQUE",
     "base_units": "Base/Nombre",
     "vacation_days": "Jours Fériés",
-    "normal_hours": "Heures Taux Normal (10,89 jours)",
+    "normal_hours": "Heures Taux Normal",
     "seniority": "Ancienneté",
     "gross_salary": "Salaire Brut",
     "taxable_income": "Revenu Brut Imposable",
@@ -518,7 +518,7 @@
         "bundles": "Pactes",
         "tickets": "Tickets",
         "factures": "Factures",
-        "orders": "Bons de Commandes",
+        "orders": "Bons de livraisons",
         "members": "Membres",
         "settings": "P aramètres",
         "clients": "Clients",
@@ -638,13 +638,13 @@
       }
     },
     "orders_table": {
-      "order_management": "Gestion des bons de commande",
-      "create_new_order": "Créer un nouveau bon de commande",
-      "update_order": "Mettre à jour le bon de commande",
+      "order_management": "Gestion des bons de livraisons",
+      "create_new_order": "Créer un nouveau Bon de livraison",
+      "update_order": "Mettre à jour le Bon de livraison",
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
-        "order_date": "Date du orders",
+        "order_date": "Date Bon de livraison",
         "expiration_date": "Date d'expiration",
         "client": "Client",
         "total": "Total",
@@ -655,10 +655,10 @@
         "delete": "Supprimer"
       },
       "print": {
-        "company_name": "SOCIETE ZROUDI DE COLLECTE DES DECHETS USES",
+        "company_name": "ZR CDU",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
-        "order_title": "Bon de commande",
+        "order_title": "Bons de livraisonsande",
         "reference": "Référence",
         "date": "Date",
         "due_date": "Date d'échéance",
@@ -704,7 +704,7 @@
         "view": "Voir"
       },
       "print": {
-        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_name": "ZR CDU",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Facture",

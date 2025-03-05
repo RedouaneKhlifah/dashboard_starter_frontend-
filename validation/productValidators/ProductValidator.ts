@@ -29,7 +29,6 @@ export const validateProductForm = (
     reorder_poinSchemat,
     sale_priceSchema,
     stockSchema,
-    taxSchema,
   } = createProductSchemas(translation);
 
   const newErrors: ProductFormErrors = {};
@@ -43,7 +42,6 @@ export const validateProductForm = (
     descriptionSchema,
     formData.description
   );
-  newErrors.tax = validateField(taxSchema, formData.tax);
   newErrors.stock = validateField(stockSchema, formData.stock);
   newErrors.reorder_point = validateField(
     reorder_poinSchemat,

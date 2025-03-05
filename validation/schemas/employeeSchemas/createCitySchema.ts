@@ -7,8 +7,11 @@ import { z } from "zod";
  * @param t - The dictionary containing localized strings.
  * @returns A Zod schema for city validation.
  */
-export function createCitySchema(t: DictionaryType): z.ZodString {
-    const { employee } = t;
-    return z.string().min(1, { message: employee.cityRequired });
-  }
+export function createCitySchema(t: DictionaryType): z.ZodUnion<[z.ZodString, z.ZodNumber]> {
+  const { employee } = t;
+  return z.union([
+      z.string().min(1, { message: employee.cityRequired }),
+      z.number()
+  ]);
+}
   

@@ -59,8 +59,8 @@ const FactureForm = ({
     () =>
       activeTab.name === "notes"
         ? modalType === "create"
-          ? translation.sidebar.orders_table.create_new_order
-          : translation.sidebar.orders_table.update_order
+          ? translation.sidebar.factures_table.create_new_invoice
+          : translation.sidebar.factures_table.update_invoice
         : translation.order.common.continue,
     [activeTab.name, modalType, translation]
   );
@@ -89,14 +89,15 @@ const FactureForm = ({
   };
 
   const handleTabChange = (targetTab: Tab) => {
-    if (targetTab.index > activeTab.index + 1) return; // Prevent skipping tabs
-
-    if (targetTab.index > activeTab.index) {
-      const currentTabErrors = validateTab(activeTab.name);
-      setErrors(currentTabErrors);
-
-      if (hasNoErrors(currentTabErrors)) setActiveTab(targetTab);
-    } else {
+    if (targetTab.index <= activeTab.index) {
+      setActiveTab(targetTab);
+      return;
+    }
+  
+    const currentTabErrors = validateTab(activeTab.name);
+    setErrors(currentTabErrors);
+  
+    if (hasNoErrors(currentTabErrors)) {
       setActiveTab(targetTab);
     }
   };

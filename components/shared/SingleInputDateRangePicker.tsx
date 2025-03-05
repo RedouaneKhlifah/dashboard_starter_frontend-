@@ -45,7 +45,7 @@ export default function SingleInputDateRangePicker({
           <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
             <CalendarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
             <span className="font-medium">
-              {displayText}
+              {displayText} 
             </span>
           </div>
           {showPicker ? (

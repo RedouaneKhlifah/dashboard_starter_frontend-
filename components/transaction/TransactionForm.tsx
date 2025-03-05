@@ -119,6 +119,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             min={0}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
             error={errors.amount}
+            suffix={translation.shared.currency}
             required
           />
         </div>

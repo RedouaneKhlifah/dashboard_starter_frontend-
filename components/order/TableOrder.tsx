@@ -195,12 +195,16 @@ export function TableOrder({
         key: "total" as keyof IOrder,
         label: orders_table.headers.total,
         renderCell: (_: any, row: OrderRow) =>
-          `${row.total} ${translation.shared.currency}`
+        (
+          <>
+            {row.total} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+          </>
+        ),
       },
       {
         key: "actions" as keyof IOrder,
         label: orders_table.headers.actions,
-        renderCell: (_, row: IOrder) => (
+        renderCell: (_: any, row: IOrder) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}

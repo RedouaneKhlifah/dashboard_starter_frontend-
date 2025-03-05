@@ -194,7 +194,7 @@
   "payslip": {
     "employer": "EMPLOYER",
     "PayslipName": "Payslip",
-    "company_name": "ZROUDI COMPANY",
+    "company_name": "ZR CDU",
     "company_activity": "Waste Collection",
     "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
     "postal_code": "B-P 12624",
@@ -226,7 +226,7 @@
     "rubric": "RUBRIC",
     "base_units": "Base/Units",
     "vacation_days": "Vacation Days",
-    "normal_hours": "Normal Hours (10.89 days)",
+    "normal_hours": "Normal Hours",
     "seniority": "Seniority",
     "gross_salary": "Gross Salary",
     "taxable_income": "Taxable Income",
@@ -379,7 +379,7 @@
     "select_products": "Select Products",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
-    "order_date_required": "Quote date is required",
+    "order_date_required": "Delivery note date is required",
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
@@ -390,7 +390,7 @@
     "form": {
       "reference": "Reference",
       "reference_search": "Search reference",
-      "order_date": "Quote date",
+      "order_date": "Delivery note date",
       "paid_amount": "Paid Amount",
       "expiration_date": "Expiration date",
       "client": "Client",
@@ -432,10 +432,10 @@
         "PAID": "Paid"
       },
       "message": {
-        "success": "Quote created successfully",
-        "update_success": "Quote updated successfully",
-        "delete_success": "Quote deleted successfully",
-        "error": "An error occurred while creating the quote"
+        "success": "Delivery note created successfully",
+        "update_success": "Delivery note updated successfully",
+        "delete_success": "Delivery note deleted successfully",
+        "error": "An error occurred while creating the Delivery note"
       },
       "Total_Items": "Total Items",
       "Total_Amount": "Total Amount"
@@ -578,7 +578,7 @@
       "update_partner": "Update Partner",
       "search_placeholder": "Search...",
       "print": {
-        "company_name": "ZROUDI COMPANY",
+        "company_name": "ZR CDU",
         "company_activity": "Waste Collection",
         "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
@@ -646,13 +646,13 @@
       }
     },
     "orders_table": {
-      "order_management": "Order Management",
-      "create_new_order": "Create New Quote",
-      "update_order": "Update The Quote",
+      "order_management": "Delivery notes management",
+      "create_new_order": "Create New Delivery note",
+      "update_order": "Update The Delivery note",
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
-        "order_date": "Quote Date",
+        "order_date": "Delivery note Date",
         "expiration_date": "Expiration Date",
         "client": "Client",
         "total": "Total",
@@ -663,10 +663,10 @@
         "delete": "Delete"
       },
       "print": {
-        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_name": "ZR CDU",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
-        "order_title": "Quotation",
+        "order_title": "Delivery note",
         "reference": "Reference",
         "date": "Date",
         "due_date": "Due Date",
@@ -712,7 +712,7 @@
         "view": "View"
       },
       "print": {
-        "company_name": "ZROUDI COMPANY FOR THE COLLECTION OF USED WASTE",
+        "company_name": "ZR CDU",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Invoice",

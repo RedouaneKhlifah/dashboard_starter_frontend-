@@ -276,7 +276,7 @@
     "rubric": "البند",
     "base_units": "الأساس/العدد",
     "vacation_days": "أيام العطلة",
-    "normal_hours": "ساعات العمل العادية (10.89 يوم)",
+    "normal_hours": "ساعات العمل العادية",
     "seniority": "الأقدمية",
     "gross_salary": "الراتب الإجمالي",
     "taxable_income": "الدخل الخاضع للضريبة",
@@ -361,7 +361,7 @@
     "select_products": "اختر المنتجات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
-    "order_date_required": "تاريخ عرض السعر مطلوب",
+    "order_date_required": "تاريخ مذكرة التسليم مطلوب",
     "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
     "client_required": "العميل مطلوب",
     "product_required": "المنتج مطلوب",
@@ -372,7 +372,7 @@
     "form": {
       "reference": "المرجع",
       "reference_search": "البحث عن مرجع",
-      "order_date": "تاريخ عرض السعر",
+      "order_date": "تاريخ مذكرة التسليم",
       "paid_amount": "المبلغ المدفوع",
       "expiration_date": "تاريخ انتهاء الصلاحية",
       "client": "العميل",
@@ -414,10 +414,10 @@
         "PAID": "مدفوع"
       },
       "message": {
-        "success": "تم إنشاء عرض السعر بنجاح",
-        "delete_success": "تم حذف عرض السعر بنجاح",
-        "update_success": "تم تحديث عرض السعر بنجاح",
-        "error": "حدث خطأ أثناء إنشاء عرض السعر"
+        "success": "تم إنشاء مذكرة التسليم بنجاح",
+        "delete_success": "تم حذف مذكرة التسليم بنجاح",
+        "update_success": "تم تحديث مذكرة التسليم بنجاح",
+        "error": "حدث خطأ أثناء إنشاء مذكرة التسليم"
       },
       "Total_Items": "مجموع العناصر",
       "Total_Amount": "المبلغ الإجمالي"
@@ -525,7 +525,7 @@
         "bundles": "الباقات",
         "tickets": "التذاكر",
         "factures": "الفواتير",
-        "orders": "طلبات الشراء",
+        "orders": "ملاحظات التسليم",
         "members": "الأعضاء",
         "settings": "الإعدادات",
         "clients": "العملاء",
@@ -577,7 +577,7 @@
       "update_partner": "تحديث الشريك",
       "search_placeholder": "البحث...",
       "print": {
-        "company_name": "جمعية الزرودي للتجميع النفايات المستعملة",
+        "company_name": "ZR CDU",
         "company_address": "أيت مسعود حربيل الغابة",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "ticket_number": "رقم التذكرة",
@@ -644,13 +644,13 @@
       }
     },
     "orders_table": {
-      "order_management": "إدارة الطلبات",
-      "create_new_order": "إنشاء طلب جديد",
-      "update_order": "تحديث الطلب",
+      "order_management": "إدارة مذكرات التسليم",
+      "create_new_order": "إنشاء مذكرة التسليم",
+      "update_order": "تحديث مذكرة التسليم",
       "search_placeholder": "بحث...",
       "headers": {
         "reference": "المرجع",
-        "order_date": "تاريخ عرض السعر",
+        "order_date": "تاريخ مذكرة التسليم",
         "expiration_date": "تاريخ انتهاء الصلاحية",
         "client": "العميل",
         "total": "المجموع",
@@ -661,10 +661,10 @@
         "delete": "حذف"
       },
       "print": {
-        "company_name": "جمعية الزرودي للتجميع النفايات المستعملة",
+        "company_name": "ZR CDU",
         "company_address": "أيت مسعود حربيل الغابة",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
-        "order_title": "عرض سعر",
+        "order_title": "مذكرة التسليم",
         "reference": "المرجع",
         "date": "التاريخ",
         "due_date": "تاريخ الاستحقاق",
@@ -710,7 +710,7 @@
         "view": "عرض"
       },
       "print": {
-        "company_name": "جمعية الزرودي للتجميع النفايات المستعملة",
+        "company_name": "ZR CDU",
         "company_address": "أيت مسعود حربيل الغابة",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "فاتورة",

@@ -130,7 +130,8 @@ const SummaryTab = ({
           type="number"
           label={translation.order.form.subtotal}
           value={formData.subtotal?.toString() || ""}
-          onChange={() => {}}
+          onChange={() => { }}
+          suffix={translation.shared.currency}
           disabled
         />
         <InputField
@@ -138,7 +139,8 @@ const SummaryTab = ({
           type="number"
           label={translation.order.form.total}
           value={formData.total?.toString() || ""}
-          onChange={() => {}}
+          onChange={() => { }}
+          suffix={translation.shared.currency}
           disabled
         />
       </div>

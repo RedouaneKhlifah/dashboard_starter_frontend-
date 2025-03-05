@@ -9,7 +9,6 @@ export interface ProductRow {
   sale_price: number;
   cost_price: number;
   description: string;
-  tax: number;
   image: string;
   stock: number;
   reorder_point: number;
@@ -41,7 +40,6 @@ function mapProductToFormData(data: IProductForm) {
     "sale_price",
     "cost_price",
     "description",
-    "tax",
     "stock",
     "reorder_point",
   ];
