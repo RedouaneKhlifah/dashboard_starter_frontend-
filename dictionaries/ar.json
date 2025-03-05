@@ -158,7 +158,12 @@
       "date_of_engagement": "تاريخ التعيين",
       "price_per_hour": "السعر / ساعة",
       "cnss_number": "رقم الضمان الاجتماعي",
-      "birth_date": "تاريخ الميلاد"
+      "birth_date": "تاريخ الميلاد",
+      "Out_of": "من أصل",
+      "employees": "موظف",
+      "were successfully processed": "تمت معالجتهم بنجاح",
+      "and": "و",
+      "failed": "فشلوا"
     },
     "common": {
       "create": "إنشاء",
@@ -696,7 +701,7 @@
         "rest": "الباقي",
         "actions": "الإجراءات"
       },
-      "statuses" :{
+      "statuses": {
         "draft": "مسودة",
         "unpaid": "غير مدفوعة",
         "paid": "مدفوعة",

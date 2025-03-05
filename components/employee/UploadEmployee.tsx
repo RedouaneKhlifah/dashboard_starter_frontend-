@@ -72,11 +72,10 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
 
           // Map to required format with progress updates
           const employees = jsonData.map((item: any) => {
-            console.log("item --->", item);
             const employee = {
-              matricule: item["matricule"],
-              date: item["date"],
-              presence: item["presence"],
+              matricule: item["Matricule."],
+              date: item["Date."],
+              presence: item["Présence réelle."],
             };
 
             processedRows++;
@@ -107,11 +106,32 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
             throw new Error(errorData.message || "Upload failed");
           }
 
+          const resData = await response.json();
+
           setUploadProgress(100);
-          toastSuccess(translation.employee.message.upload_success);
-          setTimeout(() => closeModal(), 1000);
-          setSelectedFile(null); // Set the new file
-          setError(null); // Clear any previous errors
+          toastSuccess(
+            translation.employee.form.Out_of +
+              " " +
+              (resData?.valid_matricules?.length +
+                resData?.invalid_matricules?.length) +
+              " " +
+              translation.employee.form.employees +
+              ", " +
+              resData?.valid_matricules?.length +
+              " " +
+              translation.employee.form["were successfully processed"] +
+              ", " +
+              translation.employee.form.and +
+              " " +
+              resData?.invalid_matricules?.length +
+              " " +
+              translation.employee.form.failed
+          );
+          setTimeout(() => {
+            closeModal();
+          }, 1000);
+          setSelectedFile(null);
+          setError(null);
           setUploadProgress(0);
         } catch (err) {
           console.error("Upload error:", err);

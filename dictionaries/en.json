@@ -154,7 +154,12 @@
       "date_of_engagement": "Date of Engagement",
       "price_per_hour": "Price / Hour",
       "cnss_number": "CNSS Number",
-      "birth_date": "Birth Date"
+      "birth_date": "Birth Date",
+      "Out_of": "Out of",
+      "employees": "employees",
+      "were successfully processed": "were successfully processed",
+      "and": "and",
+      "failed": "failed"
     },
     "common": {
       "create": "Create",
