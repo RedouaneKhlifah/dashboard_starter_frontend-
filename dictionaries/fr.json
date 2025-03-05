@@ -154,7 +154,12 @@
       "date_of_engagement": "Date d’engagement",
       "price_per_hour": "Prix / Heure",
       "cnss_number": "N° CNSS",
-      "birth_date": "Date de naissance"
+      "birth_date": "Date de naissance",
+      "Out_of": "Sur",
+      "employees": "employés",
+      "were successfully processed": "ont été traités avec succès",
+      "and": "et",
+      "failed": "échoué"
     },
     "common": {
       "create": "Créer",
@@ -622,8 +627,9 @@
         "matricule": "Matricule",
         "product": "Produit",
         "number_prints": "N° Impr",
-        "poids_brut": "Poids brut",
+        "poids_brut": "Poids brute",
         "poids_tare": "Poids tare",
+        "poids_net": "Poids net",
         "status": "Statut",
         "client": "Client",
         "actions": "Actions"

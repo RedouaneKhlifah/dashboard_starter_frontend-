@@ -185,13 +185,19 @@ export function TableTicket({
         renderCell: (_: any, row: ITicket) => row.poids_tare + " Kg",
       },
       {
+        key: "poids_tare" as keyof ITicket,
+        label: ticket_table.headers.poids_net,
+        renderCell: (_: any, row: ITicket) =>
+          row.poids_brut - row.poids_tare + " Kg",
+      },
+      {
         key: "status" as keyof ITicket,
         label: ticket_table.headers.status,
         renderCell: (_: any, row: ITicket) => (
           <span
-            className={`px-2 py-1 text-xs font-semibold leading-tight text-white  bg-${
-              row.status === "ENTRY" ? "green" : "red"
-            }-400 rounded-full  `}
+            className={`px-2 py-1 text-xs font-semibold leading-tight text-white ${
+              row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
+            } rounded-full`}
           >
             {row.status}
           </span>

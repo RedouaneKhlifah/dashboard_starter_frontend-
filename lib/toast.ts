@@ -33,8 +33,8 @@ export const toastSuccess = (message: string) => {
     style: {
       ...baseStyle,
       // background: "#F0FFF4",
-      background: "#52ad551f",
-      color: "#2B8A3E",
+      background: "#52ac54",
+      color: "#ffffff",
     },
     iconTheme: {
       primary: "#2B8A3E",

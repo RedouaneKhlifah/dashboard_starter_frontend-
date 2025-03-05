@@ -158,7 +158,12 @@
       "date_of_engagement": "تاريخ التعيين",
       "price_per_hour": "السعر / ساعة",
       "cnss_number": "رقم الضمان الاجتماعي",
-      "birth_date": "تاريخ الميلاد"
+      "birth_date": "تاريخ الميلاد",
+      "Out_of": "من أصل",
+      "employees": "موظف",
+      "were successfully processed": "تمت معالجتهم بنجاح",
+      "and": "و",
+      "failed": "فشلوا"
     },
     "common": {
       "create": "إنشاء",
@@ -316,6 +321,7 @@
       "number_prints": "عدد المطبوعات",
       "poids_brut": "الوزن الإجمالي",
       "poids_tare": "الوزن الصافي",
+      "poids_net": "الوزن الصافي",
       "status": "الحالة",
       "status_entry": "دخول",
       "status_exit": "خروج",
@@ -630,6 +636,7 @@
         "number_prints": "عدد الطباعات",
         "poids_brut": "الوزن الإجمالي",
         "poids_tare": "الوزن الصافي",
+        "poids_net": "الوزن الصافي",
         "status": "الحالة",
         "client": "العميل",
         "actions": "الإجراءات"
@@ -696,7 +703,7 @@
         "rest": "الباقي",
         "actions": "الإجراءات"
       },
-      "statuses" :{
+      "statuses": {
         "draft": "مسودة",
         "unpaid": "غير مدفوعة",
         "paid": "مدفوعة",
