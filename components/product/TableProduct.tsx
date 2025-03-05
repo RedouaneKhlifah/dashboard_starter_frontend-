@@ -142,16 +142,22 @@ export function UsersTableProduct({
       {
         key: "sale_price" as keyof ProductRow,
         label: products_table.headers.sale_price,
-        renderCell: (_: any, row: ProductRow) =>
-          `${row.sale_price} ${translation.shared.currency}`,
         width: "75px",
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+           {row.sale_price} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+          </>
+        ),
       },
       {
         key: "cost_price" as keyof ProductRow,
         label: products_table.headers.cost_price,
-        renderCell: (_: any, row: ProductRow) =>
-          `${row.cost_price} ${translation.shared.currency}`,
         width: "75px",
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+           {row.cost_price} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+          </>
+        ),
       },
       {
         key: "tax" as keyof ProductRow,

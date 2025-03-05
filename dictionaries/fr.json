@@ -687,7 +687,14 @@
         "amount": "Montant",
         "paid": "Payé",
         "status": "Statut",
+        "rest": "Reste",
         "actions": "Actions"
+      },
+      "statuses": {
+        "draft": "Brouillon",
+        "unpaid": "Non payé",
+        "paid": "Payé",
+        "partially_paid": "Partiellement payé"
       },
       "actions": {
         "edit": "Modifier",

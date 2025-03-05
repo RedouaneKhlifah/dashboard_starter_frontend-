@@ -695,7 +695,14 @@
         "amount": "Amount",
         "paid": "Paid",
         "status": "Status",
+        "rest": "Reste",
         "actions": "Actions"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "unpaid": "Unpaid",
+        "paid": "Paid",
+        "partially_paid": "Partially Paid"
       },
       "actions": {
         "edit": "Edit",
@@ -805,7 +812,7 @@
     "currency": "MAD",
     "printable": "Print",
     "logout": "Logout",
-    "date_range" : "Select Date Range",
+    "date_range": "Select Date Range",
     "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"

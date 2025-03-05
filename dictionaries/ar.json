@@ -693,7 +693,14 @@
         "amount": "المبلغ",
         "paid": "المدفوع",
         "status": "الحالة",
+        "rest": "الباقي",
         "actions": "الإجراءات"
+      },
+      "statuses" :{
+        "draft": "مسودة",
+        "unpaid": "غير مدفوعة",
+        "paid": "مدفوعة",
+        "partially_paid": "مدفوعة جزئيا"
       },
       "actions": {
         "edit": "تعديل",

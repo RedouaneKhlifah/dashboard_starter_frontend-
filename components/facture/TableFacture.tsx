@@ -23,6 +23,7 @@ import { IClient } from "@/interfaces/IClient";
 import Printableorder from "../facture/printable/PrintableOrder";
 import ReactDOMServer from "react-dom/server";
 import useToast from "@/hooks/useToast";
+import { Status } from "@/dto/facture/factureForm";
 
 interface TableFactureProps {
   records: IFacture[];
@@ -106,6 +107,22 @@ export function TableFacture({
     );
   };
 
+  const getStatusColor = (statusCode: string) => {
+    switch (statusCode) {
+      case factures_table.statuses.unpaid:
+        return "bg-red-500";
+      case factures_table.statuses.paid:
+        return "bg-green-500";
+      case factures_table.statuses.partially_paid:
+        return "bg-orange-500";
+      case factures_table.statuses.draft:
+        return "bg-gray-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
+  
   // CRUD Actions
   const handleEdit = useCallback(
     (orderId: number) => {
@@ -197,35 +214,76 @@ export function TableFacture({
         key: "due_date" as keyof IFacture,
         label: factures_table.headers.due_date,
         width: "100px",
-        renderCell: (_: any, row: IFacture) => row.facture_date,
+        renderCell: (_: any, row: IFacture) => (
+          <>
+          <span>{row.facture_date}</span>
+          </>
+        )
       },
       {
         key: "tva" as keyof IFacture,
         label: factures_table.headers.vat,
         width: "70px",
-        renderCell: (_: any, row: IFacture) =>
-          row.tva + row.remise_type == "PERCENT"
-            ? "%"
-            : translation.shared.currency,
+        renderCell: (_: any, row: IFacture) => {
+          const tvaValue = row.tva ?? 0; 
+          return row.remise_type === "PERCENT"
+            ? `${tvaValue}%`
+            : `${tvaValue} <span className="text-xs text-gray-500">${translation.shared.currency}</span>`;
+        },
       },
       {
         key: "total" as keyof IFacture,
         label: factures_table.headers.amount,
         width: "70px",
-        renderCell: (_: any, row: IFacture) =>
-          row.total + " " + translation.shared.currency,
+        renderCell: (_: any, row: IFacture) => (
+          <>
+            {row.total} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+          </>
+        ),
       },
       {
         key: "paid" as keyof IFacture,
         label: factures_table.headers.paid,
         width: "70px",
-        renderCell: (_: any, row: IFacture) =>
-          row.paid_amount + " " + translation.shared.currency,
+        renderCell: (_: any, row: IFacture) => (
+          <>
+            {row.paid_amount} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+          </>
+        ),
+      },
+      {
+        key: "rest" as keyof IFacture,
+        label: factures_table.headers.rest,
+        width: "70px",
+        renderCell: (_: any, row: IFacture) => {
+          const rest = row.total - row.paid_amount;
+          return (
+            <>
+              {rest} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            </>
+          );
+        },
       },
       {
         key: "status" as keyof IFacture,
         label: factures_table.headers.status,
-        renderCell: (_: any, row: IFacture) => row?.status,
+        width: "140px",
+        renderCell: (_: any, row: IFacture) => (
+          <span 
+            className={`
+              inline-block 
+              px-2 
+              py-1 
+              rounded-full 
+              text-xs 
+              font-semibold 
+              text-white 
+              ${getStatusColor(row?.status || '')}
+            `}
+          >
+            {row?.status}
+          </span>
+        ),
       },
       {
         key: "actions" as keyof IFacture,
