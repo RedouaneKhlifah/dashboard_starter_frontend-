@@ -5,7 +5,6 @@ export interface IProductForm {
   sale_price: number;
   cost_price: number;
   description: string;
-  tax: number;
   image: File | null | string;
   stock: number;
   reorder_point: number;

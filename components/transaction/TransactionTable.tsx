@@ -48,6 +48,7 @@ export function TransactionTable({
   const { openModal, closeModal } = useModalStore();
   const {
     sidebar: { transactions_table },
+    shared: { currency }
   } = translation;
 
   // State
@@ -157,7 +158,14 @@ export function TransactionTable({
           formatDate(new Date(row.created_at)),
       },
       { key: "reason", label: transactions_table.headers.reason },
-      { key: "amount", label: transactions_table.headers.amount },
+      {
+        key: "amount" as keyof ITransaction,
+        label: transactions_table.headers.amount,
+        renderCell: (_: any, row: ITransaction) =>
+         <>
+           {row.amount} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+         </>
+      },
       { key: "type", label: transactions_table.headers.type },
       {
         key: "id",
@@ -194,7 +202,7 @@ export function TransactionTable({
             <span className="text-sm text-gray-500">
               {translation.transaction.balance}
             </span>
-            <p className="text-xl font-semibold text-gray-800">{balance} DH</p>
+            <p className="text-xl font-semibold text-gray-800">{balance} {currency}</p>
           </div>
         </div>
 

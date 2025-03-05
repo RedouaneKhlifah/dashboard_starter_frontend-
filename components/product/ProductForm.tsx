@@ -162,7 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.sale_price}
               required
-              prefix="DH"
+              prefix={translation.shared.currency}
               min={0}
             />
             <InputField
@@ -172,18 +172,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               value={formData.cost_price}
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.cost_price}
-              prefix="DH"
-              min={0}
-            />
-            <InputField
-              id="tax"
-              label={translation.Product.form.tax}
-              type="number"
-              icon={<BarChart className="w-5 h-5 text-gray-400" />}
-              value={formData.tax}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.tax}
-              suffix="%"
+              prefix={translation.shared.currency}
               min={0}
             />
             <InputField

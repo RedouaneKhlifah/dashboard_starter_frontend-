@@ -6,7 +6,10 @@ import { z } from "zod";
  * @param t - The dictionary containing localized strings.
  * @returns A Zod schema for country validation.
  */
-export function createNationalSchema(t: DictionaryType): z.ZodString {
+export function createNationalSchema(t: DictionaryType): z.ZodUnion<[z.ZodString, z.ZodNumber]> {
   const { employee } = t;
-  return z.string().min(1, { message: employee.NationalRequired });
+  return z.union([
+      z.string().min(1, { message: employee.NationalRequired }),
+      z.number()
+  ]);
 }

@@ -107,7 +107,7 @@ const PaymentPeriodRow = ({
     </thead>
     <tbody>
       <tr className="text-center">
-        <td className="border p-2">{selectedHistory.total_gain}</td>
+        <td className="border p-2">{selectedHistory.total_gain} {translation.shared.currency}</td>
         <td className="border p-2"><span className="mx-2">{selectedHistory.start_date}</span><span className="mx-2">{selectedHistory.end_date}</span></td>
       </tr>
     </tbody>
@@ -136,76 +136,19 @@ const PayDetailsTable = ({
       </tr>
     </thead>
     <tbody>
-      <tr className="border">
-        <td className="border p-2">{translation.payslip.rubric}</td>
-        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
-        <td className="border p-2 text-center">
-          {translation.payslip.base_units}
-        </td>
-        <td className="border p-2"></td>
-      </tr>
       <tr>
         <td className="border p-2">{translation.payslip.normal_hours}</td>
         <td className="border p-2"></td>
-        <td className="border p-2 text-right">{historyOfPay.total_hours}</td>
-        <td className="border p-2 text-right">{employee.price_per_hour}</td>
-        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
+        <td className="border p-2 text-right">{historyOfPay.total_hours} (H)</td>
+        <td className="border p-2 text-right"><div className="flex items-center gap-1">{employee.price_per_hour}<span className="text-sm">{translation.shared.currency}</span></div></td>
+        <td className="border p-2 text-right"><div className="flex items-center gap-1">{historyOfPay.total_gain}<span className="text-sm">{translation.shared.currency}</span></div></td>
       </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.seniority}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.gross_salary}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2"></td>
-        <td className="border p-2"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.taxable_income}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2"></td>
-        <td className="border p-2"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.social_security}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2 text-right"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.health_insurance}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2 text-right"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.income_tax}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-        <td className="border p-2"></td>
-        <td className="border p-2"></td>
-      </tr>
-      <tr>
-        <td className="border p-2">{translation.payslip.payment}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2"></td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right"></td>
-      </tr>
+     
       <tr className="font-bold">
         <td className="border p-2" colSpan={3}>
           {translation.payslip.total}
         </td>
-        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
-        <td className="border p-2 text-right">{historyOfPay.total_gain}</td>
+        <td className="border p-2 text-center" colSpan={2}>{historyOfPay.total_gain} {translation.shared.currency}</td>
       </tr>
     </tbody>
   </table>

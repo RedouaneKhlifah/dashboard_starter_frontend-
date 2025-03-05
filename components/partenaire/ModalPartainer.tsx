@@ -223,6 +223,7 @@ const ModalPartenaireDetails = ({
                     label={translation.partenaireModal?.common?.discount}
                     type="number"
                     value={remise}
+                    suffix="%"
                     onChange={(e) => setRemise(Number(e.target.value))}
                   />
                 </div>
@@ -270,12 +271,12 @@ const ModalPartenaireDetails = ({
               <div className="flex justify-between py-2 border-b">
                 <span>{translation.partenaireModal?.common?.discount}</span>
                 <span className="font-medium">
-                  {isCalculating ? "..." : remise.toFixed(2)} {translation.shared.currency}
+                  {isCalculating ? "..." : remise.toFixed(2)} %
                 </span>
               </div>
               <div className="flex justify-between py-3 mt-2 bg-gray-50 rounded-lg p-2">
                 <span className="font-semibold text-lg">
-                  {translation.partenaireModal?.common?.netTotal} {translation.shared.currency}
+                  {translation.partenaireModal?.common?.netTotal} 
                 </span>
                 <span className="font-bold text-lg text-primary">
                   {isCalculating ? "..." : netTotal.toFixed(2)} {translation.shared.currency}

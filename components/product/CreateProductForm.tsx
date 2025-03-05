@@ -42,7 +42,6 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
       sale_price: 0,
       cost_price: 0,
       description: "",
-      tax: 0,
       image: null,
       stock: 0,
       reorder_point: 0,

@@ -160,15 +160,13 @@ export function UsersTableProduct({
         ),
       },
       {
-        key: "tax" as keyof ProductRow,
-        label: products_table.headers.tax,
-        renderCell: (_: any, row: ProductRow) => `${row.cost_price} %`,
-        width: "50px",
-      },
-      {
         key: "stock" as keyof ProductRow,
         label: products_table.headers.stock,
-        renderCell: (_: any, row: ProductRow) => `${row.stock} ${row.unit}`,
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+           {row.stock} <span className="text-xs text-gray-500">{row.unit}</span>
+          </>
+        ),
         width: "70px",
       },
       {

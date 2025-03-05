@@ -6,9 +6,12 @@ import { z } from "zod";
  * @param t - The dictionary containing localized strings.
  * @returns A Zod schema for number validation.
  */
-export function createPartenaireSchema(t: DictionaryType) {
+export function createPartenaireSchema(t: DictionaryType): z.ZodUnion<[z.ZodString, z.ZodNumber]> {
   const { Ticket } = t;
-  return z.string({
-    required_error: Ticket.matricule_required,
-  });
-}
+  return z.union([
+    z.string({
+      required_error: Ticket.matricule_required,
+    }),
+    z.number()
+  ]);
+ }
