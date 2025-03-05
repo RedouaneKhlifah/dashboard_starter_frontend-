@@ -125,6 +125,7 @@ const ProductsTab = ({
           {
             key: "price_unitaire",
             label: translation.order.form.articles.unit_price,
+            width: "130px",
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
@@ -132,9 +133,9 @@ const ProductsTab = ({
                 onChange={(e) =>
                   handlePriceChange(row.product_id, parseFloat(e.target.value))
                 }
-                className="max-w-20 px-1"
                 min={0}
                 id={"price_unitaire"}
+                suffix={translation.shared.currency}
                 label={""}
                 disabled={!!row.order_id}
               />
@@ -143,11 +144,11 @@ const ProductsTab = ({
           {
             key: "quantity",
             label: translation.order.form.articles.quantity,
+            width: "120px",
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
                 onChange={(e) => handleQuantityChange(e, row.product_id)}
-                className="max-w-20"
                 min={1}
                 id={"quantity"}
                 label={""}
