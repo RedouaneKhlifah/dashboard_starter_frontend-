@@ -107,22 +107,29 @@ export function TableFacture({
     );
   };
 
-  const getStatusColor = (statusCode: string) => {
-    switch (statusCode) {
-      case factures_table.statuses.unpaid:
-        return "bg-red-500";
-      case factures_table.statuses.paid:
-        return "bg-green-500";
-      case factures_table.statuses.partially_paid:
-        return "bg-orange-500";
-      case factures_table.statuses.draft:
-        return "bg-gray-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
+  const getStatusColor = useCallback(
+    (statusCode: string) => {
+      switch (statusCode) {
+        case factures_table.statuses.unpaid:
+          return "bg-red-500";
+        case factures_table.statuses.paid:
+          return "bg-green-500";
+        case factures_table.statuses.partially_paid:
+          return "bg-orange-500";
+        case factures_table.statuses.draft:
+          return "bg-gray-500";
+        default:
+          return "bg-gray-500";
+      }
+    },
+    [
+      factures_table.statuses.draft,
+      factures_table.statuses.paid,
+      factures_table.statuses.partially_paid,
+      factures_table.statuses.unpaid,
+    ]
+  );
 
-  
   // CRUD Actions
   const handleEdit = useCallback(
     (orderId: number) => {
@@ -216,20 +223,9 @@ export function TableFacture({
         width: "100px",
         renderCell: (_: any, row: IFacture) => (
           <>
-          <span>{row.facture_date}</span>
+            <span>{row.facture_date}</span>
           </>
-        )
-      },
-      {
-        key: "tva" as keyof IFacture,
-        label: factures_table.headers.vat,
-        width: "70px",
-        renderCell: (_: any, row: IFacture) => {
-          const tvaValue = row.tva ?? 0; 
-          return row.remise_type === "PERCENT"
-            ? `${tvaValue}%`
-            : `${tvaValue} <span className="text-xs text-gray-500">${translation.shared.currency}</span>`;
-        },
+        ),
       },
       {
         key: "total" as keyof IFacture,
@@ -237,7 +233,10 @@ export function TableFacture({
         width: "70px",
         renderCell: (_: any, row: IFacture) => (
           <>
-            {row.total} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            {row.total}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
           </>
         ),
       },
@@ -247,7 +246,10 @@ export function TableFacture({
         width: "70px",
         renderCell: (_: any, row: IFacture) => (
           <>
-            {row.paid_amount} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            {row.paid_amount}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
           </>
         ),
       },
@@ -259,7 +261,10 @@ export function TableFacture({
           const rest = row.total - row.paid_amount;
           return (
             <>
-              {rest} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+              {rest}{" "}
+              <span className="text-xs text-gray-500">
+                {translation.shared.currency}
+              </span>
             </>
           );
         },
@@ -269,7 +274,7 @@ export function TableFacture({
         label: factures_table.headers.status,
         width: "140px",
         renderCell: (_: any, row: IFacture) => (
-          <span 
+          <span
             className={`
               inline-block 
               px-2 
@@ -278,7 +283,7 @@ export function TableFacture({
               text-xs 
               font-semibold 
               text-white 
-              ${getStatusColor(row?.status || '')}
+              ${getStatusColor(row?.status || "")}
             `}
           >
             {row?.status}
@@ -305,14 +310,15 @@ export function TableFacture({
       factures_table.headers.invoice_number,
       factures_table.headers.client_name,
       factures_table.headers.due_date,
-      factures_table.headers.vat,
       factures_table.headers.amount,
       factures_table.headers.paid,
+      factures_table.headers.rest,
       factures_table.headers.status,
       factures_table.headers.actions,
       factures_table.actions.edit,
       factures_table.actions.delete,
       translation.shared.currency,
+      getStatusColor,
       handleEdit,
       openDeleteModal,
       handleEmail,
@@ -334,7 +340,7 @@ export function TableFacture({
         rows={orders}
         totalRows={totalOrders}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg overflow-y-hidden overflow-x-auto"
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
