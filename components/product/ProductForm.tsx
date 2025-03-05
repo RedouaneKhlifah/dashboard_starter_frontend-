@@ -11,7 +11,11 @@ import ImageUpload from "@/components/shared/ImageUpload";
 import useModalStore from "@/store/modalStore";
 
 // Utilities & Validation
-import { handleChange, handleSelect, hasNoErrors } from "@/components/utils/formHandlers";
+import {
+  handleChange,
+  handleSelect,
+  hasNoErrors,
+} from "@/components/utils/formHandlers";
 import { ProductValidation } from "@/validation";
 
 // Types
@@ -116,15 +120,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.sku}
             />
-            {/* <InputField
-              id="unit"
-              label={translation.Product.form.unit}
-              icon={<Group className="w-5 h-5 text-gray-400" />}
-              value={formData.unit}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.unit}
-              required
-            /> */}
             <div>
               <SelectInput
                 options={[
@@ -137,8 +132,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 id="unit"
                 label={translation.Product.form.unit}
                 value={formData.unit}
-                onChange={(e) => { }}
-                onSelect={(option) => handleSelect(option, "unit", setFormData, setErrors)}
+                onChange={(e) => {}}
+                onSelect={(option) =>
+                  handleSelect(option, "unit", setFormData, setErrors)
+                }
                 error={errors.unit}
               />
             </div>
@@ -214,7 +211,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
         {/* Image Upload Section */}
-        <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
+        {/* <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
           <ImageUpload
             onFileChange={(file) =>
               setFormData({ ...formData, image: file[0] || null })
@@ -230,7 +227,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 : null
             }
           />
-        </div>
+        </div> */}
       </div>
     </GlobalModal>
   );

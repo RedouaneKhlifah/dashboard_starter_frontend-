@@ -320,6 +320,7 @@
       "number_prints": "N° prints",
       "poids_brut": "Gross weight",
       "poids_tare": "Tare weight",
+      "poids_net": "Net weight",
       "status": "Status",
       "product": "Product",
       "product_search": "Product",
@@ -637,6 +638,7 @@
         "number_prints": "N° prints",
         "poids_brut": "Gross Weight",
         "poids_tare": "Tare Weight",
+        "poids_net": "Net weight",
         "status": "Status",
         "client": "Client",
         "actions": "Actions"

@@ -627,8 +627,9 @@
         "matricule": "Matricule",
         "product": "Produit",
         "number_prints": "N° Impr",
-        "poids_brut": "Poids brut",
+        "poids_brut": "Poids brute",
         "poids_tare": "Poids tare",
+        "poids_net": "Poids net",
         "status": "Statut",
         "client": "Client",
         "actions": "Actions"

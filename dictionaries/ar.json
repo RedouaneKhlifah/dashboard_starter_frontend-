@@ -321,6 +321,7 @@
       "number_prints": "عدد المطبوعات",
       "poids_brut": "الوزن الإجمالي",
       "poids_tare": "الوزن الصافي",
+      "poids_net": "الوزن الصافي",
       "status": "الحالة",
       "status_entry": "دخول",
       "status_exit": "خروج",
@@ -635,6 +636,7 @@
         "number_prints": "عدد الطباعات",
         "poids_brut": "الوزن الإجمالي",
         "poids_tare": "الوزن الصافي",
+        "poids_net": "الوزن الصافي",
         "status": "الحالة",
         "client": "العميل",
         "actions": "الإجراءات"

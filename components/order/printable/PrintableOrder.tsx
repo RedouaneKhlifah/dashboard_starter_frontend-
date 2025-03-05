@@ -157,15 +157,17 @@ const ProductsTable = ({
 );
 
 const SummarySection = ({
+  order,
   summary,
   translation,
   lang,
 }: {
+  order: IOrder;
   summary: orderSummary;
   translation: DictionaryType;
   lang: Locale;
 }) => {
-  const { } = summary;
+  const {} = summary;
 
   return (
     <section className="ml-auto w-72 mt-7">
@@ -181,7 +183,7 @@ const SummarySection = ({
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.orders_table.print.tax}:</span>
-        <span>{summary.tva}</span>
+        <span>{order.tva} %</span>
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.orders_table.print.total}:</span>
@@ -251,6 +253,7 @@ const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
         <ProductsTable order={order} translation={translation} lang={lang} />
         <SummarySection
           summary={summary}
+          order={order}
           translation={translation}
           lang={lang}
         />
