@@ -191,6 +191,7 @@ export function EmployeesTable({
       users_table.headers.actions,
       users_table.actions.edit,
       users_table.actions.delete,
+      translation.shared.currency,
       handleShowHistory,
       handleEdit,
       openDeleteModal,
