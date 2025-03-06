@@ -36,7 +36,13 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
   const isRTL = lang === "ar";
   const pathname = usePathname();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedState = localStorage.getItem('sidebarOpen');
+      return savedState !== null ? JSON.parse(savedState) : false;
+    }
+    return false;
+  });
 
 
   const menuSections = useMemo(
@@ -99,22 +105,6 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
           },
         ],
       },
-      // {
-      //   name: translation.sidebar.dashboard.sections.administration,
-      //   icon: <Settings className="w-5 h-5" />,
-      //   items: [
-      //     {
-      //       name: translation.sidebar.dashboard.items.members,
-      //       href: "/members",
-      //       icon: <Users className="w-4 h-4" />,
-      //     },
-      //     {
-      //       name: translation.sidebar.dashboard.items.settings,
-      //       href: "/settings",
-      //       icon: <Settings className="w-4 h-4" />,
-      //     },
-      //   ],
-      // },
     ],
     [translation]
   );
@@ -130,15 +120,19 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
     setExpandedSection((prev) => (prev === menuName ? null : menuName));
   };
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+  useEffect(() => {
+    localStorage.setItem('sidebarOpen', JSON.stringify(isOpen));
     const main = document.querySelector("main");
     if (main) {
       main.style.transition = "margin 0.2s ease-in-out";
       isRTL
-        ? (main.style.marginRight = isOpen ? "70px" : "256px")
-        : (main.style.marginLeft = isOpen ? "70px" : "256px");
+        ? (main.style.marginRight = isOpen ? "256px" : "70px")
+        : (main.style.marginLeft = isOpen ? "256px" : "70px");
     }
+  }, [isOpen, isRTL]);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -184,9 +178,9 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                       ${isOpen ? "mb-4 rounded-full" : "mb-4 mx-1 rounded-lg"}
                       hover:bg-accent
                       ${pathname === `/${lang}/dashboard`
-                ? "bg-accent border shadow-sm"
-                : "text-foreground hover:text-foreground/80"
-              }
+                      ? "bg-primary border shadow-sm text-white hover:bg-primary"
+                      : "text-foreground hover:text-foreground/80"
+                      }
                      `}
           >
             <LayoutDashboard
@@ -250,8 +244,8 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                     >
                       <span
                         className={`${pathname === `/${lang}${item.href}` && !isOpen
-                            ? "text-primary"
-                            : "mx-2 text-muted-foreground"
+                          ? "text-primary"
+                          : "mx-2 text-muted-foreground"
                           }`}
                       >
                         {item.icon}
@@ -284,7 +278,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                   "absolute top-1/2 -translate-y-1/2 bg-red-700/70 px-2 py-1 text-xs text-white",
                   "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
                   "whitespace-nowrap z-20",
-                  isRTL ? "right-16" : "left-16" 
+                  isRTL ? "right-16" : "left-16"
                 )}
               >
                 {translation.shared.logout}

@@ -44,6 +44,7 @@ const TicketDetailsTab = ({
           icon={<Info className="w-5 h-5 text-gray-400" />}
           value={formData.poids_brut.toString()}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
+          suffix="Kg"
           error={errors.poids_brut}
         />
         <InputField
@@ -53,6 +54,7 @@ const TicketDetailsTab = ({
           icon={<Info className="w-5 h-5 text-gray-400" />}
           value={formData.poids_tare.toString()}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
+          suffix="Kg"
           error={errors.poids_tare}
         />
       </div>

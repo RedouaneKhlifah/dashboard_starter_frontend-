@@ -37,13 +37,14 @@ interface TableTicketProps {
   records: ITicket[];
   totalRecords: number;
   translation: DictionaryType;
-  status: {
-        ENTRY: string;
-        EXIT: string;
-      };
   lang: Locale;
 }
-
+interface Status {
+  status: {
+    ENTRY: string;
+    EXIT: string;
+  };
+}
 export function TableTicket({
   records = [],
   totalRecords = 0,
@@ -155,6 +156,21 @@ export function TableTicket({
   const headers: TableHeader<ITicket>[] = useMemo(
     () => [
       {
+        key: "created_at" as keyof ITicket,
+        label: ticket_table.headers.created_at,
+        renderCell: (_: any, row: ITicket) => (
+          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
+            {new Date(row.created_at).toLocaleDateString(lang, {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </p>
+        ),
+      },
+      {
         key: "partenaire" as keyof ITicket,
         label: ticket_table.headers.matricule,
         renderCell: (_: any, row: ITicket) => (
@@ -199,9 +215,8 @@ export function TableTicket({
         label: ticket_table.headers.status,
         renderCell: (_: any, row: ITicket) => (
           <span
-            className={`px-2 py-1 text-xs font-semibold leading-tight text-white ${
-              row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
-            } rounded-full`}
+            className={`px-2 py-1 text-xs font-semibold leading-tight text-white ${row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
+              } rounded-full`}
           >
             {ticket_table.statusValues[row.status]}
           </span>

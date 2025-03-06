@@ -633,6 +633,7 @@
       "update_ticket": "Update Ticket",
       "search_placeholder": "Search...",
       "headers": {
+        "created_at": "Date/Time",
         "matricule": "Matricule",
         "product": "Product",
         "number_prints": "N° prints",

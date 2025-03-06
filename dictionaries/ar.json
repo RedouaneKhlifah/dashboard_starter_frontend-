@@ -631,6 +631,7 @@
       "search_placeholder": "بحث...",
       "update_ticket": "تحديث التذاكر",
       "headers": {
+        "created_at": "تاريخ الإنشاء",
         "matricule": "الرقم التسلسلي",
         "product": "المنتج",
         "number_prints": "عدد الطباعات",

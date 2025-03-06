@@ -79,7 +79,7 @@ export function TableOrder({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `order_${selectedorderForPrint?.reference || "document"}`,
+    documentTitle: `bon de livraison_${selectedorderForPrint?.reference || "document"}`,
     onAfterPrint: () => setSelectedorderForPrint(null),
   });
 
