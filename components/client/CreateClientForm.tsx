@@ -61,12 +61,9 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.client.message.error);
-
         if (error?.errors?.email) {
           setErrors({ email: error.message });
-          toastError(error?.errors?.emai || translation.auth.error);
-
+          toastError(error.message || translation.auth.error);
         }
         return false;
       }

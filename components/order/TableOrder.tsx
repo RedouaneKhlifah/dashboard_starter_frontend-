@@ -21,7 +21,7 @@ import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
 import useToast from "@/hooks/useToast";
-import  { OrderRow, ordersMapper } from "@/mappers/OrderMapper";
+import { OrderRow, ordersMapper } from "@/mappers/OrderMapper";
 
 interface TableorderProps {
   records: IOrder[];
@@ -168,7 +168,7 @@ export function TableOrder({
         toastError("Failed to send email");
       }
     },
-    [orders, translation, lang]
+    [orders, translation, lang, toastSuccess, toastError]
   );
 
   // Table Headers
@@ -194,10 +194,12 @@ export function TableOrder({
       {
         key: "total" as keyof IOrder,
         label: orders_table.headers.total,
-        renderCell: (_: any, row: OrderRow) =>
-        (
+        renderCell: (_: any, row: OrderRow) => (
           <>
-            {row.total} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            {row.total}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
           </>
         ),
       },
@@ -209,7 +211,6 @@ export function TableOrder({
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
-            onEmail={handleEmail}
             onPrint={handlePrintRequest}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
@@ -217,7 +218,20 @@ export function TableOrder({
         ),
       },
     ],
-    [orders_table, handleEdit, openDeleteModal, handleEmail, handlePrintRequest]
+    [
+      orders_table.headers.reference,
+      orders_table.headers.order_date,
+      orders_table.headers.expiration_date,
+      orders_table.headers.client,
+      orders_table.headers.total,
+      orders_table.headers.actions,
+      orders_table.actions.edit,
+      orders_table.actions.delete,
+      translation.shared.currency,
+      handleEdit,
+      openDeleteModal,
+      handlePrintRequest,
+    ]
   );
 
   return (

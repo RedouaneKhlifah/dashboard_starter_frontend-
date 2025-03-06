@@ -298,7 +298,6 @@ export function TableFacture({
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
-            onEmail={handleEmail}
             onPrint={handlePrintRequest}
             editText={factures_table.actions.edit}
             deleteText={factures_table.actions.delete}
@@ -321,7 +320,6 @@ export function TableFacture({
       getStatusColor,
       handleEdit,
       openDeleteModal,
-      handleEmail,
       handlePrintRequest,
     ]
   );

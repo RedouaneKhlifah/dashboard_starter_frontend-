@@ -124,12 +124,6 @@ export function UsersTableProduct({
   const headers = useMemo(
     () => [
       {
-        key: "image" as keyof ProductRow,
-        label: products_table.headers.image,
-        isImage: true,
-        width: "50px",
-      },
-      {
         key: "name" as keyof ProductRow,
         label: products_table.headers.name,
         width: "80px",
@@ -145,7 +139,10 @@ export function UsersTableProduct({
         width: "75px",
         renderCell: (_: any, row: ProductRow) => (
           <>
-           {row.sale_price} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            {row.sale_price}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
           </>
         ),
       },
@@ -155,7 +152,10 @@ export function UsersTableProduct({
         width: "75px",
         renderCell: (_: any, row: ProductRow) => (
           <>
-           {row.cost_price} <span className="text-xs text-gray-500">{translation.shared.currency}</span>
+            {row.cost_price}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
           </>
         ),
       },
@@ -164,7 +164,8 @@ export function UsersTableProduct({
         label: products_table.headers.stock,
         renderCell: (_: any, row: ProductRow) => (
           <>
-           {row.stock} <span className="text-xs text-gray-500">{row.unit}</span>
+            {row.stock}{" "}
+            <span className="text-xs text-gray-500">{row.unit}</span>
           </>
         ),
         width: "70px",
@@ -191,12 +192,10 @@ export function UsersTableProduct({
       products_table.actions.edit,
       products_table.headers.actions,
       products_table.headers.cost_price,
-      products_table.headers.image,
       products_table.headers.name,
       products_table.headers.sale_price,
       products_table.headers.sku,
       products_table.headers.stock,
-      products_table.headers.tax,
       translation.shared.currency,
     ]
   );
@@ -218,7 +217,7 @@ export function UsersTableProduct({
         isLoading={isLoading}
         noDataMessage={products_table.no_data.message}
         sub_text={products_table.no_data.sub_text}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg overflow-y-hidden overflow-x-auto"
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

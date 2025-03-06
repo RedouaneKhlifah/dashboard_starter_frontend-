@@ -186,7 +186,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               required
               min={0}
             />
-            <InputField
+            {/* <InputField
               id="reorder_point"
               label={translation.Product.form.reorder_point}
               type="number"
@@ -195,7 +195,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.reorder_point}
               required
-            />
+            /> */}
           </div>
         </div>
 
