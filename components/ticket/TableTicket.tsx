@@ -37,6 +37,10 @@ interface TableTicketProps {
   records: ITicket[];
   totalRecords: number;
   translation: DictionaryType;
+  status: {
+        ENTRY: string;
+        EXIT: string;
+      };
   lang: Locale;
 }
 
@@ -199,7 +203,7 @@ export function TableTicket({
               row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
             } rounded-full`}
           >
-            {row.status}
+            {ticket_table.statusValues[row.status]}
           </span>
         ),
       },
