@@ -197,10 +197,11 @@ const ProductsTable = ({
 const TotalsSection = ({
   totals,
   translation,
-  lang,
+  facture,
 }: {
   totals: OrderTotals;
   translation: DictionaryType;
+  facture: IFacture;
   lang: Locale;
 }) => (
   <section className="ml-auto w-72 mt-7">
@@ -214,7 +215,7 @@ const TotalsSection = ({
     </div>
     <div className="flex justify-between mb-2">
       <span>{translation.sidebar.factures_table.print.tax}:</span>
-      <span>{totals.taxAmount}</span>
+      <span>{facture.tva} %</span>
     </div>
     <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
       <span>{translation.sidebar.factures_table.print.total}:</span>
@@ -285,7 +286,7 @@ const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
           translation={translation}
           lang={lang}
         />
-        <TotalsSection totals={totals} translation={translation} lang={lang} />
+        <TotalsSection totals={totals} facture={facture} translation={translation} lang={lang} />
         <Footer translation={translation} />
       </div>
     );

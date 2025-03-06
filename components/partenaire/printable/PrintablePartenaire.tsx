@@ -175,7 +175,7 @@ const TotalsSection = ({
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.discount}:</span>
-        <span>-{formatCurrency(totals?.discount || 0, lang)}</span>
+        <span>- {totals?.discount} %</span>
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.partenaires_table.print.net_total}:</span>

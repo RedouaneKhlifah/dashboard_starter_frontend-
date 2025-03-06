@@ -643,6 +643,10 @@
         "client": "Client",
         "actions": "Actions"
       },
+      "statusValues": {
+        "ENTRY": "Entry",
+        "EXIT": "Exit"
+      },
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
