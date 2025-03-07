@@ -1,5 +1,5 @@
 "use client";
-import { PartenaireDashboardData } from "@/app/[lang]/dashboard/page";
+import { PartenaireDashboardData } from "@/components/dashboard/types";
 import React, { useMemo } from "react";
 import {
   ComposedChart,

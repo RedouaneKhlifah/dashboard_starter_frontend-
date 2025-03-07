@@ -511,6 +511,23 @@
   },
   "sidebar": {
     "dashboard": {
+      "charts": {
+        "sales": {
+          "label": "Ventes au fil du temps",
+          "infoTooltipLabel": "Affiche les tendances des ventes quotidiennes",
+          "metricTotal": "Total: 1 234 MAD"
+        },
+        "partners": {
+          "label": "Top 10 des partenaires par tickets",
+          "infoTooltipLabel": "Nombre de tickets par partenaire",
+          "metricTotal": "Total des tickets"
+        },
+        "products": {
+          "label": "Top 10 des produits par tickets",
+          "infoTooltipLabel": "Nombre de tickets par produit",
+          "metricTotal": "Total des tickets"
+        }
+      },
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventaire",

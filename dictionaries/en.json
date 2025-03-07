@@ -520,6 +520,23 @@
   },
   "sidebar": {
     "dashboard": {
+      "charts": {
+        "sales": {
+          "label": "Sales Over Time",
+          "infoTooltipLabel": "Shows daily sales trends",
+          "metricTotal": "Total: MAD 1,234"
+        },
+        "partners": {
+          "label": "Top 10 partners by tickets",
+          "infoTooltipLabel": "Number of tickets per partner",
+          "metricTotal": "Total Tickets"
+        },
+        "products": {
+          "label": "Top 10 products by tickets",
+          "infoTooltipLabel": "Number of tickets per products",
+          "metricTotal": "Total Tickets"
+        }
+      },
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventory",

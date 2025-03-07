@@ -1,6 +1,6 @@
 import { DollarSign, TrendingUp, Box, CircleDollarSign } from "lucide-react";
 import StatCard from "./StatCard";
-import { InvoiceSummary } from "@/app/[lang]/dashboard/page";
+import { InvoiceSummary } from "@/components/dashboard/types";
 
 interface StatsContainerProps {
   translation: {
