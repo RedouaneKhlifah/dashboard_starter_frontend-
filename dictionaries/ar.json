@@ -519,6 +519,23 @@
   },
   "sidebar": {
     "dashboard": {
+      "charts": {
+        "sales": {
+          "label": "المبيعات على مر الزمن",
+          "infoTooltipLabel": "يعرض اتجاهات المبيعات اليومية",
+          "metricTotal": "الإجمالي: 1,234 MAD"
+        },
+        "partners": {
+          "label": "أفضل 10 شركاء حسب التذاكر",
+          "infoTooltipLabel": "عدد التذاكر لكل شريك",
+          "metricTotal": "إجمالي التذاكر"
+        },
+        "products": {
+          "label": "أفضل 10 منتجات حسب التذاكر",
+          "infoTooltipLabel": "عدد التذاكر لكل منتج",
+          "metricTotal": "إجمالي التذاكر"
+        }
+      },
       "dashboard_link": "لوحة التحكم",
       "sections": {
         "inventory": "المخزون",
