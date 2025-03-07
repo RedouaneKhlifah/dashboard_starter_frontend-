@@ -36,13 +36,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
   const isRTL = lang === "ar";
   const pathname = usePathname();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedState = localStorage.getItem('sidebarOpen');
-      return savedState !== null ? JSON.parse(savedState) : false;
-    }
-    return false;
-  });
+  const [isOpen, setIsOpen] = useState(true);
 
 
   const menuSections = useMemo(
@@ -116,23 +110,28 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
     setExpandedSection(currentSection?.name || null);
   }, [pathname, lang, menuSections]);
 
+
+
+  useEffect(() => {
+    const currentSection = menuSections.find((section) =>
+      section.items.some((item) => pathname === `/${lang}${item.href}`)
+    );
+    setExpandedSection(currentSection?.name || null);
+  }, [pathname, lang, menuSections]);
+
   const toggleMenu = (menuName: string) => {
     setExpandedSection((prev) => (prev === menuName ? null : menuName));
   };
 
-  useEffect(() => {
-    localStorage.setItem('sidebarOpen', JSON.stringify(isOpen));
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
     const main = document.querySelector("main");
     if (main) {
       main.style.transition = "margin 0.2s ease-in-out";
       isRTL
-        ? (main.style.marginRight = isOpen ? "256px" : "70px")
-        : (main.style.marginLeft = isOpen ? "256px" : "70px");
+        ? (main.style.marginRight = isOpen ? "70px" : "256px")
+        : (main.style.marginLeft = isOpen ? "70px" : "256px");
     }
-  }, [isOpen, isRTL]);
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
   };
 
   return (
@@ -178,9 +177,9 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                       ${isOpen ? "mb-4 rounded-full" : "mb-4 mx-1 rounded-lg"}
                       hover:bg-accent
                       ${pathname === `/${lang}/dashboard`
-                      ? "bg-primary border shadow-sm text-white hover:bg-primary"
-                      : "text-foreground hover:text-foreground/80"
-                      }
+                ? "bg-primary border shadow-sm text-white hover:bg-primary"
+                : "text-foreground hover:text-foreground/80"
+              }
                      `}
           >
             <LayoutDashboard
