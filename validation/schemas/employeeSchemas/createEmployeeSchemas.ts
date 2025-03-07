@@ -9,6 +9,8 @@ import { createLastNameSchema } from "./createLastNameSchema";
 import { createDateEngagementSchema } from "./createDateEngagementSchema";
 import createMonthlySalarySchema from "./createMonthlySalarySchema";
 import { createMatriculeSchema } from "./createEmployeeIdSchema";
+import { createDateBorthSchema } from "./createDateBorthSchema";
+
 
 /**
  * Creates all authentication-related Zod schemas.
@@ -26,6 +28,7 @@ export const createEmployeesSchemas = (t: DictionaryType) => {
     pricePerHourSchema: createPricePerHourSchema(t),
     pricePerDaySchema: createPricePerDaySchema(t),
     dateEngagementSchema: createDateEngagementSchema(t),
+    dateBorthSchema: createDateBorthSchema(t),
     matriculeSchema: createMatriculeSchema(t),
   };
 };

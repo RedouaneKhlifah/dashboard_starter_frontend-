@@ -261,7 +261,7 @@ export function TableFacture({
           const rest = row.total - row.paid_amount;
           return (
             <>
-              {rest}{" "}
+              {rest.toFixed(2)}{" "}
               <span className="text-xs text-gray-500">
                 {translation.shared.currency}
               </span>

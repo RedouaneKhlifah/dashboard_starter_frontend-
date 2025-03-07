@@ -25,7 +25,8 @@ const fetchDashboard = async (lang: Locale, startDate?: string, endDate?: string
     method: "GET",
     lang: lang,
   });
-  
+
+
   if (!res.ok) {
     return {
       factures_partial: { total: 0, paid_amount: 0 },
@@ -45,6 +46,7 @@ export default async function DashboardPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
   const initialData = await fetchDashboard(params.lang);
 
+  
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
       <Dashboard initialData={initialData} translation={translation} lang={params.lang} />

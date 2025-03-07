@@ -25,6 +25,7 @@ export const validateEmployeesForm = (
     addressSchema,
     nationalSchema,
     matriculeSchema,
+    dateBorthSchema
   } = createEmployeesSchemas(translation);
 
   const newErrors: DeepPartialString<IEmployeesForm> = {};
@@ -38,6 +39,10 @@ export const validateEmployeesForm = (
   newErrors.date_of_engagement = validateField(
     dateEngagementSchema,
     formData.date_of_engagement
+  );
+  newErrors.birth_date = validateField(
+    dateBorthSchema,
+    formData.birth_date
   );
   newErrors.price_per_hour = validateField(
     pricePerHourSchema,
