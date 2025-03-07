@@ -440,10 +440,11 @@
       },
       "message": {
         "success": "Delivery note created successfully",
+        "update_success": "Delivery note updated successfully",
+        "delete_success": "Delivery note deleted successfully",
         "success_facture": "Invoice created successfully",
         "update_success_facture": "Invoice updated successfully",
         "delete_success_facture": "Invoice deleted successfully",
-        "delete_success": "Delivery note deleted successfully",
         "error": "An error occurred while creating the Delivery note"
       },
       "Total_Items": "Total Items",

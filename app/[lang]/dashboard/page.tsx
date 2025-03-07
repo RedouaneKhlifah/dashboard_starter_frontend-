@@ -11,21 +11,13 @@ interface Props {
   };
 }
 
-const fetchDashboard = async (lang: Locale, startDate?: string, endDate?: string): Promise<InvoiceSummary> => {
-  const today = new Date();
-  const lastMonth = new Date();
-  lastMonth.setMonth(today.getMonth() - 1);
-  
-  const start = startDate || lastMonth.toISOString().split('T')[0];
-  const end = endDate || today.toISOString().split('T')[0];
-  
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/dashboard/${start}/${end}`;
-  
+const fetchDashboard = async (lang: Locale): Promise<InvoiceSummary> => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/dashboard/`;
+
   const res = await httpServer(url, {
     method: "GET",
     lang: lang,
   });
-
 
   if (!res.ok) {
     return {
@@ -38,7 +30,7 @@ const fetchDashboard = async (lang: Locale, startDate?: string, endDate?: string
       top_products_by_quantity: [],
     };
   }
-  
+
   return await res.json();
 };
 
@@ -46,10 +38,13 @@ export default async function DashboardPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
   const initialData = await fetchDashboard(params.lang);
 
-  
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
-      <Dashboard initialData={initialData} translation={translation} lang={params.lang} />
+      <Dashboard
+        initialData={initialData}
+        translation={translation}
+        lang={params.lang}
+      />
     </DashboardLayout>
   );
 }

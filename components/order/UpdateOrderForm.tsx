@@ -98,7 +98,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.order.form.message.update_success);
+        toastSuccess(translation.order.form.message.update_success_facture);
         return true;
       } else {
         const error = await response.json();
@@ -127,7 +127,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.order.form.message.update_success);
+        toastSuccess(translation.order.form.message.delete_success_facture);
         return true;
       } else {
         const error = await response.json();

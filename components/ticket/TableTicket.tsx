@@ -161,11 +161,11 @@ export function TableTicket({
         renderCell: (_: any, row: ITicket) => (
           <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
             {new Date(row.created_at).toLocaleDateString(lang, {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
             })}
           </p>
         ),
@@ -215,8 +215,9 @@ export function TableTicket({
         label: ticket_table.headers.status,
         renderCell: (_: any, row: ITicket) => (
           <span
-            className={`px-2 py-1 text-xs font-semibold leading-tight text-white ${row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
-              } rounded-full`}
+            className={`px-2 py-1 text-xs font-semibold leading-tight text-white ${
+              row.status === "ENTRY" ? "bg-green-400" : "bg-red-400"
+            } rounded-full`}
           >
             {ticket_table.statusValues[row.status]}
           </span>
@@ -246,7 +247,24 @@ export function TableTicket({
         ),
       },
     ],
-    [ticket_table, handleEdit, openDeleteModal]
+    [
+      ticket_table.headers.created_at,
+      ticket_table.headers.matricule,
+      ticket_table.headers.product,
+      ticket_table.headers.number_prints,
+      ticket_table.headers.poids_brut,
+      ticket_table.headers.poids_tare,
+      ticket_table.headers.poids_net,
+      ticket_table.headers.status,
+      ticket_table.headers.client,
+      ticket_table.headers.actions,
+      ticket_table.statusValues,
+      ticket_table.actions.edit,
+      ticket_table.actions.delete,
+      lang,
+      handleEdit,
+      openDeleteModal,
+    ]
   );
 
   // ──────────────────────────────────────────────
