@@ -11,6 +11,7 @@ import PartnersChart from "@/components/shared/PartnersChart";
 import { LayoutDashboard } from "lucide-react";
 import ProductsChart from "@/components/shared/ProductsChart";
 import SingleInputDateRangePicker from "../shared/SingleInputDateRangePicker";
+import http from "@/lib/http";
 
 interface DashboardProps {
   initialData: InvoiceSummary;
@@ -31,26 +32,26 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
     start: lastMonth,
     end: today,
   });
-  
+
   const [data, setData] = useState<InvoiceSummary>(initialData);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       if (!dateRange.start || !dateRange.end) return;
-      
+
       setLoading(true);
       try {
-        const startDate = dateRange.start.toISOString().split('T')[0];
-        const endDate = dateRange.end.toISOString().split('T')[0];
-        
-        const res = await fetch(
+        const startDate = dateRange.start.toISOString().split("T")[0];
+        const endDate = dateRange.end.toISOString().split("T")[0];
+
+        const res = await http(
           `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/dashboard/${startDate}/${endDate}`,
           {
             method: "GET",
           }
         );
-        
+
         if (res.ok) {
           const newData = await res.json();
           setData(newData);
@@ -94,7 +95,11 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
           <div className="flex flex-col gap-5 w-full md:w-[32.334%]">
             <div className="bg-gradient-to-br from-white to-blue-50 shadow-lg p-6 rounded-xl border border-blue-100 h-[200px] transition-all hover:shadow-xl">
               <div className="flex items-center mb-3">
-                <div className={`h-8 w-1 bg-blue-500 rounded-full ${lang === 'ar' ? 'ml-3' : 'mr-3'}`}></div>
+                <div
+                  className={`h-8 w-1 bg-blue-500 rounded-full ${
+                    lang === "ar" ? "ml-3" : "mr-3"
+                  }`}
+                ></div>
                 <h2 className="text-md font-bold text-gray-800">
                   {translation.StatsContainer.Turnover}
                 </h2>
@@ -111,7 +116,11 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
 
             <div className="bg-gradient-to-br from-white to-green-50 shadow-lg p-6 rounded-xl border border-green-100 h-[200px] transition-all hover:shadow-xl">
               <div className="flex items-center mb-3">
-                <div className={`h-8 w-1 bg-green-500 rounded-full ${lang === 'ar' ? 'ml-3' : 'mr-3'}`}></div>
+                <div
+                  className={`h-8 w-1 bg-green-500 rounded-full ${
+                    lang === "ar" ? "ml-3" : "mr-3"
+                  }`}
+                ></div>
                 <h2 className="text-md font-bold text-gray-800">
                   {translation.StatsContainer.Total_Sales}
                 </h2>
@@ -131,8 +140,12 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
             <LineChart
               data={datas}
               label={translation.sidebar.dashboard.charts.sales.label}
-              infoTooltipLabel={translation.sidebar.dashboard.charts.sales.infoTooltipLabel}
-              metricTotal={translation.sidebar.dashboard.charts.sales.metricTotal}
+              infoTooltipLabel={
+                translation.sidebar.dashboard.charts.sales.infoTooltipLabel
+              }
+              metricTotal={
+                translation.sidebar.dashboard.charts.sales.metricTotal
+              }
             />
           </div>
         </div>
@@ -141,14 +154,22 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
         <PartnersChart
           label={translation.sidebar.dashboard.charts.partners.label}
           data={data.top_partenaires}
-          metricTotal={translation.sidebar.dashboard.charts.partners.metricTotal}
-          infoTooltipLabel={translation.sidebar.dashboard.charts.partners.infoTooltipLabel}
+          metricTotal={
+            translation.sidebar.dashboard.charts.partners.metricTotal
+          }
+          infoTooltipLabel={
+            translation.sidebar.dashboard.charts.partners.infoTooltipLabel
+          }
         />
         <ProductsChart
           label={translation.sidebar.dashboard.charts.products.label}
           data={data.top_products_by_quantity}
-          metricTotal={translation.sidebar.dashboard.charts.products.metricTotal}
-          infoTooltipLabel={translation.sidebar.dashboard.charts.products.infoTooltipLabel}
+          metricTotal={
+            translation.sidebar.dashboard.charts.products.metricTotal
+          }
+          infoTooltipLabel={
+            translation.sidebar.dashboard.charts.products.infoTooltipLabel
+          }
         />
       </div>
     </>

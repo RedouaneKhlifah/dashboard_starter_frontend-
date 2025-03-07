@@ -1,5 +1,5 @@
 "use client";
-import { ProductDashboardData } from "@/app/[lang]/dashboard/page";
+
 import React, { useMemo } from "react";
 import {
   ComposedChart,
@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { ProductDashboardData } from "../dashboard/types";
 
 interface ProductsChartProps {
   data: ProductDashboardData[];
