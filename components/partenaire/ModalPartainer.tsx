@@ -96,7 +96,10 @@ const ModalPartenaireDetails = ({
     [calculationData?.total_poids_net, pricePerKg]
   );
 
-  const netTotal = useMemo(() => totalValue - remise, [totalValue, remise]);
+  const netTotal = useMemo(() => {
+    const discountAmount = (totalValue * remise) / 100;
+    return totalValue - discountAmount;
+  }, [totalValue, remise]);
 
   const handlePrint = useReactToPrint({
     contentRef,

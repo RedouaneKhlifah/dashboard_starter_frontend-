@@ -78,6 +78,7 @@ const SummaryTab = ({
           id="tva"
           type="number"
           label={translation.order.form.vat}
+          suffix="%"
           value={formData.tva || 0}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
         />
