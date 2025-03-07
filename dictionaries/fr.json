@@ -540,7 +540,7 @@
         "bundles": "Pactes",
         "tickets": "Tickets",
         "factures": "Factures",
-        "orders": "Bons de livraisons",
+        "orders": "Bons de livraison",
         "members": "Membres",
         "settings": "P aramètres",
         "clients": "Clients",
@@ -666,7 +666,7 @@
       }
     },
     "orders_table": {
-      "order_management": "Gestion des bons de livraisons",
+      "order_management": "Gestion des bons de livraison",
       "create_new_order": "Créer un nouveau Bon de livraison",
       "update_order": "Mettre à jour le Bon de livraison",
       "search_placeholder": "Rechercher...",
