@@ -38,9 +38,9 @@ const ProductsTab = ({
       product_id: product.id,
       name: product.name,
       unit: product.unit,
-      price_unitaire: product.cost_price,
+      price_unitaire: product.sale_price,
       quantity: 1,
-      total: product.cost_price * 1,
+      total: product.sale_price * 1,
     }));
 
     setFormData((prev) => ({
