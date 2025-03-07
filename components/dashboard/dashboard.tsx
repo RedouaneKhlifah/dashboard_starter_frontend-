@@ -161,7 +161,6 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
                                 translation.sidebar.dashboard.charts.sales.infoTooltipLabel
                             }
                             loading={loading}
-
                         />
                     </div>
                 </div>
