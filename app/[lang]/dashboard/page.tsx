@@ -8,6 +8,8 @@ import SingleInputDateRangePicker from "@/components/shared/SingleInputDateRange
 import { ArrowUpRight, Gem, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import RangePicker from "@/components/shared/RangePicker";
+import httpServer from "@/lib/httpServer";
+import ProductsChart from "@/components/shared/ProductsChart";
 
 interface Props {
   params: {
@@ -15,55 +17,60 @@ interface Props {
   };
 }
 
+const fetchDashboard = async (lang: Locale) => {
+  return await httpServer(
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/dashboard`,
+    {
+      method: "GET",
+      lang: lang,
+    }
+  );
+};
+
+interface FacturesPartial {
+  total: number;
+  paid_amount: number;
+}
+
+interface TicketNet {
+  entry: string;
+  exit: string;
+}
+
+export interface PartenaireDashboardData {
+  matricule: string;
+  name: string;
+  total_net: string;
+}
+
+export interface ProductDashboardData {
+  name: string;
+  total_quantity: number;
+}
+
+export interface InvoiceSummary {
+  factures_partial: FacturesPartial;
+  paid_amount_partial_complete: number;
+  ticket_net: TicketNet;
+  profit: number;
+  revenue: number;
+  top_partenaires: PartenaireDashboardData[];
+  top_products_by_quantity: ProductDashboardData[];
+}
+
 export default async function HowItWorksPage({ params }: Props) {
   const translation = await getDictionary(params.lang);
+  let data: InvoiceSummary = {
+    factures_partial: { total: 0, paid_amount: 0 },
+    paid_amount_partial_complete: 0,
+    ticket_net: { entry: "0", exit: "0" },
+    profit: 0,
+    revenue: 0,
+    top_partenaires: [],
+    top_products_by_quantity: [],
+  };
 
-
-  const data = [
-    { date: "2024-01-01", value: 150 },
-    { date: "2024-01-02", value: 142 },
-    { date: "2024-01-03", value: 168 },
-    { date: "2024-01-04", value: 189 },
-    { date: "2024-01-05", value: 199 },
-    { date: "2024-01-06", value: 187 },
-    { date: "2024-01-07", value: 165 },
-    { date: "2024-01-08", value: 178 },
-    { date: "2024-01-09", value: 184 },
-    { date: "2024-01-10", value: 201 },
-    { date: "2024-01-11", value: 210 },
-    { date: "2024-01-12", value: 196 },
-    { date: "2024-01-13", value: 207 },
-    { date: "2024-01-14", value: 198 },
-    { date: "2024-01-15", value: 25 },
-    { date: "2024-01-16", value: 219 },
-    { date: "2024-01-17", value: 233 },
-    { date: "2024-01-18", value: 228 },
-    { date: "2024-01-19", value: 241 },
-    { date: "2024-01-20", value: 2 },
-    { date: "2024-01-21", value: 229 },
-    { date: "2024-01-22", value: 243 },
-    { date: "2024-01-23", value: 251 },
-    { date: "2024-01-24", value: 264 },
-    { date: "2024-01-25", value: 273 },
-    { date: "2024-01-26", value: 29 },
-    { date: "2024-01-10", value: 201 },
-    { date: "2024-01-11", value: 210 },
-    { date: "2024-01-12", value: 196 },
-    { date: "2024-01-13", value: 207 },
-    { date: "2024-01-14", value: 198 },
-    { date: "2024-01-15", value: 25 },
-    { date: "2024-01-16", value: 219 },
-    { date: "2024-01-17", value: 233 },
-    { date: "2024-01-18", value: 228 },
-    { date: "2024-01-19", value: 241 },
-    { date: "2024-01-20", value: 2 },
-    { date: "2024-01-21", value: 229 },
-    { date: "2024-01-22", value: 243 },
-    { date: "2024-01-23", value: 251 },
-    { date: "2024-01-24", value: 264 },
-    { date: "2024-01-25", value: 273 },
-    { date: "2024-01-26", value: 29 },
-  ];
+  const datas = [{ date: "2024-01-01", value: 150 }];
 
   const partnerData = [
     { name: "Partner A", value: 352 },
@@ -91,15 +98,25 @@ export default async function HowItWorksPage({ params }: Props) {
     { name: "Product J", value: 98 },
   ];
 
-
+  const res = await fetchDashboard(params.lang);
+  if (res.ok) {
+    const response = await res.json();
+    data = response;
+  }
 
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
       <div className="flex justify-between items-center container">
-      <div className="flex gap-1"><LayoutDashboard className="w-6 h-6 mx-2 text-foreground"/><h2 className="text-2xl text-foreground font-bold">{translation.sidebar.dashboard.dashboard_link}</h2></div><RangePicker translation={translation}/>
+        <div className="flex gap-1">
+          <LayoutDashboard className="w-6 h-6 mx-2 text-foreground" />
+          <h2 className="text-2xl text-foreground font-bold">
+            {translation.sidebar.dashboard.dashboard_link}
+          </h2>
+        </div>
+        <RangePicker translation={translation} />
       </div>
       <div className="container mt-1">
-        <StatsContainer translation={translation} />
+        <StatsContainer translation={translation} data={data} />
       </div>
       <div className="pt-8">
         <div className="container flex flex-col md:flex-row gap-6">
@@ -107,38 +124,41 @@ export default async function HowItWorksPage({ params }: Props) {
             <div className="bg-gradient-to-br from-white to-blue-50 shadow-lg p-6 rounded-xl border border-blue-100 h-[200px] transition-all hover:shadow-xl">
               <div className="flex items-center mb-3">
                 <div className="h-8 w-1 bg-blue-500 rounded-full mr-3"></div>
-                <h2 className="text-md font-bold text-gray-800">{translation.StatsContainer.Turnover}</h2>
+                <h2 className="text-md font-bold text-gray-800">
+                  {translation.StatsContainer.Turnover}
+                </h2>
               </div>
               <div className="flex items-end mt-6">
-                <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">22,200</span>
-                <span className="ml-2 text-gray-500 font-medium">{translation.shared.currency}</span>
-              </div>
-              <div className="mt-3 flex items-center">
-                <ArrowUpRight className="h-4 w-4 text-emerald-500 mr-1" />
-                <span className="text-sm text-emerald-500">+4.6% from last month</span>
+                <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                  {data.paid_amount_partial_complete?.toFixed(2) ?? "0.00"}
+                </span>
+                <span className="ml-2 text-gray-500 font-medium">
+                  {translation.shared.currency}
+                </span>
               </div>
             </div>
 
             <div className="bg-gradient-to-br from-white to-green-50 shadow-lg p-6 rounded-xl border border-green-100 h-[200px] transition-all hover:shadow-xl">
               <div className="flex items-center mb-3">
                 <div className="h-8 w-1 bg-green-500 rounded-full mr-3"></div>
-                <h2 className="text-md font-bold text-gray-800">{translation.StatsContainer.Total_Sales}</h2>
+                <h2 className="text-md font-bold text-gray-800">
+                  {translation.StatsContainer.Total_Sales}
+                </h2>
               </div>
               <div className="flex items-end mt-6">
-                <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600">11,200</span>
-                <span className="ml-2 text-gray-500 font-medium">{translation.shared.currency}</span>
-              </div>
-              <div className="mt-3 flex items-center">
-                <ArrowUpRight className="h-4 w-4 text-emerald-500 mr-1" />
-                <span className="text-sm text-emerald-500">+2.8% from last month</span>
+                <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600">
+                  {data.profit?.toFixed(2) ?? "0.00"}
+                </span>
+                <span className="ml-2 text-gray-500 font-medium">
+                  {translation.shared.currency}
+                </span>
               </div>
             </div>
           </div>
 
           <div className="w-full md:w-[65%]">
-
             <LineChart
-              data={data}
+              data={datas}
               label="Sales Over Time"
               infoTooltipLabel="Shows daily sales trends"
               metricTotal="$1,234"
@@ -150,19 +170,19 @@ export default async function HowItWorksPage({ params }: Props) {
         <div className="">
           <PartnersChart
             label="Top 10 partenaires par tickets"
-            data={partnerData}
+            data={data.top_partenaires}
             metricTotal="Total Tickets"
             infoTooltipLabel="Number of tickets per partner"
-          />     </div>
+          />
+        </div>
         <div className="">
-          <PartnersChart
+          <ProductsChart
             label="Top 10 products par tickets"
-            data={productData}
+            data={data.top_products_by_quantity}
             metricTotal="Total Tickets"
             infoTooltipLabel="Number of tickets per products"
           />
         </div>
-
       </div>
     </DashboardLayout>
   );

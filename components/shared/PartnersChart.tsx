@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import { PartenaireDashboardData } from "@/app/[lang]/dashboard/page";
+import React, { useMemo } from "react";
 import {
   ComposedChart,
   Bar,
@@ -10,13 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface PartnerData {
-  name: string;
-  value: number;
-}
-
 interface PartnersChartProps {
-  data: PartnerData[];
+  data: PartenaireDashboardData[];
   label: string;
   infoTooltipLabel?: string;
   metricTotal?: string;
@@ -28,16 +24,26 @@ const PartnersChart: React.FC<PartnersChartProps> = ({
   infoTooltipLabel,
   metricTotal,
 }) => {
-  const [isDrawn, setIsDrawn] = useState(false);
-  const maxValue = useMemo(() => Math.max(...data.map(item => item.value), 100), [data]);
-  
-  
+  // Convert string numbers to actual numbers and sort data
+  const chartData = useMemo(
+    () =>
+      data
+        .map((item) => ({
+          ...item,
+          total_net: Number(item.total_net),
+        }))
+        .sort((a, b) => b.total_net - a.total_net),
+    [data]
+  );
 
-
-
+  const maxValue = useMemo(
+    () => Math.max(...chartData.map((item) => item.total_net)),
+    [chartData]
+  );
 
   return (
     <div className="bg-card rounded-lg shadow-md p-6">
+      {/* Header section remains the same */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
           <h2 className="text-sm font-bold text-foreground">{label}</h2>
@@ -54,48 +60,19 @@ const PartnersChart: React.FC<PartnersChartProps> = ({
 
       {metricTotal && (
         <>
-          <p className="text-lg font-bold mb-4 text-foreground">{metricTotal}</p>
+          <p className="text-lg font-bold mb-4 text-foreground">
+            {metricTotal}
+          </p>
           <div className="h-px bg-border my-4" />
         </>
       )}
 
- 
       <div className="h-[260px] w-full">
-        {isDrawn ? (
-     
-          <div className="h-full w-full bg-muted/20 rounded-lg relative">
-            <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between py-4">
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className="h-4 w-8 bg-muted rounded animate-pulse"
-                />
-              ))}
-            </div>
-            <div className="absolute left-12 right-4 top-4 bottom-8 flex justify-between items-end px-2">
-              {[...Array(10)].map((_, i) => (
-                <div
-                  key={i}
-                  className="w-8 bg-muted rounded-t animate-pulse"
-                  style={{ height: `${Math.random() * 40 + 20}%` }}
-                />
-              ))}
-            </div>
-            <div className="absolute left-12 right-4 bottom-0 h-8 flex justify-between items-center px-2">
-              {[...Array(10)].map((_, i) => (
-                <div
-                  key={i}
-                  className="h-4 w-12 bg-muted rounded animate-pulse"
-                />
-              ))}
-            </div>
-          </div>
-        ) : data && data.length > 0 ? (
-         
+        {chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
-              data={data}
-              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+              data={chartData}
+              margin={{ top: 20, right: 20, bottom: 40, left: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted))" />
               <XAxis
@@ -117,10 +94,13 @@ const PartnersChart: React.FC<PartnersChartProps> = ({
                   borderRadius: "var(--radius)",
                   color: "hsl(var(--popover-foreground))",
                 }}
-                formatter={(value: number) => [value, "Tickets"]}
+                formatter={(value: number) => [
+                  value.toFixed(2) + " KG",
+                  "Total Net",
+                ]}
               />
               <Bar
-                dataKey="value"
+                dataKey="total_net"
                 fill="hsl(var(--primary))"
                 barSize={40}
                 radius={[4, 4, 0, 0]}
@@ -128,7 +108,6 @@ const PartnersChart: React.FC<PartnersChartProps> = ({
             </ComposedChart>
           </ResponsiveContainer>
         ) : (
-     
           <div className="flex h-full items-center justify-center">
             <p className="text-sm text-muted-foreground">
               No data available for partners yet.
@@ -137,10 +116,9 @@ const PartnersChart: React.FC<PartnersChartProps> = ({
         )}
       </div>
 
-   
-      {data && data.length > 0 && (
+      {chartData.length > 0 && (
         <p className="mt-4 text-center text-xs text-muted-foreground">
-          Ticket counts are based on UTC timezone. Hover over bars for detailed values.
+          Values shown in local currency. Hover over bars for detailed amounts.
         </p>
       )}
     </div>
