@@ -41,29 +41,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   );
 
   useEffect(() => {
-    const fetchSelectedProducts = async () => {
-      if (!isSecondOpen || selectedProductIds.length === 0) return;
-
-      try {
-        const promises = selectedProductIds.map(async (id) => {
-          const response = await http(
-            `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/${id}`
-          );
-          if (!response.ok) throw new Error();
-          return response.json();
-        });
-
-        const products = await Promise.all(promises);
-        setSelectedProductsData(products);
-      } catch (err) {
-        setError(translation.common.errors.fetch_error);
-      }
-    };
-
-    fetchSelectedProducts();
-  }, [isSecondOpen, selectedProductIds, translation]);
-
-  useEffect(() => {
     if (isSecondOpen) {
       setSelectedProducts(new Set(selectedProductIds));
     }
@@ -72,8 +49,9 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   useEffect(() => {
     const debouncedSearch = debounce(async (query: string) => {
       try {
-        const url = `${process.env.NEXT_PUBLIC_API_BASE_PATH
-          }/api/products?search=${encodeURIComponent(query)}&page=1`;
+        const url = `${
+          process.env.NEXT_PUBLIC_API_BASE_PATH
+        }/api/products?search=${encodeURIComponent(query)}&page=1`;
         const response = await http(url);
 
         if (!response.ok)
@@ -216,7 +194,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
           className="mt-4 max-h-60"
           classHead="z-10"
           totalRows={0}
-          setCurrentPage={() => { }}
+          setCurrentPage={() => {}}
           currentPage={0}
           isLoading={loading}
         />
