@@ -81,7 +81,7 @@ export function TableFacture({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `Order_${selectedOrderForPrint?.reference || "document"}`,
+    documentTitle: `Facture ${selectedOrderForPrint?.reference || "document"}`,
     onAfterPrint: () => setSelectedOrderForPrint(null),
   });
 

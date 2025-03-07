@@ -369,7 +369,7 @@
     "form": {
       "reference": "Référence",
       "reference_search": "Rechercher une référence",
-      "order_date": "Date du orders",
+      "order_date": "Date du bon de livraison",
       "paid_amount": "Montant Payé",
       "expiration_date": "Date d'expiration",
       "client": "Client",
@@ -411,10 +411,10 @@
         "PAID": "Payé"
       },
       "message": {
-        "success": "orders créé avec succès",
-        "update_success": "orders updated successfully",
-        "delete_success": "orders supprimé avec succès",
-        "error": "Erreur lors de la création du orders",
+        "success": "bon de livraison créé avec succès",
+        "update_success": "bon de livraison updated successfully",
+        "delete_success": "bon de livraison supprimé avec succès",
+        "error": "Erreur lors de la création du bon de livraison",
         "email_success": "Email envoyé avec succès"
       },
       "Total_Items": "Nombre total d'articles",
@@ -516,7 +516,7 @@
         "inventory": "Inventaire",
         "administration": "Administration",
         "sales": "Les ventes",
-        "payroll_management": "Gestion de la paie"
+        "payroll_management": "Gestion de paie"
       },
       "items": {
         "products": "Produits",
@@ -624,6 +624,7 @@
       "update_ticket": "Mettre à jour le ticket",
       "search_placeholder": "Rechercher...",
       "headers": {
+        "created_at": "Date/Heure",
         "matricule": "Matricule",
         "product": "Produit",
         "number_prints": "N° Impr",
@@ -668,7 +669,7 @@
         "company_name": "ZR CDU",
         "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
         "company_contact": "contact@zroudi.ma | +212 640-843060",
-        "order_title": "Bons de livraisonsande",
+        "order_title": "Bon de livraison",
         "reference": "Référence",
         "date": "Date",
         "due_date": "Date d'échéance",

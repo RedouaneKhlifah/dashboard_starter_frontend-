@@ -68,8 +68,8 @@ const calculateOrderTotals = (
   console.log(
     "order.remise_type ",
     order.remise +
-      " " +
-      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
+    " " +
+    (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
   );
 
   return {
@@ -115,18 +115,20 @@ const DocumentInfo = ({
       {translation.sidebar.factures_table.print.invoice_title}
     </h2>
     <div className="flex justify-between mb-2">
+      <div className="flex gap-1">
+        <span className="text-sm">
+          {translation.sidebar.factures_table.print.reference}:
+        </span>
+        <span className="text-sm">{facture.reference}</span>
+      </div>
       <span className="text-sm">
-        {translation.sidebar.factures_table.print.reference}
-        {facture.reference}
-      </span>
-      <span className="text-sm">
-        {translation.sidebar.factures_table.print.date}
-        {formatDate(facture.facture_date, lang)}
+        {translation.sidebar.factures_table.print.date}: {formatDate(facture.facture_date, lang)}
+
       </span>
     </div>
     <div className="text-right text-sm">
-      {translation.sidebar.factures_table.print.due_date}
-      {formatDate(facture.expiration_date, lang)}
+      {translation.sidebar.factures_table.print.due_date}: {formatDate(facture.expiration_date, lang)}
+     
     </div>
   </section>
 );
