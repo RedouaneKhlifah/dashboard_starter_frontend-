@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-interface DataPoint {
+export interface DataPoint {
   date: string;
   value: number;
 }
@@ -66,7 +66,7 @@ const LineChart: React.FC<LineChartProps> = ({
           <div className="h-px bg-border my-4" />
         </>
       )}
-      <div className="h-[260px] w-full">
+      <div className="h-[325px] w-full">
         {loading ? (
           <div className="h-full w-full bg-muted/20 rounded-lg relative">
             <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between py-4">

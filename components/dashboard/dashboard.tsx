@@ -20,7 +20,6 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
-  const datas = [{ date: "2024-01-01", value: 150 }];
   const today = new Date();
   const lastMonth = new Date();
   lastMonth.setMonth(today.getMonth() - 1);
@@ -188,7 +187,7 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
 
           <div className="w-full md:w-[65%]">
             <LineChart
-              data={datas}
+              data={data.facturesForChart}
               label={translation.sidebar.dashboard.charts.sales.label}
               infoTooltipLabel={
                 translation.sidebar.dashboard.charts.sales.infoTooltipLabel

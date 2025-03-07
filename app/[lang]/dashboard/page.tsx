@@ -28,6 +28,7 @@ const fetchDashboard = async (lang: Locale): Promise<InvoiceSummary> => {
       revenue: 0,
       top_partenaires: [],
       top_products_by_quantity: [],
+      facturesForChart: [],
     };
   }
 
