@@ -10,6 +10,9 @@ interface StatsContainerProps {
       waste_stock: string;
       profitability_rate: string;
     };
+    shared: {
+      currency : string,
+    }
   };
   data: InvoiceSummary;
   loading: boolean;
@@ -25,27 +28,31 @@ const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => 
         Number(data?.factures_partial.paid_amount),
       icon: DollarSign,
       variant: "orange",
+      unit : translation.shared.currency,
     },
     {
       title: translation.StatsContainer.collected_revenue,
       value: data?.paid_amount_partial_complete,
       icon: CircleDollarSign,
       variant: "green",
+      unit : translation.shared.currency,
     },
     {
       title: translation.StatsContainer.waste_stock,
       value: Number(data?.ticket_net.entry) - Number(data?.ticket_net.exit),
       icon: Box,
       variant: "blue",
+      unit : "Kg",
     },
     {
       title: translation.StatsContainer.profitability_rate,
       value:
         data?.revenue && Number(data?.revenue) !== 0
-          ? (Number(data?.profit) / Number(data?.revenue)) * 100
+          ? (Number(data?.profit) / Number(data?.revenue)) * 100 
           : 0,
       icon: TrendingUp,
       variant: "red",
+      unit : "%"
     },
   ] as const;
 
@@ -61,6 +68,7 @@ const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => 
           }
           icon={stat.icon}
           variant={stat.variant}
+          unit={stat.unit}
           loading={loading}
         />
       ))}

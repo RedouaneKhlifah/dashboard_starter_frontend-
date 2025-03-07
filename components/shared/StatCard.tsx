@@ -6,9 +6,10 @@ interface StatCardProps {
   icon: LucideIcon;
   variant: "orange" | "green" | "blue" | "red";
   loading?: boolean;
+  unit: string
 }
 
-const StatCard = ({ title, value, icon: Icon, variant, loading = false }: StatCardProps) => {
+const StatCard = ({ title, value, icon: Icon, variant, loading = false, unit }: StatCardProps) => {
   const variantStyles = {
     orange: "bg-orange-400 dark:bg-orange-600",
     green: "bg-green-500 dark:bg-green-600",
@@ -40,7 +41,10 @@ const StatCard = ({ title, value, icon: Icon, variant, loading = false }: StatCa
         </div>
         <div>
           <h3 className="text-muted-foreground text-sm">{title}</h3>
+          <div className="flex gap-2 items-center">
           <p className="text-2xl font-semibold">{value}</p>
+          <p className="text-sm text-gray-600">{unit}</p>
+          </div>
         </div>
       </div>
     </div>
