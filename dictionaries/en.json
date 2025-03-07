@@ -135,6 +135,7 @@
     "lastNameTooLong": "Last name must be less than 50 characters",
     "MonthlySalaryRequired": "Monthly Salary is required",
     "DateEngagementRequired": "Date Engagement is required",
+    "DateBirthRequired": "Date of birth is required",
     "addressRequired": "Address is required",
     "NationalRequired": "Country is required",
     "PricePerDayRequired": "Price Per Day is required",
@@ -439,7 +440,9 @@
       },
       "message": {
         "success": "Delivery note created successfully",
-        "update_success": "Delivery note updated successfully",
+        "success_facture": "Invoice created successfully",
+        "update_success_facture": "Invoice updated successfully",
+        "delete_success_facture": "Invoice deleted successfully",
         "delete_success": "Delivery note deleted successfully",
         "error": "An error occurred while creating the Delivery note"
       },

@@ -58,7 +58,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       );
 
       if (response.ok) {
-        toastSuccess(translation.order.form.message.success);
+        toastSuccess(translation.order.form.message.success_facture);
         return true;
       } else {
         const error = await response.json();

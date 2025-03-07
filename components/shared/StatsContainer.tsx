@@ -12,13 +12,17 @@ interface StatsContainerProps {
     };
   };
   data: InvoiceSummary;
+  loading: boolean;
+
 }
 
-const StatsContainer = ({ translation, data }: StatsContainerProps) => {
+const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => {
   const stats = [
     {
       title: translation.StatsContainer.receivables_balance,
-      value: data?.factures_partial.total - data?.factures_partial.paid_amount,
+      value:
+        Number(data?.factures_partial.total) -
+        Number(data?.factures_partial.paid_amount),
       icon: DollarSign,
       variant: "orange",
     },
@@ -36,7 +40,10 @@ const StatsContainer = ({ translation, data }: StatsContainerProps) => {
     },
     {
       title: translation.StatsContainer.profitability_rate,
-      value: (data?.profit / data?.revenue) * 100,
+      value:
+        data?.revenue && Number(data?.revenue) !== 0
+          ? (Number(data?.profit) / Number(data?.revenue)) * 100
+          : 0,
       icon: TrendingUp,
       variant: "red",
     },
@@ -54,10 +61,11 @@ const StatsContainer = ({ translation, data }: StatsContainerProps) => {
           }
           icon={stat.icon}
           variant={stat.variant}
+          loading={loading}
         />
       ))}
     </div>
   );
 };
 
-export default StatsContainer;
+export default StatsContainer;

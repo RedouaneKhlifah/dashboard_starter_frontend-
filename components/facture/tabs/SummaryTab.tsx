@@ -131,6 +131,7 @@ const SummaryTab = ({
           type="number"
           label={translation.order.form.paid_amount}
           value={formData.paid_amount?.toString() || "0"}
+          suffix={translation.shared.currency}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
           className="pr-24"
         />

@@ -137,6 +137,7 @@
     "PricePerHourRequired": "Le prix par heure est requis",
     "PricePerDayRequired": "Le prix par jour est requis",
     "DateEngagementRequired": "La date d'engagement est requise",
+    "DateBirthRequired": "La date de naissance est requise",
     "addressRequired": "L'adresse est requise",
     "NationalRequired": "Le CIN est requis",
     "matriculeRequired": "Le matricule est requis",
@@ -412,6 +413,9 @@
       },
       "message": {
         "success": "bon de livraison créé avec succès",
+        "success_facture": "Facture créée avec succès",
+        "update_success_facture": "Facture mise à jour avec succès",
+        "delete_success_facture": "Facture supprimée avec succès",
         "update_success": "bon de livraison updated successfully",
         "delete_success": "bon de livraison supprimé avec succès",
         "error": "Erreur lors de la création du bon de livraison",

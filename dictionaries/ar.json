@@ -141,6 +141,7 @@
     "PricePerHourRequired": "السعر لكل ساعة مطلوب",
     "PricePerDayRequired": "السعر لكل يوم مطلوب",
     "DateEngagementRequired": "تاريخ التعيين مطلوب",
+    "DateBirthRequired": "تاريخ الميلاد مطلوب",
     "addressRequired": "العنوان مطلوب",
     "NationalRequired": "الرقم الوطني (CIN) مطلوب",
     "cityRequired": "المدينة مطلوبة",
@@ -422,6 +423,9 @@
       "message": {
         "success": "تم إنشاء مذكرة التسليم بنجاح",
         "delete_success": "تم حذف مذكرة التسليم بنجاح",
+        "success_facture": "تم إنشاء الفاتورة بنجاح",
+        "update_success_facture": "تم تحديث الفاتورة بنجاح",
+        "delete_success_facture": "تم حذف الفاتورة بنجاح",
         "update_success": "تم تحديث مذكرة التسليم بنجاح",
         "error": "حدث خطأ أثناء إنشاء مذكرة التسليم"
       },

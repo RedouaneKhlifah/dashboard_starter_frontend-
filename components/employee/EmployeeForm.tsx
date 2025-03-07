@@ -144,6 +144,7 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
             label={translation.employee.form.birth_date}
             value={formData.birth_date || ""}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
+            error={errors.birth_date}
             required
           />
           <InputField

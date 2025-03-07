@@ -21,6 +21,7 @@ interface LineChartProps {
   label: string;
   infoTooltipLabel?: string;
   metricTotal?: string;
+  loading?: boolean;
 }
 
 const LineChart: React.FC<LineChartProps> = ({
@@ -28,28 +29,22 @@ const LineChart: React.FC<LineChartProps> = ({
   label,
   infoTooltipLabel,
   metricTotal,
+  loading = false,
 }) => {
-  const [isDrawn, setIsDrawn] = useState(true);
   const interval = useMemo(
     () => Math.max(1, Math.floor(data.length / 5)),
     [data.length]
   );
 
-  useEffect(() => {
-    if (data && data.length > 0) {
-      const timer = setTimeout(() => {
-        setIsDrawn(false);
-      }, 400);
-
-      return () => clearTimeout(timer);
-    }
-  }, [data]);
-
   return (
     <div className="bg-card rounded-lg shadow-md p-6">
       <div className="flex items-center gap-2 mb-4">
-        <h2 className="text-sm font-bold text-foreground">{label}</h2>
-        {infoTooltipLabel && (
+        {loading ? (
+          <div className="h-5 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+        ) : (
+          <h2 className="text-sm font-bold text-foreground">{label}</h2>
+        )}
+        {infoTooltipLabel && !loading && (
           <div className="relative group">
             <div className="cursor-pointer text-muted-foreground">ⓘ</div>
             <div className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm bg-popover text-popover-foreground rounded shadow-lg -translate-x-1/2 left-1/2 bottom-full mb-2">
@@ -61,21 +56,24 @@ const LineChart: React.FC<LineChartProps> = ({
 
       {metricTotal && (
         <>
-          <p className="text-lg font-bold mb-4 text-foreground">
-            {metricTotal}
-          </p>
+          {loading ? (
+            <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
+          ) : (
+            <p className="text-lg font-bold mb-4 text-foreground">
+              {metricTotal}
+            </p>
+          )}
           <div className="h-px bg-border my-4" />
         </>
       )}
-
       <div className="h-[260px] w-full">
-        {isDrawn ? (
+        {loading ? (
           <div className="h-full w-full bg-muted/20 rounded-lg relative">
             <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between py-4">
               {[...Array(5)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-4 w-8 bg-muted rounded animate-pulse"
+                  className="h-4 w-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
                 />
               ))}
             </div>
@@ -111,7 +109,7 @@ const LineChart: React.FC<LineChartProps> = ({
               {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-4 w-12 bg-muted rounded animate-pulse"
+                  className="h-4 w-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
                 />
               ))}
             </div>

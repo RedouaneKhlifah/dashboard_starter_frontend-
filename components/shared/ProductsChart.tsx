@@ -17,6 +17,7 @@ interface ProductsChartProps {
   label: string;
   infoTooltipLabel?: string;
   metricTotal?: string;
+  loading?: boolean;
 }
 
 const ProductsChart: React.FC<ProductsChartProps> = ({
@@ -24,6 +25,7 @@ const ProductsChart: React.FC<ProductsChartProps> = ({
   label,
   infoTooltipLabel,
   metricTotal,
+  loading = false,
 }) => {
   // Convert and sort product data
   const chartData = useMemo(
@@ -42,12 +44,24 @@ const ProductsChart: React.FC<ProductsChartProps> = ({
     [chartData]
   );
 
+  // Generate skeleton data for the chart
+  const skeletonData = useMemo(() => {
+    return Array(5).fill(0).map((_, i) => ({
+      name: `Product ${i + 1}`,
+      total_quantity: Math.random() * 100,
+    }));
+  }, []);
+
   return (
     <div className="bg-card rounded-lg shadow-md p-6">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-bold text-foreground">{label}</h2>
-          {infoTooltipLabel && (
+          {loading ? (
+            <div className="h-5 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          ) : (
+            <h2 className="text-sm font-bold text-foreground">{label}</h2>
+          )}
+          {infoTooltipLabel && !loading && (
             <div className="relative group">
               <div className="cursor-pointer text-muted-foreground">ⓘ</div>
               <div className="hidden group-hover:block absolute z-10 w-64 p-2 text-sm bg-popover text-popover-foreground rounded shadow-lg -translate-x-1/2 left-1/2 bottom-full mb-2">
@@ -60,15 +74,44 @@ const ProductsChart: React.FC<ProductsChartProps> = ({
 
       {metricTotal && (
         <>
-          <p className="text-lg font-bold mb-4 text-foreground">
-            {metricTotal}
-          </p>
+          {loading ? (
+            <div className="h-6 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
+          ) : (
+            <p className="text-lg font-bold mb-4 text-foreground">
+              {metricTotal}
+            </p>
+          )}
           <div className="h-px bg-border my-4" />
         </>
       )}
 
       <div className="h-[260px] w-full">
-        {chartData.length > 0 ? (
+        {loading ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart
+              data={skeletonData}
+              margin={{ top: 20, right: 20, bottom: 40, left: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted))" />
+              <XAxis
+                dataKey="name"
+                angle={-45}
+                textAnchor="end"
+                interval={0}
+                tick={{ fontSize: 12 }}
+                stroke="hsl(var(--muted-foreground))"
+              />
+              <YAxis stroke="hsl(var(--muted-foreground))" />
+              <Bar
+                dataKey="total_quantity"
+                fill="hsl(var(--muted))"
+                barSize={40}
+                radius={[4, 4, 0, 0]}
+                className="animate-pulse"
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        ) : chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
               data={chartData}
@@ -113,7 +156,7 @@ const ProductsChart: React.FC<ProductsChartProps> = ({
         )}
       </div>
 
-      {chartData.length > 0 && (
+      {!loading && chartData.length > 0 && (
         <p className="mt-4 text-center text-xs text-muted-foreground">
           Total quantities shown. Hover over bars for detailed numbers.
         </p>
