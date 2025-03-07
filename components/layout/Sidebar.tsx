@@ -111,7 +111,6 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
   }, [pathname, lang, menuSections]);
 
 
-
   useEffect(() => {
     const currentSection = menuSections.find((section) =>
       section.items.some((item) => pathname === `/${lang}${item.href}`)
