@@ -90,23 +90,23 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
             {translation.sidebar.dashboard.dashboard_link}
           </h2>
         </div>
-        <div className="w-[24%]">
-
-        </div>
+        <div className="w-[24%]"></div>
       </div>
-      <div className="container mt-1 flex gap-4">
-        <StatsContainer
-          translation={translation}
-          data={data}
-          loading={loading}
-        />
-        <div className="bg-card text-card-foreground px-3 rounded-[var(--radius)] border shadow-sm w-[25%] relative">
-          {/* <p className="text-xs text-gray-600 absolute">{translation.shared.date_range}</p> */}
-          <SingleInputDateRangePicker
-            value={dateRange}
-            onChange={setDateRange}
+      <div className="container mt-1 w-full">
+        <div className="flex gap-4 justify-between w-full">
+          <StatsContainer
             translation={translation}
+            data={data}
+            loading={loading}
           />
+          {/* <p className="text-xs text-gray-600 absolute">{translation.shared.date_range}</p> */}
+          <div className="w-full bg-card text-card-foreground px-3 rounded-[var(--radius)] border shadow-sm relative">
+            <SingleInputDateRangePicker
+              value={dateRange}
+              onChange={setDateRange}
+              translation={translation}
+            />
+          </div>
         </div>
       </div>
       <div className="pt-8">
@@ -116,8 +116,9 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
               <div className=" shadow-lg p-6 rounded-xl border border-gray-100 h-[200px] transition-all hover:shadow-xl">
                 <div className="flex items-center mb-3">
                   <div
-                    className={`h-8 w-1 bg-gray-200 rounded-full ${lang === "ar" ? "ml-3" : "mr-3"
-                      }`}
+                    className={`h-8 w-1 bg-gray-200 rounded-full ${
+                      lang === "ar" ? "ml-3" : "mr-3"
+                    }`}
                   ></div>
                   <div className="h-5 w-28 bg-gray-200 rounded animate-pulse"></div>
                 </div>
@@ -130,8 +131,9 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
               <div className="bg-gradient-to-br from-white to-blue-50 shadow-lg p-6 rounded-xl border border-blue-100 h-[200px] transition-all hover:shadow-xl">
                 <div className="flex items-center mb-3">
                   <div
-                    className={`h-8 w-1 bg-blue-500 rounded-full ${lang === "ar" ? "ml-3" : "mr-3"
-                      }`}
+                    className={`h-8 w-1 bg-blue-500 rounded-full ${
+                      lang === "ar" ? "ml-3" : "mr-3"
+                    }`}
                   ></div>
                   <h2 className="text-md font-bold text-gray-800">
                     {translation.StatsContainer.Turnover}
@@ -152,8 +154,9 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
               <div className="shadow-lg p-6 rounded-xl border border-gray-100 h-[200px] transition-all hover:shadow-xl">
                 <div className="flex items-center mb-3">
                   <div
-                    className={`h-8 w-1 bg-gray-200 rounded-full ${lang === "ar" ? "ml-3" : "mr-3"
-                      }`}
+                    className={`h-8 w-1 bg-gray-200 rounded-full ${
+                      lang === "ar" ? "ml-3" : "mr-3"
+                    }`}
                   ></div>
                   <div className="h-5 w-28 bg-gray-200 rounded animate-pulse"></div>
                 </div>
@@ -166,8 +169,9 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
               <div className="bg-gradient-to-br from-white to-green-50 shadow-lg p-6 rounded-xl border border-green-100 h-[200px] transition-all hover:shadow-xl">
                 <div className="flex items-center mb-3">
                   <div
-                    className={`h-8 w-1 bg-green-500 rounded-full ${lang === "ar" ? "ml-3" : "mr-3"
-                      }`}
+                    className={`h-8 w-1 bg-green-500 rounded-full ${
+                      lang === "ar" ? "ml-3" : "mr-3"
+                    }`}
                   ></div>
                   <h2 className="text-md font-bold text-gray-800">
                     {translation.StatsContainer.Total_Sales}

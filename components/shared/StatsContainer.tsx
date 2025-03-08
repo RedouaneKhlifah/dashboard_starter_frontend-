@@ -11,15 +11,18 @@ interface StatsContainerProps {
       profitability_rate: string;
     };
     shared: {
-      currency : string,
-    }
+      currency: string;
+    };
   };
   data: InvoiceSummary;
   loading: boolean;
-
 }
 
-const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => {
+const StatsContainer = ({
+  translation,
+  data,
+  loading,
+}: StatsContainerProps) => {
   const stats = [
     {
       title: translation.StatsContainer.receivables_balance,
@@ -28,36 +31,29 @@ const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => 
         Number(data?.factures_partial.paid_amount),
       icon: DollarSign,
       variant: "orange",
-      unit : translation.shared.currency,
-    },
-    {
-      title: translation.StatsContainer.collected_revenue,
-      value: data?.paid_amount_partial_complete,
-      icon: CircleDollarSign,
-      variant: "green",
-      unit : translation.shared.currency,
+      unit: translation.shared.currency,
     },
     {
       title: translation.StatsContainer.waste_stock,
       value: Number(data?.ticket_net.entry) - Number(data?.ticket_net.exit),
       icon: Box,
       variant: "blue",
-      unit : "Kg",
+      unit: "Kg",
     },
     {
       title: translation.StatsContainer.profitability_rate,
       value:
         data?.revenue && Number(data?.revenue) !== 0
-          ? (Number(data?.profit) / Number(data?.revenue)) * 100 
+          ? (Number(data?.profit) / Number(data?.revenue)) * 100
           : 0,
       icon: TrendingUp,
       variant: "red",
-      unit : "%"
+      unit: "%",
     },
   ] as const;
 
   return (
-    <div className="flex gap-4">
+    <>
       {stats.map((stat) => (
         <StatCard
           key={stat.title}
@@ -72,8 +68,8 @@ const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => 
           loading={loading}
         />
       ))}
-    </div>
+    </>
   );
 };
 
-export default StatsContainer;
+export default StatsContainer;

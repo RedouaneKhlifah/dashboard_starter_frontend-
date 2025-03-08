@@ -6,10 +6,17 @@ interface StatCardProps {
   icon: LucideIcon;
   variant: "orange" | "green" | "blue" | "red";
   loading?: boolean;
-  unit: string
+  unit: string;
 }
 
-const StatCard = ({ title, value, icon: Icon, variant, loading = false, unit }: StatCardProps) => {
+const StatCard = ({
+  title,
+  value,
+  icon: Icon,
+  variant,
+  loading = false,
+  unit,
+}: StatCardProps) => {
   const variantStyles = {
     orange: "bg-orange-400 dark:bg-orange-600",
     green: "bg-green-500 dark:bg-green-600",
@@ -19,8 +26,8 @@ const StatCard = ({ title, value, icon: Icon, variant, loading = false, unit }: 
 
   if (loading) {
     return (
-      <div className="bg-card text-card-foreground p-4 rounded-[var(--radius)] border shadow-sm">
-        <div className="flex items-center gap-3">
+      <div className="!w-full bg-card text-card-foreground p-4 rounded-[var(--radius)] border shadow-sm">
+        <div className="flex items-center gap-3 w-full">
           <div className="bg-gray-200 dark:bg-gray-700 p-3 rounded-full animate-pulse">
             <div className="w-5 h-5" />
           </div>
@@ -34,16 +41,16 @@ const StatCard = ({ title, value, icon: Icon, variant, loading = false, unit }: 
   }
 
   return (
-    <div className="bg-card text-card-foreground p-4 rounded-[var(--radius)] border shadow-sm">
-      <div className="flex items-center gap-3">
+    <div className="w-full bg-card text-card-foreground p-4 rounded-[var(--radius)] border shadow-sm">
+      <div className="flex items-center gap-3 w-full">
         <div className={`${variantStyles[variant]} p-3 rounded-full`}>
           <Icon className="text-white w-5 h-5" />
         </div>
         <div>
           <h3 className="text-muted-foreground text-sm">{title}</h3>
           <div className="flex gap-2 items-center">
-          <p className="text-2xl font-semibold">{value}</p>
-          <p className="text-sm text-gray-600">{unit}</p>
+            <p className="text-2xl font-semibold">{value}</p>
+            <p className="text-sm text-gray-600">{unit}</p>
           </div>
         </div>
       </div>
