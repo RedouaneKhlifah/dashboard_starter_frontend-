@@ -1,16 +1,20 @@
-import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
-import { Select, Option } from "@material-tailwind/react";
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import { Select, Option, Button } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
 import { IFactureForm } from "@/dto/facture/factureForm";
 import { FactureFormErrors } from "@/validation/factureValidators/factureValidator";
 import { DictionaryType } from "@/lib/i18n";
+// Import Lucide icons
+import { Check, CreditCard } from "lucide-react";
+import { Locale } from "@/i18n-config";
 
 interface SummaryTabProps {
   formData: IFactureForm;
   setFormData: Dispatch<SetStateAction<IFactureForm>>;
   setErrors: Dispatch<SetStateAction<FactureFormErrors>>;
   translation: DictionaryType;
+  lang?: Locale;
 }
 
 const SummaryTab = ({
@@ -18,7 +22,10 @@ const SummaryTab = ({
   setFormData,
   setErrors,
   translation,
+  lang
 }: SummaryTabProps) => {
+  const isRTL = lang === "ar";
+
   useEffect(() => {
     if (formData.remise_type === undefined) {
       setFormData((prev) => ({
@@ -70,6 +77,33 @@ const SummaryTab = ({
     formData.remise_type,
     calculateTotals,
   ]);
+
+  const handlePaidAmountChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const value = parseFloat(e.target.value);
+    const total = formData.total || 0;
+    if (value > total) {
+      setFormData(prev => ({
+        ...prev,
+        paid_amount: total
+      }));
+      setErrors(prev => ({
+        ...prev,
+        paid_amount: "Paid amount cannot exceed total"
+      }));
+    } else {
+      handleChange(e, setFormData, setErrors);
+    }
+  };
+  
+  const handleFullyPaidClick = () => {
+    setFormData((prev) => ({
+      ...prev,
+      paid_amount: prev.total || 0,
+    }));
+  };
+
+
+  const isFullyPaid = formData.paid_amount === formData.total;
 
   return (
     <div className="space-y-4">
@@ -126,15 +160,44 @@ const SummaryTab = ({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <InputField
-          id="paid_amount"
-          type="number"
-          label={translation.order.form.paid_amount}
-          value={formData.paid_amount?.toString() || "0"}
-          suffix={translation.shared.currency}
-          onChange={(e) => handleChange(e, setFormData, setErrors)}
-          className="pr-24"
-        />
+        <div className="relative">
+          <InputField
+            id="paid_amount"
+            type="number"
+            label={translation.order.form.paid_amount}
+            value={formData.paid_amount?.toString() || "0"}
+            onChange={handlePaidAmountChange}
+            className="pr-24"
+          />
+          <div className={`${isRTL ? "absolute left-[5px] top-[35px]" : "absolute right-[5px] top-[35px]"}`}>
+            <span className="text-sm text-muted-foreground">{translation.shared.currency}</span><span className="border-r-2 mx-1"></span>
+            <Button
+              size="sm"
+              color={isFullyPaid ? "green" : "blue"}
+              variant={isFullyPaid ? "filled" : "gradient"}
+              className={`py-2 px-3 text-xs font-medium transition-all duration-300 rounded-sm ml-1 ${
+                isFullyPaid ? "opacity-70 cursor-default" : "hover:shadow-lg"
+              }`}
+              onClick={handleFullyPaidClick}
+              disabled={isFullyPaid}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {isFullyPaid ? (
+                <div className="flex items-center">
+                  <Check className="h-3.5 w-3.5 mr-1" />
+                  {translation.shared.FullyPaid}
+                </div>
+              ) : (
+                <div className="flex items-center">
+                  <CreditCard className="h-3.5 w-3.5 mr-1" />
+                  {translation.shared.FullyPaid}
+                </div>
+              )}
+            </Button>
+          </div>
+        </div>
         <InputField
           id="subtotal"
           type="number"

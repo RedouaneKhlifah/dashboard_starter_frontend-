@@ -5,13 +5,15 @@ import { DateRange, Range } from 'react-date-range';
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { DictionaryType } from '@/lib/i18n';
 
 interface DateRangePickerProps {
   onSelect: (startDate: Date, endDate: Date) => void;
   initialRange?: Range;
+  translation: DictionaryType;
 }
 
-const DateRangePicker = ({ onSelect, initialRange }: DateRangePickerProps) => {
+const DateRangePicker = ({ onSelect, initialRange, translation }: DateRangePickerProps) => {
   const [dateRange, setDateRange] = useState<Range[]>([
     initialRange || {
       startDate: new Date(),
@@ -48,7 +50,7 @@ const DateRangePicker = ({ onSelect, initialRange }: DateRangePickerProps) => {
             key: 'selection'
           }])}
         >
-          Reset
+         {translation.shared.Reset}
         </button>
         <div className="space-x-2">
           <button
@@ -59,7 +61,7 @@ const DateRangePicker = ({ onSelect, initialRange }: DateRangePickerProps) => {
               }
             }}
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary transition-colors">
-            Apply
+            {translation.shared.Apply}
           </button>
         </div>
       </div>
