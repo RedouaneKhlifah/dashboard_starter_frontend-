@@ -124,6 +124,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
       setErrors={setErrors}
       onSubmit={handleSubmit}
       isOpen={modalType === "update"}
+      lang={lang}
     />
   );
 };

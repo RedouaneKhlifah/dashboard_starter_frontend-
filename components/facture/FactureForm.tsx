@@ -10,7 +10,7 @@ import { FactureFormErrors } from "@/validation/factureValidators/factureValidat
 import { ClientTab, ProductsTab, SummaryTab, NotesTab } from "./tabs";
 import { IFacture } from "@/interfaces/IFacture";
 import { DictionaryType } from "@/lib/i18n";
-import { FactureMapper } from "@/mappers/FactureMapper";
+import { Locale } from "@/i18n-config";
 
 export type TabName = "client" | "products" | "summary" | "notes";
 
@@ -35,6 +35,7 @@ interface FactureFormProps {
   onSubmit: (formData: IFactureForm) => Promise<boolean>;
   isOpen: boolean;
   selectedRecord?: IFacture;
+  lang?: Locale;
 }
 
 const FactureForm = ({
@@ -45,6 +46,7 @@ const FactureForm = ({
   onSubmit,
   isOpen,
   selectedRecord,
+  lang
 }: FactureFormProps) => {
   const { modalType, closeModal, isSecondOpen } = useModalStore();
   const [formData, setFormData] = useState<IFactureForm>(initialFormData);
@@ -216,7 +218,7 @@ const FactureForm = ({
           )}
           {activeTab.name === "summary" && (
             <SummaryTab
-              {...{ formData, setFormData, setErrors, translation }}
+              {...{ formData, setFormData, setErrors, translation, lang }}
             />
           )}
           {activeTab.name === "notes" && (

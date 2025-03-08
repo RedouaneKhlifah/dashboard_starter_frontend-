@@ -830,6 +830,9 @@
     "loading ": "Chargement...",
     "currency": "MAD",
     "printable": "Imprimer",
+    "Apply": "Appliquer",
+    "Reset": "Réinitialiser",
+    "FullyPaid": "Entièrement payé",
     "logout": "Déconnexion",
     "date_range": "Plage de dates",
     "error": {
