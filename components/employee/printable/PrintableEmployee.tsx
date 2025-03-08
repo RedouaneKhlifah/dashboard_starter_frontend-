@@ -30,10 +30,9 @@ const DocumentHeader = ({
         </div>
 
         <div className="mt-2">
-          <p className="font-bold">SOCIETE ZROUDI</p>
+          <p className="font-bold">ZR CDU</p>
           <p>{translation.payslip.company_activity}</p>
           <p>{translation.payslip.company_address}</p>
-          <p>{translation.payslip.postal_code}</p>
           <p>{translation.payslip.city}</p>
         </div>
       </div>

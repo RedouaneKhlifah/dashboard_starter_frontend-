@@ -122,12 +122,13 @@ export function TableOrder({
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-
+       
       if (!response.ok) return;
-
+       toastSuccess(translation.order.form.message.delete_success);
       closeModal();
       refreshorders(true);
     } catch (error) {
+      toastError(translation.order.form.message.delete_success);
       console.error("Error deleting orders:", error);
     }
   };

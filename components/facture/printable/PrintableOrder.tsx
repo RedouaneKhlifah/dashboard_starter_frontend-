@@ -228,7 +228,6 @@ const TotalsSection = ({
 
 const Footer = ({ translation }: { translation: DictionaryType }) => (
   <footer className="mt-8 text-center text-sm">
-    <p className="mb-2">{translation.sidebar.factures_table.print.terms}</p>
     <p>{translation.sidebar.factures_table.print.thank_you}</p>
   </footer>
 );
