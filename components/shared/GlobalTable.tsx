@@ -126,19 +126,19 @@ export const GlobalTable = <T extends { id: string | number }>({
           </thead>
           <tbody>
             {isLoading ? (
-              Array.from({ length: totalRows || 1 }).map((_, index) => {
-              const isLastSkeletonRow = index === pageSize - 1;
-              return (
-                <tr key={index}>
-                {headers.map((header) => (
-                  <td
-                  key={header.key.toString()}
-                  className={
-                    isLastSkeletonRow
-                    ? "p-5 text-start"
-                    : "p-5 border-b border-blue-gray-50 text-start"
-                  }
-                  style={{ maxWidth: header.width }}
+              Array.from({length: totalRows || 2 }).map((_, index) => {
+                const isLastSkeletonRow = index === pageSize - 1;
+                return (
+                  <tr key={index}>
+                    {headers.map((header) => (
+                      <td
+                        key={header.key.toString()}
+                        className={
+                          isLastSkeletonRow
+                            ? "p-5 text-start"
+                            : "p-5 border-b border-blue-gray-50 text-start"
+                        }
+                        style={{ maxWidth: header.width }}
                       >
                         <div className="h-5 bg-gray-200 rounded animate-pulse" />
                       </td>

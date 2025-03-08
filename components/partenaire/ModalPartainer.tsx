@@ -306,6 +306,7 @@ const ModalPartenaireDetails = ({
                             totalValue,
                             discount: remise,
                             netTotal,
+                            pricePerKg
                         }}
                     />
                 </div>
