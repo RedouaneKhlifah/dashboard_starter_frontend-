@@ -137,7 +137,7 @@ const ProductsTab = ({
                 id={"price_unitaire"}
                 suffix={translation.shared.currency}
                 label={""}
-                disabled={!!row.order_id}
+                disabled={true}
               />
             ),
           },
