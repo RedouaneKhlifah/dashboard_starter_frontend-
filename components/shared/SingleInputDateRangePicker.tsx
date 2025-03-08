@@ -59,6 +59,7 @@ export default function SingleInputDateRangePicker({
           <div className="mt-2 absolute top-full left-0 w-full z-50 animate-fade-in-up">
             <DateRangePicker
               onSelect={handleDateSelect}
+              translation={translation}
               initialRange={{
                 startDate: value.start || new Date(),
                 endDate: value.end || addDays(new Date(), 3),

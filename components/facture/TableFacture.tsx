@@ -167,40 +167,40 @@ export function TableFacture({
     }
   };
 
-  const handleEmail = useCallback(
-    async (orderId: number) => {
-      try {
-        const orderToEmail = orders.find((o) => o.id === orderId);
-        if (!orderToEmail) {
-          toastError("facture not found");
-          return;
-        }
+  // const handleEmail = useCallback(
+  //   async (orderId: number) => {
+  //     try {
+  //       const orderToEmail = orders.find((o) => o.id === orderId);
+  //       if (!orderToEmail) {
+  //         toastError("facture not found");
+  //         return;
+  //       }
 
-        const htmlContent = generateFactureHTML(
-          orderToEmail,
-          translation,
-          lang
-        );
+  //       const htmlContent = generateFactureHTML(
+  //         orderToEmail,
+  //         translation,
+  //         lang
+  //       );
 
-        const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/send-facture-email/${orderId}`,
-          {
-            method: "POST",
-            lang,
-            body: JSON.stringify({ htmlContent }),
-          }
-        );
+  //       const response = await http(
+  //         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/send-facture-email/${orderId}`,
+  //         {
+  //           method: "POST",
+  //           lang,
+  //           body: JSON.stringify({ htmlContent }),
+  //         }
+  //       );
 
-        if (response.ok) {
-          const responseData = await response.json();
-          toastSuccess(responseData.message || "Email sent successfully");
-        }
-      } catch (error) {
-        toastError("Failed to send email");
-      }
-    },
-    [orders, translation, lang, toastError, toastSuccess]
-  );
+  //       if (response.ok) {
+  //         const responseData = await response.json();
+  //         toastSuccess(responseData.message || "Email sent successfully");
+  //       }
+  //     } catch (error) {
+  //       toastError("Failed to send email");
+  //     }
+  //   },
+  //   [orders, translation, lang, toastError, toastSuccess]
+  // );
 
   const headers = useMemo(
     () => [

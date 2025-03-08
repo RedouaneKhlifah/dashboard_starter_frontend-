@@ -195,7 +195,6 @@ const SummarySection = ({
 
 const Footer = ({ translation }: { translation: DictionaryType }) => (
   <footer className="mt-8 text-center text-sm">
-    <p className="mb-2">{translation.sidebar.orders_table.print.terms}</p>
     <p>{translation.sidebar.orders_table.print.thank_you}</p>
   </footer>
 );
@@ -257,7 +256,8 @@ const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
           translation={translation}
           lang={lang}
         />
-        <Footer translation={translation} />
+        <div className="absolute bottom-20 translate-x-1/2 right-1/2"><Footer translation={translation} /></div>
+        
       </div>
     );
   }

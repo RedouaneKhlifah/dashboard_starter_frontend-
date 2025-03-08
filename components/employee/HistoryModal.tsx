@@ -109,7 +109,6 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
       onClose={handleCloseModal}
       isLoading={isSubmitting}
       title={translation.HistoryModal.history.title}
-      submitButtonText={translation.common.update}
       cancelButtonText={translation.common.cancel}
       onSubmit={(e) => e.preventDefault()}
       contentClassName="2xl:min-w-[70%]"

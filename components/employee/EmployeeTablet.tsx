@@ -50,7 +50,7 @@ export function EmployeesTable({
   } = translation;
 
   // State
-  const [Employeess, setEmployeess] = useState<IEmployee[]>(records);
+  const [Employees, setEmployees] = useState<IEmployee[]>(records);
   const [totalEmployeess, setTotalEmployeess] = useState(totalRecords);
   const [selectedRecord, setSelectedRecord] = useState<IEmployee | undefined>(
     undefined
@@ -68,37 +68,35 @@ export function EmployeesTable({
   const didMountRef = useRef(false);
 
   // Real-time updates
-  const handleEmployeesUpdate = useEntityUpdate<IEmployee>(setEmployeess);
-  usePusher("Employees", handleEmployeesUpdate);
+  const handleEmployeesUpdate = useEntityUpdate<IEmployee>(setEmployees);
+  usePusher("employee", handleEmployeesUpdate);
 
   // Handlers
   const handleEdit = useCallback(
     (recordId: number) => {
-      const record = Employeess.find((user) => user.id === recordId);
+      const record = Employees.find((user) => user.id === recordId);
       setSelectedRecord(record);
       openModal(ModalTypeEnum.UPDATE);
     },
-    [openModal, Employeess]
+    [openModal, Employees]
   );
 
   const handleShowHistory = useCallback(
     (recordId: number) => {
-      const SelectedRecord = Employeess.find(
-        (record) => record.id === recordId
-      );
+      const SelectedRecord = Employees.find((record) => record.id === recordId);
       setSelectedRecord(SelectedRecord);
       openModal(ModalTypeEnum.History);
     },
-    [openModal, Employeess]
+    [openModal, Employees]
   );
 
   const openDeleteModal = useCallback(
     (recordId: number) => {
-      const record = Employeess.find((Employees) => Employees.id === recordId);
+      const record = Employees.find((Employees) => Employees.id === recordId);
       setSelectedRecord(record);
       openModal(ModalTypeEnum.DELETE);
     },
-    [Employeess, openModal]
+    [Employees, openModal]
   );
 
   const handleDeleteConfirm = async () => {
@@ -120,13 +118,13 @@ export function EmployeesTable({
     }
   };
 
-  // Refresh Employeess
+  // Refresh Employees
   const refreshEmployeess = useRefresh({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "Employeess",
-    setRecords: setEmployeess,
+    entity: "employee",
+    setRecords: setEmployees,
     setTotalRecords: setTotalEmployeess,
   });
 
@@ -210,10 +208,10 @@ export function EmployeesTable({
         setSearchQuery={setSearchQuery}
       />
 
-      {/* Employeess Table */}
+      {/* Employees Table */}
       <GlobalTable<IEmployee>
         headers={tableHeaders}
-        rows={Employeess}
+        rows={Employees}
         totalRows={totalEmployeess}
         isLoading={isLoading}
         className="shadow-lg rounded-lg overflow-hidden"
