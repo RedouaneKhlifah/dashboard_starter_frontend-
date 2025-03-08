@@ -58,7 +58,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
                 name: product.name,
                 unit: product.unit,
                 product_id: product.product_id,
-                price_unitaire: product.price_unitaire,
+                price_unitaire: product.sale_price,
                 quantity: product.quantity,
                 order_id: product?.order_id,
               })) || [],

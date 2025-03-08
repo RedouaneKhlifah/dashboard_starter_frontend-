@@ -40,6 +40,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     new Set(selectedProductIds)
   );
 
+  
   useEffect(() => {
     if (isSecondOpen) {
       setSelectedProducts(new Set(selectedProductIds));
@@ -48,6 +49,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
 
   useEffect(() => {
     const debouncedSearch = debounce(async (query: string) => {
+      setLoading(true);
       try {
         const url = `${
           process.env.NEXT_PUBLIC_API_BASE_PATH
@@ -159,11 +161,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
         {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
         <GlobalTable<IProduct>
           headers={[
-            {
-              key: "image" as keyof IProduct,
-              label: translation.order.form.articles.image,
-              isImage: true,
-            },
             {
               key: "name",
               label: translation.order.form.articles.name,
