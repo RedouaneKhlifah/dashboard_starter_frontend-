@@ -38,9 +38,9 @@ const ProductsTab = ({
       product_id: product.id,
       name: product.name,
       unit: product.unit,
-      price_unitaire: product.cost_price,
+      price_unitaire: product.sale_price,
       quantity: 1,
-      total: product.cost_price * 1,
+      total: product.sale_price * 1,
     }));
 
     setFormData((prev) => ({
@@ -123,16 +123,14 @@ const ProductsTab = ({
             label: translation.order.form.articles.unit,
           },
           {
-            key: "price_unitaire",
+            key: "price_unitaire" as keyof any,
             label: translation.order.form.articles.unit_price,
             width: "130px",
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
                 value={value}
-                onChange={(e) =>
-                  handlePriceChange(row.product_id, parseFloat(e.target.value))
-                }
+                onChange={(e) => {}}
                 min={0}
                 id={"price_unitaire"}
                 suffix={translation.shared.currency}
@@ -182,7 +180,7 @@ const ProductsTab = ({
         rows={formData.products || []}
         className="mt-4 max-h-60 z-10"
         totalRows={0}
-        setCurrentPage={() => { }}
+        setCurrentPage={() => {}}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
