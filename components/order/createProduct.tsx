@@ -41,31 +41,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   );
 
   useEffect(() => {
-    const fetchSelectedProducts = async () => {
-      if (!isSecondOpen || selectedProductIds.length === 0) return;
-      setLoading(true);
-      try {
-        const promises = selectedProductIds.map(async (id) => {
-          const response = await http(
-            `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${id}`
-          );
-          if (!response.ok) throw new Error();
-          return response.json();
-        });
-
-        const products = await Promise.all(promises);
-        setSelectedProductsData(products);
-      } catch (err) {
-        setError(translation.common.errors.fetch_error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSelectedProducts();
-  }, [isSecondOpen, selectedProductIds, translation]);
-
-  useEffect(() => {
     if (isSecondOpen) {
       setSelectedProducts(new Set(selectedProductIds));
     }
@@ -73,7 +48,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
 
   useEffect(() => {
     const debouncedSearch = debounce(async (query: string) => {
-      setLoading(true);
       try {
         const url = `${
           process.env.NEXT_PUBLIC_API_BASE_PATH
