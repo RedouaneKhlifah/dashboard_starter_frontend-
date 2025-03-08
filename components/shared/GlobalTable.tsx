@@ -126,7 +126,7 @@ export const GlobalTable = <T extends { id: string | number }>({
           </thead>
           <tbody>
             {isLoading ? (
-              Array.from({ length: totalRows }).map((_, index) => {
+              Array.from({length: totalRows || 2 }).map((_, index) => {
                 const isLastSkeletonRow = index === pageSize - 1;
                 return (
                   <tr key={index}>
