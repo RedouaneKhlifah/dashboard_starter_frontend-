@@ -57,7 +57,7 @@ const StatsContainer = ({ translation, data, loading }: StatsContainerProps) => 
   ] as const;
 
   return (
-    <div className="flex gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
       {stats.map((stat) => (
         <StatCard
           key={stat.title}

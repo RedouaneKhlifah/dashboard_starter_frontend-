@@ -100,7 +100,7 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
           data={data}
           loading={loading}
         />
-        <div className="bg-card text-card-foreground px-3 rounded-[var(--radius)] border shadow-sm w-[25%] relative">
+        <div className="bg-card text-card-foreground px-3 rounded-[var(--radius)] border shadow-sm w-[30%]">
           {/* <p className="text-xs text-gray-600 absolute">{translation.shared.date_range}</p> */}
           <SingleInputDateRangePicker
             value={dateRange}
