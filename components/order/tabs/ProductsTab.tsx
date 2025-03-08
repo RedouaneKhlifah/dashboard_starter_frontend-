@@ -38,9 +38,9 @@ const ProductsTab = ({
       product_id: product.id,
       name: product.name,
       unit: product.unit,
-      price_unitaire: product.cost_price,
+      price_unitaire: product.sale_price,
       quantity: 1,
-      total: product.cost_price * 1,
+      total: product.sale_price * 1,
     }));
 
     setFormData((prev) => ({
@@ -123,19 +123,19 @@ const ProductsTab = ({
             label: translation.order.form.articles.unit,
           },
           {
-            key: "price_unitaire",
+            key: "price_unitaire" as keyof any,
             label: translation.order.form.articles.unit_price,
+            width: "130px",
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
                 value={value}
-                onChange={(e) =>
-                  handlePriceChange(row.product_id, parseFloat(e.target.value))
-                }
-                className="max-w-20 px-1"
+                onChange={(e) => {}}
                 min={0}
                 id={"price_unitaire"}
+                suffix={translation.shared.currency}
                 label={""}
+                disabled={true}
               />
             ),
           },

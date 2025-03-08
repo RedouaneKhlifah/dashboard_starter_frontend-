@@ -127,9 +127,7 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
               " " +
               translation.employee.form.failed
           );
-          setTimeout(() => {
-            closeModal();
-          }, 1000);
+          closeModal();
           setSelectedFile(null);
           setError(null);
           setUploadProgress(0);

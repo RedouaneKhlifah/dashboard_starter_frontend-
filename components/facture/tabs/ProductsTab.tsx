@@ -130,14 +130,12 @@ const ProductsTab = ({
               <InputField
                 type="number"
                 value={value}
-                onChange={(e) =>
-                  handlePriceChange(row.product_id, parseFloat(e.target.value))
-                }
+                onChange={(e) => {}}
                 min={0}
                 id={"price_unitaire"}
                 suffix={translation.shared.currency}
                 label={""}
-                disabled={!!row.order_id}
+                disabled={true}
               />
             ),
           },
