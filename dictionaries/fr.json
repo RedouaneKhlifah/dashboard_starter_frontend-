@@ -242,7 +242,7 @@
   "payslip": {
     "employer": "EMPLOYEUR",
     "PayslipName": "Bulletin de Paie",
-    "company_name": "SOCIÉTÉ ZROUDI",
+    "company_name": "ZR CDU",
     "company_activity": "Collecte des déchets et recyclages",
     "company_address": "Dr Aït Messaoud Harbil El Ghaba",
     "postal_code": "B-P 12624",
@@ -596,7 +596,7 @@
       "update_partner": "Mettre à jour le partenaire",
       "search_placeholder": "Rechercher...",
       "print": {
-        "company_name": "SOCIÉTÉ ZROUDI",
+        "company_name": "ZR CDU",
         "company_activity": "Collecte des déchets et recyclages",
         "company_address": "Dr Aït Messaoud Harbil El Ghaba",
         "ticket_number": "Numéro de Ticket",

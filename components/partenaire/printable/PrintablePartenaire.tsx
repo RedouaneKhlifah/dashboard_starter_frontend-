@@ -19,6 +19,7 @@ interface PrintablePartenaireProps {
     totalValue: number;
     discount: number;
     netTotal: number;
+    pricePerKg: number;
   };
 }
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
@@ -155,6 +156,7 @@ const TotalsSection = ({
     totalValue: number | undefined;
     discount: number | undefined;
     netTotal: number | undefined;
+    pricePerKg: number | undefined;
   };
   translation: DictionaryType;
   lang: Locale;
@@ -168,6 +170,10 @@ const TotalsSection = ({
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.total_weight}:</span>
         <span>{(Number(totals?.totalWeight) || 0).toFixed(2)} kg</span>
+      </div>
+      <div className="flex justify-between mb-2">
+        <span>{translation.partenaireModal?.common?.pricePerKg}:</span>
+        <span>{formatCurrency(totals.pricePerKg || 0, lang)}</span>
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.total_value}:</span>
