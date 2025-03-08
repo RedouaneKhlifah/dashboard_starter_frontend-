@@ -1,4 +1,10 @@
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+} from "react";
 import { Select, Option, Button } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
@@ -22,7 +28,7 @@ const SummaryTab = ({
   setFormData,
   setErrors,
   translation,
-  lang
+  lang,
 }: SummaryTabProps) => {
   const isRTL = lang === "ar";
 
@@ -78,30 +84,31 @@ const SummaryTab = ({
     calculateTotals,
   ]);
 
-  const handlePaidAmountChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handlePaidAmountChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const value = parseFloat(e.target.value);
     const total = formData.total || 0;
     if (value > total) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        paid_amount: total
+        paid_amount: total,
       }));
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        paid_amount: "Paid amount cannot exceed total"
+        paid_amount: "Paid amount cannot exceed total",
       }));
     } else {
       handleChange(e, setFormData, setErrors);
     }
   };
-  
+
   const handleFullyPaidClick = () => {
     setFormData((prev) => ({
       ...prev,
       paid_amount: prev.total || 0,
     }));
   };
-
 
   const isFullyPaid = formData.paid_amount === formData.total;
 
@@ -169,8 +176,17 @@ const SummaryTab = ({
             onChange={handlePaidAmountChange}
             className="pr-24"
           />
-          <div className={`${isRTL ? "absolute left-[5px] top-[35px]" : "absolute right-[5px] top-[35px]"}`}>
-            <span className="text-sm text-muted-foreground">{translation.shared.currency}</span><span className="border-r-2 mx-1"></span>
+          <div
+            className={`${
+              isRTL
+                ? "absolute left-[5px] top-[35px]"
+                : "absolute right-[5px] top-[35px]"
+            }`}
+          >
+            <span className="text-sm text-muted-foreground">
+              {translation.shared.currency}
+            </span>
+            <span className="border-r-2 mx-1"></span>
             <Button
               size="sm"
               color={isFullyPaid ? "green" : "blue"}
