@@ -70,6 +70,7 @@ const FinalTab = ({
           required
           value={formData.partenaire}
           disabled={modalType === ModalTypeEnum.UPDATE}
+          minChars={0}
         />
         <SearchAutocomplete
           id="product"
@@ -83,6 +84,7 @@ const FinalTab = ({
           disabled={modalType === ModalTypeEnum.UPDATE}
           dropdownPosition={formData.status === "EXIT" ? "below" : "above"}
           required
+          minChars={0}
         />
         {formData.status === "EXIT" && (
           <SearchAutocomplete

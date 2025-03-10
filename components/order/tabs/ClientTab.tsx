@@ -62,6 +62,7 @@ const ClientTab = ({
           icon={<UserSearch className="w-5 h-5 text-gray-400" />}
           error={errors.client}
           required
+          minChars={0}
         />
         <InputField
           id="reference"
