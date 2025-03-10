@@ -186,7 +186,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             },
           ]}
           rows={displayedProducts}
-          className="mt-4 max-h-60"
+          className="mt-4 max-h-60 overflow-auto"
           classHead="z-10"
           totalRows={0}
           setCurrentPage={() => {}}

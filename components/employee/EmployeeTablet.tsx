@@ -214,7 +214,7 @@ export function EmployeesTable({
         rows={Employees}
         totalRows={totalEmployeess}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg"
         setCurrentPage={setCurrentPage}
         noDataMessage={users_table.no_data.message}
         sub_text={users_table.no_data.sub_text}

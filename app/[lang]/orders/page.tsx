@@ -35,8 +35,6 @@ export default async function ordersPage({ params }: Props) {
     totalRecords = response.total as number;
   }
 
-  console.log("records", records[0].products);
-
   return (
     <DashboardLayout lang={params.lang} translation={translation}>
       <div className="p-6">

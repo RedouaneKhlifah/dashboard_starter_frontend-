@@ -242,7 +242,7 @@ export function TransactionTable({
         rows={transactions}
         totalRows={totalTransactions}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg"
         setCurrentPage={setCurrentPage}
         noDataMessage={transactions_table.no_data.message}
         sub_text={transactions_table.no_data.sub_text}

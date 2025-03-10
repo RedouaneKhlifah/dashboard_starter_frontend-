@@ -79,7 +79,9 @@ export function TableOrder({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `bon de livraison_${selectedorderForPrint?.reference || "document"}`,
+    documentTitle: `bon de livraison_${
+      selectedorderForPrint?.reference || "document"
+    }`,
     onAfterPrint: () => setSelectedorderForPrint(null),
   });
 
@@ -122,9 +124,9 @@ export function TableOrder({
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
-       
+
       if (!response.ok) return;
-       toastSuccess(translation.order.form.message.delete_success);
+      toastSuccess(translation.order.form.message.delete_success);
       closeModal();
       refreshorders(true);
     } catch (error) {
@@ -249,7 +251,7 @@ export function TableOrder({
         rows={orders}
         totalRows={totalorders}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg "
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

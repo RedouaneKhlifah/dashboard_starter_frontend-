@@ -21,7 +21,7 @@ const API_ENDPOINTS = {
 };
 
 const fetchAutocompleteData = async (endpoint: string, query: string) => {
-  const response = await http(`${endpoint}?search=${query}&page=1`);
+  const response = await http(`${endpoint}?search=${query}&page=1&unit=kg`);
   return response.json();
 };
 

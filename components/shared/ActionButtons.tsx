@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { Mail, FileText, FileClock, Eye, Loader2 } from "lucide-react";
 
-
 interface ActionButtonsProps {
   Id: number;
-  onEdit: (userId: number) => void;
+  onEdit?: (userId: number) => void;
   onDelete: (userId: number) => void;
   onEmail?: (userId: number) => void;
   onPrint?: (userId: number) => void;
   onShow?: (userId: number) => void;
   onShowHistory?: (userId: number) => void;
-  editText: string;
+  editText?: string;
   deleteText: string;
 }
 
@@ -27,10 +26,9 @@ export const ActionButtons = ({
 }: ActionButtonsProps) => {
   const [isEmailSending, setIsEmailSending] = useState(false);
 
-
   const handleEmailClick = async (id: number) => {
     if (!onEmail) return;
-    
+
     setIsEmailSending(true);
     try {
       await onEmail(id);
@@ -47,8 +45,8 @@ export const ActionButtons = ({
           onClick={() => handleEmailClick(Id)}
           disabled={isEmailSending}
           className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-            isEmailSending 
-              ? "bg-yellow-50/80 text-orange-300 cursor-not-allowed" 
+            isEmailSending
+              ? "bg-yellow-50/80 text-orange-300 cursor-not-allowed"
               : "bg-yellow-50 text-orange-400 hover:bg-yellow-100"
           }`}
           title="Send Email"
@@ -87,12 +85,14 @@ export const ActionButtons = ({
           <FileClock size={18} />
         </button>
       )}
-      <button
-        onClick={() => onEdit(Id)}
-        className="px-3 py-1.5 text-xs font-medium bg-blue-gray-50/50 text-blue-500 hover:bg-blue-100/50 rounded-lg transition-colors"
-      >
-        {editText}
-      </button>
+      {onEdit && editText && (
+        <button
+          onClick={() => onEdit(Id)}
+          className="px-3 py-1.5 text-xs font-medium bg-blue-gray-50/50 text-blue-500 hover:bg-blue-100/50 rounded-lg transition-colors"
+        >
+          {editText}
+        </button>
+      )}
       <button
         onClick={() => onDelete(Id)}
         className="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"

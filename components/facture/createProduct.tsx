@@ -40,7 +40,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
     new Set(selectedProductIds)
   );
 
-  
   useEffect(() => {
     if (isSecondOpen) {
       setSelectedProducts(new Set(selectedProductIds));
@@ -188,7 +187,7 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             },
           ]}
           rows={displayedProducts}
-          className="mt-4 max-h-60"
+          className="mt-4 max-h-60 overflow-auto"
           classHead="z-10"
           totalRows={0}
           setCurrentPage={() => {}}

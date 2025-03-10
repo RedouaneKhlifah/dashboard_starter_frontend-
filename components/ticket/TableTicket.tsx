@@ -239,7 +239,6 @@ export function TableTicket({
         renderCell: (_, row: ITicket) => (
           <ActionButtons
             Id={row.id}
-            onEdit={handleEdit}
             onDelete={openDeleteModal}
             editText={ticket_table.actions.edit}
             deleteText={ticket_table.actions.delete}
@@ -262,7 +261,6 @@ export function TableTicket({
       ticket_table.actions.edit,
       ticket_table.actions.delete,
       lang,
-      handleEdit,
       openDeleteModal,
     ]
   );

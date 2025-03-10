@@ -126,7 +126,7 @@ export const GlobalTable = <T extends { id: string | number }>({
           </thead>
           <tbody>
             {isLoading ? (
-              Array.from({length: totalRows || 2 }).map((_, index) => {
+              Array.from({ length: totalRows || 2 }).map((_, index) => {
                 const isLastSkeletonRow = index === pageSize - 1;
                 return (
                   <tr key={index}>
@@ -150,7 +150,7 @@ export const GlobalTable = <T extends { id: string | number }>({
               <tr>
                 <td
                   colSpan={headers.length}
-                  className="p-12 text-center border-b border-blue-gray-50"
+                  className="p-9 text-center border-b border-blue-gray-50"
                 >
                   <div className="flex flex-col items-center justify-center gap-4">
                     <PackageSearch className="w-12 h-12 text-blue-gray-300" />
@@ -320,7 +320,7 @@ const TableCell = <T extends { id: string | number }>({
   if (header.isImage) {
     if (!value) return null;
     return (
-      <div className="max-w-full overflow-hidden">
+      <div className="max-w-full overflow-auto">
         <Image src={String(value)} alt={header.label} width={20} height={20} />
       </div>
     );
