@@ -23,7 +23,7 @@ const fetchDashboard = async (lang: Locale): Promise<InvoiceSummary> => {
     return {
       factures_partial: { total: 0, paid_amount: 0 },
       paid_amount_partial_complete: 0,
-      ticket_net: { entry: "0", exit: "0" },
+      total_stock: 0,
       profit: 0,
       revenue: 0,
       top_partenaires: [],

@@ -35,7 +35,7 @@ const StatsContainer = ({
     },
     {
       title: translation.StatsContainer.waste_stock,
-      value: Number(data?.ticket_net.entry) - Number(data?.ticket_net.exit),
+      value: Number(data?.total_stock),
       icon: Box,
       variant: "blue",
       unit: "Kg",

@@ -5,11 +5,6 @@ export interface FacturesPartial {
   paid_amount: number;
 }
 
-export interface TicketNet {
-  entry: string;
-  exit: string;
-}
-
 export interface PartenaireDashboardData {
   matricule: string;
   name: string;
@@ -24,7 +19,7 @@ export interface ProductDashboardData {
 export interface InvoiceSummary {
   factures_partial: FacturesPartial;
   paid_amount_partial_complete: number;
-  ticket_net: TicketNet;
+  total_stock: number;
   profit: number;
   revenue: number;
   top_partenaires: PartenaireDashboardData[];
