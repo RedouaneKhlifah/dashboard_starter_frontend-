@@ -6,6 +6,8 @@ import { IPartenaire } from "@/interfaces/IPartenaire";
 import { DictionaryType } from "@/lib/i18n";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
 import { ITicket } from "@/interfaces/ITicket";
+import Logo from "@/public/logo_Zroudi.svg";
+import Image from "next/image";
 
 interface PrintablePartenaireProps {
   partenaire: IPartenaire | null;
@@ -24,6 +26,7 @@ interface PrintablePartenaireProps {
 }
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
+    <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.partenaires_table.print.company_name}
     </h1>
