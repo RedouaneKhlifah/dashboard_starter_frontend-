@@ -25,7 +25,7 @@ const customTheme = {
 interface GlobalModalProps {
   open: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
   onSubmit?: (e: React.FormEvent) => void;
   submitButtonText?: string;
   onSecondarySubmit?: (e: React.FormEvent) => void;

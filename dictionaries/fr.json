@@ -483,14 +483,14 @@
       "recalculate": "Recalculer",
       "product": "Produit",
       "noProduct": "Aucun produit disponible",
-      "pricePerKg": "Prix par Kg",
+      "pricePerKg": "Prix par Ton",
       "discount": "Remise",
       "tickets": "Tickets",
       "date": "Date",
       "netWeight": "Poids Net",
       "noTicketsFound": "Aucun ticket trouvé pour la période sélectionnée",
       "summary": "Résumé",
-      "totalWeight": "Poids Total",
+      "totalWeight": "Total Ton",
       "totalValue": "Valeur Totale",
       "netTotal": "Total Net",
       "calculating": "Calcul en cours..."
@@ -504,13 +504,14 @@
       "print": "Imprimer"
     },
     "history": {
-      "title": "Historique de Paiement",
+      "title": "Historique de Bulletin",
       "period": "Période",
-      "noData": "Aucun historique de paiement trouvé"
+      "noData": "Aucun historique de bulletin trouvé",
+      "add_Payment": "Créer un bulletin"
     },
     "fullName": "Nom Complet",
-    "hourlyRate": "Taux Horaire",
-    "hours": "Heures",
+    "hourlyRate": "Total Ton",
+    "hours": "Prix / Ton",
     "total": "Total"
   },
   "sidebar": {
@@ -578,7 +579,7 @@
         "date_of_engagement": "Date d'engagement",
         "matricule": "Matricule",
         "monthly_salary": "Salaire mensuel",
-        "price_per_hour": "Prix/Heure",
+        "price_per_hour": "Prix/Ton",
         "price_per_day": "Prix/Jour"
       },
       "actions": {

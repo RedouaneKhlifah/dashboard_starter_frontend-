@@ -160,7 +160,7 @@ export function EmployeesTable({
         label: users_table.headers.date_of_engagement,
       },
       {
-        key: "price_per_hour" as keyof EmployeeRow,
+        key: "price_per_ton" as keyof EmployeeRow,
         label: users_table.headers.price_per_hour,
         renderCell: (_: any, row: EmployeeRow) =>
           `${row.price_per_hour} ${translation.shared.currency}`,
@@ -203,7 +203,6 @@ export function EmployeesTable({
         searchPlaceholder={users_table.search_placeholder}
         buttonText={users_table.create_new_Employees}
         execlButtonText={users_table.upload_execl}
-        execlButton={true}
         showSearch={true}
         setSearchQuery={setSearchQuery}
       />
