@@ -5,6 +5,8 @@ import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { DictionaryType } from "@/lib/i18n";
 import { formatCurrency, formatDate } from "@/components/utils/formatters";
+import Logo from "@/public/logo_Zroudi.svg";
+import Image from "next/image";
 
 // Types
 interface PrintableorderProps {
@@ -55,6 +57,7 @@ const calculateorderSummary = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
+     <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div> 
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.orders_table.print.company_name}
     </h1>
