@@ -123,25 +123,16 @@ const ProductsTab = ({
             label: translation.order.form.articles.unit,
           },
           {
-            key: "price_unitaire" as keyof any,
-            label: translation.order.form.articles.unit_price,
+            key: `price_unitaire`,
+            label: `${translation.order.form.articles.unit_price}`,
             width: "130px",
             renderCell: (value: number, row: any) => (
-              <InputField
-                type="number"
-                value={value}
-                onChange={(e) => {}}
-                min={0}
-                id={"price_unitaire"}
-                suffix={translation.shared.currency}
-                label={""}
-                disabled={true}
-              />
+              <p>{value + " " + translation.shared.currency}</p>
             ),
           },
           {
-            key: "quantity",
-            label: translation.order.form.articles.quantity,
+            key: `quantity`,
+            label: `${translation.order.form.articles.quantity}  (${translation.shared.kg_unit})`,
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
@@ -153,6 +144,14 @@ const ProductsTab = ({
                 value={value}
                 disabled={!!row.ticket_id}
               />
+            ),
+          },
+
+          {
+            key: `quantity`,
+            label: `${translation.order.form.articles.quantity}  (${translation.shared.ton_unit})`,
+            renderCell: (value: number, _row: any) => (
+              <p>{(value * 0.001).toFixed(3)}</p>
             ),
           },
           {

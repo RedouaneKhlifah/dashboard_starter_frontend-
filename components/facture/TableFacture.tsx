@@ -24,6 +24,7 @@ import Printableorder from "../facture/printable/PrintableOrder";
 import ReactDOMServer from "react-dom/server";
 import useToast from "@/hooks/useToast";
 import { Status } from "@/dto/facture/factureForm";
+import { stat } from "fs";
 
 interface TableFactureProps {
   records: IFacture[];
@@ -67,7 +68,7 @@ export function TableFacture({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "facture",
+    entity: "factures",
     setRecords: setOrders,
     setTotalRecords: setTotalOrders,
   });
@@ -107,28 +108,20 @@ export function TableFacture({
     );
   };
 
-  const getStatusColor = useCallback(
-    (statusCode: string) => {
-      switch (statusCode) {
-        case factures_table.statuses.unpaid:
-          return "bg-red-500";
-        case factures_table.statuses.paid:
-          return "bg-green-500";
-        case factures_table.statuses.partially_paid:
-          return "bg-orange-500";
-        case factures_table.statuses.draft:
-          return "bg-gray-500";
-        default:
-          return "bg-gray-500";
-      }
-    },
-    [
-      factures_table.statuses.draft,
-      factures_table.statuses.paid,
-      factures_table.statuses.partially_paid,
-      factures_table.statuses.unpaid,
-    ]
-  );
+  const getStatusColor = useCallback((statusCode: string) => {
+    switch (statusCode) {
+      case Status.DRAFT:
+        return "bg-red-500";
+      case Status.PAID:
+        return "bg-green-500";
+      case Status.PARTIALLY_PAID:
+        return "bg-orange-500";
+      case Status.UNPAID:
+        return "bg-gray-500";
+      default:
+        return "bg-gray-500";
+    }
+  }, []);
 
   // CRUD Actions
   const handleEdit = useCallback(
@@ -283,10 +276,10 @@ export function TableFacture({
               text-xs 
               font-semibold 
               text-white 
-              ${getStatusColor(row?.status || "")}
+              ${getStatusColor(row.status)}
             `}
           >
-            {row?.status}
+            {row?.statusText}
           </span>
         ),
       },

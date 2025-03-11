@@ -141,7 +141,7 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
                 </div>
                 <div className="flex items-end mt-6">
                   <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                    {data.paid_amount_partial_complete?.toFixed(2) ?? "0.00"}
+                    {data.revenue?.toFixed(2) ?? "0.00"}
                   </span>
                   <span className="mx-1 text-gray-500 font-medium">
                     {translation.shared.currency}

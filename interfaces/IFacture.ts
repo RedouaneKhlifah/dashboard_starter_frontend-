@@ -12,6 +12,8 @@ interface IFacture {
 
   status: Status;
 
+  statusText: string;
+
   client_id: number;
 
   reference: string;

@@ -843,6 +843,8 @@
     "continue": "Continue",
     "loading ": "Loading...",
     "currency": "MAD",
+    "ton_unit": "Ton",
+    "kg_unit": "Kg",
     "printable": "Print",
     "Apply": "Apply",
     "Reset": "Reset",

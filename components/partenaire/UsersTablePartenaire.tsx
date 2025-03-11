@@ -158,7 +158,7 @@ export function UsersTablePartenaire({
         rows={partenairRows}
         totalRows={totalPartenaires}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg"
+        className="shadow-lg rounded-lg "
         noDataMessage={partenaires_table.no_data.message}
         sub_text={partenaires_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}

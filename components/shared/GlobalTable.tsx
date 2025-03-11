@@ -91,7 +91,7 @@ export const GlobalTable = <T extends { id: string | number }>({
   return (
     <MTThemeProvider>
       <Card
-        className={`w-full overflow-scroll relative ${className}`}
+        className={`w-full overflow-auto relative ${className}`}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}

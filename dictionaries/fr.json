@@ -829,6 +829,8 @@
     "continue": "Continuer",
     "loading ": "Chargement...",
     "currency": "MAD",
+    "ton_unit": "tonne",
+    "kg_unit": "kg",
     "printable": "Imprimer",
     "Apply": "Appliquer",
     "Reset": "Réinitialiser",
