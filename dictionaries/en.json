@@ -358,13 +358,14 @@
       "print": "Print"
     },
     "history": {
-      "title": "Payment History",
+      "title": "Bulletin History",
       "period": "Period",
-      "noData": "No payment history found"
+      "noData": "No Bulletin history found",
+      "add_Payment": "Create Bulletin"
     },
     "fullName": "Full Name",
-    "hourlyRate": "Hourly Rate",
-    "hours": "Hours",
+    "hourlyRate": "Total Ton",
+    "hours": "Prix / Ton",
     "total": "Total"
   },
   "order": {
@@ -509,14 +510,14 @@
       "recalculate": "Recalculate",
       "product": "Product",
       "noProduct": "No product available",
-      "pricePerKg": "Price per Kg",
+      "pricePerKg": "Price per Ton",
       "discount": "Discount",
       "tickets": "Tickets",
       "date": "Date",
       "netWeight": "Net Weight",
       "noTicketsFound": "No tickets found for the selected period",
       "summary": "Summary",
-      "totalWeight": "Total Weight",
+      "totalWeight": "Total Ton",
       "totalValue": "Total Value",
       "netTotal": "Net Total",
       "calculating": "Calculating"
@@ -587,7 +588,7 @@
         "date_of_engagement": "Engagement Date",
         "matricule": "Matricule",
         "monthly_salary": "Monthly Salary",
-        "price_per_hour": "Price/Hour",
+        "price_per_hour": "Price/Ton",
         "price_per_day": "Price/Day"
       },
       "actions": {

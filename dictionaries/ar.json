@@ -491,14 +491,14 @@
       "recalculate": "إعادة حساب",
       "product": "المنتج",
       "noProduct": "لا يوجد منتج متاح",
-      "pricePerKg": "السعر لكل كيلوغرام",
+      "pricePerKg": "السعر لكل طن",
       "discount": "الخصم",
       "tickets": "التذاكر",
       "date": "التاريخ",
       "netWeight": "الوزن الصافي",
       "noTicketsFound": "لم يتم العثور على تذاكر للفترة المحددة",
       "summary": "الملخص",
-      "totalWeight": "الوزن الإجمالي",
+      "totalWeight": "إجمالي الطن",
       "totalValue": "القيمة الإجمالية",
       "netTotal": "المجموع الصافي",
       "calculating": "جاري الحساب..."
@@ -514,11 +514,12 @@
     "history": {
       "title": "سجل المدفوعات",
       "period": "الفترة",
-      "noData": "لم يتم العثور على سجل مدفوعات"
+      "noData": "لم يتم العثور على سجل مدفوعات",
+      "add_Payment": "إنشاء نشرة الدفع"
     },
     "fullName": "الاسم الكامل",
-    "hourlyRate": "أجر الساعة",
-    "hours": "الساعات",
+    "hourlyRate": "مجموع الأطنان",
+    "hours": "السعر/ طن",
     "total": "المجموع"
   },
   "sidebar": {
@@ -586,8 +587,8 @@
         "date_of_engagement": "تاريخ التوظيف",
         "matricule": "رقم الموظف",
         "monthly_salary": "الراتب الشهري",
-        "price_per_hour": "السعر/ساعة",
-        "price_per_day": "السعر/يوم"
+        "price_per_hour": "السعر/ طن",
+        "price_per_day": "السعر/ يوم"
       },
       "actions": {
         "edit": "تعديل",

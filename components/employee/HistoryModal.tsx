@@ -10,6 +10,8 @@ import { IEmployee } from "@/interfaces/IEmployee";
 import { Locale } from "@/i18n-config";
 import http from "@/lib/http";
 import PrintableEmployee from "./printable/PrintableEmployee";
+import { GlobalTable } from "@/components/shared/GlobalTable";
+import CreateBulletin from "./CreateBulletin";
 
 export interface PaymentHistory {
   id: number;
@@ -44,7 +46,7 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
 }) => {
   const { closeModal, modalType } = useModalStore();
   const contentRef = useRef<HTMLDivElement>(null);
-
+  const { openSecondModal, secondModalType } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [employeeWithHistory, setEmployeeWithHistory] =
@@ -114,79 +116,71 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
       contentClassName="2xl:min-w-[70%]"
     >
       <div className="space-y-4">
-        {/* Table Header */}
-        <div className="flex items-center bg-accent p-4 rounded-sm">
-          {[
-            translation.HistoryModal.history.period,
-            translation.HistoryModal.fullName,
-            translation.HistoryModal.hourlyRate,
-             translation.HistoryModal.hours,
-            translation.HistoryModal.total,
-             translation.HistoryModal.common.actions,
-          ].map((header, index) => (
-            <p key={index} className="flex-1">
-              {header}
-            </p>
-          ))}
-        </div>
-
-        {/* Loading State */}
-        {isLoading && (
-          <>
-            {[...Array(3)].map((_, index) => (
-              <div
-                key={index}
-                className="flex items-center bg-accent p-4 py-4 rounded-sm animate-pulse"
-              >
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="flex-1 space-y-2">
-                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                    {i === 0 && (
-                      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </>
-        )}
-
-        {/* Empty State */}
-        {!isLoading && !employeeWithHistory?.payment_histories?.length && (
-          <div className="text-center py-4 text-gray-500">
-            {translation.HistoryModal.history.noData}
-          </div>
-        )}
-
-        {/* Payment History */}
-        {!isLoading &&
-          employeeWithHistory?.payment_histories?.map((history) => (
-            <div
-              key={history.id}
-              className="flex items-center bg-accent p-4 py-4 rounded-sm"
-            >
-              <div className="flex-1">
-                <p>{history.start_date}</p>
-                <p>{history.end_date}</p>
-              </div>
-              <p className="flex-1">{employeeWithHistory.full_name}</p>
-              <p className="flex-1">{employeeWithHistory.price_per_hour} DH</p>
-              <p className="flex-1">{history.total_hours}</p>
-              <p className="flex-1">{history.total_gain} DH</p>
-              <div className="flex-1">
+        <button
+          type="button"
+          onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
+          className="px-3.5 py-2 text-sm font-medium bg-primary text-white rounded-md transition-colors shadow-sm hover:shadow-md"
+        >
+          {translation.HistoryModal.history.add_Payment}
+        </button>
+        <GlobalTable
+          headers={[
+            {
+              key: "period" as keyof PaymentHistory,
+              label: translation.HistoryModal.history.period,
+              renderCell: (_: any, row: PaymentHistory) => (
+                <div>
+                  <p>{row.start_date}</p>
+                  <p>{row.end_date}</p>
+                </div>
+              ),
+            },
+            {
+              key: "full_name" as keyof PaymentHistory,
+              label: translation.HistoryModal.fullName,
+              renderCell: (_: any, _row: PaymentHistory) => (
+                <p>{employeeWithHistory?.full_name}</p>
+              ),
+            },
+            {
+              key: "pricePerTon" as keyof PaymentHistory,
+              label: translation.HistoryModal.hourlyRate,
+              renderCell: (_: any, _row: PaymentHistory) => (
+                <p>{employeeWithHistory?.price_per_hour} {translation.shared.currency}</p>
+              ),
+            },
+            {
+              key: "total_hours",
+              label: translation.HistoryModal.hours,
+            },
+            {
+              key: "total_gain",
+              label: translation.HistoryModal.total,
+              renderCell: (_: any, row: PaymentHistory) => <p>{row.total_gain} {translation.shared.currency}</p>,
+            },
+            {
+              key: "actions" as keyof PaymentHistory,
+              label: translation.HistoryModal.common.actions,
+              renderCell: (_: any, row: PaymentHistory) => (
                 <button
-                  onClick={(e) => handlePrintRequest(e, history)}
+                  onClick={(e: any) => handlePrintRequest(e, row)}
                   className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-colors"
                   title={translation.HistoryModal.common.print}
                 >
                   <FileText size={18} />
                 </button>
-              </div>
-            </div>
-          ))}
+              ),
+            },
+          ]}
+          rows={employeeWithHistory?.payment_histories || []}
+          className="mt-4"
+          totalRows={employeeWithHistory?.payment_histories?.length || 0}
+          setCurrentPage={() => { }}
+          currentPage={0}
+          isLoading={isLoading}
+        />
       </div>
 
-      {/* Hidden Print Component */}
       <div style={{ display: "none" }}>
         <PrintableEmployee
           ref={contentRef}
@@ -196,6 +190,11 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
           lang={lang}
         />
       </div>
+      <CreateBulletin
+        translation={translation}
+        isSecondOpen={secondModalType === "create"}
+        pricePerTon={employeeWithHistory?.price_per_hour || 0}
+      />
     </GlobalModal>
   );
 };
