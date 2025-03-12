@@ -9,13 +9,15 @@ interface SingleInputDateRangePickerProps {
   value: { start: Date | null; end: Date | null };
   onChange: (newRange: { start: Date | null; end: Date | null }) => void;
   translation: DictionaryType;
+  min?: boolean
 
 }
 
 export default function SingleInputDateRangePicker({ 
   value, 
   onChange,
-  translation
+  translation,
+  min
 }: SingleInputDateRangePickerProps) {
   const [showPicker, setShowPicker] = useState(false);
 
@@ -60,6 +62,7 @@ export default function SingleInputDateRangePicker({
             <DateRangePicker
               onSelect={handleDateSelect}
               translation={translation}
+              min = {min}
               initialRange={{
                 startDate: value.start || new Date(),
                 endDate: value.end || addDays(new Date(), 3),
