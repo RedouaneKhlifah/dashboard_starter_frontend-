@@ -11,9 +11,10 @@ interface DateRangePickerProps {
   onSelect: (startDate: Date, endDate: Date) => void;
   initialRange?: Range;
   translation: DictionaryType;
+  min?: boolean
 }
 
-const DateRangePicker = ({ onSelect, initialRange, translation }: DateRangePickerProps) => {
+const DateRangePicker = ({ onSelect, initialRange, translation, min }: DateRangePickerProps) => {
   const [dateRange, setDateRange] = useState<Range[]>([
     initialRange || {
       startDate: new Date(),
@@ -30,14 +31,14 @@ const DateRangePicker = ({ onSelect, initialRange, translation }: DateRangePicke
   };
 
   return (
-    <div className="bg-background p-4 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 w-full">
+    <div className={`bg-background p-4 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 ${min ? 'w-[26rem]' : 'w-full'}`}>
       <DateRange
         editableDateInputs={true}
         moveRangeOnFirstSelection={false}
         ranges={dateRange}
         onChange={handleSelect}
         rangeColors={['#52ad55']}
-        className="date-range w-full bg-background"
+        className={`date-range w-full bg-background ${min ? 'h-[21rem]' : ''}`}
       />
 
       <div className="flex justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">

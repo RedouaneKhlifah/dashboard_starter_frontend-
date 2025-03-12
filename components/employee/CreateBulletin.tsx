@@ -127,8 +127,8 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
       dismiss={false}
       isLoading={isLoading}
     >
-      <div className="space-y-2 p-4">
-        <div className="bg-gray-50 p-4 rounded-lg">
+      <div className="space-y-2 p-3 h-[28rem]">
+        <div className="bg-gray-50 rounded-lg">
           <SingleInputDateRangePicker
             value={dateRange}
             onChange={(newRange) =>
@@ -138,6 +138,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
               })
             }
             translation={translation}
+            min = {true}
           />
         </div>
 
