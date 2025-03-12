@@ -10,7 +10,6 @@ export interface EmployeeRow {
   address: string;
   city: string;
   date_of_engagement: string;
-  price_per_ton: number;
   cnss_number: string | null;
   birth_date: string | null;
 }
@@ -26,7 +25,6 @@ const rowMapper = (employee: IEmployee[]): EmployeeRow[] => {
     address: employee.address,
     city: employee.city,
     date_of_engagement: employee.date_of_engagement,
-    price_per_ton: employee.price_per_ton,
     cnss_number: employee.cnss_number,
     birth_date: employee.birth_date,
   }));

@@ -160,12 +160,6 @@ export function EmployeesTable({
         label: users_table.headers.date_of_engagement,
       },
       {
-        key: "price_per_ton" as keyof EmployeeRow,
-        label: users_table.headers.price_per_ton,
-        renderCell: (_: any, row: EmployeeRow) =>
-          `${row.price_per_ton} ${translation.shared.currency}`,
-      },
-      {
         key: "id" as keyof IEmployee,
         label: users_table.headers.actions,
         renderCell: (_: any, row: IEmployee) => (
@@ -185,11 +179,9 @@ export function EmployeesTable({
       users_table.headers.name,
       users_table.headers.national_id,
       users_table.headers.date_of_engagement,
-      users_table.headers.price_per_ton,
       users_table.headers.actions,
       users_table.actions.edit,
       users_table.actions.delete,
-      translation.shared.currency,
       handleShowHistory,
       handleEdit,
       openDeleteModal,

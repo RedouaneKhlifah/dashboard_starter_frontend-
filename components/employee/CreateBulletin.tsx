@@ -42,9 +42,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
     end: lastMonth,
   });
   const [totalTon, setTotalTon] = useState<number>(0);
-  const [pricePerTonState, setPricePerTonState] = useState<number>(
-    employee?.price_per_ton || 0
-  );
+  const [pricePerTonState, setPricePerTonState] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -72,6 +70,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             start_date: dateRange.start,
             end_date: dateRange.end,
             total_ton: totalTon,
+            price_per_ton: pricePerTonState,
           }),
         }
       );
@@ -105,6 +104,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
       dateRange.start,
       employee?.id,
       handleClose,
+      pricePerTonState,
       setEmployeeWithHistory,
       toastError,
       toastSuccess,
@@ -138,7 +138,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
               })
             }
             translation={translation}
-            min = {true}
+            min={true}
           />
         </div>
 
@@ -150,6 +150,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             value={totalTon}
             onChange={(e) => setTotalTon(Number(e.target.value))}
             min={0}
+            suffix={translation.shared.ton_unit}
           />
           <InputField
             id="pricePerTon"
@@ -157,7 +158,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             type="number"
             value={pricePerTonState}
             onChange={(e) => setPricePerTonState(Number(e.target.value))}
-            disabled
+            suffix={translation.shared.currency}
           />
         </div>
 

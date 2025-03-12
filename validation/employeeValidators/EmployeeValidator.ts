@@ -41,10 +41,6 @@ export const validateEmployeesForm = (
     formData.date_of_engagement
   );
   newErrors.birth_date = validateField(dateBorthSchema, formData.birth_date);
-  newErrors.price_per_ton = validateField(
-    pricePerHourSchema,
-    formData.price_per_ton
-  );
 
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)
