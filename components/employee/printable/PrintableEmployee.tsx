@@ -130,7 +130,9 @@ const PayDetailsTable = ({
   <table className="w-full border-collapse mb-4">
     <thead>
       <tr>
-        <th className="border p-2">{translation.employee.form.price_per_ton}</th>
+        <th className="border p-2">
+          {translation.employee.form.price_per_ton}
+        </th>
         <th className="border p-2">{translation.HistoryModal.hourlyRate}</th>
         <th className="border p-2">{translation.HistoryModal.total}</th>
       </tr>
@@ -139,7 +141,7 @@ const PayDetailsTable = ({
       <tr>
         <td className="border p-2 text-center">
           <div className="flex items-center gap-1">
-            {employee.price_per_ton}
+            {historyOfPay.price_per_ton}
             <span className="text-sm">{translation.shared.currency}</span>
           </div>
         </td>
@@ -147,7 +149,8 @@ const PayDetailsTable = ({
           <div className="flex items-center gap-1">
             {historyOfPay.total_ton}
             <span className="text-sm">{translation.shared.ton_unit}</span>
-          </div></td>
+          </div>
+        </td>
         <td className="border p-2 text-center">
           {historyOfPay.total_gain} {translation.shared.currency}
         </td>
