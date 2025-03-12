@@ -24,7 +24,7 @@ const DocumentHeader = ({
 }) => (
   <div className="flex gap-1 border-b-2 pb-2 mb-4 w-full">
     <div className="flex flex-col w-full h-full">
-      <div className="border p-3">
+      <div className="border px-3 pt-3 pb-[35px]">
         <div className="border-b text-center">
           <h2 className="font-bold text-lg">{translation.payslip.employer}</h2>
         </div>
@@ -130,39 +130,31 @@ const PayDetailsTable = ({
   <table className="w-full border-collapse mb-4">
     <thead>
       <tr>
-        <th className="border p-2">{translation.payslip.category}</th>
-        <th className="border p-2">{translation.payslip.amount}</th>
-        <th className="border p-2">{translation.payslip.base}</th>
-        <th className="border p-2">{translation.payslip.rate}</th>
-        <th className="border p-2">{translation.payslip.earnings}</th>
+        <th className="border p-2">{translation.employee.form.price_per_ton}</th>
+        <th className="border p-2">{translation.HistoryModal.hourlyRate}</th>
+        <th className="border p-2">{translation.HistoryModal.total}</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td className="border p-2">{translation.payslip.normal_hours}</td>
-        <td className="border p-2"></td>
-        <td className="border p-2 text-right">
-          <div className="flex items-center gap-1">
-            {historyOfPay.total_ton}
-            <span className="text-sm">{translation.shared.ton_unit}</span>
-          </div>
-        </td>
-        <td className="border p-2 text-right">
+        <td className="border p-2 text-center">
           <div className="flex items-center gap-1">
             {employee.price_per_ton}
             <span className="text-sm">{translation.shared.currency}</span>
           </div>
         </td>
-        <td className="border p-2 text-right">
+        <td className="border p-2">
           <div className="flex items-center gap-1">
-            {historyOfPay.total_gain}
-            <span className="text-sm">{translation.shared.currency}</span>
-          </div>
+            {historyOfPay.total_ton}
+            <span className="text-sm">{translation.shared.ton_unit}</span>
+          </div></td>
+        <td className="border p-2 text-center">
+          {historyOfPay.total_gain} {translation.shared.currency}
         </td>
       </tr>
 
       <tr className="font-bold">
-        <td className="border p-2" colSpan={3}>
+        <td className="border p-2" colSpan={2}>
           {translation.payslip.total}
         </td>
         <td className="border p-2 text-center" colSpan={2}>

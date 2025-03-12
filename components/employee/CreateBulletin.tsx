@@ -128,7 +128,14 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
       isLoading={isLoading}
     >
       <div className="space-y-2 p-3 h-[28rem]">
-        <div className="bg-gray-50 rounded-lg">
+        <div className="bg-gray-50 p-3 rounded-lg grid grid-cols-2 gap-4 justify-center">
+          <InputField
+            id="full_name"
+            label={translation.HistoryModal.fullName}
+            value={employee?.full_name || ""}
+            onChange={() => { }}
+            disabled
+          />
           <SingleInputDateRangePicker
             value={dateRange}
             onChange={(newRange) =>
@@ -141,6 +148,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             min={true}
           />
         </div>
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border">
           <InputField
