@@ -40,7 +40,7 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({
       address: "",
       national_id: "",
       monthly_salary: 0,
-      price_per_hour: 0,
+      price_per_ton: 0,
       price_per_day: 0,
       matricule: "",
       cnss_number: null,

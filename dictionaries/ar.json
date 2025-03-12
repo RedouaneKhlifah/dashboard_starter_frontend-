@@ -157,7 +157,7 @@
       "matricule": "رمز الموظف",
       "national_id": "الرقم الوطني (CIN)",
       "date_of_engagement": "تاريخ التعيين",
-      "price_per_hour": "السعر / ساعة",
+      "price_per_ton": "السعر / طن",
       "cnss_number": "رقم الضمان الاجتماعي",
       "birth_date": "تاريخ الميلاد",
       "Out_of": "من أصل",
@@ -179,7 +179,9 @@
       "delete_success": "تم حذف الموظف بنجاح",
       "error": "خطأ أثناء إنشاء الموظف",
       "upload_success": "تم تحميل الموظفين بنجاح",
-      "upload_error": "خطأ في تحميل الموظفين"
+      "upload_error": "خطأ في تحميل الموظفين",
+      "bultain_error": "خطأ في إنشاء إيصال الدفع",
+      "bultain_success": "تم إنشاء إيصال الدفع بنجاح"
     }
   },
   "partenaire": {
@@ -587,7 +589,7 @@
         "date_of_engagement": "تاريخ التوظيف",
         "matricule": "رقم الموظف",
         "monthly_salary": "الراتب الشهري",
-        "price_per_hour": "السعر/ طن",
+        "price_per_ton": "السعر/ طن",
         "price_per_day": "السعر/ يوم"
       },
       "actions": {

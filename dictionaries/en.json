@@ -153,7 +153,7 @@
       "matricule": "Matricule",
       "national_id": "CIN",
       "date_of_engagement": "Date of Engagement",
-      "price_per_hour": "Price / Hour",
+      "price_per_ton": "Price / Ton",
       "cnss_number": "CNSS Number",
       "birth_date": "Birth Date",
       "Out_of": "Out of",
@@ -175,7 +175,9 @@
       "delete_success": "Employee deleted successfully",
       "upload_success": "Employees uploaded successfully",
       "upload_error": "Error uploading employees",
-      "error": "An error occurred while creating the employee"
+      "error": "An error occurred while creating the employee",
+      "bultain_error": "An error occurred while creating the bultain de paiement",
+      "bultain_success": "Bultain de paiement created successfully"
     }
   },
   "partenaire": {
@@ -517,7 +519,7 @@
       "netWeight": "Net Weight",
       "noTicketsFound": "No tickets found for the selected period",
       "summary": "Summary",
-      "totalWeight": "Total Ton",
+      "totalWeight": "Quantity Ton",
       "totalValue": "Total Value",
       "netTotal": "Net Total",
       "calculating": "Calculating"
@@ -588,7 +590,7 @@
         "date_of_engagement": "Engagement Date",
         "matricule": "Matricule",
         "monthly_salary": "Monthly Salary",
-        "price_per_hour": "Price/Ton",
+        "price_per_ton": "Price/Ton",
         "price_per_day": "Price/Day"
       },
       "actions": {

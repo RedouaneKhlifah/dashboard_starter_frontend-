@@ -45,7 +45,7 @@ const UpdateEmployeesForm: React.FC<EmployeesFormProps> = ({
         address: "",
         national_id: "",
         cnss_number: null,
-        price_per_hour: 0,
+        price_per_ton: 0,
         city: "",
         date_of_engagement: "",
         birth_date: null,

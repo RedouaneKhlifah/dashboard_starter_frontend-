@@ -166,23 +166,23 @@ const EmployeesForm: React.FC<EmployeesFormProps> = ({
           required
         />
 
-          <InputField
-            id="city"
-            label={translation.employee.form.city}
-            value={formData.city}
-            onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.city}
-            required
-          />
- 
+        <InputField
+          id="city"
+          label={translation.employee.form.city}
+          value={formData.city}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          error={errors.city}
+          required
+        />
+
         <div className="grid grid-cols-2 gap-4">
           <InputField
-            id="price_per_hour"
+            id="price_per_ton"
             type="number"
-            label={translation.employee.form.price_per_hour}
-            value={formData.price_per_hour}
+            label={translation.employee.form.price_per_ton}
+            value={formData.price_per_ton}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.price_per_hour}
+            error={errors.price_per_ton}
             required
             suffix={translation.shared.currency}
           />

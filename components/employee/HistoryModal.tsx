@@ -16,7 +16,8 @@ import CreateBulletin from "./CreateBulletin";
 export interface PaymentHistory {
   id: number;
   employee_id: number;
-  total_hours: string;
+  total_ton: string;
+  price_per_ton: string;
   total_gain: string;
   start_date: string;
   end_date: string;
@@ -116,13 +117,15 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
       contentClassName="2xl:min-w-[70%]"
     >
       <div className="space-y-4">
-        <button
-          type="button"
-          onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
-          className="px-3.5 py-2 text-sm font-medium bg-primary text-white rounded-md transition-colors shadow-sm hover:shadow-md"
-        >
-          {translation.HistoryModal.history.add_Payment}
-        </button>
+        <div className="w-full flex justify-end">
+          <button
+            type="button"
+            onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
+            className="px-3.5 py-2 text-sm font-medium bg-primary text-white rounded-md transition-colors shadow-sm hover:shadow-md"
+          >
+            {translation.HistoryModal.history.add_Payment}
+          </button>
+        </div>
         <GlobalTable
           headers={[
             {
@@ -143,20 +146,37 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
               ),
             },
             {
-              key: "pricePerTon" as keyof PaymentHistory,
-              label: translation.HistoryModal.hourlyRate,
-              renderCell: (_: any, _row: PaymentHistory) => (
-                <p>{employeeWithHistory?.price_per_hour} {translation.shared.currency}</p>
+              key: "price_per_ton" as keyof PaymentHistory,
+              label: translation.employee.form.price_per_ton,
+              renderCell: (_: any, row: PaymentHistory) => (
+                <p>
+                  {row?.price_per_ton}{" "}
+                  <span className="text-xs">{translation.shared.currency}</span>
+                </p>
               ),
             },
             {
-              key: "total_hours",
-              label: translation.HistoryModal.hours,
+              key: "total_ton" as keyof PaymentHistory,
+              label: `${translation.order.form.articles.quantity}`,
+              renderCell: (_: any, row: PaymentHistory) => (
+                <p>
+                  {row.total_ton}{" "}
+                  <span className="text-xs">{translation.shared.ton_unit}</span>
+                </p>
+              ),
             },
             {
               key: "total_gain",
               label: translation.HistoryModal.total,
-              renderCell: (_: any, row: PaymentHistory) => <p>{row.total_gain} {translation.shared.currency}</p>,
+              renderCell: (_: any, row: PaymentHistory) => (
+                <p>
+                  {row.total_gain}{" "}
+                  <span className="text-xs">
+                    {" "}
+                    {translation.shared.currency}{" "}
+                  </span>
+                </p>
+              ),
             },
             {
               key: "actions" as keyof PaymentHistory,
@@ -175,7 +195,7 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
           rows={employeeWithHistory?.payment_histories || []}
           className="mt-4"
           totalRows={employeeWithHistory?.payment_histories?.length || 0}
-          setCurrentPage={() => { }}
+          setCurrentPage={() => {}}
           currentPage={0}
           isLoading={isLoading}
         />
@@ -193,7 +213,8 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
       <CreateBulletin
         translation={translation}
         isSecondOpen={secondModalType === "create"}
-        pricePerTon={employeeWithHistory?.price_per_hour || 0}
+        employee={selectedRecord}
+        setEmployeeWithHistory={setEmployeeWithHistory}
       />
     </GlobalModal>
   );
