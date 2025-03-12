@@ -184,8 +184,8 @@ const ProductsTable = ({
       {facture.products.map((product, index) => (
         <tr key={index} className="border-b border-gray-200">
           <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.quantity || 0}</td>
-          <td className="text-right py-2 px-3">{product.price_unitaire} MAD</td>
+          <td className="text-right py-2 px-3">{product.quantity / 1000 || 0} {translation.shared.ton_unit}</td>
+          <td className="text-right py-2 px-3">{product.price_unitaire} {translation.shared.currency}</td>
           <td className="text-right py-2 px-3">
             {formatCurrency(
               product.quantity * (product.price_unitaire || 0),
