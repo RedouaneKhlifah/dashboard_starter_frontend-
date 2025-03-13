@@ -24,7 +24,7 @@ const DocumentHeader = ({
 }) => (
   <div className="flex gap-1 border-b-2 pb-2 mb-4 w-full">
     <div className="flex flex-col w-full h-full">
-      <div className="border px-3 pt-3 pb-[35px]">
+      <div className="border px-3 pt-3 pb-[40px]">
         <div className="border-b text-center">
           <h2 className="font-bold text-lg">{translation.payslip.employer}</h2>
         </div>
@@ -36,12 +36,9 @@ const DocumentHeader = ({
           <p>{translation.payslip.city}</p>
         </div>
       </div>
-      <div className="border w-full px-3 py-1">
-        <p>{translation.payslip.registration_number}: 2228022</p>
-      </div>
     </div>
     <div className="flex flex-col w-full h-full">
-      <div className="border px-3 pt-3 pb-[60px]">
+      <div className="border px-3 pt-3 pb-[30px]">
         <div className="border-b  text-center">
           <h2 className="font-bold text-lg">
             {translation.payslip.PayslipName}
