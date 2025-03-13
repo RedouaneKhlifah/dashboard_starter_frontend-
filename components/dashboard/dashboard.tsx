@@ -61,6 +61,8 @@ const Dashboard = ({ initialData, translation, lang }: DashboardProps) => {
           }
         );
 
+        console.log("res -----------", res);
+
         if (res.ok) {
           const newData = await res.json();
           setData(newData);
