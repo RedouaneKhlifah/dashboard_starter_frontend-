@@ -69,6 +69,7 @@ export function TableFacture({
     currentPage,
     setIsLoading,
     entity: "factures",
+    lang: lang,
     setRecords: setOrders,
     setTotalRecords: setTotalOrders,
   });

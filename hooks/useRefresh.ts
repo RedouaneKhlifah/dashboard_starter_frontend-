@@ -8,6 +8,7 @@ interface HandleRefreshProps {
   entity: string;
   setRecords: (records: any[]) => void;
   setTotalRecords: (totalRecords: number) => void;
+  lang?: "en" | "ar" | "fr";
 }
 
 const useRefresh = ({
@@ -17,6 +18,7 @@ const useRefresh = ({
   entity,
   setRecords,
   setTotalRecords,
+  lang,
 }: HandleRefreshProps) => {
   const prevSearchQueryRef = useRef<string>(searchQuery || "");
   const prevCurrentPageRef = useRef<number>(currentPage);
@@ -46,6 +48,7 @@ const useRefresh = ({
           )}&page=${currentPageToUse}`,
           {
             method: "GET",
+            lang,
           }
         );
 
@@ -77,6 +80,7 @@ const useRefresh = ({
       setIsLoading,
       entity,
       searchQuery,
+      lang,
       setRecords,
       setTotalRecords,
     ]
