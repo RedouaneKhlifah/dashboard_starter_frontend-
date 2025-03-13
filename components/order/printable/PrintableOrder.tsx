@@ -128,16 +128,16 @@ const ProductsTable = ({
   lang: Locale;
 }) => (
   <table className="w-full mb-6">
-    <thead>
+     <thead>
       <tr className="border-b-2 border-gray-300">
         <th className="text-left py-2 px-3">
           {translation.sidebar.orders_table.print.product}
         </th>
         <th className="text-right py-2 px-3">
-          {translation.sidebar.orders_table.print.quantity}
+          {translation.sidebar.orders_table.print.quantity} (ton)
         </th>
         <th className="text-right py-2 px-3">
-          {translation.sidebar.orders_table.print.unit_price}
+          {translation.sidebar.orders_table.print.unit_price} (MAD/kg)
         </th>
         <th className="text-right py-2 px-3">
           {translation.sidebar.orders_table.print.total}
@@ -145,16 +145,26 @@ const ProductsTable = ({
       </tr>
     </thead>
     <tbody>
-      {order.products.map((product, index) => (
-        <tr key={index} className="border-b border-gray-200">
-          <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.quantity}</td>
-          <td className="text-right py-2 px-3">{product.price_unitaire}</td>
-          <td className="text-right py-2 px-3">
-            {product.price_unitaire * product.quantity}
-          </td>
-        </tr>
-      ))}
+      {order.products.map((product, index) => {
+        const quantityInTons = (product.quantity || 0) / 1000;
+        const pricePerKg = product.price_unitaire || 0;
+        const total = product.quantity * pricePerKg;
+
+        return (
+          <tr key={index} className="border-b border-gray-200">
+            <td className="py-2 px-3">{product.name}</td>
+            <td className="text-right py-2 px-3">
+              {quantityInTons.toFixed(3)} {translation.shared.ton_unit}
+            </td>
+            <td className="text-right py-2 px-3">
+              {formatCurrency(pricePerKg, lang)}
+            </td>
+            <td className="text-right py-2 px-3">
+              {formatCurrency(total, lang)}
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   </table>
 );

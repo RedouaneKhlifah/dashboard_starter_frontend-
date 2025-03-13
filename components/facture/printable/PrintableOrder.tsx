@@ -90,7 +90,7 @@ const calculateOrderTotals = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-     <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div> 
+    <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.factures_table.print.company_name}
     </h1>
@@ -130,7 +130,7 @@ const DocumentInfo = ({
     </div>
     <div className="text-right text-sm">
       {translation.sidebar.factures_table.print.due_date}: {formatDate(facture.expiration_date, lang)}
-     
+
     </div>
   </section>
 );
@@ -170,10 +170,10 @@ const ProductsTable = ({
           {translation.sidebar.factures_table.print.product}
         </th>
         <th className="text-right py-2 px-3">
-          {translation.sidebar.factures_table.print.quantity}
+          {translation.sidebar.factures_table.print.quantity} (ton)
         </th>
         <th className="text-right py-2 px-3">
-          {translation.sidebar.factures_table.print.unit_price}
+          {translation.sidebar.factures_table.print.unit_price} (MAD/kg)
         </th>
         <th className="text-right py-2 px-3">
           {translation.sidebar.factures_table.print.total}
@@ -181,19 +181,26 @@ const ProductsTable = ({
       </tr>
     </thead>
     <tbody>
-      {facture.products.map((product, index) => (
-        <tr key={index} className="border-b border-gray-200">
-          <td className="py-2 px-3">{product.name}</td>
-          <td className="text-right py-2 px-3">{product.quantity || 0}</td>
-          <td className="text-right py-2 px-3">{product.price_unitaire} MAD</td>
-          <td className="text-right py-2 px-3">
-            {formatCurrency(
-              product.quantity * (product.price_unitaire || 0),
-              lang
-            )}
-          </td>
-        </tr>
-      ))}
+      {facture.products.map((product, index) => {
+        const quantityInTons = (product.quantity || 0) / 1000;
+        const pricePerKg = product.price_unitaire || 0;
+        const total = product.quantity * pricePerKg;
+
+        return (
+          <tr key={index} className="border-b border-gray-200">
+            <td className="py-2 px-3">{product.name}</td>
+            <td className="text-right py-2 px-3">
+              {quantityInTons.toFixed(3)} {translation.shared.ton_unit}
+            </td>
+            <td className="text-right py-2 px-3">
+              {formatCurrency(pricePerKg, lang)}
+            </td>
+            <td className="text-right py-2 px-3">
+              {formatCurrency(total, lang)}
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   </table>
 );
