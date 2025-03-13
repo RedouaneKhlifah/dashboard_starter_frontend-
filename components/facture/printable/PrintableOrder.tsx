@@ -69,8 +69,8 @@ const calculateOrderTotals = (
   console.log(
     "order.remise_type ",
     order.remise +
-    " " +
-    (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
+      " " +
+      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
   );
 
   return {
@@ -90,7 +90,9 @@ const calculateOrderTotals = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-    <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div>
+    <div className="w-full flex justify-center mb-5">
+      <Image src={Logo} alt="" width={150} />
+    </div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.factures_table.print.company_name}
     </h1>
@@ -124,13 +126,13 @@ const DocumentInfo = ({
         <span className="text-sm">{facture.reference}</span>
       </div>
       <span className="text-sm">
-        {translation.sidebar.factures_table.print.date}: {formatDate(facture.facture_date, lang)}
-
+        {translation.sidebar.factures_table.print.date}:{" "}
+        {formatDate(facture.facture_date, lang)}
       </span>
     </div>
     <div className="text-right text-sm">
-      {translation.sidebar.factures_table.print.due_date}: {formatDate(facture.expiration_date, lang)}
-
+      {translation.sidebar.factures_table.print.due_date}:{" "}
+      {formatDate(facture.expiration_date, lang)}
     </div>
   </section>
 );
@@ -190,7 +192,8 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {quantityInTons.toFixed(3)} {translation.shared.ton_unit}
+              {parseFloat(quantityInTons.toFixed(3))}{" "}
+              {translation.shared.ton_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}
@@ -296,7 +299,12 @@ const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
           translation={translation}
           lang={lang}
         />
-        <TotalsSection totals={totals} facture={facture} translation={translation} lang={lang} />
+        <TotalsSection
+          totals={totals}
+          facture={facture}
+          translation={translation}
+          lang={lang}
+        />
         <Footer translation={translation} />
       </div>
     );

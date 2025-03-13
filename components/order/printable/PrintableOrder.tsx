@@ -57,7 +57,9 @@ const calculateorderSummary = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-     <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div> 
+    <div className="w-full flex justify-center mb-5">
+      <Image src={Logo} alt="" width={150} />
+    </div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.orders_table.print.company_name}
     </h1>
@@ -128,7 +130,7 @@ const ProductsTable = ({
   lang: Locale;
 }) => (
   <table className="w-full mb-6">
-     <thead>
+    <thead>
       <tr className="border-b-2 border-gray-300">
         <th className="text-left py-2 px-3">
           {translation.sidebar.orders_table.print.product}
@@ -154,7 +156,8 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {quantityInTons.toFixed(3)} {translation.shared.ton_unit}
+              {parseFloat(quantityInTons.toFixed(3))}{" "}
+              {translation.shared.ton_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}
@@ -269,8 +272,9 @@ const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
           translation={translation}
           lang={lang}
         />
-        <div className="absolute bottom-20 translate-x-1/2 right-1/2"><Footer translation={translation} /></div>
-        
+        <div className="absolute bottom-20 translate-x-1/2 right-1/2">
+          <Footer translation={translation} />
+        </div>
       </div>
     );
   }
