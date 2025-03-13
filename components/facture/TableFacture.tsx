@@ -111,13 +111,13 @@ export function TableFacture({
   const getStatusColor = useCallback((statusCode: string) => {
     switch (statusCode) {
       case Status.DRAFT:
-        return "bg-red-500";
+        return "bg-gray-500";
       case Status.PAID:
         return "bg-green-500";
       case Status.PARTIALLY_PAID:
         return "bg-orange-500";
       case Status.UNPAID:
-        return "bg-gray-500";
+        return "bg-blue-500";
       default:
         return "bg-gray-500";
     }
