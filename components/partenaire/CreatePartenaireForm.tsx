@@ -34,7 +34,7 @@ const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/partenaires",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }

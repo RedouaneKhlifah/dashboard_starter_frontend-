@@ -51,7 +51,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/factures",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(formattedData),
         }

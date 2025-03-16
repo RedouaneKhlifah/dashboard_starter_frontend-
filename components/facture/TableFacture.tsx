@@ -179,7 +179,7 @@ export function TableFacture({
   //       const response = await http(
   //         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/send-facture-email/${orderId}`,
   //         {
-  //           method: "POST",
+  //           method: "PUT",
   //           lang,
   //           body: JSON.stringify({ htmlContent }),
   //         }

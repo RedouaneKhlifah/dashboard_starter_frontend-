@@ -9,6 +9,7 @@ import http from "@/lib/http";
 import Cookies from "js-cookie";
 import useToast from "@/hooks/useToast";
 import { set } from "lodash";
+import { toastError } from "@/lib/toast";
 
 interface SignInFormProps {
   translation: DictionaryType;
@@ -27,7 +28,7 @@ const SignInForm: React.FC<SignInFormProps> = ({ translation, lang }) => {
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/sign-in",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }

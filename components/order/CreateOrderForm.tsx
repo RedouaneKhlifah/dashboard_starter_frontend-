@@ -49,7 +49,7 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(formattedData),
         }
@@ -76,7 +76,7 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders/store-and-publish",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(formattedData),
         }

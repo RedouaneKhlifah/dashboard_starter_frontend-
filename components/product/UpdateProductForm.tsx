@@ -56,7 +56,7 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord?.id}`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: mapProductToFormData(data),
         }

@@ -59,7 +59,7 @@ const CreateEmployeesForm: React.FC<EmployeesFormProps> = ({
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }

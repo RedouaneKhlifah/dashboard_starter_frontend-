@@ -94,7 +94,7 @@ export function UploadEmployee({ translation, lang }: UploadEmployeeProps) {
           const response = await http(
             `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/history-of-pay`,
             {
-              method: "POST",
+              method: "PUT",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(employees),
             }

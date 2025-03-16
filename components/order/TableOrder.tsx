@@ -157,7 +157,7 @@ export function TableOrder({
         const response = await http(
           `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-order-email/${orderId}`,
           {
-            method: "POST",
+            method: "PUT",
             lang,
             body: JSON.stringify({ htmlContent }),
           }

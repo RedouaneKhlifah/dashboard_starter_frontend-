@@ -53,7 +53,7 @@ const CreateTransactionForm: React.FC<TransactionFormProps> = ({
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/transactions`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }

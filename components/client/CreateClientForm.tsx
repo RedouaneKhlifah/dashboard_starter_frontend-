@@ -50,7 +50,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }
@@ -63,7 +63,6 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
         const error = await response.json();
         if (error?.errors?.email) {
           setErrors({ email: error.message });
-          toastError(error.message || translation.auth.error);
         }
         return false;
       }

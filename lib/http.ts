@@ -11,7 +11,6 @@ export default async function http(
 ): Promise<Response> {
   // Create default headers
   const defaultHeaders: Record<string, string> = {
-    "X-API-READ-KEY": process.env.X_API_READ_KEY || "",
     accept: "application/json",
     "Accept-Language": options.lang || "en",
   };
