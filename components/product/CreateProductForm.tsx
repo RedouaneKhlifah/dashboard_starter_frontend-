@@ -56,7 +56,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
         {
           method: "PUT",
           lang,
-          body: mapProductToFormData(data),
+          body: JSON.stringify(data),
         }
       );
 
