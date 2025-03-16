@@ -26,7 +26,9 @@ interface PrintablePartenaireProps {
 }
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-    <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div>
+    <div className="w-full flex justify-center mb-5">
+      <Image src={Logo} alt="" width={150} />
+    </div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.partenaires_table.print.company_name}
     </h1>
@@ -184,7 +186,7 @@ const TotalsSection = ({
       </div>
       <div className="flex justify-between mb-2">
         <span>{translation.sidebar.partenaires_table.print.discount}:</span>
-        <span>- {totals?.discount} %</span>
+        <span>{totals?.discount} %</span>
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.partenaires_table.print.net_total}:</span>

@@ -92,7 +92,7 @@ const ModalPartenaireDetails = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const totalValue = useMemo(
-    () => (calculationData?.total_poids_net ?? 0) * pricePerKg,
+    () => (Number(calculationData?.total_poids_net || 0) / 1000) * pricePerKg,
     [calculationData?.total_poids_net, pricePerKg]
   );
 
