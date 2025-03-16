@@ -273,9 +273,9 @@ const ModalPartenaireDetails = ({
                 <span className="font-medium">
                   {isCalculating
                     ? "..."
-                    : `${Number(calculationData?.total_poids_net || 0).toFixed(
-                        2
-                      )} KG`}
+                    : `${(
+                        Number(calculationData?.total_poids_net || 0) / 1000
+                      ).toFixed(2)} T`}
                 </span>
               </div>
               <div className="flex justify-between py-2">

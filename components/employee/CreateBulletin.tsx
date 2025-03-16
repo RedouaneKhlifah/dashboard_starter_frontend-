@@ -65,7 +65,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
       const res = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/employees/history-of-pay/${employee?.id}`,
         {
-          method: "Post",
+          method: "PUT",
           body: JSON.stringify({
             start_date: dateRange.start,
             end_date: dateRange.end,
@@ -133,7 +133,7 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             id="full_name"
             label={translation.HistoryModal.fullName}
             value={employee?.full_name || ""}
-            onChange={() => { }}
+            onChange={() => {}}
             disabled
           />
           <SingleInputDateRangePicker
@@ -148,7 +148,6 @@ const CreateBulletin: React.FC<CreateBulletinProps> = ({
             min={true}
           />
         </div>
-
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg border">
           <InputField
