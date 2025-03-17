@@ -90,9 +90,6 @@ const calculateOrderTotals = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-    <div className="w-full flex justify-center mb-5">
-      <Image src={Logo} alt="" width={150} />
-    </div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.factures_table.print.company_name}
     </h1>
@@ -184,7 +181,6 @@ const ProductsTable = ({
     </thead>
     <tbody>
       {facture.products.map((product, index) => {
-        const quantityInTons = (product.quantity || 0) / 1000;
         const pricePerKg = product.price_unitaire || 0;
         const total = product.quantity * pricePerKg;
 
@@ -192,8 +188,8 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {parseFloat(quantityInTons.toFixed(3))}{" "}
-              {translation.shared.ton_unit}
+              {product.quantity.toFixed(3)}{" "}
+              {translation.shared.kg_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}
