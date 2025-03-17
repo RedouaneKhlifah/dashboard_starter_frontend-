@@ -90,7 +90,6 @@ const calculateOrderTotals = (
 // Subcomponents
 const CompanyHeader = ({ translation }: { translation: DictionaryType }) => (
   <header className="text-center mb-8">
-    <div className="w-full flex justify-center mb-5"><Image src={Logo} alt="" width={150} /></div>
     <h1 className="text-2xl font-bold mb-2">
       {translation.sidebar.factures_table.print.company_name}
     </h1>
