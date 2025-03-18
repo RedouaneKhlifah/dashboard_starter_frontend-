@@ -1,5 +1,6 @@
 export interface IClientForm {
-  company_ice: string;
+  company: string;
+  ice: string;
   email: string;
   phone: string;
   address: string;

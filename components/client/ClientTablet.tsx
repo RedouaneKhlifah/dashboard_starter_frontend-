@@ -127,9 +127,9 @@ export function ClientTable({
   const tableHeaders: TableHeader<IClient>[] = useMemo(
     () => [
       {
-        key: "company_ice" as keyof IClient,
+        key: "company" as keyof IClient,
         label: translation.client.form.company,
-        renderCell: (_: any, row: IClient) => row.company_ice,
+        renderCell: (_: any, row: IClient) => row.company,
       },
       { key: "email" as keyof IClient, label: users_table.headers.email },
       { key: "phone" as keyof IClient, label: users_table.headers.phone },
@@ -194,7 +194,7 @@ export function ClientTable({
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
-        itemName={selectedRecord?.company_ice || ""}
+        itemName={selectedRecord?.company || ""}
         translation={translation}
         isLoading={isSubmitting}
       />

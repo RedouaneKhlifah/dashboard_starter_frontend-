@@ -38,7 +38,8 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
   const initialFormData = useMemo<IClientForm>(
     () =>
       selectedRecord || {
-        company_ice: "",
+        company: "",
+        ice: "",
         email: "",
         phone: "",
         address: "",
@@ -67,10 +68,16 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
         if (error?.errors?.email) {
           setErrors((prev) => ({ ...prev, email: error.errors.email }));
         }
-        if (error?.errors?.company_ice) {
+        if (error?.errors?.ice) {
           setErrors((prev) => ({
             ...prev,
-            company_ice: error.errors.company_ice,
+            ice: error.errors.ice,
+          }));
+        }
+        if (error?.errors?.company) {
+          setErrors((prev) => ({
+            ...prev,
+            company: error.errors.company,
           }));
         }
         return false;

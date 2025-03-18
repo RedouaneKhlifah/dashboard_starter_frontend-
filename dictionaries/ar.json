@@ -111,10 +111,12 @@
     "cityRequired": "المدينة مطلوبة",
     "patsRequired": "الدفع مطلوب",
     "companyRequired": "الشركة مطلوبة",
+    "iceRequired": "ICE مطلوب",
     "form": {
       "first_name": "الاسم الأول",
       "last_name": "الاسم الأخير",
-      "company": "ICE - الشركة",
+      "company": "الشركة",
+      "ice": "ICE",
       "email": "عنوان البريد الإلكتروني",
       "phone": "رقم الهاتف",
       "address": "العنوان",

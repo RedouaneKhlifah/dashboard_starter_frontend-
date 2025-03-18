@@ -8,7 +8,7 @@ const clientAutoCompleteMapper = (
 ): AutoCompleteSearchResult[] => {
   return client.map((client) => ({
     id: client.id,
-    title: client.company_ice,
+    title: client.company,
   }));
 };
 

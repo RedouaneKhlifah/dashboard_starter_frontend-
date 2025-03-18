@@ -28,7 +28,7 @@ export const validateClientForm = (
 
   const newErrors: Partial<IClientForm> = {};
 
-  newErrors.company_ice = validateField(CompanySchema, formData.company_ice);
+  newErrors.company = validateField(CompanySchema, formData.company);
   newErrors.email = validateField(emailSchema, formData.email);
   newErrors.phone = validateField(phoneSchema, formData.phone.toString());
   newErrors.address = validateField(addressSchema, formData.address);

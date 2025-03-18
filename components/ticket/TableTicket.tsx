@@ -229,7 +229,7 @@ export function TableTicket({
         width: "130px",
         renderCell: (_: any, row: ITicket) => (
           <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
-            {row.client?.company_ice}
+            {row.client?.company}
           </p>
         ),
       },

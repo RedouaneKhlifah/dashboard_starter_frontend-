@@ -208,8 +208,7 @@ export function TableFacture({
         key: "client_name" as keyof IFacture,
         label: factures_table.headers.client_name,
         width: "100px",
-        renderCell: (_: any, row: IFacture) =>
-          (row.client as IClient)?.company_ice,
+        renderCell: (_: any, row: IFacture) => (row.client as IClient)?.company,
       },
       {
         key: "due_date" as keyof IFacture,

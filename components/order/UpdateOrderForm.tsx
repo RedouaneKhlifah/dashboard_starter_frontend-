@@ -42,7 +42,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
         ? {
             client: {
               id: selectedRecord.client_id || 0,
-              title: selectedRecord.client?.company_ice || "",
+              title: selectedRecord.client?.company || "",
             },
             reference: selectedRecord.reference || "",
             order_date: selectedRecord.order_date || "",
