@@ -5,7 +5,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import useToast from "@/hooks/useToast";
 
 // Components
-import { GlobalTable } from "@/components/shared/GlobalTable";
+import { GlobalTable, TableHeader } from "@/components/shared/GlobalTable";
 import { ActionButtons } from "@/components/shared/ActionButtons";
 import { ConfirmationModal } from "@/components/shared/ConfirmationModal";
 import UpdateClientForm from "./UpdateClientForm";
@@ -57,9 +57,6 @@ export function ClientTable({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { error: toastError, success: toastSuccess } = useToast();
-  // Memoized values
-  const userRows = useMemo(() => rowMapper(clients), [rowMapper, clients]);
-
   // Refs
   const didMountRef = useRef(false);
 
@@ -127,17 +124,20 @@ export function ClientTable({
   }, [searchQuery, debouncedSearch, currentPage]);
 
   // Memoized headers to prevent re-renders
-  const tableHeaders = useMemo(
+  const tableHeaders: TableHeader<IClient>[] = useMemo(
     () => [
-      { key: "name" as keyof UserRow, label: users_table.headers.name },
-      { key: "email" as keyof UserRow, label: users_table.headers.email },
-      { key: "phone" as keyof UserRow, label: users_table.headers.phone },
-      { key: "country" as keyof UserRow, label: users_table.headers.country },
-      { key: "city" as keyof UserRow, label: users_table.headers.city },
       {
-        key: "id" as keyof UserRow,
+        key: "company_ice" as keyof IClient,
+        label: translation.client.form.company,
+        renderCell: (_: any, row: IClient) => row.company_ice,
+      },
+      { key: "email" as keyof IClient, label: users_table.headers.email },
+      { key: "phone" as keyof IClient, label: users_table.headers.phone },
+      { key: "city" as keyof IClient, label: users_table.headers.city },
+      {
+        key: "id" as keyof IClient,
         label: users_table.headers.actions,
-        renderCell: (_: any, row: UserRow) => (
+        renderCell: (_: any, row: IClient) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
@@ -148,7 +148,17 @@ export function ClientTable({
         ),
       },
     ],
-    [users_table, handleEdit, openDeleteModal]
+    [
+      translation.client.form.company,
+      users_table.headers.email,
+      users_table.headers.phone,
+      users_table.headers.city,
+      users_table.headers.actions,
+      users_table.actions.edit,
+      users_table.actions.delete,
+      handleEdit,
+      openDeleteModal,
+    ]
   );
 
   return (
@@ -162,9 +172,9 @@ export function ClientTable({
       />
 
       {/* Clients Table */}
-      <GlobalTable<UserRow>
+      <GlobalTable<IClient>
         headers={tableHeaders}
-        rows={userRows}
+        rows={clients}
         totalRows={totalClients}
         isLoading={isLoading}
         className="shadow-lg rounded-lg"
@@ -184,7 +194,7 @@ export function ClientTable({
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
-        itemName={selectedRecord?.first_name || ""}
+        itemName={selectedRecord?.company_ice || ""}
         translation={translation}
         isLoading={isSubmitting}
       />

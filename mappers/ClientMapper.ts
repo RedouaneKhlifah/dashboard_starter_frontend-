@@ -12,7 +12,7 @@ export interface UserRow {
 const rowMapper = (client: IClient[]): UserRow[] => {
   return client.map((client) => ({
     id: client.id,
-    name: client.full_name,
+    name: client.company_ice,
     email: client.email,
     phone: client.phone,
     country: client.country,

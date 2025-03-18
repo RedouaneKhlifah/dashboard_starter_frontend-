@@ -192,7 +192,8 @@ export function TableOrder({
       {
         key: "client" as keyof IOrder,
         label: orders_table.headers.client,
-        renderCell: (_: any, row: IOrder) => (row.client as IClient)?.full_name,
+        renderCell: (_: any, row: IOrder) =>
+          (row.client as IClient)?.company_ice,
       },
       {
         key: "total" as keyof IOrder,

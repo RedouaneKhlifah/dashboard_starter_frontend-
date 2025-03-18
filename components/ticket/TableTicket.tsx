@@ -205,7 +205,7 @@ export function TableTicket({
         renderCell: (_: any, row: ITicket) => row.poids_tare + " Kg",
       },
       {
-        key: "poids_tare" as keyof ITicket,
+        key: "poids_net" as keyof ITicket,
         label: ticket_table.headers.poids_net,
         renderCell: (_: any, row: ITicket) =>
           row.poids_brut - row.poids_tare + " Kg",
@@ -229,7 +229,7 @@ export function TableTicket({
         width: "130px",
         renderCell: (_: any, row: ITicket) => (
           <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
-            {row.client?.full_name}
+            {row.client?.company_ice}
           </p>
         ),
       },

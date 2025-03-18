@@ -110,9 +110,11 @@
     "countryRequired": "البلد مطلوب",
     "cityRequired": "المدينة مطلوبة",
     "patsRequired": "الدفع مطلوب",
+    "companyRequired": "الشركة مطلوبة",
     "form": {
       "first_name": "الاسم الأول",
       "last_name": "الاسم الأخير",
+      "company": "ICE - الشركة",
       "email": "عنوان البريد الإلكتروني",
       "phone": "رقم الهاتف",
       "address": "العنوان",
@@ -129,7 +131,7 @@
       "success": "تم إنشاء العميل بنجاح",
       "update_success": "تم تحديث العميل بنجاح",
       "delete_success": "تم حذف العميل بنجاح",
-      "error": "حدث خطأ أثناء إنشاء العميل"
+      "error": "حدث خطأ أثناء معالجة الطلب"
     }
   },
   "employee": {

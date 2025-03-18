@@ -23,12 +23,12 @@ export const validateClientForm = (
     countrySchema,
     addressSchema,
     phoneSchema,
+    CompanySchema,
   } = createClientSchemas(translation);
 
   const newErrors: Partial<IClientForm> = {};
 
-  newErrors.first_name = validateField(firstNameSchema, formData.first_name);
-  newErrors.last_name = validateField(lastNameSchema, formData.last_name);
+  newErrors.company_ice = validateField(CompanySchema, formData.company_ice);
   newErrors.email = validateField(emailSchema, formData.email);
   newErrors.phone = validateField(phoneSchema, formData.phone.toString());
   newErrors.address = validateField(addressSchema, formData.address);

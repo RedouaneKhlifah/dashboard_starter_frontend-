@@ -33,13 +33,12 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
 
   // State
   const [errors, setErrors] = useState<Partial<IClientForm>>({});
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   // Memoized initial form data
   const initialFormData = useMemo<IClientForm>(
     () =>
       selectedRecord || {
-        first_name: "",
-        last_name: "",
+        company_ice: "",
         email: "",
         phone: "",
         address: "",
@@ -65,7 +64,15 @@ const UpdateClientForm: React.FC<ClientFormProps> = ({
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.client.message.error);
+        if (error?.errors?.email) {
+          setErrors((prev) => ({ ...prev, email: error.errors.email }));
+        }
+        if (error?.errors?.company_ice) {
+          setErrors((prev) => ({
+            ...prev,
+            company_ice: error.errors.company_ice,
+          }));
+        }
         return false;
       }
     } catch (error) {

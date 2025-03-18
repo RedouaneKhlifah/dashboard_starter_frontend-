@@ -99,6 +99,7 @@ const FinalTab = ({
             disabled={modalType === ModalTypeEnum.UPDATE}
             dropdownPosition="above"
             required
+            minChars={0}
           />
         )}
       </div>

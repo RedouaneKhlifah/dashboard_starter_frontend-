@@ -42,7 +42,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
         ? {
             client: {
               id: selectedRecord.client_id || 0,
-              title: selectedRecord.client?.full_name || "",
+              title: selectedRecord.client?.company_ice || "",
             },
             reference: selectedRecord.reference || "",
             facture_date: selectedRecord.facture_date || "",

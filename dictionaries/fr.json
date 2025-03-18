@@ -106,9 +106,11 @@
     "countryRequired": "Le pays est requis",
     "cityRequired": "La ville est requise",
     "patsRequired": "La Pays est requise",
+    "companyRequired": "La société - ICE est requise",
     "form": {
       "first_name": "Prénom",
       "last_name": "Nom de famille",
+      "company": "Société - ICE",
       "email": "Adresse e-mail",
       "phone": "Numéro de téléphone",
       "address": "Adresse",
@@ -125,7 +127,7 @@
       "success": "Client créé avec succès",
       "update_success": "Client updated successfully",
       "delete_success": "Client supprimé avec succès",
-      "error": "Erreur lors de la création du client"
+      "error": "Erreur lors du traitement de la demande"
     }
   },
   "employee": {

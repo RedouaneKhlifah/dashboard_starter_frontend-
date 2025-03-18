@@ -15,6 +15,7 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { ICreateClient } from "@/dto/client/createClient";
+import { es } from "date-fns/locale";
 
 interface ClientFormProps {
   translation: DictionaryType;
@@ -31,8 +32,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
   // Memoized initial form data
   const initialFormData = useMemo<ICreateClient>(
     () => ({
-      first_name: "",
-      last_name: "",
+      company_ice: "",
       email: "",
       phone: "",
       address: "",
@@ -62,7 +62,13 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
       } else {
         const error = await response.json();
         if (error?.errors?.email) {
-          setErrors({ email: error.message });
+          setErrors((prev) => ({ ...prev, email: error.errors.email }));
+        }
+        if (error?.errors?.company_ice) {
+          setErrors((prev) => ({
+            ...prev,
+            company_ice: error.errors.company_ice,
+          }));
         }
         return false;
       }
