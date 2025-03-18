@@ -489,20 +489,25 @@
       "recalculate": "Recalculer",
       "product": "Produit",
       "noProduct": "Aucun produit disponible",
-      "pricePerKg": "Prix par Ton",
+      "pricePerKg": "Prix par Kg",
       "discount": "Remise",
       "tickets": "Tickets",
       "date": "Date",
       "netWeight": "Poids Net",
       "noTicketsFound": "Aucun ticket trouvé pour la période sélectionnée",
       "summary": "Résumé",
-      "totalWeight": "quantity (Tonne)",
+      "totalWeight": "quantity",
       "totalValue": "Valeur Totale",
       "netTotal": "Total Net",
       "calculating": "Calcul en cours..."
     }
   },
   "HistoryModal": {
+    "message": {
+      "delete_success": "History entry deleted successfully",
+      "delete_error": "Error deleting history entry"
+    },
+    "history_entry": "this history entry",
     "common": {
       "update": "Mettre à jour",
       "cancel": "Annuler",
@@ -653,7 +658,7 @@
       "search_placeholder": "Rechercher...",
       "headers": {
         "created_at": "Date/Heure",
-        "matricule": "Matricule",
+        "matricule": "Nom du Partenaire",
         "product": "Produit",
         "number_prints": "N° Impr",
         "poids_brut": "Poids brute",

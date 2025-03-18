@@ -497,20 +497,25 @@
       "recalculate": "إعادة حساب",
       "product": "المنتج",
       "noProduct": "لا يوجد منتج متاح",
-      "pricePerKg": "السعر لكل طن",
+      "pricePerKg": "السعر لكل كيلوغرام",
       "discount": "الخصم",
       "tickets": "التذاكر",
       "date": "التاريخ",
       "netWeight": "الوزن الصافي",
       "noTicketsFound": "لم يتم العثور على تذاكر للفترة المحددة",
       "summary": "الملخص",
-      "totalWeight": "إجمالي الطن",
+      "totalWeight": "إجمالي الوزن",
       "totalValue": "القيمة الإجمالية",
       "netTotal": "المجموع الصافي",
       "calculating": "جاري الحساب..."
     }
   },
   "HistoryModal": {
+    "message": {
+      "delete_success": "History entry deleted successfully",
+      "delete_error": "Error deleting history entry"
+    },
+    "history_entry": "this history entry",
     "common": {
       "update": "تحديث",
       "cancel": "إلغاء",
@@ -660,7 +665,7 @@
       "update_ticket": "تحديث التذاكر",
       "headers": {
         "created_at": "تاريخ الإنشاء",
-        "matricule": "الرقم التسلسلي",
+        "matricule": "اسم الشريك",
         "product": "المنتج",
         "number_prints": "عدد الطباعات",
         "poids_brut": "الوزن الإجمالي",

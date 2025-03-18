@@ -8,6 +8,9 @@ interface ConfirmationModalProps {
   itemName: string;
   translation: DictionaryType;
   isLoading?: boolean;
+  backdrop?: boolean;
+  dismiss?: boolean;
+
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -34,6 +37,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       submitButtonText={translation.client.common.delete}
       cancelButtonText={translation.client.common.cancel}
       contentClassName="2xl:min-w-[30%] 2xl:max-w-[30%] lg:min-w-[40%] lg:max-w-[40%] "
+      backdrop={false}
+      dismiss={false}
     >
       <div className="flex flex-col gap-4">
         <p className="text-foreground">
