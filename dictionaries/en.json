@@ -353,6 +353,11 @@
     }
   },
   "HistoryModal": {
+    "message": {
+      "delete_success": "History entry deleted successfully",
+      "delete_error": "Error deleting history entry"
+    },
+    "history_entry": "this history entry",
     "common": {
       "update": "Update",
       "cancel": "Cancel",
@@ -512,14 +517,14 @@
       "recalculate": "Recalculate",
       "product": "Product",
       "noProduct": "No product available",
-      "pricePerKg": "Price per Ton",
+      "pricePerKg": "Price per K",
       "discount": "Discount",
       "tickets": "Tickets",
       "date": "Date",
       "netWeight": "Net Weight",
       "noTicketsFound": "No tickets found for the selected period",
       "summary": "Summary",
-      "totalWeight": "Quantity Ton",
+      "totalWeight": "Quantity",
       "totalValue": "Total Value",
       "netTotal": "Net Total",
       "calculating": "Calculating"
@@ -658,7 +663,7 @@
       "search_placeholder": "Search...",
       "headers": {
         "created_at": "Date/Time",
-        "matricule": "Matricule",
+        "matricule": "Partner Name",
         "product": "Product",
         "number_prints": "N° prints",
         "poids_brut": "Gross Weight",

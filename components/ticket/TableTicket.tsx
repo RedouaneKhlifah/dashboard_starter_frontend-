@@ -175,7 +175,7 @@ export function TableTicket({
         label: ticket_table.headers.matricule,
         renderCell: (_: any, row: ITicket) => (
           <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal truncate">
-            {row.partenaire?.matricule}
+            {row.partenaire?.name}
           </p>
         ),
       },

@@ -12,6 +12,8 @@ import http from "@/lib/http";
 import PrintableEmployee from "./printable/PrintableEmployee";
 import { GlobalTable } from "@/components/shared/GlobalTable";
 import CreateBulletin from "./CreateBulletin";
+import { ConfirmationModal } from "../shared/ConfirmationModal";
+import useToast from "@/hooks/useToast";
 
 export interface PaymentHistory {
   id: number;
@@ -45,14 +47,16 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
   isOpen,
   selectedRecord,
 }) => {
-  const { closeModal, modalType } = useModalStore();
   const contentRef = useRef<HTMLDivElement>(null);
   const { openSecondModal, secondModalType } = useModalStore();
+  const { closeModal, modalType, openModal } = useModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [employeeWithHistory, setEmployeeWithHistory] =
     useState<IEmployeeWithHistory | null>(null);
   const [printData, setPrintData] = useState<PrintData | null>(null);
+  const [selectedHistoryId, setSelectedHistoryId] = useState<number | null>(null);
+  const { error: toastError, success: toastSuccess } = useToast();
 
   const handlePrint = useReactToPrint({
     contentRef,
@@ -100,6 +104,39 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
     },
     [employeeWithHistory]
   );
+
+  const openDeleteModal = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, historyId: number) => {
+      e.preventDefault();
+      setSelectedHistoryId(historyId);
+      openModal(ModalTypeEnum.DELETE);
+    },
+    [openModal]
+  );
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedHistoryId) return;
+    setIsSubmitting(true);
+    try {
+      const response = await http(
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/payment-histories/${selectedHistoryId}`,
+        { method: "DELETE" }
+      );
+      if (!response.ok) return;
+      toastSuccess(translation.HistoryModal.message.delete_success);
+      if (selectedRecord?.id) {
+        await fetchEmployeeHistory(selectedRecord.id);
+      }
+      closeModal();
+    } catch (error) {
+      console.error("Error deleting Payment history:", error);
+      toastError(translation.HistoryModal.message.delete_error);
+    } finally {
+      setIsSubmitting(false);
+      setSelectedHistoryId(null);
+    }
+  };
+
 
   const handleCloseModal = () => {
     closeModal();
@@ -182,20 +219,28 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
               key: "actions" as keyof PaymentHistory,
               label: translation.HistoryModal.common.actions,
               renderCell: (_: any, row: PaymentHistory) => (
-                <button
-                  onClick={(e: any) => handlePrintRequest(e, row)}
-                  className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-colors"
-                  title={translation.HistoryModal.common.print}
-                >
-                  <FileText size={18} />
-                </button>
+                <div className="flex gap-2 items-center">
+                  <button
+                    onClick={(e: any) => handlePrintRequest(e, row)}
+                    className="px-3 py-1.5 text-xs font-medium bg-primary/10 text-primary hover:bg-primary/20 rounded-lg transition-colors"
+                    title={translation.HistoryModal.common.print}
+                  >
+                    <FileText size={18} />
+                  </button>
+                  <button
+                    onClick={(e) => openDeleteModal(e, row.id)}
+                    className="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
+                  >
+                    {translation.sidebar.users_table.actions.delete}
+                  </button>
+                </div>
               ),
             },
           ]}
           rows={employeeWithHistory?.payment_histories || []}
           className="mt-4"
           totalRows={employeeWithHistory?.payment_histories?.length || 0}
-          setCurrentPage={() => {}}
+          setCurrentPage={() => { }}
           currentPage={0}
           isLoading={isLoading}
         />
@@ -216,8 +261,20 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
         employee={selectedRecord}
         setEmployeeWithHistory={setEmployeeWithHistory}
       />
+      <ConfirmationModal
+        onConfirm={handleDeleteConfirm}
+        itemName={translation.HistoryModal.history_entry}
+        translation={translation}
+        isLoading={isSubmitting}
+        backdrop={false}
+        dismiss={false}
+      />
     </GlobalModal>
   );
 };
 
 export default HistoryModal;
+function openModal(DELETE: ModalTypeEnum) {
+  throw new Error("Function not implemented.");
+}
+

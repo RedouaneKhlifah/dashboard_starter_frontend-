@@ -133,7 +133,7 @@ const ProductsTable = ({
           {translation.sidebar.orders_table.print.product}
         </th>
         <th className="text-right py-2 px-3">
-          {translation.sidebar.orders_table.print.quantity} (kg)
+          {translation.sidebar.orders_table.print.quantity} (ton)
         </th>
         <th className="text-right py-2 px-3">
           {translation.sidebar.orders_table.print.unit_price} (MAD/kg)
@@ -145,6 +145,7 @@ const ProductsTable = ({
     </thead>
     <tbody>
       {order.products.map((product, index) => {
+        const quantityInTons = (product.quantity || 0) / 1000;
         const pricePerKg = product.price_unitaire || 0;
         const total = product.quantity * pricePerKg;
 
@@ -152,8 +153,8 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {(product.quantity || 0).toFixed(3)}{" "}
-              {translation.shared.kg_unit}
+              {parseFloat(quantityInTons.toFixed(3))}{" "}
+              {translation.shared.ton_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}

@@ -181,6 +181,7 @@ const ProductsTable = ({
     </thead>
     <tbody>
       {facture.products.map((product, index) => {
+        const quantityInTons = (product.quantity || 0) / 1000;
         const pricePerKg = product.price_unitaire || 0;
         const total = product.quantity * pricePerKg;
 
@@ -188,8 +189,8 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {product.quantity.toFixed(3)}{" "}
-              {translation.shared.kg_unit}
+              {parseFloat(quantityInTons.toFixed(3))}{" "}
+              {translation.shared.ton_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}

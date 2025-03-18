@@ -92,7 +92,7 @@ const ModalPartenaireDetails = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const totalValue = useMemo(
-    () => (Number(calculationData?.total_poids_net || 0) / 1000) * pricePerKg,
+    () => (Number(calculationData?.total_poids_net || 0)) * pricePerKg,
     [calculationData?.total_poids_net, pricePerKg]
   );
 
@@ -274,8 +274,8 @@ const ModalPartenaireDetails = ({
                   {isCalculating
                     ? "..."
                     : `${(
-                        Number(calculationData?.total_poids_net || 0) / 1000
-                      ).toFixed(2)} T`}
+                        Number(calculationData?.total_poids_net || 0)
+                      ).toFixed(2)} Kg`}
                 </span>
               </div>
               <div className="flex justify-between py-2">
