@@ -504,10 +504,10 @@
   },
   "HistoryModal": {
     "message": {
-      "delete_success": "History entry deleted successfully",
-      "delete_error": "Error deleting history entry"
+      "delete_success": "historique de paiement deleted successfully",
+      "delete_error": "Error deleting Cet historique de paiement"
     },
-    "history_entry": "this history entry",
+    "history_of_payment": "Cet historique de paiement",
     "common": {
       "update": "Mettre à jour",
       "cancel": "Annuler",
@@ -841,7 +841,7 @@
     "continue": "Continuer",
     "loading ": "Chargement...",
     "currency": "MAD",
-    "ton_unit": "tonne",
+    "ton_unit": "Tonne",
     "kg_unit": "kg",
     "printable": "Imprimer",
     "Apply": "Appliquer",

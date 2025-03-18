@@ -512,10 +512,10 @@
   },
   "HistoryModal": {
     "message": {
-      "delete_success": "History entry deleted successfully",
-      "delete_error": "Error deleting history entry"
+      "delete_success": " تاريخ الدفع تم حذفه بنجاح",
+      "delete_error": " تاريخ الدفع لم يتم حذفه"
     },
-    "history_entry": "this history entry",
+    "history_of_payment": "هذا تاريخ الدفع",
     "common": {
       "update": "تحديث",
       "cancel": "إلغاء",

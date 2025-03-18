@@ -10,14 +10,13 @@ interface ConfirmationModalProps {
   isLoading?: boolean;
   backdrop?: boolean;
   dismiss?: boolean;
-
 }
 
 export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onConfirm,
   itemName,
   translation,
-  isLoading
+  isLoading,
 }) => {
   const { closeModal, modalType } = useModalStore();
   const handleSubmit = async (e: React.FormEvent) => {

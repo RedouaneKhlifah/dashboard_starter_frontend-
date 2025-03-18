@@ -358,10 +358,11 @@
   },
   "HistoryModal": {
     "message": {
-      "delete_success": "History entry deleted successfully",
-      "delete_error": "Error deleting history entry"
+      "delete_success": "history of payment deleted successfully",
+      "delete_error": "Error deleting history of payment"
     },
     "history_entry": "this history entry",
+    "history_of_payment": "This history of payment",
     "common": {
       "update": "Update",
       "cancel": "Cancel",
