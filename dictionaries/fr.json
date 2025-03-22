@@ -657,6 +657,7 @@
       "update_ticket": "Mettre à jour le ticket",
       "search_placeholder": "Rechercher...",
       "headers": {
+        "number": "Nº",
         "created_at": "Date/Heure",
         "matricule": "Nom du Partenaire",
         "product": "Produit",

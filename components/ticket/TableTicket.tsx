@@ -156,6 +156,11 @@ export function TableTicket({
   const headers: TableHeader<ITicket>[] = useMemo(
     () => [
       {
+        key: "id",
+        label: ticket_table.headers.number,
+        width: "50px",
+      },
+      {
         key: "created_at" as keyof ITicket,
         label: ticket_table.headers.created_at,
         renderCell: (_: any, row: ITicket) => (
@@ -247,6 +252,7 @@ export function TableTicket({
       },
     ],
     [
+      ticket_table.headers.number,
       ticket_table.headers.created_at,
       ticket_table.headers.matricule,
       ticket_table.headers.product,
