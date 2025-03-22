@@ -283,6 +283,3 @@ const HistoryModal: React.FC<EmployeesFormProps> = ({
 };
 
 export default HistoryModal;
-function openModal(DELETE: ModalTypeEnum) {
-  throw new Error("Function not implemented.");
-}
