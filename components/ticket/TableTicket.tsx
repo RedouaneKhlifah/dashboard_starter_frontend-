@@ -159,7 +159,7 @@ export function TableTicket({
         key: "id",
         label: ticket_table.headers.number,
         width: "50px",
-      },
+      }, // Column for the ticket number
       {
         key: "created_at" as keyof ITicket,
         label: ticket_table.headers.created_at,
