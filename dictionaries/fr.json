@@ -765,7 +765,8 @@
         "discount": "Remise",
         "tax": "TVA",
         "terms": "Conditions: Paiement sous 30 jours",
-        "thank_you": "Merci pour votre confiance!"
+        "thank_you": "Merci pour votre confiance!",
+        "notes":"Notes supplémentaires"
       }
     },
     "products_table": {

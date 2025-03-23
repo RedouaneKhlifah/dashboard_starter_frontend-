@@ -761,6 +761,7 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "فاتورة",
         "reference": "المرجع",
+        "notes":"ملاحظات إضافية",
         "date": "التاريخ",
         "due_date": "تاريخ الاستحقاق",
         "bill_to": "فاتورة إلى",
