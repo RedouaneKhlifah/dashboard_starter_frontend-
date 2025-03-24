@@ -1,6 +1,7 @@
 export interface ICreateorders {
   client_id?: number;
   reference: string;
+  bcn: string;
   order_date: string;
   expiration_date: string;
   tva: number;

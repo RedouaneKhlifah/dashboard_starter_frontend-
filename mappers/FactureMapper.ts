@@ -5,6 +5,7 @@ import { IFactureForm } from "@/dto/facture/factureForm";
 const FactureDataMapper = (data: IFactureForm): ICreateInvoice => {
   return {
     reference: data.reference,
+    bcn: data.bcn,
     facture_date: data.facture_date,
     expiration_date: data.expiration_date,
     client_id: data?.client?.id,

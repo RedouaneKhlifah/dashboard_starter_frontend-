@@ -117,7 +117,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
                 onClick={onSubmit}
                 type="submit"
                 className="bg-primary text-white hover:bg-primary/90 transition-colors"
-                disabled={isLoading}
+                disabled={isLoading || isSecondLoading}
               >
                 {isLoading ? (
                   <Spinner
@@ -138,7 +138,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
                 onPointerLeaveCapture={undefined}
                 type="submit"
                 className="bg-primary ml-2 text-white hover:bg-primary/90 transition-colors"
-                disabled={isLoading}
+                disabled={isLoading || isSecondLoading}
                 onClick={onSecondarySubmit}
               >
                 {isSecondLoading ? (

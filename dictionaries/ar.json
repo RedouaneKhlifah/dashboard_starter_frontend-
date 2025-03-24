@@ -384,6 +384,7 @@
     "paid_amount_required": "المبلغ المدفوع مطلوب",
     "form": {
       "reference": "المرجع",
+      "bcn": "BCN",
       "reference_search": "البحث عن مرجع",
       "order_date": "تاريخ مذكرة التسليم",
       "paid_amount": "المبلغ المدفوع",
@@ -696,6 +697,7 @@
       "search_placeholder": "بحث...",
       "headers": {
         "reference": "المرجع",
+        "bcn": "BCN",
         "order_date": "تاريخ مذكرة التسليم",
         "expiration_date": "تاريخ انتهاء الصلاحية",
         "client": "العميل",
@@ -712,6 +714,7 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "مذكرة التسليم",
         "reference": "المرجع",
+        "bcn": "BCN",
         "date": "التاريخ",
         "due_date": "تاريخ الاستحقاق",
         "bill_to": "فاتورة إلى",
@@ -761,7 +764,8 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "فاتورة",
         "reference": "المرجع",
-        "notes":"ملاحظات إضافية",
+        "bcn": "BCN",
+        "notes": "ملاحظات إضافية",
         "date": "التاريخ",
         "due_date": "تاريخ الاستحقاق",
         "bill_to": "فاتورة إلى",

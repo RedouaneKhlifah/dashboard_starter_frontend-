@@ -1,6 +1,7 @@
 interface IFactureForm {
   client: FactureRelationShipData | null;
   reference: string;
+  bcn: string;
   facture_date: string;
   expiration_date: string;
   tva: number;

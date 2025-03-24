@@ -2,6 +2,7 @@ export interface ICreateInvoice {
   client_id?: number;
   reference: string;
   facture_date: string;
+  bcn: string;
   expiration_date: string;
   paid_amount: number;
   tva: number;

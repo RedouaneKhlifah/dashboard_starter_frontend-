@@ -20,17 +20,47 @@ interface OrderTotals {
 }
 
 const convertToFrenchWords = (number: number) => {
-  const parts = number.toString().split('.');
+  const parts = number.toString().split(".");
   const integerPart = parseInt(parts[0]);
   const decimalPart = parts.length > 1 ? parseInt(parts[1]) : 0;
 
-
-  const units = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize', 'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf'];
-  const tens = ['', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante-dix', 'quatre-vingt', 'quatre-vingt-dix'];
-
+  const units = [
+    "",
+    "un",
+    "deux",
+    "trois",
+    "quatre",
+    "cinq",
+    "six",
+    "sept",
+    "huit",
+    "neuf",
+    "dix",
+    "onze",
+    "douze",
+    "treize",
+    "quatorze",
+    "quinze",
+    "seize",
+    "dix-sept",
+    "dix-huit",
+    "dix-neuf",
+  ];
+  const tens = [
+    "",
+    "dix",
+    "vingt",
+    "trente",
+    "quarante",
+    "cinquante",
+    "soixante",
+    "soixante-dix",
+    "quatre-vingt",
+    "quatre-vingt-dix",
+  ];
 
   const convertLessThanOneThousand = (num: number) => {
-    if (num === 0) return '';
+    if (num === 0) return "";
 
     if (num < 20) {
       return units[num];
@@ -40,16 +70,15 @@ const convertToFrenchWords = (number: number) => {
     const unit = num % 10;
 
     if (ten === 7 || ten === 9) {
-      return tens[ten - 1] + '-' + units[unit + 10];
+      return tens[ten - 1] + "-" + units[unit + 10];
     } else if (ten !== 8 && unit === 1) {
-      return tens[ten] + '-et-' + units[unit];
+      return tens[ten] + "-et-" + units[unit];
     } else if (ten === 8 && unit === 0) {
-      return tens[ten] + 's';
+      return tens[ten] + "s";
     } else {
-      return tens[ten] + (unit > 0 ? '-' + units[unit] : '');
+      return tens[ten] + (unit > 0 ? "-" + units[unit] : "");
     }
   };
-
 
   const handleHundreds = (num: number) => {
     if (num < 100) {
@@ -60,15 +89,22 @@ const convertToFrenchWords = (number: number) => {
     const remainder = num % 100;
 
     if (hundred === 1) {
-      return 'cent' + (remainder > 0 ? ' ' + convertLessThanOneThousand(remainder) : '');
+      return (
+        "cent" +
+        (remainder > 0 ? " " + convertLessThanOneThousand(remainder) : "")
+      );
     } else {
-      return units[hundred] + ' cent' + (hundred > 1 && remainder === 0 ? 's' : '') + (remainder > 0 ? ' ' + convertLessThanOneThousand(remainder) : '');
+      return (
+        units[hundred] +
+        " cent" +
+        (hundred > 1 && remainder === 0 ? "s" : "") +
+        (remainder > 0 ? " " + convertLessThanOneThousand(remainder) : "")
+      );
     }
   };
 
-
   const convertInteger = (num: number): string => {
-    if (num === 0) return 'zéro';
+    if (num === 0) return "zéro";
 
     if (num < 1000) {
       return handleHundreds(num);
@@ -79,9 +115,13 @@ const convertToFrenchWords = (number: number) => {
       const remainder = num % 1000;
 
       if (thousand === 1) {
-        return 'mille' + (remainder > 0 ? ' ' + handleHundreds(remainder) : '');
+        return "mille" + (remainder > 0 ? " " + handleHundreds(remainder) : "");
       } else {
-        return handleHundreds(thousand) + ' mille' + (remainder > 0 ? ' ' + handleHundreds(remainder) : '');
+        return (
+          handleHundreds(thousand) +
+          " mille" +
+          (remainder > 0 ? " " + handleHundreds(remainder) : "")
+        );
       }
     }
 
@@ -90,43 +130,46 @@ const convertToFrenchWords = (number: number) => {
       const remainder = num % 1000000;
 
       if (million === 1) {
-        return 'un million' + (remainder > 0 ? ' ' + convertInteger(remainder) : '');
+        return (
+          "un million" + (remainder > 0 ? " " + convertInteger(remainder) : "")
+        );
       } else {
-        return handleHundreds(million) + ' millions' + (remainder > 0 ? ' ' + convertInteger(remainder) : '');
+        return (
+          handleHundreds(million) +
+          " millions" +
+          (remainder > 0 ? " " + convertInteger(remainder) : "")
+        );
       }
     }
 
-    return 'nombre trop grand';
+    return "nombre trop grand";
   };
-
 
   let result = convertInteger(integerPart);
 
   if (decimalPart > 0) {
-
     const decimalStr = parts[1];
-    const centimes = decimalPart.toString().padStart(2, '0').substring(0, 2);
+    const centimes = decimalPart.toString().padStart(2, "0").substring(0, 2);
 
     if (parseInt(centimes) === 1) {
-      result += ' et un centime';
+      result += " et un centime";
     } else {
-      result += ' et ' + convertInteger(parseInt(centimes)) + ' centimes';
+      result += " et " + convertInteger(parseInt(centimes)) + " centimes";
     }
   }
 
   return result;
 };
 
-
 const convertNumberToWords = (amount: string | number, currency: string) => {
-  if (!amount && amount !== 0) return '';
+  if (!amount && amount !== 0) return "";
 
-
-  const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  const numericAmount =
+    typeof amount === "string" ? parseFloat(amount) : amount;
 
   const words = convertToFrenchWords(numericAmount);
 
-  return words.charAt(0).toUpperCase() + words.slice(1) + ' ' + currency;
+  return words.charAt(0).toUpperCase() + words.slice(1) + " " + currency;
 };
 
 const calculateOrderTotals = (
@@ -153,8 +196,8 @@ const calculateOrderTotals = (
   console.log(
     "order.remise_type ",
     order.remise +
-    " " +
-    (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
+      " " +
+      (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
   );
 
   return {
@@ -170,8 +213,6 @@ const calculateOrderTotals = (
     total: finalTotal + " " + translation.shared.currency,
   };
 };
-
-
 
 const DocumentInfo = ({
   facture,
@@ -198,9 +239,7 @@ const DocumentInfo = ({
         {formatDate(facture.facture_date, lang)}
       </span>
     </div>
-    <span className="text-sm">
-      BCN °:
-    </span>
+    <span className="text-sm">BCN °: {facture.bcn}</span>
   </section>
 );
 
@@ -239,14 +278,14 @@ const ProductsTable = ({
         <th className="text-left py-2 px-3">
           {translation.sidebar.factures_table.print.product}
         </th>
-        <th className="text-right py-2 px-3">
+        <th className="text-left py-2 px-3">
           {translation.sidebar.factures_table.print.quantity} (ton)
         </th>
-        <th className="text-right py-2 px-3">
+        <th className="text-left py-2 px-3">
           {translation.sidebar.factures_table.print.unit_price} (MAD/kg)
         </th>
-        <th className="text-right py-2 px-3">
-          HT {translation.sidebar.factures_table.print.total}
+        <th className="text-left py-2 px-3">
+          {translation.sidebar.factures_table.print.total} HT
         </th>
       </tr>
     </thead>
@@ -286,11 +325,9 @@ const TotalsSection = ({
   facture: IFacture;
   lang: Locale;
 }) => {
-
-  const subtotalValue = parseFloat(totals.subtotal.split(' ')[0]);
+  const subtotalValue = parseFloat(totals.subtotal.split(" ")[0]);
 
   const tvaAmount = (subtotalValue * (facture.tva || 0)) / 100;
-
 
   return (
     <section className="ml-auto w-72 mt-7">
@@ -299,8 +336,12 @@ const TotalsSection = ({
         <span>{totals.subtotal}</span>
       </div>
       <div className="flex justify-between mb-2">
-        <span>{translation.sidebar.factures_table.print.tax}: {facture.tva} %</span>
-        <span>{tvaAmount.toFixed(2)} {translation.shared.currency}</span>
+        <span>
+          {translation.sidebar.factures_table.print.tax}: {facture.tva} %
+        </span>
+        <span>
+          {tvaAmount.toFixed(2)} {translation.shared.currency}
+        </span>
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.factures_table.print.total}: TTC</span>
@@ -326,7 +367,7 @@ const Notes = ({
       <p className="text-sm">{facture.note}</p>
     </section>
   );
-}
+};
 const TotalInWords = ({
   totals,
   translation,
@@ -335,17 +376,22 @@ const TotalInWords = ({
   translation: DictionaryType;
   lang: Locale;
 }) => {
-  const totalValue = parseFloat(totals.total.split(' ')[0]);
-  const totalInWords = convertNumberToWords(totalValue, translation.shared.currency);
+  const totalValue = parseFloat(totals.total.split(" ")[0]);
+  const totalInWords = convertNumberToWords(
+    totalValue,
+    translation.shared.currency
+  );
   return (
     <section className="mt-4 border p-2 bg-white rounded">
-      <span className="text-xs">montant total en lettres (écrit en lettres alphabétiques):</span>
+      <span className="text-xs">
+        montant total en lettres (écrit en lettres alphabétiques):
+      </span>
       <p className="text-sm">
         <span className="italic font-semibold">{totalInWords}</span>
       </p>
     </section>
   );
-}
+};
 const Footer = ({ translation }: { translation: DictionaryType }) => (
   <footer className="mt-8 text-center text-sm">
     <p>{translation.sidebar.factures_table.print.thank_you}</p>
@@ -381,7 +427,6 @@ const printStyles = `
   }
 `;
 
-
 const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
   ({ facture, translation, lang }, ref) => {
     if (!facture) {
@@ -412,18 +457,10 @@ const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
           translation={translation}
           lang={lang}
         />
-        <TotalInWords
-          totals={totals}
-          translation={translation}
-          lang={lang}
-        />
-        {facture.note &&
-          <Notes
-            facture={facture}
-            translation={translation}
-            lang={lang}
-          />
-        }
+        <TotalInWords totals={totals} translation={translation} lang={lang} />
+        {facture.note && (
+          <Notes facture={facture} translation={translation} lang={lang} />
+        )}
         <div className="absolute bottom-20 translate-x-1/2 right-1/2">
           <Footer translation={translation} />
         </div>

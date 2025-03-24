@@ -11,6 +11,8 @@ interface IOrder {
 
   reference: string;
 
+  bcn: string;
+
   order_date: string;
 
   expiration_date: string;
