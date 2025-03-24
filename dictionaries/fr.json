@@ -375,6 +375,7 @@
     "paid_amount_required": "Le montant payé est obligatoire",
     "form": {
       "reference": "Référence",
+      "bcn": "BCN",
       "reference_search": "Rechercher une référence",
       "order_date": "Date du bon de livraison",
       "paid_amount": "Montant Payé",
@@ -689,6 +690,7 @@
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
+        "bcn": "BCN",
         "order_date": "Date Bon de livraison",
         "expiration_date": "Date d'expiration",
         "client": "Client",
@@ -705,6 +707,7 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "Bon de livraison",
         "reference": "Référence",
+        "bcn": "BCN",
         "date": "Date",
         "due_date": "Date d'échéance",
         "bill_to": "Facturer à",
@@ -754,6 +757,7 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Facture",
         "reference": "Référence",
+        "bcn": "BCN",
         "date": "Date",
         "due_date": "Date d'Échéance",
         "bill_to": "Facturer à",
@@ -766,7 +770,7 @@
         "tax": "TVA",
         "terms": "Conditions: Paiement sous 30 jours",
         "thank_you": "Merci pour votre confiance!",
-        "notes":"Notes supplémentaires"
+        "notes": "Notes supplémentaires"
       }
     },
     "products_table": {

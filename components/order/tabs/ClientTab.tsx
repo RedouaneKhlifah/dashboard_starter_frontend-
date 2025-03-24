@@ -1,6 +1,6 @@
 // tabs/ClientTab.tsx
 import { Dispatch, SetStateAction } from "react";
-import { Fingerprint, UserSearch } from "lucide-react";
+import { Command, Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
@@ -55,7 +55,7 @@ const ClientTab = ({
             }));
             setErrors((prev) => ({
               ...prev,
-              client: undefined
+              client: undefined,
             }));
           }}
           placeholder={translation.Ticket.form.client_search}
@@ -76,6 +76,15 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
+          id="bcn"
+          label={translation.order.form.bcn}
+          value={formData.bcn}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          icon={<Command className="w-5 h-5 text-gray-400" />}
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <InputField
           id="order_date"
           type="date"
           label={translation.order.form.order_date}
@@ -83,6 +92,7 @@ const ClientTab = ({
           value={formData.order_date}
           error={errors.order_date}
           disabled={selectedRecord ? true : false}
+          required
         />
         <InputField
           id="expiration_date"

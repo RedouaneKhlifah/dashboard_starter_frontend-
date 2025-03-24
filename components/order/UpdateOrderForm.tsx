@@ -51,6 +51,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
             remise_type: selectedRecord.remise_type || "PERCENT",
             remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
+            bcn: selectedRecord.bcn ?? "",
             products:
               selectedRecord.products?.map((product) => ({
                 name: product.name,
@@ -68,6 +69,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
             reference: "",
             order_date: "",
             expiration_date: "",
+            bcn: "",
             tva: 0,
             remise_type: "PERCENT",
             remise: 0,

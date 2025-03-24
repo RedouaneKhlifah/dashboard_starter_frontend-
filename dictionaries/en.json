@@ -409,6 +409,7 @@
     "paid_amount_required": "Paid amount is required",
     "form": {
       "reference": "Reference",
+      "bcn": "BCN",
       "reference_search": "Search reference",
       "order_date": "Delivery note date",
       "paid_amount": "Paid Amount",
@@ -699,6 +700,7 @@
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
+        "bcn": "BCN",
         "order_date": "Delivery note Date",
         "expiration_date": "Expiration Date",
         "client": "Client",
@@ -715,6 +717,7 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "order_title": "Delivery note",
         "reference": "Reference",
+        "bcn": "BCN",
         "date": "Date",
         "due_date": "Due Date",
         "bill_to": "Bill To",
@@ -764,7 +767,8 @@
         "company_contact": "contact@zroudi.ma | +212 640-843060",
         "invoice_title": "Invoice",
         "reference": "Reference",
-        "notes":"Additional Notes",
+        "bcn": "BCN",
+        "notes": "Additional Notes",
         "date": "Date",
         "due_date": "Due Date",
         "bill_to": "Bill To",

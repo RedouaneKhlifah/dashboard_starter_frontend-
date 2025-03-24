@@ -1,7 +1,6 @@
 import { ICreateorders } from "@/dto/order/createOrder";
 import { IOrderForm } from "@/dto/order/orderForm";
 
-
 export interface OrderRow {
   id: number;
 
@@ -28,14 +27,13 @@ export interface OrderRow {
   subtotal: number;
 }
 
-
-
 // Mapper function to format ICreateorders data into the required structure
 const ordersDataMapper = (data: IOrderForm): ICreateorders => {
   return {
     reference: data.reference,
     order_date: data.order_date,
     expiration_date: data.expiration_date,
+    bcn: data.bcn,
     client_id: data?.client?.id,
     products: data.products,
     note: data.note,

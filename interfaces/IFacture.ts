@@ -18,6 +18,8 @@ interface IFacture {
 
   reference: string;
 
+  bcn: string;
+
   facture_date: string;
 
   expiration_date: string;

@@ -29,6 +29,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
     () => ({
       client_id: 0,
       reference: "",
+      bcn: "",
       facture_date: "",
       expiration_date: "",
       tva: 0,
