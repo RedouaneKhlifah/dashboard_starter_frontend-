@@ -385,6 +385,7 @@
     "form": {
       "reference": "المرجع",
       "bcn": "BCN",
+      "is_in_tone": "احسب بالطن",
       "reference_search": "البحث عن مرجع",
       "order_date": "تاريخ مذكرة التسليم",
       "paid_amount": "المبلغ المدفوع",

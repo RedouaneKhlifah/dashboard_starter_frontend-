@@ -52,6 +52,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
             remise_type: selectedRecord.remise_type || "PERCENT",
             remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
+            is_in_tone: selectedRecord.is_in_tone || false,
             paid_amount: selectedRecord.paid_amount || 0,
             status: selectedRecord.status || Status.DRAFT,
             products:
@@ -71,6 +72,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
             reference: "",
             facture_date: "",
             bcn: "",
+            is_in_tone: false,
             expiration_date: "",
             tva: 0,
             remise_type: "PERCENT",

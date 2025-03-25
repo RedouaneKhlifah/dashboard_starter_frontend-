@@ -268,11 +268,11 @@ const ProductsTable = ({
         <th className="text-left py-2 px-3">
           {translation.sidebar.orders_table.print.product}
         </th>
-        <th className="text-left py-2 px-3">
-          {translation.sidebar.orders_table.print.quantity} (ton)
+        <th className="text-left py-2 px-3 text-nowrap">
+          {translation.sidebar.orders_table.print.quantity} ({order.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit})
         </th>
-        <th className="text-left py-2 px-3">
-          {translation.sidebar.orders_table.print.unit_price} (MAD/kg)
+        <th className="text-left py-2 px-3 text-nowrap">
+          {translation.sidebar.orders_table.print.unit_price} (MAD/{order.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit})
         </th>
         <th className="text-left py-2 px-3">
           {translation.sidebar.orders_table.print.total} HT
@@ -289,8 +289,7 @@ const ProductsTable = ({
           <tr key={index} className="border-b border-gray-200">
             <td className="py-2 px-3">{product.name}</td>
             <td className="text-right py-2 px-3">
-              {parseFloat(quantityInTons.toFixed(3))}{" "}
-              {translation.shared.ton_unit}
+            {order.is_in_tone ? parseFloat(quantityInTons.toFixed(3)) : parseFloat(product.quantity.toFixed(3))}{" "}{order.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(pricePerKg, lang)}
@@ -337,7 +336,7 @@ const SummarySection = ({
       </div>
       <div className="flex justify-between border-t-2 border-gray-300 pt-2 font-semibold">
         <span>{translation.sidebar.orders_table.print.total}: TTC</span>
-        <span>{summary.total}</span>
+        <span>{parseFloat(summary.total.split(" ")[0]).toFixed(3)} {translation.shared.currency}</span>
       </div>
     </section>
   );
@@ -433,7 +432,7 @@ const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
     return (
       <div
         ref={ref}
-        className="p-8 max-w-4xl mx-auto"
+        className="p-8 max-w-4xl mx-auto mt-32"
         dir={textDirection}
         style={{ fontFamily: "Arial, sans-serif" }}
       >

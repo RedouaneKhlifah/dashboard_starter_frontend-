@@ -8,6 +8,7 @@ export interface ICreateorders {
   remise_type: "PERCENT" | "FIXED";
   remise: number;
   note: string;
+  is_in_tone: boolean;
   products: Array<{
     product_id: number;
     price_unitaire: number;

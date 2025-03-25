@@ -40,6 +40,8 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       subtotal: 0,
       total: 0,
       paid_amount: 0,
+      is_in_tone: false,
+
     }),
     []
   );

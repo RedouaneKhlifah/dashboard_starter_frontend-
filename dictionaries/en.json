@@ -410,6 +410,7 @@
     "form": {
       "reference": "Reference",
       "bcn": "BCN",
+      "is_in_tone": "Calculate in tons",
       "reference_search": "Search reference",
       "order_date": "Delivery note date",
       "paid_amount": "Paid Amount",

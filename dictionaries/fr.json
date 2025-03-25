@@ -376,6 +376,7 @@
     "form": {
       "reference": "Référence",
       "bcn": "BCN",
+      "is_in_tone": "Calculer en tonnes",
       "reference_search": "Rechercher une référence",
       "order_date": "Date du bon de livraison",
       "paid_amount": "Montant Payé",

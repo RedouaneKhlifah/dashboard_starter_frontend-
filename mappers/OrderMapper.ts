@@ -40,6 +40,7 @@ const ordersDataMapper = (data: IOrderForm): ICreateorders => {
     tva: data.tva,
     remise_type: data.remise_type,
     remise: data.remise,
+    is_in_tone: data.is_in_tone
   };
 };
 
