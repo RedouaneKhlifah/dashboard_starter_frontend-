@@ -41,6 +41,8 @@ interface IFacture {
   total: number;
 
   subtotal: number;
+
+  is_in_tone: boolean;
 }
 
 interface FactureProduct extends IProduct {

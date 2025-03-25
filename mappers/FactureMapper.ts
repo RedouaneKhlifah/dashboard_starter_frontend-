@@ -15,6 +15,7 @@ const FactureDataMapper = (data: IFactureForm): ICreateInvoice => {
     remise_type: data.remise_type,
     remise: data.remise,
     paid_amount: data.paid_amount,
+    is_in_tone: data.is_in_tone
   };
 };
 

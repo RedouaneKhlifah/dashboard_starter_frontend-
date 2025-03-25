@@ -52,6 +52,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
             remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
             bcn: selectedRecord.bcn ?? "",
+            is_in_tone: selectedRecord.is_in_tone || false,
             products:
               selectedRecord.products?.map((product) => ({
                 name: product.name,
@@ -70,6 +71,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
             order_date: "",
             expiration_date: "",
             bcn: "",
+            is_in_tone: false,
             tva: 0,
             remise_type: "PERCENT",
             remise: 0,

@@ -42,6 +42,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       total: 0,
       paid_amount: 0,
       status: Status.DRAFT,
+      is_in_tone: false,
     }),
     []
   );

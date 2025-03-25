@@ -34,6 +34,9 @@ interface IOrder {
   total: number;
 
   subtotal: number;
+
+  is_in_tone: boolean;
+
 }
 
 interface OrderProduct extends IProduct {

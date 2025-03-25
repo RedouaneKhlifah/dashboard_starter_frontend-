@@ -5,7 +5,7 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { Select, Option, Button } from "@material-tailwind/react";
+import { Select, Option, Button, Checkbox } from "@material-tailwind/react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
 import { IFactureForm } from "@/dto/facture/factureForm";
@@ -84,6 +84,19 @@ const SummaryTab = ({
     calculateTotals,
   ]);
 
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange(
+      {
+        target: {
+          id: "is_in_tone",
+          value: e.target.checked
+        },
+      } as unknown as ChangeEvent<HTMLInputElement>,
+      setFormData,
+      setErrors
+    );
+  };
+  
   const handlePaidAmountChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -224,6 +237,7 @@ const SummaryTab = ({
           disabled
         />
       </div>
+      
       <div>
         <InputField
           id="total"
@@ -235,6 +249,21 @@ const SummaryTab = ({
           disabled
         />
       </div>
+      <Checkbox
+        id="is_in_tone"
+        label={translation.order.form.is_in_tone || "Calculer en tonnes"}
+        checked={formData.is_in_tone}
+        onChange={handleCheckboxChange}
+        ripple={true}
+        className="h-5 w-5"
+        // containerProps={{
+        //   className: "mr-2"
+        // }}
+        labelProps={{
+          className: "text-sm font-medium text-gray-700"
+        }}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
     </div>
   );
 };
