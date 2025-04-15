@@ -58,9 +58,10 @@ const useRefresh = ({
 
         const res = await response.json();
         let data = res.data;
-        const totalRecords = res.total;
+        let totalRecords = res.total;
         if (entity == "transactions") {
           data = res.transactions.data;
+          totalRecords = res.transactions.total;
         }
         setRecords(data);
         setTotalRecords(totalRecords);

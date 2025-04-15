@@ -46,7 +46,7 @@ const FactureForm = ({
   onSubmit,
   isOpen,
   selectedRecord,
-  lang
+  lang,
 }: FactureFormProps) => {
   const { modalType, closeModal, isSecondOpen } = useModalStore();
   const [formData, setFormData] = useState<IFactureForm>(initialFormData);
@@ -84,9 +84,6 @@ const FactureForm = ({
         newErrors.products = translation.order.product_required;
     }
 
-    console.log("New Errors:", formData);
-    console.log(newErrors);
-
     return newErrors;
   };
 
@@ -95,10 +92,10 @@ const FactureForm = ({
       setActiveTab(targetTab);
       return;
     }
-  
+
     const currentTabErrors = validateTab(activeTab.name);
     setErrors(currentTabErrors);
-  
+
     if (hasNoErrors(currentTabErrors)) {
       setActiveTab(targetTab);
     }
@@ -118,7 +115,6 @@ const FactureForm = ({
       translation
     );
     setErrors(newErrors);
-    console.log(newErrors);
 
     if (hasNoErrors(newErrors)) {
       setIsSubmitting(true);

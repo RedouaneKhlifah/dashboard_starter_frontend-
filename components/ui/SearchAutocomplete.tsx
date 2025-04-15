@@ -157,7 +157,6 @@ const SearchComponent = <T extends AutoCompleteSearchResult>({
   const hanldePast = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const newValue = e.clipboardData.getData("text/plain");
-    console.log("newValue", newValue);
     setIsDirty(true);
     setQuery(newValue);
     setSelectedIndex(-1);
