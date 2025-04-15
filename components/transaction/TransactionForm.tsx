@@ -53,7 +53,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validateTransactionForm(formData, translation);
-    console.log("newErrors", newErrors);
     setErrors(newErrors);
 
     if (hasNoErrors(newErrors)) {
