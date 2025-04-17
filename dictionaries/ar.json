@@ -559,7 +559,8 @@
         "inventory": "المخزون",
         "administration": "الإدارة",
         "sales": "المبيعات",
-        "payroll_management": "إدارة الرواتب"
+        "payroll_management": "إدارة الرواتب",
+        "history": "الأرشيف"
       },
       "items": {
         "products": "منتجات فردية",
@@ -577,6 +578,7 @@
     },
     "users_table": {
       "customer_management": "إدارة العملاء",
+      "customer_history": "أرشيف العملاء",
       "create_new_client": "إنشاء عميل جديد",
       "upload_execl": "تحميل ملف موظف (Excel)",
       "upload_instructions": "اسحب الملف وأفلِته هنا أو انقر للتحميل",
@@ -605,7 +607,9 @@
       },
       "actions": {
         "edit": "تعديل",
-        "delete": "حذف"
+        "delete": "حذف",
+        "Restore": "استعادة العميل"
+
       },
       "no_data": {
         "message": "لم يتم العثور على عملاء",

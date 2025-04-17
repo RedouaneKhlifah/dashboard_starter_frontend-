@@ -10,7 +10,7 @@ interface ActionButtonsProps {
   onShow?: (userId: number) => void;
   onShowHistory?: (userId: number) => void;
   editText?: string;
-  deleteText: string;
+  deleteText?: string;
 }
 
 export const ActionButtons = ({
