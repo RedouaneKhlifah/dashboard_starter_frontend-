@@ -13,15 +13,18 @@ interface PartenaireFormProps {
   lang: Locale;
 }
 
-const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang }) => {
+const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({
+  translation,
+  lang,
+}) => {
   const { modalType } = useModalStore();
-  const { error: toastError, success: toastSuccess } = useToast(); 
+  const { error: toastError, success: toastSuccess } = useToast();
   const [errors, setErrors] = useState<Partial<ICreatePartenaire>>({});
-  
+
   const initialFormData = useMemo<ICreatePartenaire>(
     () => ({
       name: "",
-      matricule: ""
+      matricule: "",
     }),
     []
   );
@@ -31,7 +34,7 @@ const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/partenaires",
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }
@@ -43,6 +46,10 @@ const CreatePartenaireForm: React.FC<PartenaireFormProps> = ({ translation, lang
       } else {
         const error = await response.json();
         toastError(error.message || translation.partenaire.message.error);
+
+        if (error?.errors?.matricule) {
+          setErrors({ matricule: error.message });
+        }
         return false;
       }
     } catch (error) {

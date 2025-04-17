@@ -32,6 +32,7 @@ interface orderFormProps {
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   onSubmit: (formData: IOrderForm) => Promise<boolean>;
+  OnPublish: (formData: IOrderForm) => Promise<boolean>;
   isOpen: boolean;
   selectedRecord?: IOrder;
 }
@@ -42,6 +43,7 @@ const OrderForm = ({
   errors,
   setErrors,
   onSubmit,
+  OnPublish,
   isOpen,
   selectedRecord,
 }: orderFormProps) => {
@@ -49,6 +51,7 @@ const OrderForm = ({
   const [formData, setFormData] = useState<IOrderForm>(initialFormData);
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSecondSubmitting, setIsSecondSubmitting] = useState(false);
 
   useEffect(() => {
     setFormData(initialFormData);
@@ -64,16 +67,28 @@ const OrderForm = ({
     [activeTab.name, modalType, translation]
   );
 
+  const secondarySubmitButtonText = useMemo(
+    () =>
+      activeTab.name === "notes"
+        ? modalType === "create"
+          ? translation.order.common.create_and_publish
+          : translation.order.common.update_and_publish
+        : translation.order.common.update_and_publish,
+    [activeTab.name, modalType, translation]
+  );
+
   const validateTab = (tabName: TabName): orderFormErrors => {
     const newErrors: orderFormErrors = {};
 
     if (tabName === "client") {
       if (!formData.reference?.trim())
         newErrors.reference = translation.order.reference_required;
-      if (!formData.orders_date)
-        newErrors.orders_date = translation.order.orders_date_required;
+      if (!formData.order_date)
+        newErrors.order_date = translation.order.order_date_required;
       if (!formData.expiration_date)
         newErrors.expiration_date = translation.order.expiration_date_required;
+      if (!formData.client?.title)
+        newErrors.client = translation.order.client_required;
     } else if (tabName === "products") {
       if (!formData.products || formData.products.length === 0)
         newErrors.products = translation.order.product_required;
@@ -83,21 +98,21 @@ const OrderForm = ({
   };
 
   const handleTabChange = (targetTab: Tab) => {
-    if (targetTab.index > activeTab.index + 1) return; // Prevent skipping tabs
+    if (targetTab.index < activeTab.index) {
+      setActiveTab(targetTab);
+      return;
+    }
 
-    if (targetTab.index > activeTab.index) {
-      const currentTabErrors = validateTab(activeTab.name);
-      setErrors(currentTabErrors);
+    const currentTabErrors = validateTab(activeTab.name);
+    setErrors(currentTabErrors);
 
-      if (hasNoErrors(currentTabErrors)) setActiveTab(targetTab);
-    } else {
+    if (hasNoErrors(currentTabErrors)) {
       setActiveTab(targetTab);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (activeTab.name !== "notes") {
       const nextTab = tabs.find((t) => t.index === activeTab.index + 1);
       if (nextTab) handleTabChange(nextTab);
@@ -106,7 +121,6 @@ const OrderForm = ({
 
     const newErrors = orderValidation.validateorderForm(formData, translation);
     setErrors(newErrors);
-    console.log(newErrors);
 
     if (hasNoErrors(newErrors)) {
       setIsSubmitting(true);
@@ -124,6 +138,28 @@ const OrderForm = ({
     }
   };
 
+  const handlePublish = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newErrors = orderValidation.validateorderForm(formData, translation);
+    setErrors(newErrors);
+
+    if (hasNoErrors(newErrors)) {
+      setIsSecondSubmitting(true);
+      try {
+        const success = await OnPublish(formData);
+        if (success) {
+          closeModal();
+          resetForm();
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      } finally {
+        setIsSecondSubmitting(false);
+      }
+    }
+  };
+
   const resetForm = () => {
     setFormData(initialFormData);
     setActiveTab(tabs[0]);
@@ -134,7 +170,7 @@ const OrderForm = ({
     return (
       (tabName === "client" &&
         (!!errors.reference ||
-          !!errors.orders_date ||
+          !!errors.order_date ||
           !!errors.expiration_date)) ||
       (tabName === "products" && !!errors.products) ||
       (tabName === "notes" && !!errors.note)
@@ -154,14 +190,17 @@ const OrderForm = ({
           : translation.sidebar.orders_table.update_order
       }
       isLoading={isSubmitting}
+      isSecondLoading={isSecondSubmitting}
       submitButtonText={submitButtonText}
       cancelButtonText={translation.order.common.cancel}
       onSubmit={handleSubmit}
+      onSecondarySubmit={handlePublish}
+      secondarySubmitButtonText={secondarySubmitButtonText}
+      isSecondaryBtnVisible={activeTab.name === "notes"}
       contentClassName="2xl:min-w-[60%]"
       dismiss={!isSecondOpen}
     >
       <div className="space-y-6">
-        {/* Tabs Navigation */}
         <div className="border-b border-gray-200 dark:border-gray-700">
           <div className="flex gap-2">
             {tabs.map((tab) => (

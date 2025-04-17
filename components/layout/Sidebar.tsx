@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Package,
   Settings,
+  NotepadTextDashed,
   Users,
   Box,
   Gem,
@@ -15,18 +16,23 @@ import {
   Weight,
   ClipboardList,
   Handshake,
+  Factory,
+  ArrowLeftRight,
+  ArrowRightLeft,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
-import Logo from "@/public/le_menu_svg_logo.svg";
+import Logo from "@/public/logo_Zroudi.svg";
 import Image from "next/image";
 import { DictionaryType } from "@/lib/i18n";
+import LogoutButton from "../shared/logout-button";
 
 interface SidebarProps {
   translation: DictionaryType;
   lang: Locale;
+  authToken: string | undefined;
 }
 
-const Sidebar = ({ lang, translation }: SidebarProps) => {
+const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
   const isRTL = lang === "ar";
   const pathname = usePathname();
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
@@ -40,18 +46,13 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
         items: [
           {
             name: translation.sidebar.dashboard.items.products,
-            href: "/product",
+            href: "/produits",
             icon: <Box className="w-4 h-4" />,
           },
           {
             name: translation.sidebar.dashboard.items.tickets,
             href: "/tickets",
             icon: <ClipboardList className="w-4 h-4" />,
-          },
-          {
-            name: translation.sidebar.dashboard.items.pricing,
-            href: "/pricing",
-            icon: <Package className="w-4 h-4" />,
           },
         ],
       },
@@ -65,36 +66,48 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             icon: <Users className="w-4 h-4" />,
           },
           {
+            name: translation.sidebar.dashboard.items.orders,
+            href: "/bons-de-livraison",
+            icon: <Package className="w-4 h-4" />,
+          },
+          {
+            name: translation.sidebar.dashboard.items.factures,
+            href: "/factures",
+            icon: <Factory className="w-4 h-4" />,
+          },
+        ],
+      },
+      {
+        name: translation.sidebar.dashboard.sections.payroll_management,
+        icon: <NotepadTextDashed className="w-5 h-5" />,
+        items: [
+          {
+            name: translation.sidebar.dashboard.items.employees,
+            href: "/employees",
+            icon: <Users className="w-4 h-4" />,
+          },
+          {
             name: translation.sidebar.dashboard.items.partners,
             href: "/partenaire",
             icon: <Handshake className="w-4 h-4" />,
           },
           {
-            name: translation.sidebar.dashboard.items.orders,
-            href: "/orders",
-            icon: <Package className="w-4 h-4" />,
-          },
-        ],
-      },
-      {
-        name: translation.sidebar.dashboard.sections.administration,
-        icon: <Settings className="w-5 h-5" />,
-        items: [
-          {
-            name: translation.sidebar.dashboard.items.members,
-            href: "/members",
-            icon: <Users className="w-4 h-4" />,
-          },
-          {
-            name: translation.sidebar.dashboard.items.settings,
-            href: "/settings",
-            icon: <Settings className="w-4 h-4" />,
+            name: translation.sidebar.dashboard.items.transactions,
+            href: "/transactions",
+            icon: <ArrowRightLeft className="w-4 h-4" />,
           },
         ],
       },
     ],
     [translation]
   );
+
+  useEffect(() => {
+    const currentSection = menuSections.find((section) =>
+      section.items.some((item) => pathname === `/${lang}${item.href}`)
+    );
+    setExpandedSection(currentSection?.name || null);
+  }, [pathname, lang, menuSections]);
 
   useEffect(() => {
     const currentSection = menuSections.find((section) =>
@@ -128,7 +141,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
     >
       <div className={`${isOpen ? "px-2 py-3" : "p-0"}`}>
         <div
-          className={`flex mb-6 ${
+          className={`flex mb-4 ${
             isOpen ? "flex-row justify-between" : "flex-col items-center"
           }`}
         >
@@ -136,19 +149,10 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
             <div className="flex items-center gap-2">
               <div
                 className={`transition-transform duration-200 ease-in-out ${
-                  isOpen ? "scale-100" : "scale-90"
+                  isOpen ? "scale-100 ml-5" : "scale-90"
                 }`}
               >
-                <Image src={Logo} alt="" width={30} />
-              </div>
-              <div
-                className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                  isOpen ? "max-w-[200px] opacity-100" : "max-w-0 opacity-0"
-                }`}
-              >
-                <p className="font-semibold text-2xl tracking-tight text-primary leading-none whitespace-nowrap">
-                  {translation.nav.logo}
-                </p>
+                <Image src={Logo} alt="" width={100} />
               </div>
             </div>
           </Link>
@@ -174,7 +178,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       hover:bg-accent
                       ${
                         pathname === `/${lang}/dashboard`
-                          ? "bg-accent border shadow-sm"
+                          ? "bg-primary border shadow-sm text-white hover:bg-primary"
                           : "text-foreground hover:text-foreground/80"
                       }
                      `}
@@ -203,7 +207,7 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                   {!isOpen && (
                     <div
                       className={cn(
-                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-gray-900 px-2 py-1 text-xs",
+                        "absolute top-1/2 -translate-y-1/2 bg-primary/95 text-white px-2 py-1 text-xs",
                         "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
                         "whitespace-nowrap z-20",
                         isRTL ? "right-14" : "left-14"
@@ -233,11 +237,16 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
                       key={item.href}
                       href={`/${lang}${item.href}`}
                       className={cn(
-                        "flex items-center px-3 py-2 text-sm font-medium rounded-lg group relative",
-                        "transition-all ease-in-out duration-200 hover:pl-4 hover:bg-accent/30",
-                        pathname === `/${lang}${item.href}`
-                          ? "bg-accent shadow-sm border border-primary/10"
-                          : "text-muted-foreground hover:text-foreground"
+                        "flex items-center px-3 py-2 text-sm font-medium group relative",
+                        "transition-all ease-in-out duration-200 hover:pl-5 hover:bg-accent/30",
+                        pathname === `/${lang}${item.href}` &&
+                          isOpen &&
+                          "shadow-sm border border-primary/10 rounded-lg bg-accent",
+                        pathname === `/${lang}${item.href}` &&
+                          !isOpen &&
+                          "border-l-2 border-primary pl-5",
+                        pathname !== `/${lang}${item.href}` &&
+                          "text-muted-foreground hover:text-foreground rounded-lg"
                       )}
                     >
                       <span
@@ -268,7 +277,32 @@ const Sidebar = ({ lang, translation }: SidebarProps) => {
               )}
             </div>
           ))}
-        </nav>
+        </nav>{" "}
+        {authToken && (
+          <div className="absolute bottom-8 w-full">
+            {" "}
+            <div className="relative flex justify-center group">
+              <LogoutButton
+                lang={lang}
+                isOpen={isOpen}
+                translation={translation}
+              />
+
+              {!isOpen && (
+                <div
+                  className={cn(
+                    "absolute top-1/2 -translate-y-1/2 bg-red-700/70 px-2 py-1 text-xs text-white",
+                    "opacity-0 group-hover:opacity-100 transition-opacity ease-in-out duration-200 pointer-events-none",
+                    "whitespace-nowrap z-20",
+                    isRTL ? "right-16" : "left-16"
+                  )}
+                >
+                  {translation.shared.logout}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );

@@ -15,7 +15,7 @@ const updateTicketMapper = (ticket: ITicket): ITicketForm => {
     client:
       (ticket.client && {
         id: ticket.client.id,
-        title: ticket.client.full_name,
+        title: ticket.client.company,
       }) ||
       null,
     number_prints: ticket.number_prints,

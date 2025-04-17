@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "@material-tailwind/react";
 import { GlobalTable } from "@/components/shared/GlobalTable";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 import { DictionaryType } from "@/lib/i18n";
 import { IProduct } from "@/interfaces/IProduct";
 import useModalStore, { ModalTypeEnum } from "@/store/modalStore";
@@ -12,8 +12,8 @@ import { handleChange } from "@/components/utils/formHandlers";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 
 interface ProductsTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   translation: DictionaryType;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
@@ -38,9 +38,9 @@ const ProductsTab = ({
       product_id: product.id,
       name: product.name,
       unit: product.unit,
-      price_unitaire: product.cost_price,
+      price_unitaire: product.sale_price,
       quantity: 1,
-      total: product.cost_price * 1,
+      total: product.sale_price * 1,
     }));
 
     setFormData((prev) => ({
@@ -123,25 +123,16 @@ const ProductsTab = ({
             label: translation.order.form.articles.unit,
           },
           {
-            key: "price_unitaire",
-            label: translation.order.form.articles.unit_price,
+            key: `price_unitaire`,
+            label: `${translation.order.form.articles.unit_price}`,
+            width: "130px",
             renderCell: (value: number, row: any) => (
-              <InputField
-                type="number"
-                value={value}
-                onChange={(e) =>
-                  handlePriceChange(row.product_id, parseFloat(e.target.value))
-                }
-                className="max-w-20 px-1"
-                min={0}
-                id={"price_unitaire"}
-                label={""}
-              />
+              <p>{value + " " + translation.shared.currency}</p>
             ),
           },
           {
-            key: "quantity",
-            label: translation.order.form.articles.quantity,
+            key: `quantity`,
+            label: `${translation.order.form.articles.quantity}  (${translation.shared.kg_unit})`,
             renderCell: (value: number, row: any) => (
               <InputField
                 type="number"
@@ -153,6 +144,14 @@ const ProductsTab = ({
                 value={value}
                 disabled={!!row.ticket_id}
               />
+            ),
+          },
+
+          {
+            key: `quantity`,
+            label: `${translation.order.form.articles.quantity}  (${translation.shared.ton_unit})`,
+            renderCell: (value: number, _row: any) => (
+              <p>{(value * 0.001).toFixed(3)}</p>
             ),
           },
           {
@@ -178,17 +177,17 @@ const ProductsTab = ({
           },
         ]}
         rows={formData.products || []}
-        className="mt-4"
+        className="mt-4 max-h-60 z-10"
         totalRows={0}
         setCurrentPage={() => {}}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
-        <div className="border border-dashed rounded-lg p-[2px] flex justify-center items-center">
+        <div className="flex justify-center items-center mt-2">
           <button
             type="button"
             onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
-            className="px-3.5 py-2 text-sm font-medium bg-primary/10 text-primary  hover:bg-primary/20 rounded-md transition-colors"
+            className="px-3.5 py-2 text-sm font-medium bg-blue-300 text-white  hover:bg-blue-400 rounded-md transition-colors shadow-sm hover:shadow-md"
           >
             {translation.order.form.add_article}
           </button>
@@ -210,14 +209,14 @@ const ProductsTab = ({
                     {translation.order.form.Total_Amount}
                   </span>
                   <span className="text-xl font-semibold text-gray-900">
-                    $
                     {formData.products
                       .reduce(
                         (sum, product) =>
                           sum + product.quantity * product.price_unitaire,
                         0
                       )
-                      .toFixed(2)}
+                      .toFixed(2)}{" "}
+                    {translation.shared.currency}
                   </span>
                 </div>
               </div>

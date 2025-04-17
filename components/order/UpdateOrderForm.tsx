@@ -42,21 +42,23 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
         ? {
             client: {
               id: selectedRecord.client_id || 0,
-              title: selectedRecord.client?.full_name || "",
+              title: selectedRecord.client?.company || "",
             },
             reference: selectedRecord.reference || "",
-            orders_date: selectedRecord.orders_date || "",
+            order_date: selectedRecord.order_date || "",
             expiration_date: selectedRecord.expiration_date || "",
             tva: selectedRecord.tva || 0,
             remise_type: selectedRecord.remise_type || "PERCENT",
             remise: selectedRecord.remise || 0,
             note: selectedRecord.note || "",
+            bcn: selectedRecord.bcn ?? "",
+            is_in_tone: selectedRecord.is_in_tone || false,
             products:
               selectedRecord.products?.map((product) => ({
                 name: product.name,
                 unit: product.unit,
                 product_id: product.product_id,
-                price_unitaire: product.price_unitaire,
+                price_unitaire: product.sale_price,
                 quantity: product.quantity,
                 ticket_id: product?.ticket_id,
               })) || [],
@@ -66,8 +68,10 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
         : {
             client_id: 0,
             reference: "",
-            orders_date: "",
+            order_date: "",
             expiration_date: "",
+            bcn: "",
+            is_in_tone: false,
             tva: 0,
             remise_type: "PERCENT",
             remise: 0,
@@ -112,6 +116,35 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
     }
   };
 
+  const handlePublich = async (data: IOrderForm): Promise<boolean> => {
+    if (!selectedRecord?.id) return false;
+    const formattedData = ordersDataMapper(data);
+
+    try {
+      const response = await http(
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/update-and-publish/${selectedRecord.id}`,
+        {
+          method: "PATCH",
+          lang,
+          body: JSON.stringify(formattedData),
+        }
+      );
+
+      if (response.ok) {
+        toastSuccess(translation.order.form.message.update_success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.order.form.message.error);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error updating order:", error);
+      toastError(translation.order.form.message.error);
+      return false;
+    }
+  };
+
   return (
     <OrderForm
       translation={translation}
@@ -119,6 +152,7 @@ const UpdateOrderForm: React.FC<orderFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      OnPublish={handlePublich}
       isOpen={modalType === "update"}
     />
   );

@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 import InputField from "@/components/ui/InputField";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 
 interface NotesTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;

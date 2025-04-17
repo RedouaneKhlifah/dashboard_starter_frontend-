@@ -1,8 +1,7 @@
 interface IClient {
   id: number;
-  full_name: string;
-  first_name: string;
-  last_name: string;
+  company: string;
+  ice: string;
   email: string;
   phone: string;
   address: string;

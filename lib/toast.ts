@@ -6,7 +6,7 @@ const baseStyle = {
   fontSize: "14px",
   fontWeight: 500,
   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-  border: "1.5px solid #facc15",
+  border: "1.5px solid #2B8A3E",
 };
 
 export const toastError = (message: string) => {
@@ -33,8 +33,8 @@ export const toastSuccess = (message: string) => {
     style: {
       ...baseStyle,
       // background: "#F0FFF4",
-      background: "#facc151f",
-      color: "#2B8A3E",
+      background: "#52ac54",
+      color: "#ffffff",
     },
     iconTheme: {
       primary: "#2B8A3E",

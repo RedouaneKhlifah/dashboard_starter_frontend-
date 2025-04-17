@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "Saveurs du Maroc avec Le-Menu.ma",
@@ -69,6 +69,7 @@
     "password": "Mot de passe",
     "signIn": "Se connecter",
     "signUp": "S'inscrire",
+    "signinIn": "Connexion...",
     "continueWith": "Ou continuez avec",
     "dontHaveAccount": "Vous n'avez pas de compte ?",
     "alreadyHaveAccount": "Vous avez déjà un compte ?",
@@ -104,9 +105,14 @@
     "addressRequired": "L'adresse est requise",
     "countryRequired": "Le pays est requis",
     "cityRequired": "La ville est requise",
+    "patsRequired": "La Pays est requise",
+    "companyRequired": "La société est requise",
+    "ice": "ICE is required",
     "form": {
       "first_name": "Prénom",
       "last_name": "Nom de famille",
+      "company": "Société",
+      "ice": "ICE",
       "email": "Adresse e-mail",
       "phone": "Numéro de téléphone",
       "address": "Adresse",
@@ -123,7 +129,59 @@
       "success": "Client créé avec succès",
       "update_success": "Client updated successfully",
       "delete_success": "Client supprimé avec succès",
-      "error": "Erreur lors de la création du client"
+      "error": "Erreur lors du traitement de la demande"
+    }
+  },
+  "employee": {
+    "firstNameRequired": "Le prénom est requis",
+    "firstNameTooLong": "Le prénom doit contenir moins de 50 caractères",
+    "lastNameRequired": "Le nom de famille est requis",
+    "lastNameTooLong": "Le nom de famille doit contenir moins de 50 caractères",
+    "MonthlySalaryRequired": "Le salaire mensuel est requis",
+    "PricePerHourRequired": "Le prix par heure est requis",
+    "PricePerDayRequired": "Le prix par jour est requis",
+    "DateEngagementRequired": "La date d'engagement est requise",
+    "DateBirthRequired": "La date de naissance est requise",
+    "addressRequired": "L'adresse est requise",
+    "NationalRequired": "Le CIN est requis",
+    "matriculeRequired": "Le matricule est requis",
+    "cityRequired": "La ville est requise",
+    "form": {
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone",
+      "address": "Adresse",
+      "country": "Pays",
+      "city": "Ville",
+      "matricule": "Matricule",
+      "national_id": "CIN",
+      "date_of_engagement": "Date d’engagement",
+      "price_per_ton": "Prix / tonne",
+      "cnss_number": "N° CNSS",
+      "birth_date": "Date de naissance",
+      "Out_of": "Sur",
+      "employees": "employés",
+      "were successfully processed": "ont été traités avec succès",
+      "and": "et",
+      "failed": "échoué"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Modifier",
+      "delete": "Supprimer",
+      "upload": "Télécharger"
+    },
+    "message": {
+      "success": "Employée créé avec succès",
+      "update_success": "Employée mis à jour avec succès",
+      "upload_success": "Les employés ont été téléchargés avec succès",
+      "upload_error": "Erreur lors du téléchargement des employés",
+      "delete_success": "Employée supprimé avec succès",
+      "error": "Erreur lors de la création du employée",
+      "bultain_error": "Erreur lors de la création du bultain de paiement",
+      "bultain_success": "Bultain de paiement créé avec succès"
     }
   },
   "partenaire": {
@@ -158,7 +216,7 @@
     "salePriceRequired": "Le prix de vente est obligatoire",
     "invalidSalePrice": "Format de prix de vente invalide",
     "invalidCostPrice": "Format de prix de revient invalide",
-    "invalidTax": "Format de taxe invalide",
+    "invalidTax": "Format de TVA invalide",
     "stockRequired": "Le stock est obligatoire",
     "invalidStock": "Quantité de stock invalide",
     "reorderPointRequired": "Le point de réapprovisionnement est obligatoire",
@@ -172,7 +230,7 @@
       "sale_price": "Prix de vente",
       "cost_price": "Prix d'achat",
       "description": "Description",
-      "tax": "Taxe",
+      "tax": "TVA",
       "image": "Image",
       "stock": "Stock",
       "reorder_point": "Point de commande"
@@ -186,6 +244,57 @@
       "delete_success": "Produit supprimé avec succès",
       "error": "Erreur lors de la création du produit"
     }
+  },
+  "payslip": {
+    "employer": "EMPLOYEUR",
+    "PayslipName": "Bulletin de Paie",
+    "company_name": "ZR CDU",
+    "company_activity": "Collecte des déchets et recyclages",
+    "company_address": "Dr Aït Messaoud Harbil El Ghaba",
+    "postal_code": "B-P 12624",
+    "city": "MARRAKECH",
+    "registration_number": "N° d'affiliation CNSS",
+    "employee_address": "DR LAHRACH N°5",
+    "employee_city": "Marrakech",
+    "employee_id": "N°CNSS",
+    "registration_num": "Matricule",
+    "hire_date": "D.Entrée",
+    "birth_date": "D.Naissa",
+    "id_number": "C.I.N",
+    "gender": "S.F N.En",
+    "children": "N.Déd",
+    "qualification": "Qualification",
+    "department": "Service",
+    "period": "Période",
+    "january": "Janvier",
+    "base_salary": "Salaire de Base",
+    "pay_frequency": "Quinzai",
+    "biweekly": "Quinzai",
+    "pay_period": "Période Paie",
+    "category": "RUBRIQUE",
+    "amount": "Amount",
+    "base": "Base/Nombre",
+    "rate": "TAUX",
+    "earnings": "GAIN",
+    "deductions": "RETENUE",
+    "rubric": "RUBRIQUE",
+    "base_units": "Base/Nombre",
+    "vacation_days": "Jours Fériés",
+    "normal_hours": "Heures Taux Normal",
+    "seniority": "Ancienneté",
+    "gross_salary": "Salaire Brut",
+    "taxable_income": "Revenu Brut Imposable",
+    "social_security": "C.N.S.S",
+    "health_insurance": "Assurance AMO",
+    "income_tax": "I.R",
+    "payment": "TRAITE",
+    "total": "TOTAL",
+    "total_deductions": "Total Déductible",
+    "net_salary": "Salaire Net",
+    "net_to_pay": "Net à Payer",
+    "paid_by": "PAYE PAR",
+    "bank_transfer": "Virement",
+    "signature": "Signature"
   },
   "Ticket": {
     "matricule_create": "Créer nouveau matricule",
@@ -204,7 +313,7 @@
       "exit": "Sortie"
     },
     "form": {
-      "matricule": "Matricule",
+      "matricule": "Partenaire",
       "matricule_search": "Matricule",
       "product": "Produit",
       "product_search": "Produit",
@@ -249,26 +358,34 @@
       "cancel": "Annuler",
       "update": "Mettre à jour",
       "delete": "Supprimer",
-      "continue": "Continuer"
+      "continue": "Continuer",
+      "create_and_publish": "Créer et Publier",
+      "update_and_publish": "Mettre à jour et Publier"
     },
     "select_products": "Sélectionnez les produits",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
-    "orders_date_required": "La date du orders est obligatoire",
+    "order_date_required": "La date du orders est obligatoire",
     "expiration_date_required": "La date d'expiration est obligatoire",
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
     "note_required": "La note est obligatoire",
+    "status_required": "Le statut est obligatoire",
+    "status_invalid": "Statut invalide",
+    "paid_amount_required": "Le montant payé est obligatoire",
     "form": {
       "reference": "Référence",
+      "bcn": "BCN",
+      "is_in_tone": "Calculer en tonnes",
       "reference_search": "Rechercher une référence",
-      "orders_date": "Date du orders",
+      "order_date": "Date du bon de livraison",
+      "paid_amount": "Montant Payé",
       "expiration_date": "Date d'expiration",
       "client": "Client",
       "add_article": "Ajouter un Produit",
       "subtotal": "Sous-total",
       "total": "Total",
-      "tva": "TVA",
+      "vat": "TVA",
       "client_search": "Rechercher un client",
       "product": "Produit",
       "product_search": "Rechercher un produit",
@@ -295,14 +412,49 @@
         "percentage": "Pourcentage",
         "total_after": "Total Après Remise"
       },
+      "status": {
+        "label": "Statut",
+        "DRAFT": "Brouillon",
+        "UNPAID": "Impayé",
+        "PARTIALLY_PAID": "Partiellement Payé",
+        "PAID": "Payé"
+      },
       "message": {
-        "success": "orders créé avec succès",
-        "update_success": "orders updated successfully",
-        "delete_success": "orders supprimé avec succès",
-        "error": "Erreur lors de la création du orders"
+        "success": "bon de livraison créé avec succès",
+        "success_facture": "Facture créée avec succès",
+        "update_success_facture": "Facture mise à jour avec succès",
+        "delete_success_facture": "Facture supprimée avec succès",
+        "update_success": "bon de livraison updated successfully",
+        "delete_success": "bon de livraison supprimé avec succès",
+        "error": "Erreur lors de la création du bon de livraison",
+        "email_success": "Email envoyé avec succès"
       },
       "Total_Items": "Nombre total d'articles",
       "Total_Amount": "Montant total"
+    }
+  },
+  "transaction": {
+    "balance": "Solde",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Créer une nouvelle transaction",
+    "form": {
+      "reason": "Raison",
+      "amount": "Montant",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "La raison est obligatoire",
+        "amount_required": "Le montant est obligatoire",
+        "amount_invalid": "Montant invalide, il doit être au moins 1",
+        "type_required": "Le type est obligatoire"
+      }
+    },
+    "message": {
+      "success": "Transaction créée avec succès",
+      "update_success": "Transaction mise à jour avec succès",
+      "delete_success": "Transaction supprimée avec succès",
+      "error": "Erreur lors de la création de la transaction"
     }
   },
   "common": {
@@ -324,30 +476,108 @@
     "delete": "Supprimer",
     "confirm": "Confirmer"
   },
+  "StatsContainer": {
+    "receivables_balance": "Solde des créances",
+    "collected_revenue": "Revenus encaissés",
+    "waste_stock": "Stock de déchets",
+    "profitability_rate": "Taux de rentabilité",
+    "Turnover": "Chiffre d'affaires",
+    "Total_Sales": "Total des gains"
+  },
+  "partenaireModal": {
+    "common": {
+      "cancel": "Annuler",
+      "calculate": "Calculer",
+      "recalculate": "Recalculer",
+      "product": "Produit",
+      "noProduct": "Aucun produit disponible",
+      "pricePerKg": "Prix par Kg",
+      "discount": "Remise",
+      "tickets": "Tickets",
+      "date": "Date",
+      "netWeight": "Poids Net",
+      "noTicketsFound": "Aucun ticket trouvé pour la période sélectionnée",
+      "summary": "Résumé",
+      "totalWeight": "quantity",
+      "totalValue": "Valeur Totale",
+      "netTotal": "Total Net",
+      "calculating": "Calcul en cours..."
+    }
+  },
+  "HistoryModal": {
+    "message": {
+      "delete_success": "historique de paiement deleted successfully",
+      "delete_error": "Error deleting Cet historique de paiement"
+    },
+    "history_of_payment": "Cet historique de paiement",
+    "common": {
+      "update": "Mettre à jour",
+      "cancel": "Annuler",
+      "actions": "Actions",
+      "print": "Imprimer"
+    },
+    "history": {
+      "title": "Historique de Bulletin",
+      "period": "Période",
+      "noData": "Aucun historique de bulletin trouvé",
+      "add_Payment": "Créer un bulletin de paiement"
+    },
+    "fullName": "Nom Complet",
+    "hourlyRate": "Total Ton",
+    "hours": "Prix / Ton",
+    "total": "Total"
+  },
   "sidebar": {
     "dashboard": {
+      "charts": {
+        "sales": {
+          "label": "Ventes au fil du temps",
+          "infoTooltipLabel": "Affiche les tendances des ventes quotidiennes",
+          "metricTotal": "Total: 1 234 MAD"
+        },
+        "partners": {
+          "label": "Top 10 des partenaires par tickets",
+          "infoTooltipLabel": "Nombre de tickets par partenaire",
+          "metricTotal": "Total des tickets"
+        },
+        "products": {
+          "label": "Top 10 des produits par tickets",
+          "infoTooltipLabel": "Nombre de tickets par produit",
+          "metricTotal": "Total des tickets"
+        }
+      },
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventaire",
         "administration": "Administration",
-        "sales": "Les ventes"
+        "sales": "Les ventes",
+        "payroll_management": "Gestion de paie"
       },
       "items": {
-        "products": "Produits simples",
+        "products": "Produits",
         "bundles": "Pactes",
         "tickets": "Tickets",
-        "pricing": "Liste de prix",
-        "orders": "Bons de Commandes",
+        "factures": "Factures",
+        "orders": "Bons de livraison",
         "members": "Membres",
         "settings": "P aramètres",
         "clients": "Clients",
-        "partners": "Partenaires"
+        "employees": "Employés",
+        "partners": "Partenaires",
+        "transactions": "Transactions"
       }
     },
     "users_table": {
       "customer_management": "Gestion des clients",
       "create_new_client": "Créer un nouveau client",
+      "upload_execl": "Télécharger employée (Excel)",
+      "upload_instructions": "Glissez et déposez le fichier ici ou cliquez pour le télécharger",
+      "supported_formats": "Formats pris en charge : .xlsx, .xls",
+      "upload_complete": "Terminé",
       "update_client": "Mettre à jour le client",
+      "Employee_management": "Gestion des employées",
+      "update_Employees": "Mettre à jour le employée",
+      "create_new_Employees": "Créer un nouveau employée",
       "search_placeholder": "Rechercher...",
       "headers": {
         "name": "Nom",
@@ -355,7 +585,15 @@
         "phone": "Téléphone",
         "city": "Ville",
         "country": "Pays",
-        "actions": "Actions"
+        "actions": "Actions",
+        "id": "ID Employé",
+        "full_name": "Nom Complet",
+        "national_id": "CIN",
+        "date_of_engagement": "Date d'engagement",
+        "matricule": "Matricule",
+        "monthly_salary": "Salaire mensuel",
+        "price_per_ton": "Prix/Tonne",
+        "price_per_day": "Prix/Jour"
       },
       "actions": {
         "edit": "Modifier",
@@ -371,6 +609,29 @@
       "create_new_partner": "Créer un nouveau partenaire",
       "update_partner": "Mettre à jour le partenaire",
       "search_placeholder": "Rechercher...",
+      "print": {
+        "company_name": "ZR CDU",
+        "company_activity": "Collecte des déchets et recyclages",
+        "company_address": "Dr Aït Messaoud Harbil El Ghaba",
+        "ticket_number": "Numéro de Ticket",
+        "gross_weight": "poids brut",
+        "tare_weight": "tare de poids",
+        "net_weight": "poids net",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "partner_info": "Informations sur le Partenaire",
+        "name": "Nom",
+        "matricule": "Matricule",
+        "date_range": "Période",
+        "product": "Produit",
+        "weight": "Poids (kg)",
+        "value": "Valeur",
+        "date": "Date",
+        "total_weight": "Poids Total",
+        "total_value": "Valeur Totale",
+        "discount": "Remise",
+        "net_total": "Total Net",
+        "no_tickets": "Aucun ticket trouvé pour la période sélectionnée"
+      },
       "headers": {
         "name": "Nom",
         "matricule": "Matricule",
@@ -398,14 +659,21 @@
       "update_ticket": "Mettre à jour le ticket",
       "search_placeholder": "Rechercher...",
       "headers": {
-        "matricule": "Matricule",
+        "number": "Nº",
+        "created_at": "Date/Heure",
+        "matricule": "Nom du Partenaire",
         "product": "Produit",
-        "number_prints": "Nombre d'impressions",
-        "poids_brut": "Poids brut",
+        "number_prints": "N° Impr",
+        "poids_brut": "Poids brute",
         "poids_tare": "Poids tare",
+        "poids_net": "Poids net",
         "status": "Statut",
         "client": "Client",
         "actions": "Actions"
+      },
+      "statusValues": {
+        "ENTRY": "Entrée",
+        "EXIT": "Sortie"
       },
       "actions": {
         "edit": "Modifier",
@@ -417,13 +685,14 @@
       }
     },
     "orders_table": {
-      "order_management": "Gestion des commandes",
-      "create_new_order": "Créer une nouvelle commande",
-      "update_order": "Mettre à jour le orders",
+      "order_management": "Gestion des bons de livraison",
+      "create_new_order": "Créer un nouveau Bon de livraison",
+      "update_order": "Mettre à jour le Bon de livraison",
       "search_placeholder": "Rechercher...",
       "headers": {
         "reference": "Référence",
-        "orders_date": "Date du orders",
+        "bcn": "BCN",
+        "order_date": "Date Bon de livraison",
         "expiration_date": "Date d'expiration",
         "client": "Client",
         "total": "Total",
@@ -434,11 +703,12 @@
         "delete": "Supprimer"
       },
       "print": {
-        "company_name": "Nom de votre entreprise",
-        "company_address": "123 Rue Commerciale, Ville",
-        "company_contact": "contact@entreprise.com | +33 1 23 45 67 89",
-        "order_title": "orders",
+        "company_name": "ZR CDU",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "order_title": "Bon de livraison",
         "reference": "Référence",
+        "bcn": "BCN",
         "date": "Date",
         "due_date": "Date d'échéance",
         "bill_to": "Facturer à",
@@ -453,6 +723,57 @@
         "thank_you": "Merci pour votre confiance !"
       }
     },
+    "factures_table": {
+      "invoice_management": "Gestion des Factures",
+      "create_new_invoice": "Créer une Facture",
+      "update_invoice": "Modifier la Facture",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "invoice_number": "Numéro de Facture",
+        "client_name": "Nom du Client",
+        "due_date": "Date d'Échéance",
+        "vat": "TVA",
+        "amount": "Montant",
+        "paid": "Payé",
+        "status": "Statut",
+        "rest": "Reste",
+        "actions": "Actions"
+      },
+      "statuses": {
+        "draft": "Brouillon",
+        "unpaid": "Non payé",
+        "paid": "Payé",
+        "partially_paid": "Partiellement payé"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "print": "Imprimer",
+        "email": "Email",
+        "view": "Voir"
+      },
+      "print": {
+        "company_name": "ZR CDU",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "invoice_title": "Facture",
+        "reference": "Référence",
+        "bcn": "BCN",
+        "date": "Date",
+        "due_date": "Date d'Échéance",
+        "bill_to": "Facturer à",
+        "product": "Produit",
+        "quantity": "Quantité",
+        "unit_price": "Prix Unitaire",
+        "total": "Total",
+        "subtotal": "Sous-total",
+        "discount": "Remise",
+        "tax": "TVA",
+        "terms": "Conditions: Paiement sous 30 jours",
+        "thank_you": "Merci pour votre confiance!",
+        "notes": "Notes supplémentaires"
+      }
+    },
     "products_table": {
       "product_management": "Gestion des produits",
       "create_new_product": "Créer un nouveau produit",
@@ -461,12 +782,12 @@
       "headers": {
         "image": "Image",
         "name": "Nom",
-        "sku": "Prix",
+        "sku": "Sku",
         "unit": "Unité",
         "sale_price": "Prix de vente",
         "cost_price": "Prix d'achat",
         "description": "Description",
-        "tax": "Taxe",
+        "tax": "TVA",
         "stock": "Stock",
         "reorder_point": "Point de commande",
         "actions": "Actions"
@@ -480,6 +801,45 @@
         "sub_text": "Aucun enregistrement produit ne correspond à vos critères"
       }
     },
+    "transactions_table": {
+      "live_cash_register": "Caisse en ligne",
+      "transaction_management": "Gestion des transactions",
+      "create_new_transaction": "Créer une nouvelle transaction",
+      "update_transaction": "Mettre à jour la transaction",
+      "search_placeholder": "Rechercher...",
+      "headers": {
+        "date": "Date",
+        "reason": "Raison",
+        "amount": "Montant",
+        "type": "Type",
+        "note": "Remarque",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucune transaction trouvée",
+        "sub_text": "Aucun enregistrement de transaction ne correspond à vos critères"
+      },
+      "delete_confirmation": {
+        "modal_title": "Confirmation de suppression",
+        "title": "Êtes-vous sûr de vouloir supprimer ?",
+        "warning": "Cette action est irréversible."
+      },
+      "add_transaction": {
+        "title": "Ajouter une transaction",
+        "amount": "Montant",
+        "type": "Type de transaction",
+        "reason": "Raison",
+        "note": "Remarque"
+      },
+      "transaction_types": {
+        "credit": "Crédit",
+        "debit": "Débit"
+      }
+    },
     "file_upload": {
       "label": "Glisser-déposer des fichiers ou cliquer pour téléverser"
     }
@@ -488,6 +848,14 @@
     "continue": "Continuer",
     "loading ": "Chargement...",
     "currency": "MAD",
+    "ton_unit": "Tonne",
+    "kg_unit": "kg",
+    "printable": "Imprimer",
+    "Apply": "Appliquer",
+    "Reset": "Réinitialiser",
+    "FullyPaid": "Entièrement payé",
+    "logout": "Déconnexion",
+    "date_range": "Plage de dates",
     "error": {
       "number_greater_than_zero": "Le nombre doit être supérieur à zéro"
     }

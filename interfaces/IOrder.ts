@@ -11,7 +11,9 @@ interface IOrder {
 
   reference: string;
 
-  orders_date: string;
+  bcn: string;
+
+  order_date: string;
 
   expiration_date: string;
 
@@ -32,6 +34,9 @@ interface IOrder {
   total: number;
 
   subtotal: number;
+
+  is_in_tone: boolean;
+
 }
 
 interface OrderProduct extends IProduct {

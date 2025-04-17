@@ -41,29 +41,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
   );
 
   useEffect(() => {
-    const fetchSelectedProducts = async () => {
-      if (!isSecondOpen || selectedProductIds.length === 0) return;
-
-      try {
-        const promises = selectedProductIds.map(async (id) => {
-          const response = await http(
-            `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${id}`
-          );
-          if (!response.ok) throw new Error();
-          return response.json();
-        });
-
-        const products = await Promise.all(promises);
-        setSelectedProductsData(products);
-      } catch (err) {
-        setError(translation.common.errors.fetch_error);
-      }
-    };
-
-    fetchSelectedProducts();
-  }, [isSecondOpen, selectedProductIds, translation]);
-
-  useEffect(() => {
     if (isSecondOpen) {
       setSelectedProducts(new Set(selectedProductIds));
     }
@@ -183,11 +160,6 @@ const CreateProduct: React.FC<CreateProductProps> = ({
         <GlobalTable<IProduct>
           headers={[
             {
-              key: "image" as keyof IProduct,
-              label: translation.order.form.articles.image,
-              isImage: true,
-            },
-            {
               key: "name",
               label: translation.order.form.articles.name,
             },
@@ -214,7 +186,8 @@ const CreateProduct: React.FC<CreateProductProps> = ({
             },
           ]}
           rows={displayedProducts}
-          className="mt-4"
+          className="mt-4 max-h-60 overflow-auto"
+          classHead="z-10"
           totalRows={0}
           setCurrentPage={() => {}}
           currentPage={0}

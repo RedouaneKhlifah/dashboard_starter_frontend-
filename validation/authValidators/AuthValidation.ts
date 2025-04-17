@@ -1,7 +1,8 @@
-import { FormTypeEnum, IAuthForm, IAuthFormErrors } from "@/interfaces";
+import { FormTypeEnum, IAuthForm } from "@/interfaces";
 import { DictionaryType } from "@/lib/i18n";
 import { createAuthSchemas } from "../schemas/authSchemas/createAuthSchemas";
 import { validateField } from "../helper/validationHelpers";
+import { DeepPartialString } from "@/utils/typeScript_interface";
 
 /**
  * Validates the authentication form data based on the form type (SignIn or SignUp).
@@ -14,13 +15,13 @@ export const validateAuthForm = (
   formData: IAuthForm,
   formType: FormTypeEnum,
   translation: DictionaryType
-): IAuthFormErrors => {
+): DeepPartialString<IAuthForm> => {
   // Create Zod schemas for email, password, and full name
   const { emailSchema, passwordSchema, fullNameSchema } =
     createAuthSchemas(translation);
 
   // Initialize an empty errors object
-  const newErrors: IAuthFormErrors = {};
+  const newErrors: DeepPartialString<IAuthForm> = {};
 
   // Validate email field
   newErrors.email = validateField(emailSchema, formData.email);
@@ -36,7 +37,7 @@ export const validateAuthForm = (
   // Remove undefined keys to ensure a clean error object
   return Object.fromEntries(
     Object.entries(newErrors).filter(([_, value]) => value !== undefined)
-  ) as IAuthFormErrors;
+  ) as DeepPartialString<IAuthForm>;
 };
 
 // Export the validation function as part of an AuthValidation object

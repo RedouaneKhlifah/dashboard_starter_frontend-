@@ -1,6 +1,6 @@
 {
   "nav": {
-    "logo": "Le Menu"
+    "logo": "Zroudi"
   },
   "hero": {
     "heading": "Moroccan Flavors with Le-Menu.ma",
@@ -69,6 +69,7 @@
     "password": "Password",
     "signIn": "Sign in",
     "signUp": "Sign up",
+    "signinIn": "Signing in...",
     "continueWith": "Or continue with",
     "dontHaveAccount": "Don't have an account ?",
     "alreadyHaveAccount": "Already have an account ?",
@@ -104,9 +105,14 @@
     "addressRequired": "Address is required",
     "countryRequired": "Country is required",
     "cityRequired": "City is required",
+    "patsRequired": "Pays is required",
+    "companyRequired": "Company is required",
+    "ice": "ICE is required",
     "form": {
       "first_name": "First Name",
       "last_name": "Last Name",
+      "company": "Company",
+      "ice": "ICE",
       "email": "Email Address",
       "phone": "Phone Number",
       "address": "Address",
@@ -123,7 +129,59 @@
       "success": "Client created successfully",
       "update_success": "Client updated successfully",
       "delete_success": "Client deleted successfully",
-      "error": "An error occurred while creating the client"
+      "error": "Error while processing the request"
+    }
+  },
+  "employee": {
+    "firstNameRequired": "First name is required",
+    "firstNameTooLong": "First name must be less than 50 characters",
+    "lastNameRequired": "Last name is required",
+    "lastNameTooLong": "Last name must be less than 50 characters",
+    "MonthlySalaryRequired": "Monthly Salary is required",
+    "DateEngagementRequired": "Date Engagement is required",
+    "DateBirthRequired": "Date of birth is required",
+    "addressRequired": "Address is required",
+    "NationalRequired": "Country is required",
+    "PricePerDayRequired": "Price Per Day is required",
+    "PricePerHourRequired": "Price Per Hour is required",
+    "matriculeRequired": "Matricule is required",
+    "cityRequired": "City is required",
+    "form": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Address",
+      "country": "Country",
+      "city": "City",
+      "matricule": "Matricule",
+      "national_id": "CIN",
+      "date_of_engagement": "Date of Engagement",
+      "price_per_ton": "Price / Ton",
+      "cnss_number": "CNSS Number",
+      "birth_date": "Birth Date",
+      "Out_of": "Out of",
+      "employees": "employees",
+      "were successfully processed": "were successfully processed",
+      "and": "and",
+      "failed": "failed"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "upload": "Upload File"
+    },
+    "message": {
+      "success": "Employee created successfully",
+      "update_success": "Employee updated successfully",
+      "delete_success": "Employee deleted successfully",
+      "upload_success": "Employees uploaded successfully",
+      "upload_error": "Error uploading employees",
+      "error": "An error occurred while creating the employee",
+      "bultain_error": "An error occurred while creating the bultain de paiement",
+      "bultain_success": "Bultain de paiement created successfully"
     }
   },
   "partenaire": {
@@ -144,6 +202,57 @@
       "update_success": "Partner updated successfully",
       "error": "An error occurred while creating the Client"
     }
+  },
+  "payslip": {
+    "employer": "EMPLOYER",
+    "PayslipName": "Payslip",
+    "company_name": "ZR CDU",
+    "company_activity": "Waste Collection",
+    "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
+    "postal_code": "B-P 12624",
+    "city": "MARRAKECH",
+    "registration_number": "Registration number CNSS",
+    "employee_address": "DR LAHRACH N°5",
+    "employee_city": "Marrakech",
+    "employee_id": "CNSS Number",
+    "registration_num": "Registration",
+    "hire_date": "Hire Date",
+    "birth_date": "Birth Date",
+    "id_number": "ID Number",
+    "gender": "Gender",
+    "children": "Children",
+    "qualification": "Qualification",
+    "department": "Department",
+    "period": "Period",
+    "january": "January",
+    "base_salary": "Base Salary",
+    "pay_frequency": "Frequency",
+    "biweekly": "Biweekly",
+    "pay_period": "Pay Period",
+    "category": "Total Ton",
+    "amount": "Amount",
+    "base": "Base",
+    "rate": "Rate",
+    "earnings": "Earnings",
+    "deductions": "Deductions",
+    "rubric": "RUBRIC",
+    "base_units": "Base/Units",
+    "vacation_days": "Vacation Days",
+    "normal_hours": "Normal Hours",
+    "seniority": "Seniority",
+    "gross_salary": "Gross Salary",
+    "taxable_income": "Taxable Income",
+    "social_security": "Social Security",
+    "health_insurance": "Health Insurance",
+    "income_tax": "Income Tax",
+    "payment": "Payment",
+    "total": "TOTAL",
+    "total_deductions": "Total Deductions",
+    "net_salary": "Net Salary",
+    "net_to_pay": "Net to Pay",
+    "paid_by": "PAID BY",
+    "bank_transfer": "Bank Transfer",
+    "signature": "Signature"
   },
   "Product": {
     "product": "Product",
@@ -213,11 +322,12 @@
       "exit": "Exit"
     },
     "form": {
-      "matricule": "Registration Number",
+      "matricule": "Partner",
       "matricule_search": "Registration number",
-      "number_prints": "Number of prints",
+      "number_prints": "N° prints",
       "poids_brut": "Gross weight",
       "poids_tare": "Tare weight",
+      "poids_net": "Net weight",
       "status": "Status",
       "product": "Product",
       "product_search": "Product",
@@ -246,6 +356,30 @@
       "error": "An error occurred while creating the ticket"
     }
   },
+  "HistoryModal": {
+    "message": {
+      "delete_success": "history of payment deleted successfully",
+      "delete_error": "Error deleting history of payment"
+    },
+    "history_entry": "this history entry",
+    "history_of_payment": "This history of payment",
+    "common": {
+      "update": "Update",
+      "cancel": "Cancel",
+      "actions": "Actions",
+      "print": "Print"
+    },
+    "history": {
+      "title": "Bulletin History",
+      "period": "Period",
+      "noData": "No Bulletin history found",
+      "add_Payment": "Create Bulletin"
+    },
+    "fullName": "Full Name",
+    "hourlyRate": "Total Ton",
+    "hours": "Prix / Ton",
+    "total": "Total"
+  },
   "order": {
     "tabs": {
       "client": "Info",
@@ -258,27 +392,35 @@
       "cancel": "Cancel",
       "update": "Update",
       "delete": "Delete",
-      "continue": "Continue"
+      "continue": "Continue",
+      "create_and_publish": "Create and Publish",
+      "update_and_publish": "Update and Publish"
     },
     "select_products": "Select Products",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
-    "orders_date_required": "Quote date is required",
+    "order_date_required": "Delivery note date is required",
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
     "note_required": "Note is required",
+    "status_required": "Status is required",
+    "status_invalid": "Invalid status",
+    "paid_amount_required": "Paid amount is required",
     "form": {
       "reference": "Reference",
+      "bcn": "BCN",
+      "is_in_tone": "Calculate in tons",
       "reference_search": "Search reference",
-      "orders_date": "Quote date",
+      "order_date": "Delivery note date",
+      "paid_amount": "Paid Amount",
       "expiration_date": "Expiration date",
       "client": "Client",
       "client_search": "Search client",
       "add_article": "Add Product",
       "subtotal": "Subtotal",
       "total": "Total",
-      "tva": "tva",
+      "vat": "TVA",
       "product": "Product",
       "product_search": "Search product",
       "note": "Note",
@@ -304,14 +446,48 @@
         "percentage": "Percentage",
         "total_after": "Total After Discount"
       },
+      "status": {
+        "label": "Status",
+        "DRAFT": "Draft",
+        "UNPAID": "Unpaid",
+        "PARTIALLY_PAID": "Partially Paid",
+        "PAID": "Paid"
+      },
       "message": {
-        "success": "Quote created successfully",
-        "update_success": "Quote updated successfully",
-        "delete_success": "Quote deleted successfully",
-        "error": "An error occurred while creating the quote"
+        "success": "Delivery note created successfully",
+        "update_success": "Delivery note updated successfully",
+        "delete_success": "Delivery note deleted successfully",
+        "success_facture": "Invoice created successfully",
+        "update_success_facture": "Invoice updated successfully",
+        "delete_success_facture": "Invoice deleted successfully",
+        "error": "An error occurred while creating the Delivery note"
       },
       "Total_Items": "Total Items",
       "Total_Amount": "Total Amount"
+    }
+  },
+  "transaction": {
+    "balance": "Balance",
+    "transaction": "Transaction",
+    "transactions": "Transactions",
+    "create_new_transaction": "Create New Transaction",
+    "form": {
+      "reason": "Reason",
+      "amount": "Amount",
+      "type": "Type",
+      "note": "Note",
+      "errors": {
+        "reason_required": "Reason is required",
+        "amount_required": "Amount is required",
+        "amount_invalid": "Invalid amount, it must be at least 1",
+        "type_required": "Type is required"
+      }
+    },
+    "message": {
+      "success": "Transaction created successfully",
+      "update_success": "Transaction updated successfully",
+      "delete_success": "Transaction deleted successfully",
+      "error": "An error occurred while creating the transaction"
     }
   },
   "common": {
@@ -333,30 +509,85 @@
     "delete": "Delete",
     "confirm": "Confirm"
   },
+  "StatsContainer": {
+    "receivables_balance": "Receivables Balance",
+    "collected_revenue": "Collected Revenue",
+    "waste_stock": "Waste Stock",
+    "profitability_rate": "Profitability Rate",
+    "Turnover": "Turnover",
+    "Total_Sales": "Total winnings"
+  },
+  "partenaireModal": {
+    "common": {
+      "cancel": "Cancel",
+      "calculate": "Calculate",
+      "recalculate": "Recalculate",
+      "product": "Product",
+      "noProduct": "No product available",
+      "pricePerKg": "Price per K",
+      "discount": "Discount",
+      "tickets": "Tickets",
+      "date": "Date",
+      "netWeight": "Net Weight",
+      "noTicketsFound": "No tickets found for the selected period",
+      "summary": "Summary",
+      "totalWeight": "Quantity",
+      "totalValue": "Total Value",
+      "netTotal": "Net Total",
+      "calculating": "Calculating"
+    }
+  },
   "sidebar": {
     "dashboard": {
+      "charts": {
+        "sales": {
+          "label": "Sales Over Time",
+          "infoTooltipLabel": "Shows daily sales trends",
+          "metricTotal": "Total: MAD 1,234"
+        },
+        "partners": {
+          "label": "Top 10 partners by tickets",
+          "infoTooltipLabel": "Number of tickets per partner",
+          "metricTotal": "Total Tickets"
+        },
+        "products": {
+          "label": "Top 10 products by tickets",
+          "infoTooltipLabel": "Number of tickets per products",
+          "metricTotal": "Total Tickets"
+        }
+      },
       "dashboard_link": "Dashboard",
       "sections": {
         "inventory": "Inventory",
         "administration": "Administration",
-        "sales": "Sales"
+        "sales": "Sales",
+        "payroll_management": "Payroll Management"
       },
       "items": {
         "products": "Single Products",
         "bundles": "Bundles",
         "tickets": "Tickets",
-        "pricing": "Price List",
+        "factures": "Invoices",
         "orders": "Purchase order",
         "members": "Members",
         "settings": "Settings",
         "clients": "Clients",
-        "partners": "Partners"
+        "employees": "Employees",
+        "partners": "Partners",
+        "transactions": "Transactions"
       }
     },
     "users_table": {
       "customer_management": "Customer Management",
       "create_new_client": "Create New Client",
+      "upload_execl": "Upload Employee (Excel)",
+      "upload_instructions": "Drag & drop file here or click to upload",
+      "supported_formats": "Supported formats: .xlsx, .xls",
+      "upload_complete": "Complete",
       "update_client": "Update Client",
+      "Employee_management": "Employees Management",
+      "update_Employees": "Update Employee",
+      "create_new_Employees": "Create New Employee",
       "search_placeholder": "Search...",
       "headers": {
         "name": "Name",
@@ -364,7 +595,15 @@
         "phone": "Phone",
         "city": "City",
         "country": "Country",
-        "actions": "Actions"
+        "actions": "Actions",
+        "id": "Employee ID",
+        "full_name": "Full Name",
+        "national_id": "CIN",
+        "date_of_engagement": "Engagement Date",
+        "matricule": "Matricule",
+        "monthly_salary": "Monthly Salary",
+        "price_per_ton": "Price/Ton",
+        "price_per_day": "Price/Day"
       },
       "actions": {
         "edit": "Edit",
@@ -380,6 +619,29 @@
       "create_new_partner": "Create New Partner",
       "update_partner": "Update Partner",
       "search_placeholder": "Search...",
+      "print": {
+        "company_name": "ZR CDU",
+        "company_activity": "Waste Collection",
+        "company_address": "Dr. Ait Messaoud Harbil El Ghaba",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "ticket_number": "Ticket Number",
+        "gross_weight": "gross weight",
+        "tare_weight": "tare weigh",
+        "net_weight": "net weight",
+        "partner_info": "Partner Information",
+        "name": "Name",
+        "matricule": "Registration Number",
+        "date_range": "Date Range",
+        "product": "Product",
+        "weight": "Weight (kg)",
+        "value": "Value",
+        "date": "Date",
+        "total_weight": "Total Weight",
+        "total_value": "Total Value",
+        "discount": "Discount",
+        "net_total": "Net Total",
+        "no_tickets": "No tickets found for the selected period"
+      },
       "headers": {
         "name": "Name",
         "matricule": "Matricule",
@@ -407,14 +669,21 @@
       "update_ticket": "Update Ticket",
       "search_placeholder": "Search...",
       "headers": {
-        "matricule": "Matricule",
+        "number": "Nº",
+        "created_at": "Date/Time",
+        "matricule": "Partner Name",
         "product": "Product",
-        "number_prints": "Number of Prints",
+        "number_prints": "N° prints",
         "poids_brut": "Gross Weight",
         "poids_tare": "Tare Weight",
+        "poids_net": "Net weight",
         "status": "Status",
         "client": "Client",
         "actions": "Actions"
+      },
+      "statusValues": {
+        "ENTRY": "Entry",
+        "EXIT": "Exit"
       },
       "actions": {
         "edit": "Edit",
@@ -426,13 +695,14 @@
       }
     },
     "orders_table": {
-      "order_management": "order Management",
-      "create_new_order": "Create New Quote",
-      "update_order": "Update The Quote",
+      "order_management": "Delivery notes management",
+      "create_new_order": "Create New Delivery note",
+      "update_order": "Update The Delivery note",
       "search_placeholder": "Search...",
       "headers": {
         "reference": "Reference",
-        "orders_date": "Quote Date",
+        "bcn": "BCN",
+        "order_date": "Delivery note Date",
         "expiration_date": "Expiration Date",
         "client": "Client",
         "total": "Total",
@@ -443,11 +713,12 @@
         "delete": "Delete"
       },
       "print": {
-        "company_name": "Your Company Name",
-        "company_address": "123 Business Street, City",
-        "company_contact": "contact@company.com | +1 234 567 890",
-        "order_title": "Quotation",
+        "company_name": "ZR CDU",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "order_title": "Delivery note",
         "reference": "Reference",
+        "bcn": "BCN",
         "date": "Date",
         "due_date": "Due Date",
         "bill_to": "Bill To",
@@ -459,6 +730,57 @@
         "discount": "Discount",
         "tax": "Tax",
         "terms": "Terms: Payment due within 30 days",
+        "thank_you": "Thank you for your business!"
+      }
+    },
+    "factures_table": {
+      "invoice_management": "Invoice Management",
+      "create_new_invoice": "Create New Invoice",
+      "update_invoice": "Update Invoice",
+      "search_placeholder": "Search...",
+      "headers": {
+        "invoice_number": "Invoice Number",
+        "client_name": "Client Name",
+        "due_date": "Due Date",
+        "vat": "VAT",
+        "amount": "Amount",
+        "paid": "Paid",
+        "status": "Status",
+        "rest": "Reste",
+        "actions": "Actions"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "unpaid": "Unpaid",
+        "paid": "Paid",
+        "partially_paid": "Partially Paid"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "print": "Print",
+        "email": "Email",
+        "view": "View"
+      },
+      "print": {
+        "company_name": "ZR CDU",
+        "company_address": "DR AIT MESSAOUD HARBIL, EL GHABA",
+        "company_contact": "contact@zroudi.ma | +212 640-843060",
+        "invoice_title": "Invoice",
+        "reference": "Reference",
+        "bcn": "BCN",
+        "notes": "Additional Notes",
+        "date": "Date",
+        "due_date": "Due Date",
+        "bill_to": "Bill To",
+        "product": "Product",
+        "quantity": "Quantity",
+        "unit_price": "Unit Price",
+        "total": "Total",
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "tax": "Tax",
+        "terms": "Terms: Payment within 30 days",
         "thank_you": "Thank you for your business!"
       }
     },
@@ -494,6 +816,45 @@
         "sub_text": "No product records match your criteria"
       }
     },
+    "transactions_table": {
+      "live_cash_register": "Live Cash Register",
+      "transaction_management": "Transaction Management",
+      "create_new_transaction": "Create New Transaction",
+      "update_transaction": "Update Transaction",
+      "search_placeholder": "Search...",
+      "headers": {
+        "date": "Date",
+        "reason": "Reason",
+        "amount": "Amount",
+        "type": "Type",
+        "note": "Note",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No transactions found",
+        "sub_text": "There are no transaction records that match your criteria"
+      },
+      "delete_confirmation": {
+        "modal_title": "Delete Confirmation",
+        "title": "Are you sure you want to delete?",
+        "warning": "This action cannot be undone."
+      },
+      "add_transaction": {
+        "title": "Add Transaction",
+        "amount": "Amount",
+        "type": "Transaction Type",
+        "reason": "Reason",
+        "note": "Note"
+      },
+      "transaction_types": {
+        "credit": "Credit",
+        "debit": "Debit"
+      }
+    },
     "file_upload": {
       "label": "Drag & drop files or click to upload"
     }
@@ -502,8 +863,21 @@
     "continue": "Continue",
     "loading ": "Loading...",
     "currency": "MAD",
+    "ton_unit": "Ton",
+    "kg_unit": "Kg",
+    "printable": "Print",
+    "Apply": "Apply",
+    "Reset": "Reset",
+    "FullyPaid": "Fully Paid",
+    "logout": "Logout",
+    "date_range": "Select Date Range",
+    "email_sent_successfully": "Email sent successfully",
     "error": {
       "number_greater_than_zero": "Number must be greater than 0"
+    },
+    "no_data": {
+      "message": "No data found",
+      "sub_text": "There are no records that match your criteria"
     }
   }
 }

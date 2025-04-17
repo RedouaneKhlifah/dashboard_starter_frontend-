@@ -97,19 +97,19 @@ const ClientForm: React.FC<ClientFormProps> = ({
         {/* First & Last Name */}
         <div className="flex gap-4">
           <InputField
-            id="first_name"
-            label={translation.client.form.first_name}
-            value={formData.first_name}
+            id="company"
+            label={translation.client.form.company}
+            value={formData.company}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.first_name}
+            error={errors.company}
             required
           />
           <InputField
-            id="last_name"
-            label={translation.client.form.last_name}
-            value={formData.last_name}
+            id="ice"
+            label={translation.client.form.ice}
+            value={formData.ice}
             onChange={(e) => handleChange(e, setFormData, setErrors)}
-            error={errors.last_name}
+            error={errors.ice}
             required
           />
         </div>

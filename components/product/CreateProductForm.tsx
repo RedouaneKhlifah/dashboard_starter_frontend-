@@ -42,7 +42,6 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
       sale_price: 0,
       cost_price: 0,
       description: "",
-      tax: 0,
       image: null,
       stock: 0,
       reorder_point: 0,
@@ -55,9 +54,9 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
-          body: mapProductToFormData(data),
+          body: JSON.stringify(data),
         }
       );
 

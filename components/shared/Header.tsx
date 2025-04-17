@@ -15,12 +15,14 @@ import { cn } from "@/lib/utils";
 
 // Props Interface
 interface HeaderProps<T = unknown> {
-  title: string;
+  title?: string;
   searchPlaceholder?: string;
   buttonText?: string;
+  execlButtonText?: string;
   showSearch?: boolean;
   setSearchQuery?: Dispatch<SetStateAction<string>>;
   showButton?: boolean;
+  execlButton?: boolean;
   className?: string;
   children?: React.ReactNode;
   translation?: DictionaryType;
@@ -32,9 +34,11 @@ const Header = <T,>({
   title,
   searchPlaceholder = "Search...",
   buttonText = "Add New",
+  execlButtonText = "Export",
   showSearch = false,
   setSearchQuery,
   showButton = true,
+  execlButton = false,
   className = "",
   translation,
   lang,
@@ -43,7 +47,7 @@ const Header = <T,>({
 
   return (
     <div className={`flex flex-col gap-4 mb-4 ${className}`}>
-      <h2 className="text-2xl text-foreground font-bold">{title}</h2>
+      {title && <h2 className="text-2xl text-foreground font-bold">{title}</h2>}
       <div
         className={cn(
           `flex items-center gap-4 ${
@@ -58,14 +62,24 @@ const Header = <T,>({
             className="w-full"
           />
         )}
-        {showButton && (
-          <Button
-            onClick={() => openModal(ModalTypeEnum.CREATE)}
-            className="whitespace-nowrap"
-          >
-            {buttonText}
-          </Button>
-        )}
+        <div className={`${execlButton ? "flex gap-4" : ""}`}>
+          {showButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.CREATE)}
+              className="whitespace-nowrap text-white rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              {buttonText}
+            </Button>
+          )}
+          {execlButton && (
+            <Button
+              onClick={() => openModal(ModalTypeEnum.UPLOAD)}
+              className="whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
+            >
+              {execlButtonText}
+            </Button>
+          )}
+        </div>
       </div>
       {translation && lang && (
         <CreateClientForm lang={lang} translation={translation} />

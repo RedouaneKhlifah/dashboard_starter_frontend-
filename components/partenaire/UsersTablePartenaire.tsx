@@ -18,6 +18,7 @@ import useRefresh from "@/hooks/useRefresh";
 import useDebounce from "@/hooks/useDebounce";
 import http from "@/lib/http";
 import useToast from "@/hooks/useToast";
+import ModalPartainer from "@/components/partenaire/ModalPartainer";
 
 interface UsersTablePartenaireProps {
   records: IPartenaire[];
@@ -49,7 +50,18 @@ export function UsersTablePartenaire({
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const didMountRef = useRef(false);
-  const { error, success} = useToast(); 
+  const { error, success } = useToast();
+  const [selectedPartenaireDetails, setSelectedPartenaireDetails] =
+    useState<IPartenaire | null>(null);
+
+  const handleView = useCallback(
+    (partenaireId: number) => {
+      const record = partenaires.find((p) => p.id === partenaireId);
+      setSelectedPartenaireDetails(record || null);
+      openModal(ModalTypeEnum.VIEW);
+    },
+    [openModal, partenaires]
+  );
 
   const partenairRows = useMemo(
     () => rowMapper(partenaires),
@@ -86,7 +98,6 @@ export function UsersTablePartenaire({
     [openModal, partenaires]
   );
 
-
   const openDeleteModal = useCallback(
     (partenaireId: number) => {
       const record = partenaires.find((p) => p.id === partenaireId);
@@ -113,7 +124,6 @@ export function UsersTablePartenaire({
     } finally {
       setIsSubmitting(false);
     }
-
   };
 
   return (
@@ -138,6 +148,7 @@ export function UsersTablePartenaire({
                 Id={row.id}
                 onEdit={handleEdit}
                 onDelete={openDeleteModal}
+                onShow={() => handleView(row.id)}
                 editText={partenaires_table.actions.edit}
                 deleteText={partenaires_table.actions.delete}
               />
@@ -147,7 +158,7 @@ export function UsersTablePartenaire({
         rows={partenairRows}
         totalRows={totalPartenaires}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg "
         noDataMessage={partenaires_table.no_data.message}
         sub_text={partenaires_table.no_data.sub_text}
         setCurrentPage={setCurrentPage}
@@ -168,6 +179,14 @@ export function UsersTablePartenaire({
       />
 
       <CreatePartenaireForm lang={lang} translation={translation} />
+
+      <ModalPartainer
+        partenaire={selectedPartenaireDetails}
+        isOpen={modalType === ModalTypeEnum.VIEW}
+        onClose={closeModal}
+        translation={translation}
+        lang={lang}
+      />
     </>
   );
 }

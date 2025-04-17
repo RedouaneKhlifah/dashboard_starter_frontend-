@@ -1,0 +1,14 @@
+import { DictionaryType } from "@/lib/i18n";
+import { z } from "zod";
+
+/**
+ * Creates a Zod schema for validating email addresses.
+ * @param t - The dictionary containing localized strings.
+ * @returns A Zod schema for email validation.
+ */
+export default function createMonthlySalarySchema(t: DictionaryType): z.ZodNumber {
+  const { employee } = t;
+  return z
+    .number()
+    .min(1, { message: employee.MonthlySalaryRequired })
+}

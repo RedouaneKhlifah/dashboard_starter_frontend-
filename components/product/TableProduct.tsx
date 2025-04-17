@@ -124,34 +124,56 @@ export function UsersTableProduct({
   const headers = useMemo(
     () => [
       {
-        key: "image" as keyof ProductRow,
-        label: products_table.headers.image,
-        isImage: true,
+        key: "name" as keyof ProductRow,
+        label: products_table.headers.name,
+        width: "80px",
       },
-      { key: "name" as keyof ProductRow, label: products_table.headers.name },
-      { key: "sku" as keyof ProductRow, label: products_table.headers.sku },
-      { key: "unit" as keyof ProductRow, label: products_table.headers.unit },
+      {
+        key: "sku" as keyof ProductRow,
+        label: products_table.headers.sku,
+        width: "50px",
+      },
       {
         key: "sale_price" as keyof ProductRow,
         label: products_table.headers.sale_price,
+        width: "75px",
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+            {row.sale_price}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
+          </>
+        ),
       },
       {
         key: "cost_price" as keyof ProductRow,
         label: products_table.headers.cost_price,
+        width: "75px",
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+            {row.cost_price}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
+          </>
+        ),
       },
-      { key: "tax" as keyof ProductRow, label: products_table.headers.tax },
-      { key: "stock" as keyof ProductRow, label: products_table.headers.stock },
       {
-        key: "description" as keyof ProductRow,
-        label: products_table.headers.description,
-      },
-      {
-        key: "reorder_point" as keyof ProductRow,
-        label: products_table.headers.reorder_point,
+        key: "stock" as keyof ProductRow,
+        label: products_table.headers.stock,
+        renderCell: (_: any, row: ProductRow) => (
+          <>
+            {row.stock}{" "}
+            <span className="text-xs text-gray-500">{row.unit}</span>
+          </>
+        ),
+        width: "70px",
       },
       {
         key: "id" as keyof ProductRow,
         label: products_table.headers.actions,
+        width: "120px",
         renderCell: (_: any, row: ProductRow) => (
           <ActionButtons
             Id={row.id}
@@ -163,7 +185,19 @@ export function UsersTableProduct({
         ),
       },
     ],
-    [handleEdit, openDeleteModal, products_table]
+    [
+      handleEdit,
+      openDeleteModal,
+      products_table.actions.delete,
+      products_table.actions.edit,
+      products_table.headers.actions,
+      products_table.headers.cost_price,
+      products_table.headers.name,
+      products_table.headers.sale_price,
+      products_table.headers.sku,
+      products_table.headers.stock,
+      translation.shared.currency,
+    ]
   );
 
   return (
@@ -183,7 +217,7 @@ export function UsersTableProduct({
         isLoading={isLoading}
         noDataMessage={products_table.no_data.message}
         sub_text={products_table.no_data.sub_text}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg overflow-y-hidden overflow-x-auto"
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

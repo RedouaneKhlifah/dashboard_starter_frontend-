@@ -45,9 +45,9 @@ const TicketForm = ({
   const tabs: Tab[] = useMemo(
     () => [
       { name: "ticket-details", index: 0, isVisible: true },
-      { name: "final", index: 1, isVisible: modalType !== "update" },
+      { name: "final", index: 1, isVisible: true },
     ],
-    [modalType]
+    []
   );
   const [activeTab, setActiveTab] = useState<Tab>(tabs[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -95,6 +95,7 @@ const TicketForm = ({
         if (success) {
           closeModal();
           setFormData(initialFormData);
+          setActiveTab(tabs[0]);
           setErrors({});
         }
       } catch (error) {

@@ -8,6 +8,5 @@ export function createStockSchema(t: DictionaryType): z.ZodNumber {
       required_error: Product.stockRequired,
       invalid_type_error: Product.invalidStock,
     })
-    .positive()
     .min(0);
 }

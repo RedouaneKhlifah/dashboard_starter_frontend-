@@ -8,6 +8,7 @@ interface HandleRefreshProps {
   entity: string;
   setRecords: (records: any[]) => void;
   setTotalRecords: (totalRecords: number) => void;
+  lang?: "en" | "ar" | "fr";
 }
 
 const useRefresh = ({
@@ -17,6 +18,7 @@ const useRefresh = ({
   entity,
   setRecords,
   setTotalRecords,
+  lang,
 }: HandleRefreshProps) => {
   const prevSearchQueryRef = useRef<string>(searchQuery || "");
   const prevCurrentPageRef = useRef<number>(currentPage);
@@ -28,11 +30,10 @@ const useRefresh = ({
 
   return useCallback(
     async (force?: boolean): Promise<void> => {
-      if (!shouldRefresh || force) {
+      if (!shouldRefresh && !force) {
         return;
       }
-      // If the search query has changed compared to the previous value,
-      // reset the CurrentPage to 1; otherwise, keep the current CurrentPage.
+
       const currentPageToUse =
         prevSearchQueryRef.current !== trimmedSearchQuery ? 1 : currentPage;
 
@@ -47,6 +48,7 @@ const useRefresh = ({
           )}&page=${currentPageToUse}`,
           {
             method: "GET",
+            lang,
           }
         );
 
@@ -55,12 +57,17 @@ const useRefresh = ({
         }
 
         const res = await response.json();
-        const data = res.data;
-        const totalRecords = res.total;
+        let data = res.data;
+        let totalRecords = res.total;
+        if (entity == "transactions") {
+          data = res.transactions.data;
+          totalRecords = res.transactions.total;
+        }
         setRecords(data);
         setTotalRecords(totalRecords);
-
-        prevSearchQueryRef.current = trimmedSearchQuery; // Update the reference after successful request.
+        // Update both refs after successful request
+        prevSearchQueryRef.current = trimmedSearchQuery;
+        prevCurrentPageRef.current = currentPageToUse;
       } catch (error) {
         console.error("Error during search:", error);
       } finally {
@@ -74,6 +81,7 @@ const useRefresh = ({
       setIsLoading,
       entity,
       searchQuery,
+      lang,
       setRecords,
       setTotalRecords,
     ]

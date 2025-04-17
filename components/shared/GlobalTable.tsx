@@ -20,6 +20,7 @@ import {
   ChevronRight,
   MoreHorizontal,
   PackageSearch,
+  FileClock,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -29,6 +30,7 @@ export interface TableHeader<T> {
   renderCell?: (value: T[keyof T], row: T) => ReactNode;
   isImage?: boolean;
   imageOptions?: React.ImgHTMLAttributes<HTMLImageElement>;
+  width?: string;
 }
 
 interface TableProps<T> {
@@ -36,10 +38,11 @@ interface TableProps<T> {
   rows: T[];
   totalRows: number;
   className?: string;
+  classHead?: string;
   pageSize?: number;
   isLoading?: boolean;
-  setCurrentPage: Dispatch<SetStateAction<number>>;
-  currentPage: number;
+  setCurrentPage?: Dispatch<SetStateAction<number>>;
+  currentPage?: number;
   noDataMessage?: string;
   sub_text?: string;
 }
@@ -49,6 +52,7 @@ export const GlobalTable = <T extends { id: string | number }>({
   rows,
   totalRows,
   className,
+  classHead,
   pageSize = 10,
   isLoading = false,
   setCurrentPage,
@@ -69,8 +73,8 @@ export const GlobalTable = <T extends { id: string | number }>({
     if (totalPages <= MAX_VISIBLE_PAGES) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      const leftBound = Math.max(2, currentPage - 1);
-      const rightBound = Math.min(totalPages - 1, currentPage + 1);
+      const leftBound = Math.max(2, (currentPage ?? 1) - 1);
+      const rightBound = Math.min(totalPages - 1, (currentPage ?? 1) + 1);
 
       pages.push(1);
       if (leftBound > 2) pages.push(ELLIPSIS);
@@ -87,24 +91,29 @@ export const GlobalTable = <T extends { id: string | number }>({
   return (
     <MTThemeProvider>
       <Card
-        className={`w-full max-h-60 overflow-scroll relative ${className}`}
+        className={`w-full overflow-auto relative ${className}`}
         placeholder={undefined}
         onPointerEnterCapture={undefined}
         onPointerLeaveCapture={undefined}
       >
         <table className="w-full min-w-max table-auto text-left">
-          <thead className="sticky top-0 bg-blue-gray-50 z-10 border-b border-gray-300">
+          <thead
+            className={`sticky top-0 bg-blue-gray-50 border-b border-gray-300 ${classHead}`}
+          >
             <tr>
               {headers.map((header) => (
                 <th
                   key={header.key.toString()}
                   className="sticky top-0 border-b border-blue-gray-100 p-4 text-start"
-                  style={{ background: "inherit" }}
+                  style={{
+                    background: "inherit",
+                    maxWidth: header.width,
+                  }}
                 >
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="font-normal leading-none opacity-70"
+                    className="font-normal leading-none opacity-70 truncate"
                     placeholder={undefined}
                     onPointerEnterCapture={undefined}
                     onPointerLeaveCapture={undefined}
@@ -117,7 +126,7 @@ export const GlobalTable = <T extends { id: string | number }>({
           </thead>
           <tbody>
             {isLoading ? (
-              Array.from({ length: totalRows }).map((_, index) => {
+              Array.from({ length: totalRows || 2 }).map((_, index) => {
                 const isLastSkeletonRow = index === pageSize - 1;
                 return (
                   <tr key={index}>
@@ -129,6 +138,7 @@ export const GlobalTable = <T extends { id: string | number }>({
                             ? "p-5 text-start"
                             : "p-5 border-b border-blue-gray-50 text-start"
                         }
+                        style={{ maxWidth: header.width }}
                       >
                         <div className="h-5 bg-gray-200 rounded animate-pulse" />
                       </td>
@@ -136,11 +146,11 @@ export const GlobalTable = <T extends { id: string | number }>({
                   </tr>
                 );
               })
-            ) : rows.length === 0 ? (
+            ) : !rows || rows.length === 0 ? (
               <tr>
                 <td
                   colSpan={headers.length}
-                  className="p-12 text-center border-b border-blue-gray-50"
+                  className="p-9 text-center border-b border-blue-gray-50"
                 >
                   <div className="flex flex-col items-center justify-center gap-4">
                     <PackageSearch className="w-12 h-12 text-blue-gray-300" />
@@ -185,7 +195,7 @@ export const GlobalTable = <T extends { id: string | number }>({
           </tbody>
         </table>
 
-        {totalRows > pageSize && (
+        {totalRows > pageSize && setCurrentPage && (
           <CardFooter
             className="flex items-center justify-between border-t border-blue-gray-50 p-4"
             placeholder={undefined}
@@ -268,9 +278,8 @@ interface TableRowProps<T> {
 const TableRow = <T extends { id: string | number }>({
   row,
   headers,
+  isLast,
 }: TableRowProps<T>) => {
-  const isLast = false;
-
   return (
     <tr>
       {headers.map((header) => (
@@ -281,6 +290,10 @@ const TableRow = <T extends { id: string | number }>({
               ? "p-4 text-start"
               : "p-4 border-b border-blue-gray-50 text-start"
           }
+          style={{
+            maxWidth: header.width,
+            overflow: "hidden",
+          }}
         >
           <TableCell<T> header={header} row={row} />
         </td>
@@ -307,7 +320,9 @@ const TableCell = <T extends { id: string | number }>({
   if (header.isImage) {
     if (!value) return null;
     return (
-      <Image src={String(value)} alt={header.label} width={20} height={20} />
+      <div className="max-w-full overflow-auto">
+        <Image src={String(value)} alt={header.label} width={20} height={20} />
+      </div>
     );
   }
 
@@ -315,7 +330,7 @@ const TableCell = <T extends { id: string | number }>({
     <Typography
       variant="small"
       color="blue-gray"
-      className="font-normal"
+      className="font-normal truncate"
       placeholder={undefined}
       onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}

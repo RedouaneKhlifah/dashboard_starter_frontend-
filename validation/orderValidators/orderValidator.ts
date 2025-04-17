@@ -1,14 +1,14 @@
 import { DictionaryType } from "@/lib/i18n";
-import { createorderSchemas } from "../schemas/orderSchemas/createorderSchemas";
+import { createorderSchemas } from "../schemas/orderSchemas/createOrderSchemas";
 import { validateField } from "../helper/validationHelpers";
-import { IorderForm } from "@/dto/order/orderForm";
+import { IOrderForm } from "@/dto/order/orderForm";
 
 export type orderFormErrors = {
-  [K in keyof IorderForm]?: string;
+  [K in keyof IOrderForm]?: string;
 };
 
 export const validateorderForm = (
-  formData: IorderForm,
+  formData: IOrderForm,
   translation: DictionaryType
 ): orderFormErrors => {
   const {
@@ -23,7 +23,7 @@ export const validateorderForm = (
   const newErrors: orderFormErrors = {};
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
-  newErrors.orders_date = validateField(ordersDateSchema, formData.orders_date);
+  newErrors.order_date = validateField(ordersDateSchema, formData.order_date);
   newErrors.expiration_date = validateField(
     expirationDateSchema,
     formData.expiration_date

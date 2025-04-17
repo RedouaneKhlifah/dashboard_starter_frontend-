@@ -9,9 +9,5 @@ interface Props {
 }
 
 export default async function HowItWorksPage(props: Props) {
-  return (
-    <main>
-      <Footer lang={props.params.lang} isHowItWorks />
-    </main>
-  );
+  return <main></main>;
 }

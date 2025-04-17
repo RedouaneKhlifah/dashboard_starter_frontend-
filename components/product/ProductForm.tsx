@@ -11,7 +11,11 @@ import ImageUpload from "@/components/shared/ImageUpload";
 import useModalStore from "@/store/modalStore";
 
 // Utilities & Validation
-import { handleChange, hasNoErrors } from "@/components/utils/formHandlers";
+import {
+  handleChange,
+  handleSelect,
+  hasNoErrors,
+} from "@/components/utils/formHandlers";
 import { ProductValidation } from "@/validation";
 
 // Types
@@ -21,6 +25,7 @@ import { ProductFormErrors } from "@/validation/productValidators/ProductValidat
 
 // Icons
 import { Group, Tag, BarChart, Package, Info } from "lucide-react";
+import SelectInput from "../ui/SelectInput";
 
 interface ProductFormProps {
   initialFormData: IProductForm;
@@ -115,15 +120,25 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.sku}
             />
-            <InputField
-              id="unit"
-              label={translation.Product.form.unit}
-              icon={<Group className="w-5 h-5 text-gray-400" />}
-              value={formData.unit}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.unit}
-              required
-            />
+            <div>
+              <SelectInput
+                options={[
+                  { value: "kg", label: "Kilogram" },
+                  { value: "g", label: "Gram" },
+                  { value: "l", label: "Liter" },
+                  { value: "ml", label: "Milliliter" },
+                  { value: "unit", label: "Unit" },
+                ]}
+                id="unit"
+                label={translation.Product.form.unit}
+                value={formData.unit}
+                onChange={(e) => {}}
+                onSelect={(option) =>
+                  handleSelect(option, "unit", setFormData, setErrors)
+                }
+                error={errors.unit}
+              />
+            </div>
             <InputField
               id="description"
               label={translation.Product.form.description}
@@ -147,7 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.sale_price}
               required
-              prefix="DH"
+              prefix={translation.shared.currency}
               min={0}
             />
             <InputField
@@ -157,18 +172,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               value={formData.cost_price}
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.cost_price}
-              prefix="DH"
-              min={0}
-            />
-            <InputField
-              id="tax"
-              label={translation.Product.form.tax}
-              type="number"
-              icon={<BarChart className="w-5 h-5 text-gray-400" />}
-              value={formData.tax}
-              onChange={(e) => handleChange(e, setFormData, setErrors)}
-              error={errors.tax}
-              suffix="%"
+              prefix={translation.shared.currency}
               min={0}
             />
             <InputField
@@ -182,7 +186,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               required
               min={0}
             />
-            <InputField
+            {/* <InputField
               id="reorder_point"
               label={translation.Product.form.reorder_point}
               type="number"
@@ -191,12 +195,12 @@ const ProductForm: React.FC<ProductFormProps> = ({
               onChange={(e) => handleChange(e, setFormData, setErrors)}
               error={errors.reorder_point}
               required
-            />
+            /> */}
           </div>
         </div>
 
         {/* Image Upload Section */}
-        <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
+        {/* <div className="bg-purple-50 p-4 rounded-lg dark:bg-purple-900/20">
           <ImageUpload
             onFileChange={(file) =>
               setFormData({ ...formData, image: file[0] || null })
@@ -212,7 +216,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 : null
             }
           />
-        </div>
+        </div> */}
       </div>
     </GlobalModal>
   );

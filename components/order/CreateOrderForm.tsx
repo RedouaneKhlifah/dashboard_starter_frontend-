@@ -26,9 +26,10 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
 
   const initialFormData = useMemo<IOrderForm>(
     () => ({
-      client_id: 0,
+      client_id: null,
       reference: "",
-      orders_date: "",
+      order_date: "",
+      bcn: "",
       expiration_date: "",
       tva: 0,
       remise_type: "PERCENT",
@@ -38,6 +39,9 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       client: null,
       subtotal: 0,
       total: 0,
+      paid_amount: 0,
+      is_in_tone: false,
+
     }),
     []
   );
@@ -48,7 +52,34 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       const response = await http(
         process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders",
         {
-          method: "POST",
+          method: "PUT",
+          lang,
+          body: JSON.stringify(formattedData),
+        }
+      );
+
+      if (response.ok) {
+        toastSuccess(translation.order.form.message.success);
+        return true;
+      } else {
+        const error = await response.json();
+        toastError(error.message || translation.order.form.message.error);
+        return false;
+      }
+    } catch (error) {
+      console.error("Error during order creation:", error);
+      toastError(translation.order.form.message.error);
+      return false;
+    }
+  };
+
+  const handlePublich = async (data: IOrderForm): Promise<boolean> => {
+    const formattedData = ordersDataMapper(data);
+    try {
+      const response = await http(
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/orders/store-and-publish",
+        {
+          method: "PUT",
           lang,
           body: JSON.stringify(formattedData),
         }
@@ -76,6 +107,7 @@ const CreateorderFormPropsForm: React.FC<orderFormProps> = ({
       errors={errors}
       setErrors={setErrors}
       onSubmit={handleSubmit}
+      OnPublish={handlePublich}
       isOpen={modalType === "create"}
     />
   );

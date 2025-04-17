@@ -25,15 +25,19 @@ const customTheme = {
 interface GlobalModalProps {
   open: boolean;
   onClose: () => void;
-  title: string;
-  onSubmit: (e: React.FormEvent) => void;
-  submitButtonText: string;
+  title?: string;
+  onSubmit?: (e: React.FormEvent) => void;
+  submitButtonText?: string;
+  onSecondarySubmit?: (e: React.FormEvent) => void;
+  secondarySubmitButtonText?: string;
   cancelButtonText: string;
   contentClassName?: string;
   children: React.ReactNode;
   isLoading?: boolean;
+  isSecondLoading?: boolean;
   dismiss?: boolean;
   backdrop?: boolean;
+  isSecondaryBtnVisible?: boolean;
 }
 
 const GlobalModal: React.FC<GlobalModalProps> = ({
@@ -42,9 +46,13 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
   title,
   onSubmit,
   submitButtonText,
+  onSecondarySubmit,
+  secondarySubmitButtonText,
+  isSecondaryBtnVisible,
   cancelButtonText,
   children,
   isLoading,
+  isSecondLoading,
   contentClassName,
   dismiss = true,
   backdrop = true,
@@ -60,7 +68,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
         className={`bg-background border border-blue-gray-900 p-3 max-h-[94vh] max-w-3xl overflow-hidden !backdrop-blur-none  ${contentClassName}`}
         dismiss={{ enabled: dismiss }}
       >
-        <div className="flex justify-between">
+        <div className="flex justify-between ">
           <DialogHeader
             placeholder={undefined}
             onPointerEnterCapture={undefined}
@@ -76,7 +84,7 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
             <X />
           </button>
         </div>
-        <form onSubmit={onSubmit} noValidate>
+        <form noValidate>
           <DialogBody
             placeholder={undefined}
             onPointerEnterCapture={undefined}
@@ -101,24 +109,49 @@ const GlobalModal: React.FC<GlobalModalProps> = ({
             >
               {cancelButtonText}
             </Button>
-            <Button
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-              type="submit"
-              className="bg-primary text-black"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <Spinner
-                  className="h-4 w-4"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              ) : (
-                submitButtonText
-              )}
-            </Button>
+            {submitButtonText && onSubmit && (
+              <Button
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                onClick={onSubmit}
+                type="submit"
+                className="bg-primary text-white hover:bg-primary/90 transition-colors"
+                disabled={isLoading || isSecondLoading}
+              >
+                {isLoading ? (
+                  <Spinner
+                    className="h-4 w-4"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  submitButtonText
+                )}
+              </Button>
+            )}
+
+            {isSecondaryBtnVisible && (
+              <Button
+                placeholder={undefined}
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+                type="submit"
+                className="bg-primary ml-2 text-white hover:bg-primary/90 transition-colors"
+                disabled={isLoading || isSecondLoading}
+                onClick={onSecondarySubmit}
+              >
+                {isSecondLoading ? (
+                  <Spinner
+                    className="h-4 w-4"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  secondarySubmitButtonText
+                )}
+              </Button>
+            )}
           </DialogFooter>
         </form>
       </Dialog>

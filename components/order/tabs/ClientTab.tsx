@@ -1,23 +1,23 @@
 // tabs/ClientTab.tsx
 import { Dispatch, SetStateAction } from "react";
-import { Fingerprint, UserSearch } from "lucide-react";
+import { Command, Fingerprint, UserSearch } from "lucide-react";
 import InputField from "@/components/ui/InputField";
 import SearchAutocomplete from "@/components/ui/SearchAutocomplete";
 import { handleChange } from "@/components/utils/formHandlers";
-import { IorderForm, ordersRelationShipData } from "@/dto/order/orderForm";
+import { IOrderForm, ordersRelationShipData } from "@/dto/order/orderForm";
 import { orderFormErrors } from "@/validation/orderValidators/orderValidator";
 import { DictionaryType } from "@/lib/i18n";
 import http from "@/lib/http";
 import AutoCompleteMappers from "@/mappers/AutocCompleteMapper";
-import { Iorders } from "@/interfaces/Iorders";
+import { IOrder } from "@/interfaces/IOrder";
 
 interface ClientTabProps {
-  formData: IorderForm;
-  setFormData: Dispatch<SetStateAction<IorderForm>>;
+  formData: IOrderForm;
+  setFormData: Dispatch<SetStateAction<IOrderForm>>;
   errors: orderFormErrors;
   setErrors: Dispatch<SetStateAction<orderFormErrors>>;
   translation: DictionaryType;
-  selectedRecord?: Iorders | undefined;
+  selectedRecord?: IOrder | undefined;
 }
 
 const ClientTab = ({
@@ -48,16 +48,21 @@ const ClientTab = ({
           label={translation.order.form.client}
           onSearch={fetchClients}
           value={formData.client}
-          onChange={(client) =>
+          onChange={(client) => {
             setFormData((prev) => ({
               ...prev,
               client: client as ordersRelationShipData,
-            }))
-          }
+            }));
+            setErrors((prev) => ({
+              ...prev,
+              client: undefined,
+            }));
+          }}
           placeholder={translation.Ticket.form.client_search}
           icon={<UserSearch className="w-5 h-5 text-gray-400" />}
           error={errors.client}
           required
+          minChars={0}
         />
         <InputField
           id="reference"
@@ -71,13 +76,23 @@ const ClientTab = ({
       </div>
       <div className="grid grid-cols-2 gap-4">
         <InputField
-          id="orders_date"
-          type="date"
-          label={translation.order.form.orders_date}
+          id="bcn"
+          label={translation.order.form.bcn}
+          value={formData.bcn}
           onChange={(e) => handleChange(e, setFormData, setErrors)}
-          value={formData.orders_date}
-          error={errors.orders_date}
+          icon={<Command className="w-5 h-5 text-gray-400" />}
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <InputField
+          id="order_date"
+          type="date"
+          label={translation.order.form.order_date}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          value={formData.order_date}
+          error={errors.order_date}
           disabled={selectedRecord ? true : false}
+          required
         />
         <InputField
           id="expiration_date"

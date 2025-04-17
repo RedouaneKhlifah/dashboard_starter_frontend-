@@ -5,7 +5,6 @@ import { createUnitSchema } from "./createUnitSchema";
 import { createSalePriceSchema } from "./createSalePriceSchema";
 import { createCostPriceSchema } from "./createCostPriceSchema";
 import { createDescriptionSchema } from "./createDescriptionSchema";
-import { createTaxSchema } from "./createTaxSchema";
 import { createImageSchema } from "./createImageSchema";
 import { createStockSchema } from "./createStockSchema";
 import { createReorderPointSchema } from "./createReorderPointSchema";
@@ -23,7 +22,6 @@ export const createProductSchemas = (t: DictionaryType) => {
     sale_priceSchema: createSalePriceSchema(t),
     cost_priceSchema: createCostPriceSchema(t),
     descriptionSchema: createDescriptionSchema(),
-    taxSchema: createTaxSchema(t),
     imageSchema: createImageSchema(),
     stockSchema: createStockSchema(t),
     reorder_poinSchemat: createReorderPointSchema(t),

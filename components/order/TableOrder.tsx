@@ -20,6 +20,8 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IOrder } from "@/interfaces/IOrder";
 import { IClient } from "@/interfaces/IClient";
+import useToast from "@/hooks/useToast";
+import { OrderRow, ordersMapper } from "@/mappers/OrderMapper";
 
 interface TableorderProps {
   records: IOrder[];
@@ -45,6 +47,7 @@ export function TableOrder({
   const [selectedRecord, setSelectedRecord] = useState<IOrder | undefined>(
     undefined
   );
+  const { error: toastError, success: toastSuccess } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,7 +59,7 @@ export function TableOrder({
 
   // Hooks
   const handleorderUpdate = useEntityUpdate<IOrder>(setorders);
-  usePusher("orders", handleorderUpdate);
+  usePusher("order", handleorderUpdate);
 
   const refreshorders = useRefresh({
     searchQuery,
@@ -76,7 +79,6 @@ export function TableOrder({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: `order_${selectedorderForPrint?.reference || "document"}`,
     onAfterPrint: () => setSelectedorderForPrint(null),
   });
 
@@ -121,10 +123,11 @@ export function TableOrder({
       );
 
       if (!response.ok) return;
-
+      toastSuccess(translation.order.form.message.delete_success);
       closeModal();
       refreshorders(true);
     } catch (error) {
+      toastError(translation.order.form.message.delete_success);
       console.error("Error deleting orders:", error);
     }
   };
@@ -149,22 +152,23 @@ export function TableOrder({
         const htmlContent = generateorderHTML(orderToEmail, translation, lang);
 
         const response = await http(
-          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-orders-email/${orderId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/orders/send-order-email/${orderId}`,
           {
-            method: "POST",
+            method: "PUT",
             lang,
             body: JSON.stringify({ htmlContent }),
           }
         );
 
         if (response.ok) {
-          console.log("Email sent successfully");
+          const responseData = await response.json();
+          toastSuccess(responseData.message || "Email sent successfully");
         }
       } catch (error) {
-        console.error("Email sending error:", error);
+        toastError("Failed to send email");
       }
     },
-    [orders, translation, lang]
+    [orders, translation, lang, toastSuccess, toastError]
   );
 
   // Table Headers
@@ -175,8 +179,8 @@ export function TableOrder({
         label: orders_table.headers.reference,
       },
       {
-        key: "orders_date" as keyof IOrder,
-        label: orders_table.headers.orders_date,
+        key: "order_date" as keyof IOrder,
+        label: orders_table.headers.order_date,
       },
       {
         key: "expiration_date" as keyof IOrder,
@@ -185,21 +189,28 @@ export function TableOrder({
       {
         key: "client" as keyof IOrder,
         label: orders_table.headers.client,
-        renderCell: (_: any, row: IOrder) => (row.client as IClient)?.full_name,
+        renderCell: (_: any, row: IOrder) => (row.client as IClient)?.company,
       },
       {
         key: "total" as keyof IOrder,
         label: orders_table.headers.total,
+        renderCell: (_: any, row: OrderRow) => (
+          <>
+            {row.total}{" "}
+            <span className="text-xs text-gray-500">
+              {translation.shared.currency}
+            </span>
+          </>
+        ),
       },
       {
         key: "actions" as keyof IOrder,
         label: orders_table.headers.actions,
-        renderCell: (_, row: IOrder) => (
+        renderCell: (_: any, row: IOrder) => (
           <ActionButtons
             Id={row.id}
             onEdit={handleEdit}
             onDelete={openDeleteModal}
-            onEmail={handleEmail}
             onPrint={handlePrintRequest}
             editText={orders_table.actions.edit}
             deleteText={orders_table.actions.delete}
@@ -207,7 +218,20 @@ export function TableOrder({
         ),
       },
     ],
-    [orders_table, handleEdit, openDeleteModal, handleEmail, handlePrintRequest]
+    [
+      orders_table.headers.reference,
+      orders_table.headers.order_date,
+      orders_table.headers.expiration_date,
+      orders_table.headers.client,
+      orders_table.headers.total,
+      orders_table.headers.actions,
+      orders_table.actions.edit,
+      orders_table.actions.delete,
+      translation.shared.currency,
+      handleEdit,
+      openDeleteModal,
+      handlePrintRequest,
+    ]
   );
 
   return (
@@ -224,7 +248,7 @@ export function TableOrder({
         rows={orders}
         totalRows={totalorders}
         isLoading={isLoading}
-        className="shadow-lg rounded-lg overflow-hidden"
+        className="shadow-lg rounded-lg "
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

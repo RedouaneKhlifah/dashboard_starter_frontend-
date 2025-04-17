@@ -44,7 +44,6 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
         sale_price: 0,
         cost_price: 0,
         description: "",
-        tax: 0,
         image: null,
         stock: 0,
         reorder_point: 0,
@@ -57,9 +56,9 @@ const UpdateProductForm: React.FC<UpdateProductFormProps> = ({
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/products/${selectedRecord?.id}`,
         {
-          method: "POST",
+          method: "PATCH",
           lang,
-          body: mapProductToFormData(data),
+          body: JSON.stringify(data),
         }
       );
 

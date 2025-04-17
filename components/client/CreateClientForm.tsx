@@ -15,6 +15,7 @@ import http from "@/lib/http";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { ICreateClient } from "@/dto/client/createClient";
+import { es } from "date-fns/locale";
 
 interface ClientFormProps {
   translation: DictionaryType;
@@ -31,8 +32,8 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
   // Memoized initial form data
   const initialFormData = useMemo<ICreateClient>(
     () => ({
-      first_name: "",
-      last_name: "",
+      company: "",
+      ice: "",
       email: "",
       phone: "",
       address: "",
@@ -50,7 +51,7 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
         {
-          method: "POST",
+          method: "PUT",
           lang,
           body: JSON.stringify(data),
         }
@@ -61,12 +62,20 @@ const CreateClientForm: React.FC<ClientFormProps> = ({ translation, lang }) => {
         return true;
       } else {
         const error = await response.json();
-        toastError(error.message || translation.client.message.error);
-
         if (error?.errors?.email) {
-          setErrors({ email: error.message });
-          toastError(error?.errors?.emai || translation.auth.error);
-
+          setErrors((prev) => ({ ...prev, email: error.errors.email }));
+        }
+        if (error?.errors?.ice) {
+          setErrors((prev) => ({
+            ...prev,
+            ice: error.errors.ice,
+          }));
+        }
+        if (error?.errors?.company) {
+          setErrors((prev) => ({
+            ...prev,
+            company: error.errors.company,
+          }));
         }
         return false;
       }
