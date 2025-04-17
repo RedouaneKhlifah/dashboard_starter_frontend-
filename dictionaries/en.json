@@ -561,7 +561,8 @@
         "inventory": "Inventory",
         "administration": "Administration",
         "sales": "Sales",
-        "payroll_management": "Payroll Management"
+        "payroll_management": "Payroll Management",
+        "history": "history"
       },
       "items": {
         "products": "Single Products",
@@ -579,6 +580,7 @@
     },
     "users_table": {
       "customer_management": "Customer Management",
+      "customer_history": "Customer History",
       "create_new_client": "Create New Client",
       "upload_execl": "Upload Employee (Excel)",
       "upload_instructions": "Drag & drop file here or click to upload",
@@ -607,7 +609,8 @@
       },
       "actions": {
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "Restore": "Restore"
       },
       "no_data": {
         "message": "No Customers Found",

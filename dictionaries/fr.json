@@ -551,7 +551,8 @@
         "inventory": "Inventaire",
         "administration": "Administration",
         "sales": "Les ventes",
-        "payroll_management": "Gestion de paie"
+        "payroll_management": "Gestion de paie",
+        "history": "archive"
       },
       "items": {
         "products": "Produits",
@@ -569,6 +570,7 @@
     },
     "users_table": {
       "customer_management": "Gestion des clients",
+      "customer_history": "Archives clients",
       "create_new_client": "Créer un nouveau client",
       "upload_execl": "Télécharger employée (Excel)",
       "upload_instructions": "Glissez et déposez le fichier ici ou cliquez pour le télécharger",
@@ -597,7 +599,8 @@
       },
       "actions": {
         "edit": "Modifier",
-        "delete": "Supprimer"
+        "delete": "Supprimer",
+        "Restore": "Restaurer"
       },
       "no_data": {
         "message": "Aucun Client Trouvé",

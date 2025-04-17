@@ -17,7 +17,7 @@ import {
   ClipboardList,
   Handshake,
   Factory,
-  ArrowLeftRight,
+  History,
   ArrowRightLeft,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
@@ -98,6 +98,17 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
           },
         ],
       },
+      {
+        name: translation.sidebar.dashboard.sections.history,
+        icon: <History className="w-5 h-5" />,
+        items: [
+          {
+            name: translation.sidebar.dashboard.items.clients,
+            href: "/archive/clients",
+            icon: <Users className="w-4 h-4" />,
+          },
+        ]
+      }
     ],
     [translation]
   );
