@@ -129,6 +129,8 @@
       "success": "Client créé avec succès",
       "update_success": "Client updated successfully",
       "delete_success": "Client supprimé avec succès",
+      "restore_success": "client restauré avec succès",
+      "restore_error": "Erreur lors de la restauration du client",
       "error": "Erreur lors du traitement de la demande"
     }
   },

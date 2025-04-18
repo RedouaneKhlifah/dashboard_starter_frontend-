@@ -20,7 +20,7 @@ interface Props {
 // Fetch Clients Function
 const fetchClients = async (lang: Locale) => {
   return await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients/archived`,
     {
       method: "GET",
       lang: lang,

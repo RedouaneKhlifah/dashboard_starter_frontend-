@@ -19,6 +19,7 @@ import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 import { IClient } from "@/interfaces/IClient";
 import clientMappers, { UserRow } from "@/mappers/ClientMapper";
+import http from "@/lib/http";
 
 interface ClientTableProps {
   records: IClient[];
@@ -38,6 +39,7 @@ export function ClientTable({
   const { rowMapper } = clientMappers;
   const {
     sidebar: { users_table },
+    client,
   } = translation;
 
   // State
@@ -46,14 +48,9 @@ export function ClientTable({
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { error: toastError, success: toastSuccess } = useToast();
   // Refs
   const didMountRef = useRef(false);
-
-
-
-
 
   // Refresh Clients
   const refreshClients = useRefresh({
@@ -76,6 +73,32 @@ export function ClientTable({
     debouncedSearch();
   }, [searchQuery, debouncedSearch, currentPage]);
 
+  // Restore  client
+  const handleRestore = useCallback(
+    async (id: number) => {
+      const url = `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/clients/${id}/restore`;
+      const response = await http(url, {
+        method: "PATCH",
+        lang,
+      });
+      if (!response.ok) {
+        toastError(client.message.restore_error);
+        return;
+      }
+
+      toastSuccess(client.message.restore_success);
+      refreshClients(true);
+    },
+    [
+      client.message.restore_error,
+      client.message.restore_success,
+      lang,
+      refreshClients,
+      toastError,
+      toastSuccess,
+    ]
+  );
+
   // Memoized headers to prevent re-renders
   const tableHeaders: TableHeader<IClient>[] = useMemo(
     () => [
@@ -93,9 +116,9 @@ export function ClientTable({
         renderCell: (_: any, row: IClient) => (
           <ActionButtons
             Id={row.id}
-            deleteText={users_table.actions.Restore} onDelete={function (userId: number): void {
-              throw new Error("Function not implemented.");
-            } }          />
+            deleteText={users_table.actions.Restore}
+            onDeleteAsync={handleRestore}
+          />
         ),
       },
     ],
@@ -105,7 +128,8 @@ export function ClientTable({
       users_table.headers.phone,
       users_table.headers.city,
       users_table.headers.actions,
-
+      users_table.actions.Restore,
+      handleRestore,
     ]
   );
 
@@ -131,8 +155,6 @@ export function ClientTable({
         sub_text={users_table.no_data.sub_text}
         currentPage={currentPage}
       />
-
-
     </>
   );
 }

@@ -129,6 +129,8 @@
       "success": "Client created successfully",
       "update_success": "Client updated successfully",
       "delete_success": "Client deleted successfully",
+      "restore_success": "Client restored successfully",
+      "restore_error": "Error restoring client",
       "error": "Error while processing the request"
     }
   },
@@ -353,6 +355,7 @@
       "success": "Ticket created successfully",
       "update_success": "Ticket updated successfully",
       "delete_success": "Ticket deleted successfully",
+
       "error": "An error occurred while creating the ticket"
     }
   },
