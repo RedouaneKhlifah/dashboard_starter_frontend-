@@ -133,6 +133,8 @@
       "success": "تم إنشاء العميل بنجاح",
       "update_success": "تم تحديث العميل بنجاح",
       "delete_success": "تم حذف العميل بنجاح",
+      "restore_success": "تم استعادة العميل بنجاح",
+      "restore_error": "خطأ أثناء استعادة العميل",
       "error": "حدث خطأ أثناء معالجة الطلب"
     }
   },
@@ -559,7 +561,8 @@
         "inventory": "المخزون",
         "administration": "الإدارة",
         "sales": "المبيعات",
-        "payroll_management": "إدارة الرواتب"
+        "payroll_management": "إدارة الرواتب",
+        "history": "الأرشيف"
       },
       "items": {
         "products": "منتجات فردية",
@@ -577,6 +580,7 @@
     },
     "users_table": {
       "customer_management": "إدارة العملاء",
+      "customer_history": "أرشيف العملاء",
       "create_new_client": "إنشاء عميل جديد",
       "upload_execl": "تحميل ملف موظف (Excel)",
       "upload_instructions": "اسحب الملف وأفلِته هنا أو انقر للتحميل",
@@ -605,7 +609,8 @@
       },
       "actions": {
         "edit": "تعديل",
-        "delete": "حذف"
+        "delete": "حذف",
+        "Restore": "استعادة العميل"
       },
       "no_data": {
         "message": "لم يتم العثور على عملاء",

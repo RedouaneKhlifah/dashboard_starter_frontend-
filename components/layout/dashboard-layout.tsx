@@ -27,7 +27,6 @@ export default function DashboardLayout({
       <main
         id="container-dashboard"
         className={cn(
-          " min-h-screen",
           lang === "ar"
             ? "mr-64"
             : "ml-64 , transition-all , ease-in-out , duration-200"

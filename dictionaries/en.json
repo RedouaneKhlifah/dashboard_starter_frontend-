@@ -129,6 +129,8 @@
       "success": "Client created successfully",
       "update_success": "Client updated successfully",
       "delete_success": "Client deleted successfully",
+      "restore_success": "Client restored successfully",
+      "restore_error": "Error restoring client",
       "error": "Error while processing the request"
     }
   },
@@ -353,6 +355,7 @@
       "success": "Ticket created successfully",
       "update_success": "Ticket updated successfully",
       "delete_success": "Ticket deleted successfully",
+
       "error": "An error occurred while creating the ticket"
     }
   },
@@ -561,7 +564,8 @@
         "inventory": "Inventory",
         "administration": "Administration",
         "sales": "Sales",
-        "payroll_management": "Payroll Management"
+        "payroll_management": "Payroll Management",
+        "history": "history"
       },
       "items": {
         "products": "Single Products",
@@ -579,6 +583,7 @@
     },
     "users_table": {
       "customer_management": "Customer Management",
+      "customer_history": "Customer History",
       "create_new_client": "Create New Client",
       "upload_execl": "Upload Employee (Excel)",
       "upload_instructions": "Drag & drop file here or click to upload",
@@ -607,7 +612,8 @@
       },
       "actions": {
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "Restore": "Restore"
       },
       "no_data": {
         "message": "No Customers Found",

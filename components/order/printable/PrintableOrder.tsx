@@ -269,7 +269,7 @@ const ProductsTable = ({
           {translation.sidebar.orders_table.print.product}
         </th>
         <th className="text-left py-2 px-3 text-nowrap">
-          {translation.sidebar.orders_table.print.quantity} ({order.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit})
+          {translation.sidebar.orders_table.print.quantity}
         </th>
         <th className="text-left py-2 px-3 text-nowrap">
           {translation.sidebar.orders_table.print.unit_price} (MAD/{order.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit})
@@ -384,11 +384,11 @@ const TotalInWords = ({
     </section>
   );
 };
-const Footer = ({ translation }: { translation: DictionaryType }) => (
-  <footer className="mt-8 text-center text-sm">
-    <p>{translation.sidebar.orders_table.print.thank_you}</p>
-  </footer>
-);
+// const Footer = ({ translation }: { translation: DictionaryType }) => (
+//   <footer className="mt-8 text-center text-sm">
+//     <p>{translation.sidebar.orders_table.print.thank_you}</p>
+//   </footer>
+// );
 
 // Print styles
 const printStyles = `
@@ -455,9 +455,9 @@ const Printableorder = forwardRef<HTMLDivElement, PrintableorderProps>(
         {order.note && (
           <Notes order={order} translation={translation} lang={lang} />
         )}
-        <div className="absolute bottom-20 translate-x-1/2 right-1/2">
+        {/* <div className="absolute bottom-20 translate-x-1/2 right-1/2">
           <Footer translation={translation} />
-        </div>
+        </div> */}
       </div>
     );
   }

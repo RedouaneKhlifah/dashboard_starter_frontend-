@@ -83,7 +83,6 @@ const ClientTab = ({
         value={formData.bcn}
         onChange={(e) => handleChange(e, setFormData, setErrors)}
         icon={<Command className="w-5 h-5 text-gray-400" />}
-        required
       />
 
       <div className="grid grid-cols-2 gap-4">
