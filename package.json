@@ -11,7 +11,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-feature": "node scripts/bin/create-feature.js",
+    "rollback-feature": "node scripts/bin/rollback-feature.js"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.10",
