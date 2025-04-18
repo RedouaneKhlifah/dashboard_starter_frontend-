@@ -57,7 +57,7 @@ export function ClientTable({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "clients",
+    entity: "clients/archived",
     setRecords: setClients,
     setTotalRecords: setTotalClients,
   });
