@@ -400,6 +400,7 @@
       "update_and_publish": "Update and Publish"
     },
     "select_products": "Select Products",
+    "select_Services": "Select Services",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
     "order_date_required": "Delivery note date is required",
@@ -426,6 +427,7 @@
       "vat": "TVA",
       "product": "Product",
       "product_search": "Search product",
+      "Service_search": "Search service",
       "note": "Note",
       "articles": {
         "name": "Product Name",
