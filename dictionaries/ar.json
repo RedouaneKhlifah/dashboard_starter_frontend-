@@ -399,6 +399,7 @@
       "update_and_publish": "تحديث ونشر"
     },
     "select_products": "اختر المنتجات",
+    "select_Services": "اختر الخدمات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
     "order_date_required": "تاريخ مذكرة التسليم مطلوب",
@@ -425,6 +426,7 @@
       "client_search": "البحث عن عميل",
       "product": "المنتج",
       "product_search": "البحث عن منتج",
+      "Service_search": "البحث عن خدمة",
       "note": "ملاحظة",
       "articles": {
         "name": "اسم المنتج",
