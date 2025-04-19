@@ -12,7 +12,7 @@ import { IFacture } from "@/interfaces/IFacture";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
 
-export type TabName = "client" | "products" | "summary" | "notes";
+export type TabName = "client" | "services" | "summary" | "notes";
 
 interface Tab {
   name: TabName;
@@ -22,7 +22,7 @@ interface Tab {
 
 const tabs: Tab[] = [
   { name: "client", index: 0, icon: <UserSearch className="w-4 h-4" /> },
-  { name: "products", index: 1, icon: <ShoppingCart className="w-4 h-4" /> },
+  { name: "services", index: 1, icon: <ShoppingCart className="w-4 h-4" /> },
   { name: "summary", index: 2, icon: <Calculator className="w-4 h-4" /> },
   { name: "notes", index: 3, icon: <FileText className="w-4 h-4" /> },
 ];
@@ -79,9 +79,9 @@ const FactureForm = ({
         newErrors.expiration_date = translation.order.expiration_date_required;
       if (!formData.client?.title)
         newErrors.client = translation.order.client_required;
-    } else if (tabName === "products") {
-      if (!formData.products || formData.products.length === 0)
-        newErrors.products = translation.order.product_required;
+    } else if (tabName === "services") {
+      if (!formData.services || formData.services.length === 0)
+        newErrors.services = translation.order.service_required;
     }
 
     return newErrors;
@@ -144,7 +144,7 @@ const FactureForm = ({
         (!!errors.reference ||
           !!errors.facture_date ||
           !!errors.expiration_date)) ||
-      (tabName === "products" && !!errors.products) ||
+      (tabName === "services" && !!errors.products) ||
       (tabName === "notes" && !!errors.note)
     );
   };
@@ -207,7 +207,7 @@ const FactureForm = ({
               }}
             />
           )}
-          {activeTab.name === "products" && (
+          {activeTab.name === "services" && (
             <ProductsTab
               {...{ formData, setFormData, translation, errors, setErrors }}
             />

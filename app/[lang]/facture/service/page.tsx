@@ -1,7 +1,7 @@
 import { Locale } from "@/i18n-config";
 import { getDictionary } from "@/lib/i18n";
 import DashboardLayout from "@/components/layout/dashboard-layout";
-import { TableFacture } from "@/components/facture/TableFacture";
+import { TableFacture } from "@/components/factureService/TableFacture";
 import { IFacture } from "@/interfaces/IFacture";
 import httpServer from "@/lib/httpServer";
 
@@ -14,7 +14,7 @@ interface Props {
 
 const fetchFactures = async (lang: Locale) => {
   const response = await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture-service`,
     {
       method: "GET",
       lang: lang,

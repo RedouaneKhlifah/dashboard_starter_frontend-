@@ -19,6 +19,7 @@ import {
   Factory,
   History,
   ArrowRightLeft,
+  NotepadText
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/logo_Zroudi.svg";
@@ -79,6 +80,11 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
             name: translation.sidebar.dashboard.items.factures,
             href: "/factures",
             icon: <Factory className="w-4 h-4" />,
+          },
+          {
+            name: translation.sidebar.dashboard.items.factureService,
+            href: "/facture/service",
+            icon: <NotepadText className="w-4 h-4" />,
           }
     
         ],
