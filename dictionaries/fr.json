@@ -365,7 +365,7 @@
       "update_and_publish": "Mettre à jour et Publier"
     },
     "select_products": "Sélectionnez les produits",
-     "select_Services": "Sélectionnez les Services",
+    "select_Services": "Sélectionnez les Services",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
     "order_date_required": "La date du orders est obligatoire",

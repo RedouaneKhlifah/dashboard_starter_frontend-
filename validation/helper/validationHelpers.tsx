@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+export enum ValidationTypeEnum {
+  STRING = "string",
+  NUMBER = "number",
+}
+
 /**
  * Validates a value against a Zod schema.
  * @param schema - The Zod schema to validate against.
@@ -8,16 +13,15 @@ import { z } from "zod";
  */
 export const validateField = <T,>(
   schema: z.ZodSchema<T>,
-  value: any
+  value: any,
+  type: ValidationTypeEnum = ValidationTypeEnum.STRING
 ): string | undefined => {
   let parsedValue: any = value;
 
   // Convert numeric strings to numbers
-  if (typeof parsedValue === "string") {
-    const trimmedValue = parsedValue.trim();
-    // Check if the string is a numeric value
-    if (!isNaN(trimmedValue as any) && !isNaN(parseFloat(trimmedValue))) {
-      parsedValue = parseFloat(trimmedValue);
+  if (type === ValidationTypeEnum.NUMBER) {
+    if (!isNaN(parsedValue as any) && !isNaN(parseFloat(parsedValue))) {
+      parsedValue = parseFloat(parsedValue);
     }
   }
 

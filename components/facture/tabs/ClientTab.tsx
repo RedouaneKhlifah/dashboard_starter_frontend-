@@ -76,14 +76,15 @@ const ClientTab = ({
           required
         />
       </div>
-
-      <InputField
-        id="bcn"
-        label={translation.order.form.bcn}
-        value={formData.bcn}
-        onChange={(e) => handleChange(e, setFormData, setErrors)}
-        icon={<Command className="w-5 h-5 text-gray-400" />}
-      />
+      <div className="grid grid-cols-2 gap-4">
+        <InputField
+          id="bcn"
+          label={translation.order.form.bcn}
+          value={formData.bcn}
+          onChange={(e) => handleChange(e, setFormData, setErrors)}
+          icon={<Command className="w-5 h-5 text-gray-400" />}
+        />
+      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <InputField
@@ -94,6 +95,7 @@ const ClientTab = ({
           value={formData.facture_date}
           error={errors.facture_date}
           disabled={selectedRecord ? true : false}
+          required
         />
         <InputField
           id="expiration_date"
