@@ -19,7 +19,7 @@ import {
   Factory,
   History,
   ArrowRightLeft,
-  NotepadText
+  NotepadText,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/logo_Zroudi.svg";
@@ -65,7 +65,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
             name: translation.sidebar.dashboard.items.services,
             href: "/services",
             icon: <Package className="w-4 h-4" />,
-          },    
+          },
           {
             name: translation.sidebar.dashboard.items.clients,
             href: "/clients",
@@ -78,15 +78,14 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
           },
           {
             name: translation.sidebar.dashboard.items.factures,
-            href: "/factures",
+            href: "/factures/produits",
             icon: <Factory className="w-4 h-4" />,
           },
           {
             name: translation.sidebar.dashboard.items.factureService,
-            href: "/facture/service",
+            href: "/factures/services",
             icon: <NotepadText className="w-4 h-4" />,
-          }
-    
+          },
         ],
       },
       {
@@ -120,9 +119,9 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
             href: "/archive/clients",
             icon: <Users className="w-4 h-4" />,
           },
-        ]
+        ],
       },
-    
+
       // [AUTO-GENERATED-SIDEBAR-ITEMS]"
     ],
     [translation]
@@ -167,14 +166,16 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
     >
       <div className={`${isOpen ? "px-2 py-3" : "p-0"}`}>
         <div
-          className={`flex mb-4 ${isOpen ? "flex-row justify-between" : "flex-col items-center"
-            }`}
+          className={`flex mb-4 ${
+            isOpen ? "flex-row justify-between" : "flex-col items-center"
+          }`}
         >
           <Link href={`/${lang}/`} className={`${!isOpen && "my-2"}`}>
             <div className="flex items-center gap-2">
               <div
-                className={`transition-transform duration-200 ease-in-out ${isOpen ? "scale-100 ml-5" : "scale-90"
-                  }`}
+                className={`transition-transform duration-200 ease-in-out ${
+                  isOpen ? "scale-100 ml-5" : "scale-90"
+                }`}
               >
                 <Image src={Logo} alt="" width={100} />
               </div>
@@ -185,8 +186,9 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
             className="p-2 hover:bg-accent rounded-full text-muted-foreground"
           >
             <div
-              className={`transition-transform duration-200 ease-in-out ${isOpen ? "" : "rotate-180"
-                }`}
+              className={`transition-transform duration-200 ease-in-out ${
+                isOpen ? "" : "rotate-180"
+              }`}
             >
               <PanelLeftClose className="w-5 h-5" />
             </div>
@@ -199,10 +201,11 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                       group flex items-center px-2 py-3 text-sm font-medium  transition-all duration-200 
                       ${isOpen ? "mb-4 rounded-full" : "mb-4 mx-1 rounded-lg"}
                       hover:bg-accent
-                      ${pathname === `/${lang}/dashboard`
-                ? "bg-primary border shadow-sm text-white hover:bg-primary"
-                : "text-foreground hover:text-foreground/80"
-              }
+                      ${
+                        pathname === `/${lang}/dashboard`
+                          ? "bg-primary border shadow-sm text-white hover:bg-primary"
+                          : "text-foreground hover:text-foreground/80"
+                      }
                      `}
           >
             <LayoutDashboard
@@ -241,16 +244,18 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                   {isOpen && section.name}
                 </div>
                 <div
-                  className={`text-muted-foreground transition-transform duration-200 ease-in-out ${expandedSection === section.name ? "rotate-180" : ""
-                    }`}
+                  className={`text-muted-foreground transition-transform duration-200 ease-in-out ${
+                    expandedSection === section.name ? "rotate-180" : ""
+                  }`}
                 >
                   {isOpen && <ChevronDown className="h-4 w-4" />}
                 </div>
               </button>
               {expandedSection === section.name && (
                 <div
-                  className={`${isOpen ? "ml-8 space-y-1" : "ml-[5px]"
-                    } animate-in fade-in slide-in-from-top-2`}
+                  className={`${
+                    isOpen ? "ml-8 space-y-1" : "ml-[5px]"
+                  } animate-in fade-in slide-in-from-top-2`}
                 >
                   {section.items.map((item) => (
                     <Link
@@ -260,20 +265,21 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
                         "flex items-center px-3 py-2 text-sm font-medium group relative",
                         "transition-all ease-in-out duration-200 hover:pl-5 hover:bg-accent/30",
                         pathname === `/${lang}${item.href}` &&
-                        isOpen &&
-                        "shadow-sm border border-primary/10 rounded-lg bg-accent",
+                          isOpen &&
+                          "shadow-sm border border-primary/10 rounded-lg bg-accent",
                         pathname === `/${lang}${item.href}` &&
-                        !isOpen &&
-                        "border-l-2 border-primary pl-5",
+                          !isOpen &&
+                          "border-l-2 border-primary pl-5",
                         pathname !== `/${lang}${item.href}` &&
-                        "text-muted-foreground hover:text-foreground rounded-lg"
+                          "text-muted-foreground hover:text-foreground rounded-lg"
                       )}
                     >
                       <span
-                        className={`${pathname === `/${lang}${item.href}` && !isOpen
+                        className={`${
+                          pathname === `/${lang}${item.href}` && !isOpen
                             ? "text-primary"
                             : "mx-2 text-muted-foreground"
-                          }`}
+                        }`}
                       >
                         {item.icon}
                       </span>
