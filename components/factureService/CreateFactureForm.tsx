@@ -36,7 +36,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       remise_type: "PERCENT",
       remise: 0,
       note: "",
-      products: [],
+      services: [],
       client: null,
       subtotal: 0,
       total: 0,

@@ -55,14 +55,12 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
             is_in_tone: selectedRecord.is_in_tone || false,
             paid_amount: selectedRecord.paid_amount || 0,
             status: selectedRecord.status || Status.DRAFT,
-            products:
-              selectedRecord.products?.map((product) => ({
-                name: product.name,
-                unit: product.unit,
-                product_id: product.product_id,
-                price_unitaire: product.sale_price,
-                quantity: product.quantity,
-                order_id: product?.order_id,
+            services:
+              selectedRecord.services?.map((service) => ({
+                designation: service.designation || "",
+                service_id: service.service_id,
+                prix: service.prix, 
+                order_id: service?.order_id,
               })) || [],
             subtotal: selectedRecord.subtotal || 0,
             total: selectedRecord.total || 0,
@@ -80,7 +78,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
             note: "",
             paid_amount: 0,
             status: Status.DRAFT,
-            products: [],
+            services: [],
             client: {
               id: 0,
               title: "",

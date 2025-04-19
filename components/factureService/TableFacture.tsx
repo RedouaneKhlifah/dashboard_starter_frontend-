@@ -320,7 +320,7 @@ export function TableFacture({
   return (
     <>
       <Header
-        title={factures_table.invoice_management}
+        title={factures_table.invoice_service_management}
         searchPlaceholder={factures_table.search_placeholder}
         buttonText={factures_table.create_new_invoice}
         showSearch
