@@ -352,8 +352,10 @@
     "tabs": {
       "client": "Info",
       "products": "Produits",
+      "services": "Services",
       "summary": "Résumé",
       "notes": "Notes supplémentaires"
+      
     },
     "common": {
       "create": "Créer",
@@ -372,6 +374,7 @@
     "expiration_date_required": "La date d'expiration est obligatoire",
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
+    "service_required": "Le service est obligatoire",
     "note_required": "La note est obligatoire",
     "status_required": "Le statut est obligatoire",
     "status_invalid": "Statut invalide",
@@ -403,6 +406,7 @@
         "quantity": "Quantité",
         "select": "Sélectionner",
         "add": "Ajouter un produit",
+        "add_service": "Ajouter un Service",
         "remove": "Supprimer",
         "no_articles": "Aucun produit ajouté",
         "total": "Total",
@@ -595,7 +599,8 @@
         "employees": "Employés",
         "partners": "Partenaires",
         "transactions": "Transactions",
-        "services": "Services"
+        "services": "Services",
+        "factureService": "Factures de service"
       }
     },
     "users_table": {
@@ -779,6 +784,7 @@
     },
     "factures_table": {
       "invoice_management": "Gestion des Factures",
+        "invoice_service_management": "Gestion des Factures de services",
       "create_new_invoice": "Créer une Facture",
       "update_invoice": "Modifier la Facture",
       "search_placeholder": "Rechercher...",

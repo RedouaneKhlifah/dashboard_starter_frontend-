@@ -355,7 +355,6 @@
       "success": "Ticket created successfully",
       "update_success": "Ticket updated successfully",
       "delete_success": "Ticket deleted successfully",
-
       "error": "An error occurred while creating the ticket"
     }
   },
@@ -388,7 +387,8 @@
       "client": "Info",
       "products": "Products",
       "summary": "Summary",
-      "notes": "Additional Notes"
+      "notes": "Additional Notes",
+      "services": "Services"
     },
     "common": {
       "create": "Create",
@@ -407,6 +407,7 @@
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
+    "service_required": "Service is required",
     "note_required": "Note is required",
     "status_required": "Status is required",
     "status_invalid": "Invalid status",
@@ -438,6 +439,7 @@
         "quantity": "Quantity",
         "select": "Select",
         "add": "Add Product",
+        "add_service": "Add Service",
         "remove": "Remove",
         "no_articles": "No products added yet",
         "total": "Total",
@@ -606,7 +608,8 @@
         "employees": "Employees",
         "partners": "Partners",
         "transactions": "Transactions",
-        "services": "Services"
+        "services": "Services",
+        "factureService": "Service invoices"
       }
     },
     "service_table": {
@@ -790,6 +793,7 @@
     },
     "factures_table": {
       "invoice_management": "Invoice Management",
+      "invoice_service_management": "Invoice Service Management",
       "create_new_invoice": "Create New Invoice",
       "update_invoice": "Update Invoice",
       "search_placeholder": "Search...",

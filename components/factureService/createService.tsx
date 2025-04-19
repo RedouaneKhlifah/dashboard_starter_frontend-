@@ -160,15 +160,15 @@ const CreateService: React.FC<CreateServiceProps> = ({
         <GlobalTable<IService>
           headers={[
             {
-              key: "name",
-              label: translation.order.form.articles.name,
+              key: "prix",
+              label: translation.sidebar.service_table.headers.prix,
             },
             {
-              key: "unit",
+              key: "designation",
               renderCell(value, row) {
                 return `${value}`;
               },
-              label: translation.order.form.articles.unit,
+              label: translation.sidebar.service_table.headers.designation,
             },
             {
               key: "selected" as keyof IService,
@@ -180,7 +180,7 @@ const CreateService: React.FC<CreateServiceProps> = ({
                   checked={selectedServices.has(row.id)}
                   onChange={() => toggleSelection(row.id, row)}
                   className="h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary"
-                  aria-label={`Select ${row.name}`}
+                  aria-label={`Select ${row.designation}`}
                 />
               ),
             },
