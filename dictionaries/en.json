@@ -469,6 +469,31 @@
       "Total_Amount": "Total Amount"
     }
   },
+  "service": {
+    "form": {
+      "designation": "Designation",
+      "prix": "Price"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "creating": "Creating...",
+      "updating": "Updating...",
+      "continue": "Continue"
+    },
+    "message": {
+      "success": "Service created successfully",
+      "update_success": "Service updated successfully",
+      "delete_success": "Service deleted successfully",
+      "error": "An error occurred while processing your request"
+    },
+    "required": {
+      "designation_required": "Designation is required",
+      "prix_required": "Price is required"
+    }
+  },
   "transaction": {
     "balance": "Balance",
     "transaction": "Transaction",
@@ -578,7 +603,29 @@
         "clients": "Clients",
         "employees": "Employees",
         "partners": "Partners",
-        "transactions": "Transactions"
+        "transactions": "Transactions",
+        "services": "Services"
+      }
+    },
+    "service_table": {
+      "service_management": "Service Management",
+      "create_new": "Create New Service",
+      "search_placeholder": "Search for a service...",
+      "update": "Update",
+      "headers": {
+        "id": "Nº",
+        "designation": "Designation",
+        "prix": "Price",
+        "actions": "Actions",
+        "created_at": "Created At"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No services available",
+        "sub_text": "Create a new service to get started"
       }
     },
     "users_table": {
