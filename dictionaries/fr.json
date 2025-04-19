@@ -437,6 +437,31 @@
       "Total_Amount": "Montant total"
     }
   },
+  "service": {
+    "form": {
+      "designation": "Désignation",
+      "prix": "Prix"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "creating": "Création en cours...",
+      "updating": "Mise à jour en cours...",
+      "continue": "Continuer"
+    },
+    "message": {
+      "success": "Le service a été créé avec succès",
+      "update_success": "Le service a été mis à jour avec succès",
+      "delete_success": "Le service a été supprimé avec succès",
+      "error": "Une erreur est survenue lors du traitement de votre demande"
+    },
+    "required": {
+      "designation_required": "La désignation est requise",
+      "prix_required": "Le prix est requis"
+    }
+  },
   "transaction": {
     "balance": "Solde",
     "transaction": "Transaction",
@@ -569,7 +594,8 @@
         "clients": "Clients",
         "employees": "Employés",
         "partners": "Partenaires",
-        "transactions": "Transactions"
+        "transactions": "Transactions",
+        "services": "Services"
       }
     },
     "users_table": {
@@ -609,6 +635,27 @@
       "no_data": {
         "message": "Aucun Client Trouvé",
         "sub_text": "Aucun enregistrement client ne correspond à vos critères"
+      }
+    },
+    "service_table": {
+      "service_management": "Gestion des services",
+      "create_new": "Créer un nouveau service",
+      "search_placeholder": "Rechercher un service...",
+      "update": "Mettre à jour",
+      "headers": {
+        "id": "Nº",
+        "designation": "Désignation",
+        "prix": "Prix",
+        "actions": "Actions",
+        "created_at": "Créé le"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucun service disponible",
+        "sub_text": "Créez un nouveau service pour commencer"
       }
     },
     "partenaires_table": {

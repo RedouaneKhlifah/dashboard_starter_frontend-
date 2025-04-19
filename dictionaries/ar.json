@@ -357,6 +357,31 @@
       "error": "حدث خطأ أثناء إنشاء التذكرة"
     }
   },
+  "service": {
+    "form": {
+      "designation": "التعيين",
+      "prix": "السعر"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "creating": "جارٍ الإنشاء...",
+      "updating": "جارٍ التحديث...",
+      "continue": "متابعة"
+    },
+    "message": {
+      "success": "تم إنشاء الخدمة بنجاح",
+      "update_success": "تم تحديث الخدمة بنجاح",
+      "delete_success": "تم حذف الخدمة بنجاح",
+      "error": "حدث خطأ أثناء معالجة طلبك"
+    },
+    "required": {
+      "designation_required": "التعيين مطلوب",
+      "prix_required": "السعر مطلوب"
+    }
+  },
   "order": {
     "tabs": {
       "client": "معلومات اساسية",
@@ -577,7 +602,8 @@
         "clients": "العملاء",
         "employees": "الموظفين",
         "partners": "الشركاء",
-        "transactions": "المعاملات"
+        "transactions": "المعاملات",
+        "services": "خدمات"
       }
     },
     "users_table": {
@@ -617,6 +643,27 @@
       "no_data": {
         "message": "لم يتم العثور على عملاء",
         "sub_text": "لا توجد سجلات عملاء تطابق معاييرك"
+      }
+    },
+    "service_table": {
+      "service_management": "إدارة الخدمات",
+      "create_new": "إنشاء خدمة جديدة",
+      "search_placeholder": "البحث عن خدمة...",
+      "update": "تحديث",
+      "headers": {
+        "id": "الرقم",
+        "designation": "التعيين",
+        "prix": "السعر",
+        "actions": "الإجراءات",
+        "created_at": "تاريخ الإنشاء"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "no_data": {
+        "message": "لا توجد خدمات متاحة",
+        "sub_text": "أنشئ خدمة جديدة للبدء"
       }
     },
     "partenaires_table": {
