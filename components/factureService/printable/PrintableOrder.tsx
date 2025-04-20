@@ -263,7 +263,7 @@ const ClientInfo = ({
   </section>
 );
 
-const ProductsTable = ({
+const ServicesTable = ({
   facture,
   translation,
   lang,
@@ -276,13 +276,13 @@ const ProductsTable = ({
     <thead>
       <tr className="border-b-2 border-gray-300">
         <th className="text-left py-2 px-3">
-          {translation.sidebar.factures_table.print.product}
+          {translation.sidebar.dashboard.items.services}
         </th>
         <th className="text-left py-2 px-3 text-nowrap">
           {translation.sidebar.orders_table.print.quantity}
         </th>
         <th className="text-left py-2 px-3 text-nowrap">
-          {translation.sidebar.orders_table.print.unit_price} (MAD/{facture.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit})
+          {translation.sidebar.orders_table.print.unit_price}
         </th>
         <th className="text-left py-2 px-3">
           {translation.sidebar.factures_table.print.total} HT
@@ -290,19 +290,19 @@ const ProductsTable = ({
       </tr>
     </thead>
     <tbody>
-      {facture.products.map((product, index) => {
-        const quantityInTons = (product.quantity || 0) / 1000;
-        const pricePerKg = product.price_unitaire || 0;
-        const total = product.quantity * pricePerKg;
+      {facture.services?.map((service, index) => {
+        const quantity = service.quantity || 1;
+        const price = service.prix || 0;
+        const total = quantity * price;
 
         return (
           <tr key={index} className="border-b border-gray-200">
-            <td className="py-2 px-3">{product.name}</td>
+            <td className="py-2 px-3">{service.designation}</td>
             <td className="text-right py-2 px-3">
-              {facture.is_in_tone ? parseFloat(quantityInTons.toFixed(3)) : parseFloat(product.quantity.toFixed(3))}{" "}{facture.is_in_tone ? translation.shared.ton_unit : translation.shared.kg_unit}
+              {quantity}
             </td>
             <td className="text-right py-2 px-3">
-              {formatCurrency(pricePerKg, lang)}
+              {formatCurrency(price, lang)}
             </td>
             <td className="text-right py-2 px-3">
               {formatCurrency(total, lang)}
@@ -441,7 +441,7 @@ const PrintableFacture = forwardRef<HTMLDivElement, PrintableFactureProps>(
         <style>{printStyles}</style>
         <DocumentInfo facture={facture} translation={translation} lang={lang} />
         <ClientInfo client={facture.client} translation={translation} />
-        <ProductsTable
+        <ServicesTable
           facture={facture}
           translation={translation}
           lang={lang}
