@@ -62,7 +62,7 @@ const ProductsTab = ({
     const value = parseInt(e.target.value, 10);
     setFormData((prev) => ({
       ...prev,
-      products: prev.products.map((product) => {
+      products: prev?.products?.map((product) => {
         if (product.product_id === productId) {
           const newQuantity = Math.max(1, value);
           return {
@@ -79,7 +79,7 @@ const ProductsTab = ({
   const handlePriceChange = (productId: number, value: number) => {
     setFormData((prev) => ({
       ...prev,
-      products: prev.products.map((product) => {
+      products: prev?.products?.map((product) => {
         if (product.product_id === productId) {
           const newPrice = Math.max(0, value);
           return {
@@ -97,7 +97,7 @@ const ProductsTab = ({
     e.preventDefault();
     setFormData((prev) => ({
       ...prev,
-      products: prev.products.filter(
+      products: prev?.products?.filter(
         (product) => product.product_id !== productId
       ),
     }));
@@ -213,7 +213,7 @@ const ProductsTab = ({
                     {translation.order.form.Total_Items}
                   </span>
                   <span className="text-xl font-semibold text-gray-700">
-                    {formData.products.length}
+                    {formData?.products?.length || 0}
                   </span>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-1">
@@ -221,7 +221,7 @@ const ProductsTab = ({
                     {translation.order.form.Total_Amount}
                   </span>
                   <span className="text-xl font-semibold text-gray-900">
-                    {formData.products
+                    {(formData?.products ?? [])
                       .reduce(
                         (sum, product) =>
                           sum + product.quantity * product.price_unitaire,

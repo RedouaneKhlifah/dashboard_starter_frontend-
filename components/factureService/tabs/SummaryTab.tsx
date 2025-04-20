@@ -44,9 +44,8 @@ const SummaryTab = ({
 
   const calculateTotals = useCallback(() => {
     const baseSubtotal =
-      formData.products?.reduce(
-        (sum, product) =>
-          sum + (product.price_unitaire || 0) * (product.quantity || 0),
+      formData.services?.reduce(
+        (sum, product) => sum + (product.prix || 0) * (product.quantity || 0),
         0
       ) || 0;
 
@@ -67,7 +66,7 @@ const SummaryTab = ({
       total: Number(finalTotal.toFixed(2)),
     }));
   }, [
-    formData.products,
+    formData.services,
     formData.remise,
     formData.remise_type,
     formData.tva,
@@ -77,7 +76,7 @@ const SummaryTab = ({
   useEffect(() => {
     calculateTotals();
   }, [
-    formData.products,
+    formData.services,
     formData.tva,
     formData.remise,
     formData.remise_type,
@@ -89,14 +88,14 @@ const SummaryTab = ({
       {
         target: {
           id: "is_in_tone",
-          value: e.target.checked
+          value: e.target.checked,
         },
       } as unknown as ChangeEvent<HTMLInputElement>,
       setFormData,
       setErrors
     );
   };
-  
+
   const handlePaidAmountChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -237,7 +236,7 @@ const SummaryTab = ({
           disabled
         />
       </div>
-      
+
       <div>
         <InputField
           id="total"
@@ -249,21 +248,6 @@ const SummaryTab = ({
           disabled
         />
       </div>
-      <Checkbox
-        id="is_in_tone"
-        label={translation.order.form.is_in_tone || "Calculer en tonnes"}
-        checked={formData.is_in_tone}
-        onChange={handleCheckboxChange}
-        ripple={true}
-        className="h-5 w-5"
-        // containerProps={{
-        //   className: "mr-2"
-        // }}
-        labelProps={{
-          className: "text-sm font-medium text-gray-700"
-        }}
-        onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
     </div>
   );
 };

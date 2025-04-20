@@ -1,6 +1,6 @@
 import { DictionaryType } from "@/lib/i18n";
 import { createFactureSchemas } from "../schemas/factureSchemas/createFactureSchemas";
-import { validateField } from "../helper/validationHelpers";
+import { validateField, ValidationTypeEnum } from "../helper/validationHelpers";
 import { IFactureForm } from "@/dto/facture/factureForm";
 
 export type FactureFormErrors = {
@@ -24,7 +24,11 @@ export const validateOrderForm = (
   const newErrors: FactureFormErrors = {};
 
   newErrors.reference = validateField(referenceSchema, formData.reference);
-  newErrors.paid_amount = validateField(paidAmountSchema, formData.paid_amount);
+  newErrors.paid_amount = validateField(
+    paidAmountSchema,
+    formData.paid_amount,
+    ValidationTypeEnum.NUMBER
+  );
 
   newErrors.facture_date = validateField(
     devisDateSchema,

@@ -25,6 +25,10 @@ export const validateField = <T,>(
     }
   }
 
+  if (type === ValidationTypeEnum.STRING) {
+    parsedValue = parsedValue?.toString();
+  }
+
   const result = schema.safeParse(parsedValue);
   return result.success ? undefined : result.error.errors[0].message;
 };

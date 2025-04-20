@@ -7,7 +7,7 @@ import { hasNoErrors } from "@/components/utils/formHandlers";
 import { FactureValidation } from "@/validation";
 import { IFactureForm } from "@/dto/facture/factureForm";
 import { FactureFormErrors } from "@/validation/factureValidators/factureValidator";
-import { ClientTab, ProductsTab, SummaryTab, NotesTab } from "./tabs";
+import { ClientTab, ServiceTab, SummaryTab, NotesTab } from "./tabs";
 import { IFacture } from "@/interfaces/IFacture";
 import { DictionaryType } from "@/lib/i18n";
 import { Locale } from "@/i18n-config";
@@ -116,6 +116,8 @@ const FactureForm = ({
     );
     setErrors(newErrors);
 
+    console.log("Form errors:", newErrors);
+
     if (hasNoErrors(newErrors)) {
       setIsSubmitting(true);
       try {
@@ -208,7 +210,7 @@ const FactureForm = ({
             />
           )}
           {activeTab.name === "services" && (
-            <ProductsTab
+            <ServiceTab
               {...{ formData, setFormData, translation, errors, setErrors }}
             />
           )}

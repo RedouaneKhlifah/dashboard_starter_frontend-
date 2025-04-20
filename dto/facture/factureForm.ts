@@ -24,6 +24,7 @@ interface IFactureForm {
     designation?: string;
     order_id?: number;
     service_id: number;
+    quantity: number;
   }>;
   subtotal: number;
   total: number;

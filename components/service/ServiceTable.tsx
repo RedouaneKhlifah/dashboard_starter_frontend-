@@ -47,11 +47,6 @@ export function ServiceTable({
 
   // State
   const [services, setServices] = useState<IService[]>(records);
-  const [selectedRecordsForPrint, setSelectedRecordsForPrint] = useState<
-    IService[]
-  >([]);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [selectedRecords, setselectedRecords] = useState<IService[]>([]);
   const [totalServices, setTotalServices] = useState(totalRecords);
   const [selectedRecord, setSelectedRecord] = useState<IService | undefined>(
     undefined
@@ -101,32 +96,6 @@ export function ServiceTable({
       setIsSubmitting(false);
     }
   };
-
-  // Print Handling
-  const handlePrint = useReactToPrint({
-    contentRef,
-    onAfterPrint: () => setSelectedRecordsForPrint([]),
-  });
-
-  const handlePrintRequest = useCallback(
-    (record_id: number) => {
-      const recordToPrint = services.find((o) => o.id === record_id);
-      if (recordToPrint) setSelectedRecordsForPrint([recordToPrint]);
-    },
-    [services]
-  );
-
-  const handleBulkPrintRequest = useCallback(() => {
-    if (selectedRecords.length > 0) {
-      setSelectedRecordsForPrint(selectedRecords);
-    }
-  }, [selectedRecords]);
-
-  useEffect(() => {
-    if (selectedRecordsForPrint.length > 0) {
-      handlePrint();
-    }
-  }, [selectedRecordsForPrint, handlePrint]);
 
   // Refresh Services
   const refreshServices = useRefresh({
@@ -195,7 +164,6 @@ export function ServiceTable({
             onDelete={openDeleteModal}
             editText={service_table.actions.edit}
             deleteText={service_table.actions.delete}
-            onPrint={handlePrintRequest}
           />
         ),
       },
@@ -210,7 +178,6 @@ export function ServiceTable({
       service_table.actions.delete,
       handleEdit,
       openDeleteModal,
-      handlePrintRequest,
     ]
   );
 
