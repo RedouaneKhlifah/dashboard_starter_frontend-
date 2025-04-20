@@ -9,7 +9,7 @@ interface IFactureForm {
   remise: number;
   note: string;
   paid_amount: number;
-  is_in_tone: boolean;
+  is_in_tone?: boolean;
   status: Status;
   products?: Array<{
     name?: string;

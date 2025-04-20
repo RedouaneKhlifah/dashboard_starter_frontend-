@@ -39,7 +39,11 @@ export const validateOrderForm = (
     formData.expiration_date
   );
   newErrors.client = validateField(clientSchema, formData.client?.title);
-  newErrors.products = validateField(productSchema, formData.products);
+  newErrors.products = validateField(
+    productSchema,
+    formData.products,
+    ValidationTypeEnum.ARRAY
+  );
   newErrors.note = validateField(noteSchema, formData.note);
 
   return Object.fromEntries(

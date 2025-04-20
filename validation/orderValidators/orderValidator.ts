@@ -1,6 +1,6 @@
 import { DictionaryType } from "@/lib/i18n";
 import { createorderSchemas } from "../schemas/orderSchemas/createOrderSchemas";
-import { validateField } from "../helper/validationHelpers";
+import { validateField, ValidationTypeEnum } from "../helper/validationHelpers";
 import { IOrderForm } from "@/dto/order/orderForm";
 
 export type orderFormErrors = {
@@ -29,7 +29,11 @@ export const validateorderForm = (
     formData.expiration_date
   );
   newErrors.client = validateField(clientSchema, formData.client?.title);
-  newErrors.products = validateField(productSchema, formData.products);
+  newErrors.products = validateField(
+    productSchema,
+    formData.products,
+    ValidationTypeEnum.ARRAY
+  );
   newErrors.note = validateField(noteSchema, formData.note);
 
   return Object.fromEntries(

@@ -122,7 +122,7 @@ const SummaryTab = ({
     }));
   };
 
-  const isFullyPaid = formData.paid_amount === formData.total;
+  const isFullyPaid = formData.paid_amount == formData.total;
 
   return (
     <div className="space-y-4">

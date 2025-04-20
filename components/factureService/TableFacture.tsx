@@ -60,15 +60,15 @@ export function TableFacture({
   // Refs
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Hooks
-  const handleOrderUpdate = useEntityUpdate<IFacture>(setOrders);
-  usePusher("facture", handleOrderUpdate);
+  // // Hooks
+  // const handleOrderUpdate = useEntityUpdate<IFacture>(setOrders);
+  // usePusher("facture", handleOrderUpdate);
 
   const refreshOrders = useRefresh({
     searchQuery,
     currentPage,
     setIsLoading,
-    entity: "factures",
+    entity: "facture-services",
     lang: lang,
     setRecords: setOrders,
     setTotalRecords: setTotalOrders,
@@ -83,7 +83,7 @@ export function TableFacture({
   // Print Handling
   const handlePrint = useReactToPrint({
     contentRef,
-    documentTitle: '',
+    documentTitle: "",
     onAfterPrint: () => setSelectedOrderForPrint(null),
   });
 
@@ -339,13 +339,18 @@ export function TableFacture({
         lang={lang}
         translation={translation}
         selectedRecord={selectedRecord}
+        refreshRecords={refreshOrders}
       />
       <ConfirmationModal
         onConfirm={handleDeleteConfirm}
         itemName={selectedRecord?.reference || ""}
         translation={translation}
       />
-      <CreateOrderForm lang={lang} translation={translation} />
+      <CreateOrderForm
+        lang={lang}
+        translation={translation}
+        refreshRecords={refreshOrders}
+      />
       <div style={{ display: "none" }}>
         <PrintableOrder
           ref={contentRef}

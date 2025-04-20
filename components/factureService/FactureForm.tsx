@@ -4,7 +4,7 @@ import { UserSearch, ShoppingCart, Calculator, FileText } from "lucide-react";
 import GlobalModal from "@/components/shared/GlobalModal";
 import useModalStore from "@/store/modalStore";
 import { hasNoErrors } from "@/components/utils/formHandlers";
-import { FactureValidation } from "@/validation";
+import { FactureServiceValidation } from "@/validation";
 import { IFactureForm } from "@/dto/facture/factureForm";
 import { FactureFormErrors } from "@/validation/factureValidators/factureValidator";
 import { ClientTab, ServiceTab, SummaryTab, NotesTab } from "./tabs";
@@ -110,12 +110,14 @@ const FactureForm = ({
       return;
     }
 
-    const newErrors = FactureValidation.validateOrderForm(
+    const newErrors = FactureServiceValidation.validateFactureServiceForm(
       formData,
       translation
     );
     setErrors(newErrors);
 
+    console.log("Form data:", formData);
+    console.log("services", formData.services);
     console.log("Form errors:", newErrors);
 
     if (hasNoErrors(newErrors)) {

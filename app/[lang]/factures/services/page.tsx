@@ -5,7 +5,6 @@ import { TableFacture } from "@/components/factureService/TableFacture";
 import { IFacture } from "@/interfaces/IFacture";
 import httpServer from "@/lib/httpServer";
 
-
 interface Props {
   params: {
     lang: Locale;
@@ -14,7 +13,7 @@ interface Props {
 
 const fetchFactures = async (lang: Locale) => {
   const response = await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture-service`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture-services`,
     {
       method: "GET",
       lang: lang,

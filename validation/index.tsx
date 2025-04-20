@@ -7,6 +7,7 @@ import TicketValidation from "./ticketValidators/TicketValidator";
 import orderValidation from "./orderValidators/orderValidator";
 import FactureValidation from "./factureValidators/factureValidator";
 import TransactionValidation from "./transactionValidators/TransactionValidation";
+import FactureServiceValidation from "./factureServiceValidators/factureValidator";
 
 export {
   AuthValidation,
@@ -18,4 +19,5 @@ export {
   orderValidation,
   FactureValidation,
   TransactionValidation,
+  FactureServiceValidation,
 };

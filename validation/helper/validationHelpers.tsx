@@ -3,6 +3,7 @@ import { z } from "zod";
 export enum ValidationTypeEnum {
   STRING = "string",
   NUMBER = "number",
+  ARRAY = "array",
 }
 
 /**
@@ -23,10 +24,6 @@ export const validateField = <T,>(
     if (!isNaN(parsedValue as any) && !isNaN(parseFloat(parsedValue))) {
       parsedValue = parseFloat(parsedValue);
     }
-  }
-
-  if (type === ValidationTypeEnum.STRING) {
-    parsedValue = parsedValue?.toString();
   }
 
   const result = schema.safeParse(parsedValue);

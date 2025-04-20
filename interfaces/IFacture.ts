@@ -60,6 +60,7 @@ interface FactureService extends IService {
   order_id?: number;
   prix: number;
   designation: string;
+  quantity: number;
 }
 
 export type { IFacture };

@@ -14,11 +14,13 @@ import { FactureMapper } from "@/mappers/FactureMapper";
 interface FactureFormProps {
   translation: DictionaryType;
   lang: Locale;
+  refreshRecords: (refresh: boolean) => void;
 }
 
 const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
   translation,
   lang,
+  refreshRecords,
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<FactureFormErrors>({});
@@ -42,16 +44,17 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       total: 0,
       paid_amount: 0,
       status: Status.DRAFT,
-      is_in_tone: false,
     }),
     []
   );
 
   const handleSubmit = async (data: IFactureForm): Promise<boolean> => {
     const formattedData = FactureDataMapper(data);
+    console.log("data", data);
+    console.log("formattedData", formattedData);
     try {
       const response = await http(
-        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/factures",
+        process.env.NEXT_PUBLIC_API_BASE_PATH + "/api/facture-services",
         {
           method: "PUT",
           lang,
@@ -62,6 +65,7 @@ const CreateFactureFormPropsForm: React.FC<FactureFormProps> = ({
       console.log("reach here handleSubmit", response);
       if (response.ok) {
         toastSuccess(translation.order.form.message.success_facture);
+        refreshRecords(true);
         return true;
       } else {
         const error = await response.json();

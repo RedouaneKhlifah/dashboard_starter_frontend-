@@ -24,12 +24,14 @@ interface FactureFormProps {
   translation: DictionaryType;
   lang: Locale;
   selectedRecord?: IFacture | null;
+  refreshRecords: (refresh: boolean) => void;
 }
 
 const UpdateFactureForm: React.FC<FactureFormProps> = ({
   translation,
   lang,
   selectedRecord,
+  refreshRecords,
 }) => {
   const { modalType } = useModalStore();
   const [errors, setErrors] = useState<FactureFormErrors>({});
@@ -59,8 +61,9 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
               selectedRecord.services?.map((service) => ({
                 designation: service.designation || "",
                 service_id: service.service_id,
-                prix: service.prix, 
+                prix: service.prix,
                 order_id: service?.order_id,
+                quantity: service.quantity || 0,
               })) || [],
             subtotal: selectedRecord.subtotal || 0,
             total: selectedRecord.total || 0,
@@ -95,7 +98,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
 
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture-services/${selectedRecord.id}`,
         {
           method: "PATCH",
           lang,
@@ -105,6 +108,7 @@ const UpdateFactureForm: React.FC<FactureFormProps> = ({
 
       if (response.ok) {
         toastSuccess(translation.order.form.message.update_success_facture);
+        refreshRecords(true);
         return true;
       } else {
         const error = await response.json();
