@@ -1,6 +1,6 @@
 import { DictionaryType } from "@/lib/i18n";
 import { createTicketSchemas } from "../schemas/ticketSchemas/createTicketSchemas";
-import { validateField } from "../helper/validationHelpers";
+import { validateField, ValidationTypeEnum } from "../helper/validationHelpers";
 import { ITicketForm } from "@/dto/ticket/ticketForm";
 
 /**
@@ -51,8 +51,16 @@ export const validateTiecketForm = (
   if (formData.status == "EXIT") {
     newErrors.client = validateField(clientSchema, formData.client);
   }
-  newErrors.poids_brut = validateField(poidsBrutSchema, formData.poids_brut);
-  newErrors.poids_tare = validateField(poidsTareSchema, formData.poids_tare);
+  newErrors.poids_brut = validateField(
+    poidsBrutSchema,
+    formData.poids_brut,
+    ValidationTypeEnum.NUMBER
+  );
+  newErrors.poids_tare = validateField(
+    poidsTareSchema,
+    formData.poids_tare,
+    ValidationTypeEnum.NUMBER
+  );
   newErrors.status = validateField(statusSchema, formData.status);
 
   return Object.fromEntries(

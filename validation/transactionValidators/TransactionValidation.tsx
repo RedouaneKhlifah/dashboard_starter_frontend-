@@ -2,7 +2,7 @@ createTransactionSchemas;
 
 import { DictionaryType } from "@/lib/i18n";
 import { createTransactionSchemas } from "../schemas/tranactionSchemas/createTransactionSchemas";
-import { validateField } from "../helper/validationHelpers";
+import { validateField, ValidationTypeEnum } from "../helper/validationHelpers";
 import { ITransactionForm } from "@/dto/transaction/transactionForm";
 import { DeepPartialString } from "@/utils/typeScript_interface";
 
@@ -23,7 +23,11 @@ export const validateTransactionForm = (
   const newErrors: DeepPartialString<ITransactionForm> = {};
 
   newErrors.reason = validateField(reasonSchema, formData.reason);
-  newErrors.amount = validateField(amountSchema, formData.amount.toString());
+  newErrors.amount = validateField(
+    amountSchema,
+    formData.amount,
+    ValidationTypeEnum.NUMBER
+  );
   newErrors.type = validateField(typeSchema, formData.type);
 
   return Object.fromEntries(
