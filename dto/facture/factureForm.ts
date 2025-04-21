@@ -9,14 +9,21 @@ interface IFactureForm {
   remise: number;
   note: string;
   paid_amount: number;
-  is_in_tone: boolean;
+  is_in_tone?: boolean;
   status: Status;
-  products: Array<{
+  products?: Array<{
     name?: string;
     unit?: string;
     order_id?: number;
     product_id: number;
     price_unitaire: number;
+    quantity: number;
+  }>;
+  services?: Array<{
+    prix?: number;
+    designation?: string;
+    order_id?: number;
+    service_id: number;
     quantity: number;
   }>;
   subtotal: number;

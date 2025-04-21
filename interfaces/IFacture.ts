@@ -2,6 +2,7 @@ import { Status } from "@/dto/facture/factureForm";
 import { IClient } from "./IClient";
 import { IProduct } from "./IProduct";
 import { ITicket } from "./ITicket";
+import { IService } from "./IService";
 
 interface IFacture {
   id: number;
@@ -36,6 +37,8 @@ interface IFacture {
 
   products: FactureProduct[];
 
+  services: FactureService[];
+
   client: IClient;
 
   total: number;
@@ -49,6 +52,14 @@ interface FactureProduct extends IProduct {
   product_id: number;
   order_id?: number;
   price_unitaire: number;
+  quantity: number;
+}
+
+interface FactureService extends IService {
+  service_id: number;
+  order_id?: number;
+  prix: number;
+  designation: string;
   quantity: number;
 }
 

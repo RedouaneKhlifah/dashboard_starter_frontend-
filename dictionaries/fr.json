@@ -352,8 +352,10 @@
     "tabs": {
       "client": "Info",
       "products": "Produits",
+      "services": "Services",
       "summary": "Résumé",
       "notes": "Notes supplémentaires"
+      
     },
     "common": {
       "create": "Créer",
@@ -365,12 +367,14 @@
       "update_and_publish": "Mettre à jour et Publier"
     },
     "select_products": "Sélectionnez les produits",
+    "select_Services": "Sélectionnez les Services",
     "reference_create": "Créer nouvelle référence",
     "reference_required": "La référence est obligatoire",
     "order_date_required": "La date du orders est obligatoire",
     "expiration_date_required": "La date d'expiration est obligatoire",
     "client_required": "Le client est obligatoire",
     "product_required": "Le produit est obligatoire",
+    "service_required": "Le service est obligatoire",
     "note_required": "La note est obligatoire",
     "status_required": "Le statut est obligatoire",
     "status_invalid": "Statut invalide",
@@ -391,6 +395,7 @@
       "client_search": "Rechercher un client",
       "product": "Produit",
       "product_search": "Rechercher un produit",
+      "Service_search": "Rechercher un service",
       "note": "Note",
       "articles": {
         "name": "Nom de Produit",
@@ -401,6 +406,7 @@
         "quantity": "Quantité",
         "select": "Sélectionner",
         "add": "Ajouter un produit",
+        "add_service": "Ajouter un Service",
         "remove": "Supprimer",
         "no_articles": "Aucun produit ajouté",
         "total": "Total",
@@ -433,6 +439,31 @@
       },
       "Total_Items": "Nombre total d'articles",
       "Total_Amount": "Montant total"
+    }
+  },
+  "service": {
+    "form": {
+      "designation": "Désignation",
+      "prix": "Prix"
+    },
+    "common": {
+      "create": "Créer",
+      "cancel": "Annuler",
+      "update": "Mettre à jour",
+      "delete": "Supprimer",
+      "creating": "Création en cours...",
+      "updating": "Mise à jour en cours...",
+      "continue": "Continuer"
+    },
+    "message": {
+      "success": "Le service a été créé avec succès",
+      "update_success": "Le service a été mis à jour avec succès",
+      "delete_success": "Le service a été supprimé avec succès",
+      "error": "Une erreur est survenue lors du traitement de votre demande"
+    },
+    "required": {
+      "designation_required": "La désignation est requise",
+      "prix_required": "Le prix est requis"
     }
   },
   "transaction": {
@@ -567,7 +598,9 @@
         "clients": "Clients",
         "employees": "Employés",
         "partners": "Partenaires",
-        "transactions": "Transactions"
+        "transactions": "Transactions",
+        "services": "Services",
+        "factureService": "Factures de service"
       }
     },
     "users_table": {
@@ -607,6 +640,27 @@
       "no_data": {
         "message": "Aucun Client Trouvé",
         "sub_text": "Aucun enregistrement client ne correspond à vos critères"
+      }
+    },
+    "service_table": {
+      "service_management": "Gestion des services",
+      "create_new": "Créer un nouveau service",
+      "search_placeholder": "Rechercher un service...",
+      "update": "Mettre à jour",
+      "headers": {
+        "id": "Nº",
+        "designation": "Désignation",
+        "prix": "Prix",
+        "actions": "Actions",
+        "created_at": "Créé le"
+      },
+      "actions": {
+        "edit": "Modifier",
+        "delete": "Supprimer"
+      },
+      "no_data": {
+        "message": "Aucun service disponible",
+        "sub_text": "Créez un nouveau service pour commencer"
       }
     },
     "partenaires_table": {
@@ -730,6 +784,7 @@
     },
     "factures_table": {
       "invoice_management": "Gestion des Factures",
+        "invoice_service_management": "Gestion des Factures de services",
       "create_new_invoice": "Créer une Facture",
       "update_invoice": "Modifier la Facture",
       "search_placeholder": "Rechercher...",

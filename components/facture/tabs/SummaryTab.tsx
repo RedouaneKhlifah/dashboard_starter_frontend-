@@ -89,14 +89,14 @@ const SummaryTab = ({
       {
         target: {
           id: "is_in_tone",
-          value: e.target.checked
+          value: e.target.checked,
         },
       } as unknown as ChangeEvent<HTMLInputElement>,
       setFormData,
       setErrors
     );
   };
-  
+
   const handlePaidAmountChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -123,7 +123,7 @@ const SummaryTab = ({
     }));
   };
 
-  const isFullyPaid = formData.paid_amount === formData.total;
+  const isFullyPaid = formData.paid_amount == formData.total;
 
   return (
     <div className="space-y-4">
@@ -237,7 +237,7 @@ const SummaryTab = ({
           disabled
         />
       </div>
-      
+
       <div>
         <InputField
           id="total"
@@ -260,10 +260,12 @@ const SummaryTab = ({
         //   className: "mr-2"
         // }}
         labelProps={{
-          className: "text-sm font-medium text-gray-700"
+          className: "text-sm font-medium text-gray-700",
         }}
         onPointerEnterCapture={undefined}
-        onPointerLeaveCapture={undefined} crossOrigin={undefined}        />
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
     </div>
   );
 };

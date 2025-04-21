@@ -355,7 +355,6 @@
       "success": "Ticket created successfully",
       "update_success": "Ticket updated successfully",
       "delete_success": "Ticket deleted successfully",
-
       "error": "An error occurred while creating the ticket"
     }
   },
@@ -388,7 +387,8 @@
       "client": "Info",
       "products": "Products",
       "summary": "Summary",
-      "notes": "Additional Notes"
+      "notes": "Additional Notes",
+      "services": "Services"
     },
     "common": {
       "create": "Create",
@@ -400,12 +400,14 @@
       "update_and_publish": "Update and Publish"
     },
     "select_products": "Select Products",
+    "select_Services": "Select Services",
     "reference_create": "Create new reference",
     "reference_required": "Reference is required",
     "order_date_required": "Delivery note date is required",
     "expiration_date_required": "Expiration date is required",
     "client_required": "Client is required",
     "product_required": "Product is required",
+    "service_required": "Service is required",
     "note_required": "Note is required",
     "status_required": "Status is required",
     "status_invalid": "Invalid status",
@@ -426,6 +428,7 @@
       "vat": "TVA",
       "product": "Product",
       "product_search": "Search product",
+      "Service_search": "Search service",
       "note": "Note",
       "articles": {
         "name": "Product Name",
@@ -436,6 +439,7 @@
         "quantity": "Quantity",
         "select": "Select",
         "add": "Add Product",
+        "add_service": "Add Service",
         "remove": "Remove",
         "no_articles": "No products added yet",
         "total": "Total",
@@ -467,6 +471,31 @@
       },
       "Total_Items": "Total Items",
       "Total_Amount": "Total Amount"
+    }
+  },
+  "service": {
+    "form": {
+      "designation": "Designation",
+      "prix": "Price"
+    },
+    "common": {
+      "create": "Create",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "creating": "Creating...",
+      "updating": "Updating...",
+      "continue": "Continue"
+    },
+    "message": {
+      "success": "Service created successfully",
+      "update_success": "Service updated successfully",
+      "delete_success": "Service deleted successfully",
+      "error": "An error occurred while processing your request"
+    },
+    "required": {
+      "designation_required": "Designation is required",
+      "prix_required": "Price is required"
     }
   },
   "transaction": {
@@ -578,7 +607,30 @@
         "clients": "Clients",
         "employees": "Employees",
         "partners": "Partners",
-        "transactions": "Transactions"
+        "transactions": "Transactions",
+        "services": "Services",
+        "factureService": "Service invoices"
+      }
+    },
+    "service_table": {
+      "service_management": "Service Management",
+      "create_new": "Create New Service",
+      "search_placeholder": "Search for a service...",
+      "update": "Update",
+      "headers": {
+        "id": "Nº",
+        "designation": "Designation",
+        "prix": "Price",
+        "actions": "Actions",
+        "created_at": "Created At"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "no_data": {
+        "message": "No services available",
+        "sub_text": "Create a new service to get started"
       }
     },
     "users_table": {
@@ -741,6 +793,7 @@
     },
     "factures_table": {
       "invoice_management": "Invoice Management",
+      "invoice_service_management": "Invoice Service Management",
       "create_new_invoice": "Create New Invoice",
       "update_invoice": "Update Invoice",
       "search_placeholder": "Search...",

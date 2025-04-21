@@ -1,6 +1,6 @@
 import { DictionaryType } from "@/lib/i18n";
 import { createProductSchemas } from "../schemas/productSchemas/createProductSchemas";
-import { validateField } from "../helper/validationHelpers";
+import { validateField, ValidationTypeEnum } from "../helper/validationHelpers";
 import { IProductForm } from "@/dto/product/productForm";
 
 /**
@@ -36,16 +36,29 @@ export const validateProductForm = (
   newErrors.name = validateField(nameSchema, formData.name);
   newErrors.sku = validateField(skuSchema, formData.sku);
   newErrors.unit = validateField(unitSchema, formData.unit);
-  newErrors.sale_price = validateField(sale_priceSchema, formData.sale_price);
-  newErrors.cost_price = validateField(cost_priceSchema, formData.cost_price);
+  newErrors.sale_price = validateField(
+    sale_priceSchema,
+    formData.sale_price,
+    ValidationTypeEnum.NUMBER
+  );
+  newErrors.cost_price = validateField(
+    cost_priceSchema,
+    formData.cost_price,
+    ValidationTypeEnum.NUMBER
+  );
   newErrors.description = validateField(
     descriptionSchema,
     formData.description
   );
-  newErrors.stock = validateField(stockSchema, formData.stock);
+  newErrors.stock = validateField(
+    stockSchema,
+    formData.stock,
+    ValidationTypeEnum.NUMBER
+  );
   newErrors.reorder_point = validateField(
     reorder_poinSchemat,
-    formData.reorder_point
+    formData.reorder_point,
+    ValidationTypeEnum.NUMBER
   );
 
   return Object.fromEntries(

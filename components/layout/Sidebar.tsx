@@ -19,6 +19,7 @@ import {
   Factory,
   History,
   ArrowRightLeft,
+  NotepadText,
 } from "lucide-react";
 import { Locale } from "@/i18n-config";
 import Logo from "@/public/logo_Zroudi.svg";
@@ -61,6 +62,11 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
         icon: <Weight className="w-5 h-5" />,
         items: [
           {
+            name: translation.sidebar.dashboard.items.services,
+            href: "/services",
+            icon: <Package className="w-4 h-4" />,
+          },
+          {
             name: translation.sidebar.dashboard.items.clients,
             href: "/clients",
             icon: <Users className="w-4 h-4" />,
@@ -72,8 +78,13 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
           },
           {
             name: translation.sidebar.dashboard.items.factures,
-            href: "/factures",
+            href: "/factures/produits",
             icon: <Factory className="w-4 h-4" />,
+          },
+          {
+            name: translation.sidebar.dashboard.items.factureService,
+            href: "/factures/services",
+            icon: <NotepadText className="w-4 h-4" />,
           },
         ],
       },
@@ -98,6 +109,7 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
           },
         ],
       },
+
       {
         name: translation.sidebar.dashboard.sections.history,
         icon: <History className="w-5 h-5" />,
@@ -107,8 +119,10 @@ const Sidebar = ({ lang, translation, authToken }: SidebarProps) => {
             href: "/archive/clients",
             icon: <Users className="w-4 h-4" />,
           },
-        ]
-      }
+        ],
+      },
+
+      // [AUTO-GENERATED-SIDEBAR-ITEMS]"
     ],
     [translation]
   );

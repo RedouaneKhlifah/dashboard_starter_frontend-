@@ -357,12 +357,38 @@
       "error": "حدث خطأ أثناء إنشاء التذكرة"
     }
   },
+  "service": {
+    "form": {
+      "designation": "التعيين",
+      "prix": "السعر"
+    },
+    "common": {
+      "create": "إنشاء",
+      "cancel": "إلغاء",
+      "update": "تحديث",
+      "delete": "حذف",
+      "creating": "جارٍ الإنشاء...",
+      "updating": "جارٍ التحديث...",
+      "continue": "متابعة"
+    },
+    "message": {
+      "success": "تم إنشاء الخدمة بنجاح",
+      "update_success": "تم تحديث الخدمة بنجاح",
+      "delete_success": "تم حذف الخدمة بنجاح",
+      "error": "حدث خطأ أثناء معالجة طلبك"
+    },
+    "required": {
+      "designation_required": "التعيين مطلوب",
+      "prix_required": "السعر مطلوب"
+    }
+  },
   "order": {
     "tabs": {
       "client": "معلومات اساسية",
       "products": "المنتجات",
       "summary": "الملخص",
-      "notes": "ملاحظات إضافية"
+      "notes": "ملاحظات إضافية",
+      "services": "Services"
     },
     "common": {
       "create": "إنشاء",
@@ -374,12 +400,14 @@
       "update_and_publish": "تحديث ونشر"
     },
     "select_products": "اختر المنتجات",
+    "select_Services": "اختر الخدمات",
     "reference_create": "إنشاء مرجع جديد",
     "reference_required": "المرجع مطلوب",
     "order_date_required": "تاريخ مذكرة التسليم مطلوب",
     "expiration_date_required": "تاريخ انتهاء الصلاحية مطلوب",
     "client_required": "العميل مطلوب",
     "product_required": "المنتج مطلوب",
+    "service_required": "الخدمة مطلوب",
     "note_required": "الملاحظة مطلوبة",
     "status_required": "الحالة مطلوبة",
     "status_invalid": "الحالة غير صالحة",
@@ -400,6 +428,7 @@
       "client_search": "البحث عن عميل",
       "product": "المنتج",
       "product_search": "البحث عن منتج",
+      "Service_search": "البحث عن خدمة",
       "note": "ملاحظة",
       "articles": {
         "name": "اسم المنتج",
@@ -410,6 +439,7 @@
         "quantity": "الكمية",
         "select": "اختيار",
         "add": "إضافة منتج",
+        "add_service": "إضافة خدمة",
         "remove": "حذف",
         "no_articles": "لم تتم إضافة منتجات بعد",
         "total": "المجموع",
@@ -575,7 +605,9 @@
         "clients": "العملاء",
         "employees": "الموظفين",
         "partners": "الشركاء",
-        "transactions": "المعاملات"
+        "transactions": "المعاملات",
+        "services": "خدمات",
+        "factureService": "فاتورة الخدمات"
       }
     },
     "users_table": {
@@ -615,6 +647,27 @@
       "no_data": {
         "message": "لم يتم العثور على عملاء",
         "sub_text": "لا توجد سجلات عملاء تطابق معاييرك"
+      }
+    },
+    "service_table": {
+      "service_management": "إدارة الخدمات",
+      "create_new": "إنشاء خدمة جديدة",
+      "search_placeholder": "البحث عن خدمة...",
+      "update": "تحديث",
+      "headers": {
+        "id": "الرقم",
+        "designation": "التعيين",
+        "prix": "السعر",
+        "actions": "الإجراءات",
+        "created_at": "تاريخ الإنشاء"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      },
+      "no_data": {
+        "message": "لا توجد خدمات متاحة",
+        "sub_text": "أنشئ خدمة جديدة للبدء"
       }
     },
     "partenaires_table": {
@@ -737,6 +790,7 @@
     },
     "factures_table": {
       "invoice_management": "إدارة الفواتير",
+      "invoice_service_management": "إدارة فواتير الخدمات",
       "create_new_invoice": "إنشاء فاتورة جديدة",
       "update_invoice": "تحديث الفاتورة",
       "search_placeholder": "بحث...",
