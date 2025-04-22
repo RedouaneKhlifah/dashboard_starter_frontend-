@@ -13,7 +13,7 @@ interface Props {
 
 const fetchFactures = async (lang: Locale) => {
   const response = await httpServer(
-    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture`,
+    `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures`,
     {
       method: "GET",
       lang: lang,
