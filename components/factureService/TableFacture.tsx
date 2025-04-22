@@ -148,7 +148,7 @@ export function TableFacture({
     if (!selectedRecord) return;
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/factures/${selectedRecord.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/facture-services/${selectedRecord.id}`,
         { method: "DELETE", lang }
       );
 
