@@ -79,10 +79,19 @@ export const validateTiecketDetails = (
 
   newErrors.number_prints = validateField(
     numberPrintsSchema,
-    formData.number_prints
+    formData.number_prints,
+    ValidationTypeEnum.NUMBER
   );
-  newErrors.poids_brut = validateField(poidsBrutSchema, formData.poids_brut);
-  newErrors.poids_tare = validateField(poidsTareSchema, formData.poids_tare);
+  newErrors.poids_brut = validateField(
+    poidsBrutSchema,
+    formData.poids_brut,
+    ValidationTypeEnum.NUMBER
+  );
+  newErrors.poids_tare = validateField(
+    poidsTareSchema,
+    formData.poids_tare,
+    ValidationTypeEnum.NUMBER
+  );
   newErrors.status = validateField(statusSchema, formData.status);
 
   return Object.fromEntries(
