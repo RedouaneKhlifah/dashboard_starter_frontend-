@@ -177,10 +177,10 @@ const calculateOrderTotals = (
   translation: DictionaryType
 ): OrderTotals => {
   const baseSubtotal =
-    order.products?.reduce(
-      (sum, product) =>
+    order.services?.reduce(
+      (sum, service) =>
         sum +
-        (Number(product.price_unitaire) || 0) * (Number(product.quantity) || 0),
+        (Number(service.prix) || 0) * (Number(service.quantity) || 0),
       0
     ) || 0;
 
@@ -193,12 +193,7 @@ const calculateOrderTotals = (
       : order.remise || 0;
 
   const finalTotal = Math.max(totalTTC - discountAmount, 0);
-  console.log(
-    "order.remise_type ",
-    order.remise +
-    " " +
-    (order.remise_type === "PERCENT" ? "%" : translation.shared.currency)
-  );
+
 
   return {
     taxAmount:
