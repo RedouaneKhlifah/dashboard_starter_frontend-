@@ -32,7 +32,7 @@ const ProductsTab = ({
   errors,
   setErrors,
 }: ProductsTabProps) => {
-  const { openSecondModal, secondModalType } = useModalStore();
+  const { openSecondModal, secondModalType, modalType } = useModalStore();
   const handleAddProducts = (selectedProducts: IProduct[]) => {
     const newProducts = selectedProducts.map((product) => ({
       product_id: product.id,
@@ -102,6 +102,73 @@ const ProductsTab = ({
     }));
   };
 
+  const tableHeaders = [
+    {
+      key: "name",
+      label: translation.order.form.articles.name,
+    },
+    {
+      key: "unit",
+      label: translation.order.form.articles.unit,
+    },
+    {
+      key: `price_unitaire`,
+      label: `${translation.order.form.articles.unit_price}`,
+      width: "130px",
+      renderCell: (value: number, row: any) => (
+        <p>{value + " " + translation.shared.currency}</p>
+      ),
+    },
+    {
+      key: `quantity`,
+      label: `${translation.order.form.articles.quantity}  (${translation.shared.kg_unit})`,
+      renderCell: (value: number, row: any) => (
+        <InputField
+          type="number"
+          onChange={(e) => handleQuantityChange(e, row.product_id)}
+          className="max-w-20"
+          min={1}
+          id={"quantity"}
+          label={""}
+          value={value}
+          disabled={modalType === ModalTypeEnum.UPDATE || !!row.ticket_id}
+        />
+      ),
+    },
+    {
+      key: `quantity`,
+      label: `${translation.order.form.articles.quantity}  (${translation.shared.ton_unit})`,
+      renderCell: (value: number, _row: any) => (
+        <p>{(value * 0.001).toFixed(3)}</p>
+      ),
+    },
+    {
+      key: "total",
+      label: translation.order.form.articles.total,
+      renderCell: (_value: number, row: any) => (
+        <span className="font-medium">
+          {(row.quantity * row.price_unitaire).toFixed(2)}
+        </span>
+      ),
+    },
+  ];
+
+  // Add actions column only if in CREATE mode
+  if (modalType === ModalTypeEnum.CREATE) {
+    tableHeaders.push({
+      key: "action",
+      label: translation.order.form.articles.actions,
+      renderCell: (value: any, row: any) => (
+        <button
+          onClick={(e) => handleRemoveProduct(e, row.product_id)}
+          className="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
+        >
+          {translation.order.form.articles.remove}
+        </button>
+      ),
+    });
+  }
+
   return (
     <div className="space-y-4">
       {errors.products ? (
@@ -113,84 +180,25 @@ const ProductsTab = ({
         ""
       )}
       <GlobalTable
-        headers={[
-          {
-            key: "name",
-            label: translation.order.form.articles.name,
-          },
-          {
-            key: "unit",
-            label: translation.order.form.articles.unit,
-          },
-          {
-            key: `price_unitaire`,
-            label: `${translation.order.form.articles.unit_price}`,
-            width: "130px",
-            renderCell: (value: number, row: any) => (
-              <p>{value + " " + translation.shared.currency}</p>
-            ),
-          },
-          {
-            key: `quantity`,
-            label: `${translation.order.form.articles.quantity}  (${translation.shared.kg_unit})`,
-            renderCell: (value: number, row: any) => (
-              <InputField
-                type="number"
-                onChange={(e) => handleQuantityChange(e, row.product_id)}
-                className="max-w-20"
-                min={1}
-                id={"quantity"}
-                label={""}
-                value={value}
-                disabled={!!row.ticket_id}
-              />
-            ),
-          },
-
-          {
-            key: `quantity`,
-            label: `${translation.order.form.articles.quantity}  (${translation.shared.ton_unit})`,
-            renderCell: (value: number, _row: any) => (
-              <p>{(value * 0.001).toFixed(3)}</p>
-            ),
-          },
-          {
-            key: "total",
-            label: translation.order.form.articles.total,
-            renderCell: (_value: number, row: any) => (
-              <span className="font-medium">
-                {(row.quantity * row.price_unitaire).toFixed(2)}
-              </span>
-            ),
-          },
-          {
-            key: "action",
-            label: translation.order.form.articles.actions,
-            renderCell: (value: any, row: any) => (
-              <button
-                onClick={(e) => handleRemoveProduct(e, row.product_id)}
-                className="px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition-colors"
-              >
-                {translation.order.form.articles.remove}
-              </button>
-            ),
-          },
-        ]}
+        headers={tableHeaders}
         rows={formData.products || []}
-        className="mt-4 max-h-60 z-10"
+        className="mt-4 max-h-60 overflow-x-hidden overflow-y-auto"
+        classHead="z-10"
         totalRows={0}
         setCurrentPage={() => {}}
         currentPage={0}
       />
       <div className="flex justify-between items-center border-t-2 border-dashed border-gray-200">
         <div className="flex justify-center items-center mt-2">
-          <button
-            type="button"
-            onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
-            className="px-3.5 py-2 text-sm font-medium bg-blue-300 text-white  hover:bg-blue-400 rounded-md transition-colors shadow-sm hover:shadow-md"
-          >
-            {translation.order.form.add_article}
-          </button>
+          {modalType === ModalTypeEnum.CREATE && (
+            <button
+              type="button"
+              onClick={() => openSecondModal(ModalTypeEnum.CREATE)}
+              className="px-3.5 py-2 text-sm font-medium bg-blue-300 text-white  hover:bg-blue-400 rounded-md transition-colors shadow-sm hover:shadow-md"
+            >
+              {translation.order.form.add_article}
+            </button>
+          )}
         </div>
         {(formData.products || []).length > 0 && (
           <div className=" pt-3">
