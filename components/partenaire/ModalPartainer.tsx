@@ -77,8 +77,6 @@ const ModalPartenaireDetails = ({
     const startDateISO = formatDate(dateRange.start);
     const endDateISO = formatDate(dateRange.end);
 
-    console.log(startDateISO, endDateISO);
-
     try {
       const response = await http(
         `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${partenaire.id}/tickets?start_date=${startDateISO}&end_date=${endDateISO}`,
