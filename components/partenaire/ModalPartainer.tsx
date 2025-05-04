@@ -14,6 +14,7 @@ import { GlobalTable, TableHeader } from "@/components/shared/GlobalTable";
 import { Condition } from "../utils";
 import http from "@/lib/http";
 import { IProduct } from "@/interfaces/IProduct";
+import { formatDate } from "@/utils/Date";
 
 interface calculationData {
   tickets: ITicket[];
@@ -63,17 +64,22 @@ const ModalPartenaireDetails = ({
     setHasCalculated(false);
   };
 
+  useEffect(() => {
+    console.log("dateRange: ", dateRange);
+  }, [dateRange]);
+
   const handleCalculate = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!partenaire) return;
+    if (!partenaire || !dateRange.start || !dateRange.end) return;
 
     setIsCalculating(true);
 
+    const startDateISO = formatDate(dateRange.start);
+    const endDateISO = formatDate(dateRange.end);
+
     try {
       const response = await http(
-        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${
-          partenaire.id
-        }/tickets?start_date=${dateRange.start?.toISOString()}&end_date=${dateRange.end?.toISOString()}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_PATH}/api/partenaires/${partenaire.id}/tickets?start_date=${startDateISO}&end_date=${endDateISO}`,
         {
           method: "GET",
         }
@@ -92,7 +98,7 @@ const ModalPartenaireDetails = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const totalValue = useMemo(
-    () => (Number(calculationData?.total_poids_net || 0)) * pricePerKg,
+    () => Number(calculationData?.total_poids_net || 0) * pricePerKg,
     [calculationData?.total_poids_net, pricePerKg]
   );
 
@@ -273,9 +279,9 @@ const ModalPartenaireDetails = ({
                 <span className="font-medium">
                   {isCalculating
                     ? "..."
-                    : `${(
-                        Number(calculationData?.total_poids_net || 0)
-                      ).toFixed(2)} Kg`}
+                    : `${Number(calculationData?.total_poids_net || 0).toFixed(
+                        2
+                      )} Kg`}
                 </span>
               </div>
               <div className="flex justify-between py-2">
