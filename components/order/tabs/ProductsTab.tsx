@@ -58,16 +58,15 @@ const ProductsTab = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     productId: number
   ) => {
-    const value = parseInt(e.target.value, 10);
+    const value = Number(e.target.value);
     setFormData((prev) => ({
       ...prev,
       products: prev.products.map((product) => {
         if (product.product_id === productId) {
-          const newQuantity = Math.max(1, value);
           return {
             ...product,
-            quantity: newQuantity,
-            total: newQuantity * product.price_unitaire,
+            quantity: value,
+            total: value * product.price_unitaire,
           };
         }
         return product;
