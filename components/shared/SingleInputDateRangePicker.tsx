@@ -1,23 +1,22 @@
 "use client";
-import { useState } from 'react';
-import DateRangePicker from './DateRangePicker';
-import { addDays } from 'date-fns';
-import { CalendarIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
-import { DictionaryType } from '@/lib/i18n';
+import { useState } from "react";
+import DateRangePicker from "./DateRangePicker";
+import { addDays } from "date-fns";
+import { CalendarIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { DictionaryType } from "@/lib/i18n";
 
 interface SingleInputDateRangePickerProps {
   value: { start: Date | null; end: Date | null };
   onChange: (newRange: { start: Date | null; end: Date | null }) => void;
   translation: DictionaryType;
-  min?: boolean
-
+  min?: boolean;
 }
 
-export default function SingleInputDateRangePicker({ 
-  value, 
+export default function SingleInputDateRangePicker({
+  value,
   onChange,
   translation,
-  min
+  min,
 }: SingleInputDateRangePickerProps) {
   const [showPicker, setShowPicker] = useState(false);
 
@@ -26,13 +25,13 @@ export default function SingleInputDateRangePicker({
     setShowPicker(false);
   };
 
-  const displayText = value.start && value.end 
-    ? `${value.start.toLocaleDateString()} - ${value.end.toLocaleDateString()}`
-    : translation.shared.date_range;
-
+  const displayText =
+    value.start && value.end
+      ? `${value.start.toLocaleDateString()} - ${value.end.toLocaleDateString()}`
+      : translation.shared.date_range;
 
   const togglePicker = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault(); 
+    e.preventDefault();
     setShowPicker(!showPicker);
   };
 
@@ -41,14 +40,12 @@ export default function SingleInputDateRangePicker({
       <div className="mx-auto relative">
         <button
           onClick={togglePicker}
-          type='button'
+          type="button"
           className="w-full p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-between gap-2 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         >
           <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
             <CalendarIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
-            <span className="font-medium">
-              {displayText} 
-            </span>
+            <span className="font-medium">{displayText}</span>
           </div>
           {showPicker ? (
             <ChevronUpIcon className="h-5 w-5 text-gray-500 dark:text-gray-400" />
@@ -62,11 +59,13 @@ export default function SingleInputDateRangePicker({
             <DateRangePicker
               onSelect={handleDateSelect}
               translation={translation}
-              min = {min}
+              min={min}
               initialRange={{
-                startDate: value.start || new Date(),
-                endDate: value.end || addDays(new Date(), 3),
-                key: 'selection'
+                startDate:
+                  value.start ||
+                  new Date(new Date().setMonth(new Date().getMonth() - 1)),
+                endDate: value.end || new Date(),
+                key: "selection",
               }}
             />
           </div>
