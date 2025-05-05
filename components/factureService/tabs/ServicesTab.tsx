@@ -51,16 +51,15 @@ const ServicesTab = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     serviceId: number
   ) => {
-    const value = parseInt(e.target.value, 10);
+    const value = Number(e.target.value);
     setFormData((prev) => ({
       ...prev,
       services: prev?.services?.map((service) => {
         if (service.service_id === serviceId) {
-          const newQuantity = Math.max(1, value);
           return {
             ...service,
-            quantity: newQuantity,
-            total: newQuantity * (service?.prix ?? 0),
+            quantity: value,
+            total: value * (service?.prix ?? 0),
           };
         }
         return service;
