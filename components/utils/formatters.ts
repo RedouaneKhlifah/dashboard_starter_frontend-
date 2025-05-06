@@ -29,3 +29,15 @@ export const formatCurrency = (amount: number, locale: string) => {
     return `MAD${amount.toFixed(2)}`;
   }
 };
+
+export const formatNumber = (number: number, locale: string) => {
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: "decimal",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(number);
+  } catch {
+    return number.toString();
+  }
+};
